@@ -15,7 +15,7 @@ from telegram.ext import (
 # 🔐 METS TON NOUVEAU TOKEN ICI
 token = "8752967953:AAF_dLPlqkt95ELSc__QO7h3838yZuL9pMc"
 
-CHANNEL_ID = -1003733915057  # Mets le vrai ID
+CHANNEL_ID = -1003642049011  # Mets le vrai ID
 CHANNEL_LINK = "https://t.me/+GGWvRRmfJU8wZjVk"
 MINI_APP_URL = "https://leroimerlin1.github.io/Dino76/"
 
