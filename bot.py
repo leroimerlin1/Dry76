@@ -17,7 +17,7 @@ token = "8752967953:AAF_dLPlqkt95ELSc__QO7h3838yZuL9pMc"
 
 CHANNEL_ID = -1003642049011  # Mets le vrai ID
 CHANNEL_LINK = "https://t.me/+GGWvRRmfJU8wZjVk"
-MINI_APP_URL = "https://leroimerlin1.github.io/Dino76/"
+MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
