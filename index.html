@@ -2,286 +2,560 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Dry.Coffee76</title>
-
-  <!-- Telegram Web App SDK -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DINO TERPS 76</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0b0b0f;
-      color: #e8e8ff;
+      font-family: 'M PLUS Rounded 1c', Orbitron, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
       min-height: 100vh;
-      padding-bottom: 90px;
+      overflow-x: hidden;
     }
-
-    .top-bar {
-      background: linear-gradient(to bottom, #1a0033, #0f001a);
-      padding: 12px 16px;
-      text-align: center;
-      border-bottom: 1px solid #2a004a;
+    .container { position: relative; min-height: 100vh; background: url('dino.jpg') center/cover no-repeat fixed; }
+    .overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(3px); z-index: 1; }
+    .content { position: relative; z-index: 2; min-height: 100vh; padding-bottom: 220px; }
+    header {
+      position: sticky; top: 0; background: rgba(15, 23, 42, 0.94); backdrop-filter: blur(14px);
+      padding: 12px 16px; border-bottom: 1px solid rgba(59, 130, 246, 0.3); z-index: 10;
+      display: flex; align-items: center; justify-content: center;
     }
-
-    .logo-container {
-      width: 100%;
-      max-width: 280px;
-      margin: 0 auto 10px;
+    .header-inner { display: flex; align-items: center; max-width: 420px; width: 100%; }
+    .header-logo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; margin-right: 14px; border: 3px solid #60a5fa; box-shadow: 0 0 16px rgba(96, 165, 250, 0.45); }
+    .header-title { font-size: 1.55rem; font-weight: 900; letter-spacing: 2px; color: #60a5fa; text-shadow: 0 0 12px rgba(96, 165, 250, 0.6); }
+    .back-btn {
+      position: absolute; left: 16px; background: rgba(59, 130, 246, 0.18); color: #60a5fa;
+      border: 1px solid #60a5fa; padding: 8px 14px; border-radius: 10px; font-weight: bold; cursor: pointer;
     }
-
-    .logo-container img {
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    .welcome { padding: 20px 16px; background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.6)); border-bottom: 1px solid rgba(59, 130, 246, 0.25); }
+    .welcome-inner { display: flex; align-items: center; gap: 16px; }
+    .welcome-emoji { width: 60px; height: 60px; border-radius: 50%; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; box-shadow: 0 0 16px rgba(96, 165, 250, 0.35); }
+    #products-grid { padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; }
+    .card {
+      background: rgba(15, 23, 42, 0.78); border: 1px solid rgba(59, 130, 246, 0.28); border-radius: 14px;
+      overflow: hidden; backdrop-filter: blur(8px); transition: all 0.25s; cursor: pointer;
     }
-
-    .title {
-      font-size: 2.1rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      background: linear-gradient(90deg, #c300ff, #00d4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 8px 0 4px;
+    .card:hover { transform: scale(1.03); border-color: #60a5fa; box-shadow: 0 0 20px rgba(96, 165, 250, 0.35); }
+    .card-img { height: 240px; position: relative; background: #000; }
+    .card-img video { width: 100%; height: 100%; object-fit: cover; }
+    .badge-star { position: absolute; top: 10px; left: 10px; background: #60a5fa; color: #0f172a; font-size: 0.8rem; padding: 5px 12px; border-radius: 999px; font-weight: bold; }
+    .card-body { padding: 12px; }
+    .card-title { font-size: 1.15rem; color: #f1f5f9; margin-bottom: 4px; font-weight: 700; }
+    .card-farm { font-size: 0.95rem; color: #94a3b8; margin-bottom: 8px; }
+    .card-info { font-size: 0.9rem; color: #cbd5e1; }
+    #product-detail { display: none; padding-bottom: 160px; }
+    .product-hero { height: 340px; background: #000; position: relative; }
+    .product-hero video { width: 100%; height: 100%; object-fit: cover; }
+    .product-title { padding: 16px; font-size: 2.1rem; font-weight: 900; color: #60a5fa; text-shadow: 0 0 12px rgba(96, 165, 250, 0.6); }
+    .product-farm { padding: 0 16px 12px; font-size: 1.15rem; color: #94a3b8; }
+    .badges { padding: 0 16px 16px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .badge { padding: 8px 16px; border-radius: 999px; font-size: 0.95rem; font-weight: bold; }
+    .badge-strain { background: rgba(59, 130, 246, 0.22); color: #60a5fa; border: 1px solid #60a5fa; }
+    .strain-section { padding: 0 16px 24px; color: #cbd5e1; font-size: 1.1rem; line-height: 1.6; }
+    .quantity-section { padding: 16px; background: rgba(15, 23, 42, 0.7); margin: 12px 16px; border-radius: 16px; border: 1px solid rgba(59, 130, 246, 0.35); }
+    .quantity-title { font-size: 1.25rem; color: #60a5fa; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .quantity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .qty-btn {
+      background: rgba(59, 130, 246, 0.18); border: 1px solid #60a5fa; color: #e2e8f0;
+      padding: 16px 10px; border-radius: 14px; text-align: center; cursor: pointer; font-weight: bold; transition: 0.25s;
     }
-
-    .welcome {
-      font-size: 0.95rem;
-      color: #a0a0ff;
-      margin: 6px 0;
+    .qty-btn:hover, .qty-btn.selected { background: #60a5fa; color: #0f172a; }
+    .add-to-cart {
+      margin: 16px; background: #60a5fa; color: #0f172a; border: none; padding: 18px;
+      font-size: 1.2rem; font-weight: bold; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px;
+      cursor: pointer; box-shadow: 0 0 16px rgba(96, 165, 250, 0.5);
     }
-
-    .username {
-      color: #00ffaa;
-      font-weight: 600;
+    #cart-page { padding: 16px; }
+    .cart-item {
+      background: rgba(15, 23, 42, 0.82); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px;
+      padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
     }
-
-    .filters {
-      display: flex;
-      gap: 12px;
-      padding: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
+    .delete-btn { background: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; }
+    .cart-total { text-align: center; font-size: 1.3rem; color: #60a5fa; margin: 20px 0; }
+    .questionnaire { background: rgba(15, 23, 42, 0.78); border: 1px solid #60a5fa; border-radius: 14px; padding: 20px; margin-top: 24px; }
+    .question { margin-bottom: 20px; }
+    .question-label { display: block; font-size: 1.1rem; color: #94a3b8; margin-bottom: 10px; font-weight: 500; }
+    .option-btn {
+      width: 100%; padding: 14px; margin: 6px 0; background: rgba(59, 130, 246, 0.18);
+      border: 1px solid #60a5fa; color: #e2e8f0; border-radius: 12px; font-size: 1.05rem; cursor: pointer;
     }
-
-    .filter-btn {
-      background: rgba(40, 20, 60, 0.7);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(100, 60, 180, 0.4);
-      color: #ddd;
-      padding: 12px 20px;
-      border-radius: 999px;
-      font-size: 0.92rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
+    .option-btn.active { background: #60a5fa; color: #0f172a; font-weight: bold; }
+    input[type="time"], input[type="text"], textarea {
+      width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #60a5fa;
+      background: rgba(30, 41, 59, 0.8); color: #f1f5f9; font-size: 1.05rem;
     }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: linear-gradient(135deg, #7b00ff, #b300ff);
-      color: white;
-      border-color: transparent;
-      box-shadow: 0 4px 15px rgba(123, 0, 255, 0.5);
+    textarea { min-height: 90px; resize: vertical; }
+    #submit-order-btn {
+      width: 100%; padding: 18px; background: #10b981; color: white; border: none;
+      border-radius: 14px; font-size: 1.25rem; font-weight: bold; margin-top: 24px; cursor: pointer;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
     }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 16px;
-      padding: 0 14px 100px;
+    #infos-page, #reseaux-page { display: none; padding: 16px; padding-bottom: 200px; font-size: 1.05rem; line-height: 1.6; }
+    .section-title { font-size: 1.45rem; color: #60a5fa; margin: 28px 0 12px; font-weight: bold; }
+    ul { padding-left: 24px; margin: 12px 0; }
+    .reseaux-list { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
+    .reseau-item {
+      background: rgba(59, 130, 246, 0.15); border: 1px solid #60a5fa; border-radius: 14px;
+      padding: 20px 16px; font-size: 1.3rem; font-weight: bold; color: #cbd5e1; text-align: center;
+      cursor: pointer; transition: 0.2s;
     }
-
-    .product-card {
-      background: #14141a;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid #222244;
-      transition: transform 0.15s;
+    .reseau-item:hover { background: #60a5fa; color: #0f172a; transform: scale(1.02); }
+    nav {
+      position: fixed; bottom: 0; left: 0; right: 0; background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(18px); border-top: 1px solid rgba(59, 130, 246, 0.3); padding: 10px 0;
+      display: flex; justify-content: space-around; z-index: 20;
     }
-
-    .product-card:active {
-      transform: scale(0.97);
-    }
-
-    .product-img-container {
-      height: 170px;
-      overflow: hidden;
-    }
-
-    .product-img-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .product-info {
-      padding: 10px 12px;
-      text-align: center;
-    }
-
-    .origin {
-      font-size: 0.82rem;
-      color: #9999cc;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .product-info h3 {
-      font-size: 1.05rem;
-      margin: 4px 0 6px;
-      color: #e0e0ff;
-    }
-
-    .rating {
-      font-size: 0.9rem;
-      color: #ffcc00;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 12px;
-      left: 12px;
-      right: 12px;
-      background: rgba(15, 10, 30, 0.85);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(80, 50, 140, 0.4);
-      border-radius: 24px;
-      padding: 10px 0;
-      display: flex;
-      justify-content: space-around;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.7);
-      z-index: 100;
-    }
-
-    .nav-btn {
-      background: transparent;
-      border: none;
-      color: #bbbbff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      font-size: 1.9rem;
-      padding: 6px 12px;
-      border-radius: 12px;
-      transition: all 0.2s;
-    }
-
-    .nav-btn small {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-    }
-
-    .nav-btn:hover,
-    .nav-btn:active {
-      color: #00ffcc;
-      background: rgba(0, 255, 200, 0.08);
-      transform: translateY(-2px);
+    .nav-item { display: flex; flex-direction: column; align-items: center; color: #94a3b8; font-size: 0.78rem; gap: 4px; cursor: pointer; flex: 1; position: relative; }
+    .nav-item.active { color: #60a5fa; }
+    #cart-badge {
+      position: absolute; top: -6px; right: 12px; background: #ef4444; color: white;
+      border-radius: 50%; padding: 3px 7px; font-size: 0.7rem; min-width: 18px; text-align: center; display: none;
     }
   </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <div class="logo-container">
-      <!-- Mets ton image chat.jpg au même niveau que ce fichier HTML -->
-      <!-- ou remplace par une URL complète ex: https://ton-site.com/chat.jpg -->
-      <img src="chat.JPG" alt="Logo Dry.Coffee76">
-    </div>
+<div class="container">
+  <div class="overlay"></div>
+  <div class="content">
 
-    <div class="title">Dry.Coffee76</div>
-    <div class="welcome">
-      Bienvenue sur la boutique officielle
-    </div>
-    <div class="username">
-      Bienvenue, <span class="username">@leroim Merlin</span>
-    </div>
-  </div>
-
-  <div class="filters">
-    <button class="filter-btn active">Toutes les catégories ▼</button>
-    <button class="filter-btn">Toutes les farms ▼</button>
-  </div>
-
-  <div class="products-grid">
-
-    <div class="product-card">
-      <div class="product-img-container">
-        <img src="https://images.unsplash.com/photo-1608248543803-3ee15a6b18f2?w=500" alt="Cali espagnol"/>
+    <header>
+      <button class="back-btn" id="btn-back" style="display:none;">← Retour</button>
+      <div class="header-inner">
+        <img src="dino.jpg" alt="Dino Logo" class="header-logo">
+        <div class="header-title">DINO TERPS 76</div>
       </div>
-      <div class="product-info">
-        <span class="origin">Cali espagnol 🇪🇸</span>
-        <h3>Mac-1 ★</h3>
-        <div class="rating">★★★★★</div>
+    </header>
+
+    <!-- Page d'accueil -->
+    <div id="home-page">
+      <section class="welcome">
+        <div class="welcome-inner">
+          <div class="welcome-emoji">🍣</div>
+          <div>
+            <h2 id="welcome-name">Chargement...</h2>
+            <p>Bienvenue sur le shop premium</p>
+          </div>
+        </div>
+      </section>
+
+      <div id="products-grid"></div>
+    </div>
+
+    <!-- Page détail produit -->
+    <div id="product-detail">
+      <div class="product-hero">
+        <video id="detail-video" autoplay muted loop playsinline></video>
+      </div>
+      <div class="product-title" id="detail-title"></div>
+      <div class="product-farm" id="detail-farm"></div>
+      <div class="badges">
+        <div class="badge badge-strain" id="detail-strain"></div>
+      </div>
+      <div class="strain-section" id="detail-strain-desc"></div>
+      <div class="quantity-section">
+        <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
+        <div class="quantity-grid" id="qty-grid"></div>
+      </div>
+      <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
+    </div>
+
+    <!-- Page Panier -->
+    <div id="cart-page">
+      <h2 style="color:#60a5fa; text-align:center; margin:20px 0;">Votre Panier</h2>
+      <div id="cart-items"></div>
+      <div id="cart-total" class="cart-total"></div>
+
+      <div class="questionnaire" id="questionnaire">
+        <div class="question">
+          <span class="question-label">Mode de récupération :</span>
+          <button class="option-btn" data-type="pickup">Venir sur place</button>
+          <button class="option-btn" data-type="delivery">Livraison</button>
+        </div>
+
+        <div id="pickup-questions" style="display:none;">
+          <div class="question">
+            <span class="question-label">Pour quelle heure ?</span>
+            <input type="time" id="pickup-time">
+          </div>
+        </div>
+
+        <div id="delivery-questions" style="display:none;">
+          <div class="question">
+            <span class="question-label">Heure souhaitée</span>
+            <input type="time" id="delivery-time">
+          </div>
+          <div class="question">
+            <span class="question-label">Adresse complète</span>
+            <input type="text" id="delivery-address" placeholder="Rue, numéro, ville...">
+          </div>
+          <div class="question">
+            <span class="question-label">Précisions (étage, code, etc.)</span>
+            <textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea>
+          </div>
+        </div>
+
+        <button id="submit-order-btn">Commander</button>
       </div>
     </div>
 
-    <div class="product-card">
-      <div class="product-img-container">
-        <img src="https://images.unsplash.com/photo-1581093577421-f6a9380a3e9a?w=500" alt="Cali USA"/>
+    <!-- Page Infos -->
+    <div id="infos-page">
+      <div class="section">
+        <div class="section-title">🚚 Livraison</div>
+        <p><strong>SALUT A TOUS LA TEAM !</strong></p>
+        <p>VOICI LES ZONE DE LIVRAISON 🚚 📦 : 76 / 27 / 14 / 60</p>
+        <p><strong>76 Centre et alentours :</strong></p>
+        <ul>
+          <li>10klm 50€</li>
+          <li>20klm 80€</li>
+          <li>30klm 120€</li>
+          <li>50klm 350€</li>
+          <li>100klm 420€</li>
+        </ul>
+        <p><strong>Payement en Espèce 💶 !</strong></p>
       </div>
-      <div class="product-info">
-        <span class="origin">Cali USA Premium 🇺🇸</span>
-        <h3>Black Runtz 🦅✨</h3>
-        <div class="rating">★★★★☆</div>
+
+      <div class="section">
+        <div class="section-title">🏠 SERVICE MEET-UP ✅</div>
+        <p>Vous pouvez passer directement sur place la famille, avant de passer venez en privé et précisez votre heure d’arrivée avec votre commande souhaitée au meet-up avec 🚶📦 @dino76s 🍣</p>
+        <p><strong>Payement en Espèce 💶 !</strong></p>
+        <p>Ouvert 12h - 23h</p>
+        <p><strong>SAV : 24h/24h 🕛</strong></p>
       </div>
     </div>
 
-    <!-- Ajoute d'autres produits ici si besoin -->
+    <!-- Page Réseaux -->
+    <div id="reseaux-page">
+      <h2 style="text-align:center; color:#60a5fa; margin:30px 0 40px; font-size:1.8rem;">Nos réseaux</h2>
+      <div class="reseaux-list">
+        <div class="reseau-item" data-link="https://www.instagram.com/dinoterps76?igsh=b3ZjMGo4dGMxc2tz&utm_source=qr">Instagram 📸</div>
+        <div class="reseau-item" data-link="https://duanym138.org/DINOfslmogx8">Potato 🥔</div>
+        <div class="reseau-item" data-link="https://t.me/+j7EMkLSIaV83ZmU8">Canal Telegram 📢</div>
+        <div class="reseau-item" data-link="https://snapchat.com/t/EZAiDCkN">Snapchat 👻</div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-item active" id="nav-home">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Accueil</span>
+      </div>
+      <div class="nav-item" id="nav-cart">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span>Panier</span>
+        <span id="cart-badge"></span>
+      </div>
+      <div class="nav-item" id="nav-infos">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span>Infos</span>
+      </div>
+      <div class="nav-item" id="nav-reseaux">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>Réseaux</span>
+      </div>
+    </nav>
 
   </div>
+</div>
 
-  <div class="bottom-nav">
-    <button class="nav-btn">
-      <span>🏠</span>
-      <small>Menu</small>
-    </button>
-    <button class="nav-btn">
-      <span>🛒</span>
-      <small>Panier</small>
-    </button>
-    <button class="nav-btn">
-      <span>ℹ️</span>
-      <small>Info</small>
-    </button>
-    <button class="nav-btn">
-      <span>✉️</span>
-      <small>Contact</small>
-    </button>
-  </div>
+<script>
+  const tg = window.Telegram.WebApp;
+  tg.ready();
+  tg.expand();
+  tg.disableVerticalSwipes();
 
-  <script>
-    // Telegram Mini App init
-    if (window.Telegram?.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      tg.expand();
+  const user = tg.initDataUnsafe?.user || {};
+  document.getElementById('welcome-name').textContent = user.first_name ? `Salut ${user.first_name} !` : 'Bienvenue !';
 
-      const user = tg.initDataUnsafe?.user;
-      if (user?.username) {
-        document.querySelector('.username').innerHTML = 
-          `Bienvenue, <span class="username">@${user.username}</span>`;
-      }
-
-      // Bouton principal Telegram (optionnel)
-      tg.MainButton.setText("Ouvrir le panier");
-      tg.MainButton.show();
-      tg.MainButton.onClick(() => {
-        alert("Fonction panier en cours de développement");
-      });
+  // Produits (KINGZ FARMZ supprimé)
+  const products = {
+    cali: {
+      key: 'cali',
+      title: '🇺🇸 Cali weed🌳',
+      farm: '',
+      strain: 'Runtz 🌈✅ Tropicana Strawberry 🌴🍓✅',
+      video: 'cali.mp4',
+      poster: 'cali-thumb.jpg',
+      quantities: [
+        { qty: '3G', price: '40 €' },
+        { qty: '5G', price: '60 €' },
+        { qty: '10G', price: '120 €' },
+        { qty: '20G', price: '230 €' },
+        { qty: '25G', price: '300 €' }
+      ]
+    },
+    gaz: {
+      key: 'gaz',
+      title: '⚡️ Dry 90u',
+      farm: 'Gaz fruit🧃',
+      strain: 'Papaya dolce 🥭 ✅\nMimi cheese 🧀 ✅',
+      video: 'gaz.mp4',
+      poster: 'gaz-thumb.jpg',
+      quantities: [
+        { qty: '10G', price: '130 €' },
+        { qty: '25G', price: '240 €' },
+        { qty: '50G', price: '450 €' }
+      ]
+    },
+    '120u': {
+      key: '120u',
+      title: 'Dry 120u⚡️',
+      farm: '🧑‍🌾 CALIMOUNTAIN',
+      strain: 'Candy Gaz 🍬✅ Glitter Bomb 💣✅ Apple Mintz 🍏✅',
+      video: '120u.mp4',
+      poster: '120u-thumb.jpg',
+      quantities: [
+        { qty: '5G', price: '70 €' },
+        { qty: '10G', price: '140 €' },
+        { qty: '20G', price: '260 €' },
+        { qty: '25G', price: '310 €' }
+      ]
+    },
+    french: {
+      key: 'french',
+      title: 'STATIC SIFT⚡️🥇🥇',
+      farm: '🧑🏻‍🌾 DR FRENCH 🧑🏻‍🌾',
+      strain: 'LARRY POP TARTS 🍋🍰 ✅\nCALYPO ⛽️🫐✅',
+      video: 'french.mp4',
+      poster: 'french-thumb.jpg',
+      quantities: [
+        { qty: '5G', price: '80 €' },
+        { qty: '10G', price: '150 €' },
+        { qty: '20G', price: '280 €' },
+        { qty: '25G', price: '330 €' }
+      ]
     }
-  </script>
+  };
 
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateBadge();
+  }
+
+  function updateBadge() {
+    const badge = document.getElementById('cart-badge');
+    badge.textContent = cart.length || '';
+    badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
+  }
+
+  function hideAllPages() {
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('product-detail').style.display = 'none';
+    document.getElementById('cart-page').style.display = 'none';
+    document.getElementById('infos-page').style.display = 'none';
+    document.getElementById('reseaux-page').style.display = 'none';
+    document.getElementById('btn-back').style.display = 'none';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = '';
+    Object.values(products).forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-img">
+          <video autoplay muted loop playsinline poster="${p.poster}">
+            <source src="${p.video}" type="video/mp4">
+          </video>
+          <div class="badge-star">★</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${p.title}</div>
+          ${p.farm ? `<div class="card-farm">${p.farm}</div>` : ''}
+          <div class="card-info">${p.strain.split('\n')[0]}</div>
+        </div>
+      `;
+      card.onclick = () => openProductDetail(p.key);
+      grid.appendChild(card);
+    });
+  }
+
+  function openProductDetail(key) {
+    const p = products[key];
+    const videoEl = document.getElementById('detail-video');
+    videoEl.innerHTML = `<source src="${p.video}" type="video/mp4">`;
+    videoEl.poster = p.poster;
+    videoEl.load();
+
+    document.getElementById('detail-title').textContent = p.title;
+    document.getElementById('detail-farm').textContent = p.farm;
+    document.getElementById('detail-farm').style.display = p.farm ? 'block' : 'none';
+
+    document.getElementById('detail-strain').textContent = p.strain.split('\n')[0];
+    document.getElementById('detail-strain-desc').innerHTML = p.strain.replace(/\n/g, '<br>');
+
+    const qtyGrid = document.getElementById('qty-grid');
+    qtyGrid.innerHTML = '';
+    p.quantities.forEach((item, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qty-btn';
+      btn.innerHTML = `${item.qty}<br>${item.price}`;
+      btn.dataset.idx = idx;
+      btn.onclick = () => {
+        qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      };
+      qtyGrid.appendChild(btn);
+    });
+
+    hideAllPages();
+    document.getElementById('product-detail').style.display = 'block';
+    document.getElementById('btn-back').style.display = 'inline-block';
+  }
+
+  document.getElementById('btn-back').onclick = () => {
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+  };
+
+  document.getElementById('add-to-cart-btn').onclick = () => {
+    const selected = document.querySelector('.qty-btn.selected');
+    if (!selected) return alert('Sélectionnez une quantité !');
+
+    const title = document.getElementById('detail-title').textContent;
+    const key = Object.keys(products).find(k => products[k].title === title);
+    const item = products[key].quantities[selected.dataset.idx];
+
+    cart.push({ title, qty: item.qty, price: item.price });
+    saveCart();
+    alert('Ajouté au panier !');
+  };
+
+  function showCart() {
+    hideAllPages();
+    document.getElementById('cart-page').style.display = 'block';
+    document.getElementById('nav-cart').classList.add('active');
+
+    const itemsDiv = document.getElementById('cart-items');
+    itemsDiv.innerHTML = '';
+
+    if (cart.length === 0) {
+      itemsDiv.innerHTML = '<p style="text-align:center; color:#94a3b8; padding:80px 0;">Votre panier est vide</p>';
+      document.getElementById('questionnaire').style.display = 'none';
+      document.getElementById('cart-total').textContent = '';
+      return;
+    }
+
+    cart.forEach((item, index) => {
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div>
+          <strong>${item.title}</strong><br>
+          ${item.qty} — ${item.price}
+        </div>
+        <button class="delete-btn" data-index="${index}">X</button>
+      `;
+      itemsDiv.appendChild(div);
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.onclick = () => {
+        const idx = parseInt(btn.dataset.index);
+        cart.splice(idx, 1);
+        saveCart();
+        showCart();
+      };
+    });
+
+    document.getElementById('cart-total').textContent = `Total : ${cart.length} article${cart.length > 1 ? 's' : ''}`;
+    document.getElementById('questionnaire').style.display = 'block';
+  }
+
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const type = btn.dataset.type;
+      document.getElementById('pickup-questions').style.display = type === 'pickup' ? 'block' : 'none';
+      document.getElementById('delivery-questions').style.display = type === 'delivery' ? 'block' : 'none';
+    };
+  });
+
+  document.getElementById('submit-order-btn').onclick = () => {
+    const modeBtn = document.querySelector('.option-btn.active');
+    if (!modeBtn) return alert('Choisis un mode de récupération !');
+
+    const mode = modeBtn.dataset.type;
+    let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
+    message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
+
+    cart.forEach(item => {
+      message += `• ${item.title} × ${item.qty} (${item.price})\n`;
+    });
+
+    if (mode === 'pickup') {
+      const time = document.getElementById('pickup-time').value;
+      if (time) message += `\nHeure meet-up souhaitée : ${time}`;
+    } else {
+      const time = document.getElementById('delivery-time').value;
+      const address = document.getElementById('delivery-address').value.trim();
+      const details = document.getElementById('delivery-details').value.trim();
+      if (time) message += `\nHeure livraison souhaitée : ${time}`;
+      if (address) message += `\nAdresse : ${address}`;
+      if (details) message += `\nDétails : ${details}`;
+    }
+
+    message += `\n\nMerci !`;
+
+    const encoded = encodeURIComponent(message);
+    tg.openTelegramLink(`https://t.me/DINO76S?text=${encoded}`);
+  };
+
+  document.getElementById('nav-home').onclick = () => {
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+  };
+
+  document.getElementById('nav-cart').onclick = () => {
+    showCart();
+  };
+
+  document.getElementById('nav-infos').onclick = () => {
+    hideAllPages();
+    document.getElementById('infos-page').style.display = 'block';
+    document.getElementById('nav-infos').classList.add('active');
+  };
+
+  document.getElementById('nav-reseaux').onclick = () => {
+    hideAllPages();
+    document.getElementById('reseaux-page').style.display = 'block';
+    document.getElementById('nav-reseaux').classList.add('active');
+  };
+
+  document.querySelectorAll('.reseau-item').forEach(item => {
+    item.onclick = () => tg.openLink(item.dataset.link);
+  });
+
+  // Initialisation
+  renderProducts();
+  updateBadge();
+</script>
 </body>
 </html>
