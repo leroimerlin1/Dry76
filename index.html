@@ -202,7 +202,7 @@
     <div id="home-page">
       <section class="welcome">
         <div class="welcome-inner">
-          <div class="welcome-emoji">🍣</div>
+          <div class="welcome-emoji">🤴</div>
           <div>
             <h2 id="welcome-name">Chargement...</h2>
             <p>Bienvenue sur le shop premium</p>
@@ -378,10 +378,8 @@
   document.getElementById('welcome-name').textContent = user.first_name ? `Salut ${user.first_name} !` : 'Bienvenue !';
 
   const products = {
-    cali: { key: 'cali', title: '🇺🇸 Cali weed🌳', farm: '', strain: 'Runtz 🌈✅ Tropicana Strawberry 🌴🍓✅', video: 'cali.mp4', poster: 'cali-thumb.jpg', quantities: [{ qty: '3G', price: '40 €' }, { qty: '5G', price: '60 €' }, { qty: '10G', price: '120 €' }, { qty: '20G', price: '230 €' }, { qty: '25G', price: '300 €' }] },
-    gaz: { key: 'gaz', title: '⚡️ Dry 90u', farm: 'Gaz fruit🧃', strain: 'Papaya dolce 🥭 ✅\nMimi cheese 🧀 ✅', video: 'gaz.mp4', poster: 'gaz-thumb.jpg', quantities: [{ qty: '10G', price: '130 €' }, { qty: '25G', price: '240 €' }, { qty: '50G', price: '450 €' }] },
-    '120u': { key: '120u', title: 'Dry 120u⚡️', farm: '🧑‍🌾 CALIMOUNTAIN', strain: 'Candy Gaz 🍬✅ Glitter Bomb 💣✅ Apple Mintz 🍏✅', video: '120u.mp4', poster: '120u-thumb.jpg', quantities: [{ qty: '5G', price: '70 €' }, { qty: '10G', price: '140 €' }, { qty: '20G', price: '260 €' }, { qty: '25G', price: '310 €' }] },
-    french: { key: 'french', title: 'STATIC SIFT⚡️🥇🥇', farm: '🧑🏻‍🌾 DR FRENCH 🧑🏻‍🌾', strain: 'LARRY POP TARTS 🍋🍰 ✅\nCALYPO ⛽️🫐✅', video: 'french.mp4', poster: 'french-thumb.jpg', quantities: [{ qty: '5G', price: '80 €' }, { qty: '10G', price: '150 €' }, { qty: '20G', price: '280 €' }, { qty: '25G', price: '330 €' }] }
+    35u: { key: 'cali', title: '⚡️35u', farm: 'KGF🦊', strain: 'Runtz 🌈✅ Tropicana Strawberry 🌴🍓✅', video: '35u', poster: 'cali-thumb.jpg', quantities: [{ qty: '10G', price: '60 €' }, { qty: '25G', price: '130 €' }, { qty: '50G', price: 220 €' }, { qty: '100G', price: '400 €' }] },
+    73u: { key: 'gaz', title: '⚡️73u frozen🧊', farm: 'KGF🦊', strain: 'Papaya dolce 🥭 ✅\nMimi cheese 🧀 ✅', video: '73u', poster: 'gaz-thumb.jpg', quantities: [{ qty: '10G', price: '80 €' }, { qty: '25G', price: '150 €' }, { qty: '50G', price: '280 €' }, { qty: '100G', price: '550 €' }] }
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
