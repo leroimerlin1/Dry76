@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Nord Anonym0usX – Boutique</title>
+  <title>Dry.Coffee76</title>
 
   <!-- Telegram Web App SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -17,99 +17,103 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0a0a0a;
-      color: #e0e0e0;
+      background: #0b0b0f;
+      color: #e8e8ff;
       min-height: 100vh;
-      padding-bottom: 70px;
+      padding-bottom: 90px;
     }
 
-    .header {
-      background: linear-gradient(135deg, #1a0033, #330066);
+    .top-bar {
+      background: linear-gradient(to bottom, #1a0033, #0f001a);
+      padding: 12px 16px;
       text-align: center;
-      padding: 16px 12px;
+      border-bottom: 1px solid #2a004a;
     }
 
-    .header h1 {
-      font-size: 2rem;
-      letter-spacing: 2px;
-      color: #d000ff;
-      text-shadow: 0 0 10px #d000ff88;
+    .logo-container {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto 10px;
     }
 
-    .slogan {
+    .logo-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    }
+
+    .title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #c300ff, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 8px 0 4px;
+    }
+
+    .welcome {
       font-size: 0.95rem;
-      color: #bbb;
+      color: #a0a0ff;
       margin: 6px 0;
     }
 
-    .user-greet {
-      font-size: 0.9rem;
-      color: #00ff9d;
-      margin-top: 8px;
-    }
-
-    .hero-banner {
-      position: relative;
-      height: 180px;
-      overflow: hidden;
-    }
-
-    .hero-banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.7) contrast(1.15);
-    }
-
-    .banner-text {
-      position: absolute;
-      bottom: 12px;
-      left: 16px;
-      font-size: 2.1rem;
-      font-weight: bold;
-      color: #ff00aa;
-      text-shadow: 3px 3px 8px #000;
+    .username {
+      color: #00ffaa;
+      font-weight: 600;
     }
 
     .filters {
       display: flex;
       gap: 12px;
-      padding: 12px 16px;
-      overflow-x: auto;
+      padding: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .filter-btn {
-      background: #1e1e2e;
-      border: 1px solid #444;
-      color: #ccc;
-      padding: 10px 18px;
-      border-radius: 30px;
-      font-size: 0.9rem;
-      white-space: nowrap;
+      background: rgba(40, 20, 60, 0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(100, 60, 180, 0.4);
+      color: #ddd;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    .filter-btn.active {
-      background: #7b00ff;
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: linear-gradient(135deg, #7b00ff, #b300ff);
       color: white;
-      border-color: #7b00ff;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(123, 0, 255, 0.5);
     }
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       gap: 16px;
-      padding: 0 16px 90px;
+      padding: 0 14px 100px;
     }
 
     .product-card {
-      background: #161616;
-      border-radius: 12px;
+      background: #14141a;
+      border-radius: 14px;
       overflow: hidden;
-      border: 1px solid #222;
+      border: 1px solid #222244;
+      transition: transform 0.15s;
+    }
+
+    .product-card:active {
+      transform: scale(0.97);
     }
 
     .product-img-container {
-      height: 160px;
+      height: 170px;
       overflow: hidden;
     }
 
@@ -125,8 +129,8 @@
     }
 
     .origin {
-      font-size: 0.8rem;
-      color: #aaa;
+      font-size: 0.82rem;
+      color: #9999cc;
       display: block;
       margin-bottom: 4px;
     }
@@ -138,62 +142,71 @@
     }
 
     .rating {
-      font-size: 0.85rem;
-      color: #ffd700;
+      font-size: 0.9rem;
+      color: #ffcc00;
     }
 
     .bottom-nav {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #000;
-      border-top: 1px solid #222;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      background: rgba(15, 10, 30, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(80, 50, 140, 0.4);
+      border-radius: 24px;
+      padding: 10px 0;
       display: flex;
-      padding: 8px 0;
+      justify-content: space-around;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.7);
       z-index: 100;
     }
 
-    .bottom-nav button {
-      flex: 1;
+    .nav-btn {
       background: transparent;
       border: none;
-      color: #ccc;
-      font-size: 1.5rem;
-      padding: 6px 0 2px;
+      color: #bbbbff;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
-      transition: color 0.2s;
+      gap: 4px;
+      font-size: 1.9rem;
+      padding: 6px 12px;
+      border-radius: 12px;
+      transition: all 0.2s;
     }
 
-    .bottom-nav button small {
-      font-size: 0.7rem;
-      font-weight: 500;
+    .nav-btn small {
+      font-size: 0.68rem;
+      font-weight: 600;
       letter-spacing: 0.4px;
+      text-transform: uppercase;
     }
 
-    .bottom-nav button:hover,
-    .bottom-nav button:active {
-      color: #00ff9d;
+    .nav-btn:hover,
+    .nav-btn:active {
+      color: #00ffcc;
+      background: rgba(0, 255, 200, 0.08);
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>NORD ANONYMOUSX</h1>
-    <p class="slogan">BIENVENUE SUR LA BOUTIQUE OFFICIELLE DE NORD</p>
-    <div class="user-greet">Bienvenue, @leroim Merlin</div>
-  </div>
+  <div class="top-bar">
+    <div class="logo-container">
+      <!-- Mets ton image chat.jpg au même niveau que ce fichier HTML -->
+      <!-- ou remplace par une URL complète ex: https://ton-site.com/chat.jpg -->
+      <img src="chat.jpg" alt="Logo Dry.Coffee76">
+    </div>
 
-  <div class="hero-banner">
-    <img 
-      src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200" 
-      alt="Shop anonyme nord"
-    />
-    <div class="banner-text">NORD ANONYMOUSX</div>
+    <div class="title">Dry.Coffee76</div>
+    <div class="welcome">
+      Bienvenue sur la boutique officielle
+    </div>
+    <div class="username">
+      Bienvenue, <span class="username">@leroim Merlin</span>
+    </div>
   </div>
 
   <div class="filters">
@@ -205,7 +218,7 @@
 
     <div class="product-card">
       <div class="product-img-container">
-        <img src="https://images.unsplash.com/photo-1608248543803-3ee15a6b18f2?auto=format&fit=crop&q=80&w=500" alt="Cali espagnol"/>
+        <img src="https://images.unsplash.com/photo-1608248543803-3ee15a6b18f2?w=500" alt="Cali espagnol"/>
       </div>
       <div class="product-info">
         <span class="origin">Cali espagnol 🇪🇸</span>
@@ -216,7 +229,7 @@
 
     <div class="product-card">
       <div class="product-img-container">
-        <img src="https://images.unsplash.com/photo-1581093577421-f6a9380a3e9a?auto=format&fit=crop&q=80&w=500" alt="Cali USA"/>
+        <img src="https://images.unsplash.com/photo-1581093577421-f6a9380a3e9a?w=500" alt="Cali USA"/>
       </div>
       <div class="product-info">
         <span class="origin">Cali USA Premium 🇺🇸</span>
@@ -225,48 +238,47 @@
       </div>
     </div>
 
-    <!-- Tu peux dupliquer ces blocs pour ajouter plus de produits -->
+    <!-- Ajoute d'autres produits ici si besoin -->
 
   </div>
 
   <div class="bottom-nav">
-    <button>
+    <button class="nav-btn">
       <span>🏠</span>
       <small>Menu</small>
     </button>
-    <button>
+    <button class="nav-btn">
       <span>🛒</span>
       <small>Panier</small>
     </button>
-    <button>
+    <button class="nav-btn">
       <span>ℹ️</span>
       <small>Info</small>
     </button>
-    <button>
+    <button class="nav-btn">
       <span>✉️</span>
       <small>Contact</small>
     </button>
   </div>
 
   <script>
-    // Telegram Mini App
-    if (window.Telegram && window.Telegram.WebApp) {
+    // Telegram Mini App init
+    if (window.Telegram?.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.ready();
       tg.expand();
 
-      // Mise à jour du pseudo si disponible
       const user = tg.initDataUnsafe?.user;
-      if (user && user.username) {
-        document.querySelector('.user-greet').textContent = 
-          `Bienvenue, @${user.username}`;
+      if (user?.username) {
+        document.querySelector('.username').innerHTML = 
+          `Bienvenue, <span class="username">@${user.username}</span>`;
       }
 
-      // Exemple : bouton principal Telegram (optionnel)
-      tg.MainButton.setText("Voir le panier");
+      // Bouton principal Telegram (optionnel)
+      tg.MainButton.setText("Ouvrir le panier");
       tg.MainButton.show();
       tg.MainButton.onClick(() => {
-        alert("Panier (bientôt disponible)");
+        alert("Fonction panier en cours de développement");
       });
     }
   </script>
