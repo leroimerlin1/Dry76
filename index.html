@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Nord Anonym0usX – Boutique</title>
+
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding-bottom: 70px;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1a0033, #330066);
+      text-align: center;
+      padding: 16px 12px;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      letter-spacing: 2px;
+      color: #d000ff;
+      text-shadow: 0 0 10px #d000ff88;
+    }
+
+    .slogan {
+      font-size: 0.95rem;
+      color: #bbb;
+      margin: 6px 0;
+    }
+
+    .user-greet {
+      font-size: 0.9rem;
+      color: #00ff9d;
+      margin-top: 8px;
+    }
+
+    .hero-banner {
+      position: relative;
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7) contrast(1.15);
+    }
+
+    .banner-text {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      font-size: 2.1rem;
+      font-weight: bold;
+      color: #ff00aa;
+      text-shadow: 3px 3px 8px #000;
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      padding: 12px 16px;
+      overflow-x: auto;
+    }
+
+    .filter-btn {
+      background: #1e1e2e;
+      border: 1px solid #444;
+      color: #ccc;
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      background: #7b00ff;
+      color: white;
+      border-color: #7b00ff;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      gap: 16px;
+      padding: 0 16px 90px;
+    }
+
+    .product-card {
+      background: #161616;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #222;
+    }
+
+    .product-img-container {
+      height: 160px;
+      overflow: hidden;
+    }
+
+    .product-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    .origin {
+      font-size: 0.8rem;
+      color: #aaa;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .product-info h3 {
+      font-size: 1.05rem;
+      margin: 4px 0 6px;
+      color: #e0e0ff;
+    }
+
+    .rating {
+      font-size: 0.85rem;
+      color: #ffd700;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #000;
+      border-top: 1px solid #222;
+      display: flex;
+      padding: 8px 0;
+      z-index: 100;
+    }
+
+    .bottom-nav button {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #ccc;
+      font-size: 1.5rem;
+      padding: 6px 0 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: color 0.2s;
+    }
+
+    .bottom-nav button small {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+    }
+
+    .bottom-nav button:hover,
+    .bottom-nav button:active {
+      color: #00ff9d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>NORD ANONYMOUSX</h1>
+    <p class="slogan">BIENVENUE SUR LA BOUTIQUE OFFICIELLE DE NORD</p>
+    <div class="user-greet">Bienvenue, @leroim Merlin</div>
+  </div>
+
+  <div class="hero-banner">
+    <img 
+      src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200" 
+      alt="Shop anonyme nord"
+    />
+    <div class="banner-text">NORD ANONYMOUSX</div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active">Toutes les catégories ▼</button>
+    <button class="filter-btn">Toutes les farms ▼</button>
+  </div>
+
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img-container">
+        <img src="https://images.unsplash.com/photo-1608248543803-3ee15a6b18f2?auto=format&fit=crop&q=80&w=500" alt="Cali espagnol"/>
+      </div>
+      <div class="product-info">
+        <span class="origin">Cali espagnol 🇪🇸</span>
+        <h3>Mac-1 ★</h3>
+        <div class="rating">★★★★★</div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-container">
+        <img src="https://images.unsplash.com/photo-1581093577421-f6a9380a3e9a?auto=format&fit=crop&q=80&w=500" alt="Cali USA"/>
+      </div>
+      <div class="product-info">
+        <span class="origin">Cali USA Premium 🇺🇸</span>
+        <h3>Black Runtz 🦅✨</h3>
+        <div class="rating">★★★★☆</div>
+      </div>
+    </div>
+
+    <!-- Tu peux dupliquer ces blocs pour ajouter plus de produits -->
+
+  </div>
+
+  <div class="bottom-nav">
+    <button>
+      <span>🏠</span>
+      <small>Menu</small>
+    </button>
+    <button>
+      <span>🛒</span>
+      <small>Panier</small>
+    </button>
+    <button>
+      <span>ℹ️</span>
+      <small>Info</small>
+    </button>
+    <button>
+      <span>✉️</span>
+      <small>Contact</small>
+    </button>
+  </div>
+
+  <script>
+    // Telegram Mini App
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+
+      // Mise à jour du pseudo si disponible
+      const user = tg.initDataUnsafe?.user;
+      if (user && user.username) {
+        document.querySelector('.user-greet').textContent = 
+          `Bienvenue, @${user.username}`;
+      }
+
+      // Exemple : bouton principal Telegram (optionnel)
+      tg.MainButton.setText("Voir le panier");
+      tg.MainButton.show();
+      tg.MainButton.onClick(() => {
+        alert("Panier (bientôt disponible)");
+      });
+    }
+  </script>
+
+</body>
+</html>
