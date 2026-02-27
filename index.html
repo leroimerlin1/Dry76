@@ -17,93 +17,43 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    .container { 
-      position: relative; 
-      min-height: 100vh; 
-    }
-    .overlay { 
-      position: absolute; 
-      inset: 0; 
-      background: rgba(30, 30, 30, 0.75); 
-      backdrop-filter: blur(3px); 
-      z-index: 1; 
-    }
-    .content { 
-      position: relative; 
-      z-index: 2; 
-      min-height: 100vh; 
-      padding-bottom: 220px; 
-    }
+    .container { position: relative; min-height: 100vh; }
+    .overlay { position: absolute; inset: 0; background: rgba(30, 30, 30, 0.75); backdrop-filter: blur(3px); z-index: 1; }
+    .content { position: relative; z-index: 2; min-height: 100vh; padding-bottom: 220px; }
     header {
-      position: sticky; top: 0; 
-      background: rgba(30, 30, 30, 0.96);
-      backdrop-filter: blur(14px);
-      padding: 12px 16px; 
-      border-bottom: 1px solid #333;
-      z-index: 10;
+      position: sticky; top: 0; background: rgba(30, 30, 30, 0.96); backdrop-filter: blur(14px);
+      padding: 12px 16px; border-bottom: 1px solid #333; z-index: 10;
       display: flex; align-items: center; justify-content: center;
     }
     .header-inner { display: flex; align-items: center; max-width: 420px; width: 100%; }
-    .header-logo { 
-      width: 48px; height: 48px; border-radius: 50%; object-fit: cover; 
-      margin-right: 14px; border: 3px solid #ffeb3b;
-      box-shadow: 0 0 12px rgba(255, 235, 59, 0.4);
-    }
-    .header-title { 
-      font-size: 1.55rem; font-weight: 900; letter-spacing: 2px; 
-      color: #ffeb3b;
-      text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);
-    }
-    .back-btn {
-      position: absolute; left: 16px; background: rgba(255, 235, 59, 0.15); color: #ffeb3b;
-      border: 1px solid #ffeb3b; padding: 8px 14px; border-radius: 10px; font-weight: bold; cursor: pointer;
-    }
+    .header-logo { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; margin-right: 14px; border: 3px solid #ffeb3b; box-shadow: 0 0 12px rgba(255, 235, 59, 0.4); }
+    .header-title { font-size: 1.55rem; font-weight: 900; letter-spacing: 2px; color: #ffeb3b; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5); }
+    .back-btn { position: absolute; left: 16px; background: rgba(255, 235, 59, 0.15); color: #ffeb3b; border: 1px solid #ffeb3b; padding: 8px 14px; border-radius: 10px; font-weight: bold; cursor: pointer; }
     .welcome { padding: 20px 16px; background: rgba(30, 30, 30, 0.9); border-bottom: 1px solid #333; }
     .welcome-inner { display: flex; align-items: center; gap: 16px; }
-    .welcome-emoji { 
-      width: 60px; height: 60px; border-radius: 50%; 
-      background: rgba(255, 235, 59, 0.12); 
-      display: flex; align-items: center; justify-content: center; 
-      font-size: 2.4rem; 
-      box-shadow: 0 0 12px rgba(255, 235, 59, 0.3);
-    }
+    .welcome-emoji { width: 60px; height: 60px; border-radius: 50%; background: rgba(255, 235, 59, 0.12); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; box-shadow: 0 0 12px rgba(255, 235, 59, 0.3); }
     #products-grid { padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; }
     .card {
-      background: rgba(30, 30, 30, 0.92); 
-      border: 2px solid #ffeb3b;
-      border-radius: 14px;
-      overflow: hidden; 
-      transition: all 0.25s; 
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      background: rgba(30, 30, 30, 0.92); border: 2px solid #ffeb3b; border-radius: 14px;
+      overflow: hidden; transition: all 0.25s; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
-    .card:hover { 
-      transform: scale(1.04); 
-      border-color: #fff176;
-      box-shadow: 0 8px 24px rgba(255, 235, 59, 0.35);
-    }
+    .card:hover { transform: scale(1.04); border-color: #fff176; box-shadow: 0 8px 24px rgba(255, 235, 59, 0.35); }
     .card-img { height: 240px; position: relative; background: #000; }
     .card-img video { width: 100%; height: 100%; object-fit: cover; }
-    .badge-star { 
-      position: absolute; top: 10px; left: 10px; 
-      background: #ffeb3b; color: #000; 
-      font-size: 0.8rem; padding: 5px 12px; 
-      border-radius: 999px; font-weight: bold; 
-      box-shadow: 0 0 8px rgba(255, 235, 59, 0.5);
-    }
+    .badge-star { position: absolute; top: 10px; left: 10px; background: #ffeb3b; color: #000; font-size: 0.8rem; padding: 5px 12px; border-radius: 999px; font-weight: bold; box-shadow: 0 0 8px rgba(255, 235, 59, 0.5); }
     .card-body { padding: 12px; }
-    .card-title { font-size: 1.15rem; color: #e0e0e0; margin-bottom: 4px; font-weight: 700; }
-    .card-farm { font-size: 0.95rem; color: #aaa; margin-bottom: 8px; }
-    .card-info { font-size: 0.9rem; color: #ccc; }
+    .card-title { font-size: 1.3rem; color: #ffeb3b; margin-bottom: 8px; font-weight: 900; }
+    .card-farm { font-size: 1rem; color: #aaa; margin-bottom: 8px; font-weight: bold; }
+    .card-info { font-size: 0.95rem; color: #ccc; white-space: pre-line; line-height: 1.5; }
     #product-detail { display: none; padding-bottom: 160px; }
     .product-hero { height: 340px; background: #000; position: relative; }
     .product-hero video { width: 100%; height: 100%; object-fit: cover; }
     .product-title { padding: 16px; font-size: 2.1rem; font-weight: 900; color: #ffeb3b; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5); }
-    .product-farm { padding: 0 16px 12px; font-size: 1.15rem; color: #aaa; }
+    .product-farm { padding: 0 16px 12px; font-size: 1.15rem; color: #aaa; font-weight: bold; }
     .badges { padding: 0 16px 16px; display: flex; flex-wrap: wrap; gap: 10px; }
     .badge { padding: 8px 16px; border-radius: 999px; font-size: 0.95rem; font-weight: bold; }
     .badge-strain { background: rgba(255, 235, 59, 0.18); color: #ffeb3b; border: 1px solid #ffeb3b; }
-    .strain-section { padding: 0 16px 24px; color: #ccc; font-size: 1.1rem; line-height: 1.6; }
+    .strain-section { padding: 0 16px 24px; color: #ccc; font-size: 1.1rem; line-height: 1.6; white-space: pre-line; }
     .quantity-section { padding: 16px; background: rgba(30, 30, 30, 0.7); margin: 12px 16px; border-radius: 16px; border: 1px solid #444; }
     .quantity-title { font-size: 1.25rem; color: #ffeb3b; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
     .quantity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -148,29 +98,12 @@
     ul li { margin-bottom: 8px; }
     .reseaux-list { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
     .reseau-item {
-      background: rgba(30, 30, 30, 0.85); 
-      border: 2px solid #ffeb3b;              /* jaune clair autour des boutons réseaux */
-      border-radius: 14px;
-      padding: 20px 16px; 
-      font-size: 1.3rem; 
-      font-weight: bold; 
-      color: #e0e0e0; 
-      text-align: center;
-      cursor: pointer; 
-      transition: all 0.25s; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      gap: 12px;
+      background: rgba(30, 30, 30, 0.85); border: 2px solid #ffeb3b; border-radius: 14px;
+      padding: 20px 16px; font-size: 1.3rem; font-weight: bold; color: #e0e0e0; text-align: center;
+      cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: center; gap: 12px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
-    .reseau-item:hover { 
-      background: #ffeb3b; 
-      color: #111; 
-      border-color: #fff176;
-      transform: scale(1.03);
-      box-shadow: 0 6px 16px rgba(255, 235, 59, 0.35);
-    }
+    .reseau-item:hover { background: #ffeb3b; color: #111; border-color: #fff176; transform: scale(1.03); box-shadow: 0 6px 16px rgba(255, 235, 59, 0.35); }
     nav {
       position: fixed; bottom: 0; left: 0; right: 0; background: rgba(30, 30, 30, 0.96);
       backdrop-filter: blur(18px); border-top: 1px solid #333; padding: 10px 0;
@@ -202,7 +135,7 @@
     <div id="home-page">
       <section class="welcome">
         <div class="welcome-inner">
-          <div class="welcome-emoji">🤴</div>
+          <div class="welcome-emoji">🍣</div>
           <div>
             <h2 id="welcome-name">Chargement...</h2>
             <p>Bienvenue sur le shop premium</p>
@@ -274,7 +207,6 @@
     <div id="infos-page">
       <div style="padding: 16px;">
 
-        <!-- Bloc 1 -->
         <div style="background: rgba(30, 30, 30, 0.92); border: 1px solid #444; border-radius: 16px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);">
           <h2 style="color: #ffeb3b; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 8px rgba(255,235,59,0.4);">
             Information de Dry.Coffee76
@@ -287,7 +219,6 @@
           </p>
         </div>
 
-        <!-- Bloc 2 -->
         <div style="background: rgba(30, 30, 30, 0.92); border: 1px solid #444; border-radius: 16px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);">
           <h2 style="color: #ffeb3b; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 8px rgba(255,235,59,0.4);">
             Info Livraison 🚚
@@ -305,7 +236,6 @@
           </p>
         </div>
 
-        <!-- Bloc 3 -->
         <div style="background: rgba(30, 30, 30, 0.92); border: 1px solid #444; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);">
           <h2 style="color: #ffeb3b; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 8px rgba(255,235,59,0.4);">
             Info Meet-up 📍
@@ -377,14 +307,40 @@
   const user = tg.initDataUnsafe?.user || {};
   document.getElementById('welcome-name').textContent = user.first_name ? `Salut ${user.first_name} !` : 'Bienvenue !';
 
+  // === PRODUITS (seulement les 2 demandés) ===
   const products = {
-    35u: { key: 'cali', title: '⚡️35u', farm: 'KGF🦊', strain: 'Runtz 🌈✅ Tropicana Strawberry 🌴🍓✅', video: '35u', poster: 'cali-thumb.jpg', quantities: [{ qty: '10G', price: '60 €' }, { qty: '25G', price: '130 €' }, { qty: '50G', price: 220 €' }, { qty: '100G', price: '400 €' }] },
-    73u: { key: 'gaz', title: '⚡️73u frozen🧊', farm: 'KGF🦊', strain: 'Papaya dolce 🥭 ✅\nMimi cheese 🧀 ✅', video: '73u', poster: 'gaz-thumb.jpg', quantities: [{ qty: '10G', price: '80 €' }, { qty: '25G', price: '150 €' }, { qty: '50G', price: '280 €' }, { qty: '100G', price: '550 €' }] }
+    frozen: {
+      key: 'frozen',
+      title: '73u Frozen 🧊🦊',
+      farm: 'KGF🦊',
+      strain: '- Tutti Fruitti 🍓🍉🍒🍋🍏🍑🍌\n- Acai Cake S1 🫐🍰🍓',
+      quantities: [
+        { qty: '10G', price: '80€' },
+        { qty: '25G', price: '160€' },
+        { qty: '50G', price: '280€' },
+        { qty: '100G', price: '550€' }
+      ]
+    },
+    kgf35u: {
+      key: 'kgf35u',
+      title: 'KGF 35U ⚡️🦊',
+      farm: 'KGF🦊',
+      strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
+      quantities: [
+        { qty: '10G', price: '60€' },
+        { qty: '25G', price: '140€' },
+        { qty: '50G', price: '220€' },
+        { qty: '100G', price: '400€' }
+      ]
+    }
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateBadge(); }
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateBadge();
+  }
 
   function updateBadge() {
     const badge = document.getElementById('cart-badge');
@@ -393,7 +349,11 @@
   }
 
   function hideAllPages() {
-    ['home-page', 'product-detail', 'cart-page', 'infos-page', 'reseaux-page'].forEach(id => document.getElementById(id).style.display = 'none');
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('product-detail').style.display = 'none';
+    document.getElementById('cart-page').style.display = 'none';
+    document.getElementById('infos-page').style.display = 'none';
+    document.getElementById('reseaux-page').style.display = 'none';
     document.getElementById('btn-back').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   }
@@ -406,15 +366,16 @@
       card.className = 'card';
       card.innerHTML = `
         <div class="card-img">
-          <video autoplay muted loop playsinline poster="${p.poster}">
-            <source src="${p.video}" type="video/mp4">
-          </video>
+          <!-- Pas de vidéo/poster pour l'instant (tu peux en ajouter plus tard) -->
+          <div style="height:240px; background:#111; display:flex; align-items:center; justify-content:center; color:#555; font-size:1.2rem;">
+            Image / Vidéo
+          </div>
           <div class="badge-star">★</div>
         </div>
         <div class="card-body">
           <div class="card-title">${p.title}</div>
-          ${p.farm ? `<div class="card-farm">${p.farm}</div>` : ''}
-          <div class="card-info">${p.strain.split('\n')[0]}</div>
+          <div class="card-farm">${p.farm}</div>
+          <div class="card-info">${p.strain}</div>
         </div>
       `;
       card.onclick = () => openProductDetail(p.key);
@@ -425,9 +386,9 @@
   function openProductDetail(key) {
     const p = products[key];
     const videoEl = document.getElementById('detail-video');
-    videoEl.innerHTML = `<source src="${p.video}" type="video/mp4">`;
-    videoEl.poster = p.poster;
-    videoEl.load();
+    videoEl.innerHTML = ''; // Pas de vidéo pour l'instant
+    document.getElementById('detail-video').style.background = '#111';
+    document.getElementById('detail-video').innerHTML = '<div style="height:100%; display:flex; align-items:center; justify-content:center; color:#555;">Image / Vidéo à venir</div>';
 
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm').textContent = p.farm;
@@ -463,9 +424,11 @@
   document.getElementById('add-to-cart-btn').onclick = () => {
     const selected = document.querySelector('.qty-btn.selected');
     if (!selected) return alert('Sélectionnez une quantité !');
+
     const title = document.getElementById('detail-title').textContent;
     const key = Object.keys(products).find(k => products[k].title === title);
     const item = products[key].quantities[parseInt(selected.dataset.idx)];
+
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
     alert('Ajouté au panier !');
@@ -478,6 +441,7 @@
 
     const itemsDiv = document.getElementById('cart-items');
     itemsDiv.innerHTML = '';
+
     if (cart.length === 0) {
       itemsDiv.innerHTML = '<p style="text-align:center; color:#aaa; padding:80px 0;">Votre panier est vide</p>';
       document.getElementById('questionnaire').style.display = 'none';
@@ -529,7 +493,9 @@
     let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
     message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
 
-    cart.forEach(item => message += `• ${item.title} × ${item.qty} (${item.price})\n`);
+    cart.forEach(item => {
+      message += `• ${item.title} × ${item.qty} (${item.price})\n`;
+    });
 
     if (mode === 'pickup') {
       const time = document.getElementById('pickup-time').value;
@@ -544,16 +510,34 @@
     }
 
     message += `\n\nMerci !`;
+
     const encoded = encodeURIComponent(message);
     tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encoded}`);
   };
 
-  document.getElementById('nav-home').onclick = () => { hideAllPages(); document.getElementById('home-page').style.display = 'block'; document.getElementById('nav-home').classList.add('active'); };
-  document.getElementById('nav-cart').onclick = showCart;
-  document.getElementById('nav-infos').onclick = () => { hideAllPages(); document.getElementById('infos-page').style.display = 'block'; document.getElementById('nav-infos').classList.add('active'); };
-  document.getElementById('nav-reseaux').onclick = () => { hideAllPages(); document.getElementById('reseaux-page').style.display = 'block'; document.getElementById('nav-reseaux').classList.add('active'); };
+  document.getElementById('nav-home').onclick = () => {
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+  };
 
-  document.querySelectorAll('.reseau-item').forEach(item => item.onclick = () => tg.openLink(item.dataset.link));
+  document.getElementById('nav-cart').onclick = showCart;
+
+  document.getElementById('nav-infos').onclick = () => {
+    hideAllPages();
+    document.getElementById('infos-page').style.display = 'block';
+    document.getElementById('nav-infos').classList.add('active');
+  };
+
+  document.getElementById('nav-reseaux').onclick = () => {
+    hideAllPages();
+    document.getElementById('reseaux-page').style.display = 'block';
+    document.getElementById('nav-reseaux').classList.add('active');
+  };
+
+  document.querySelectorAll('.reseau-item').forEach(item => {
+    item.onclick = () => tg.openLink(item.dataset.link);
+  });
 
   // Initialisation
   renderProducts();
