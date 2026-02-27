@@ -12,7 +12,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'M PLUS Rounded 1c', Orbitron, sans-serif;
-      background: #1e1e1e;                /* gris très foncé */
+      background: #1e1e1e;
       color: #e0e0e0;
       min-height: 100vh;
       overflow-x: hidden;
@@ -20,7 +20,6 @@
     .container { 
       position: relative; 
       min-height: 100vh; 
-      /* Pas d'image de fond */
     }
     .overlay { 
       position: absolute; 
@@ -47,24 +46,31 @@
     .header-inner { display: flex; align-items: center; max-width: 420px; width: 100%; }
     .header-logo { 
       width: 48px; height: 48px; border-radius: 50%; object-fit: cover; 
-      margin-right: 14px; border: 3px solid #ccff00;
-      box-shadow: 0 0 16px rgba(204, 255, 0, 0.5);
+      margin-right: 14px; border: 3px solid #ffeb3b;
+      box-shadow: 0 0 12px rgba(255, 235, 59, 0.4);
     }
     .header-title { 
       font-size: 1.55rem; font-weight: 900; letter-spacing: 2px; 
-      color: #ccff00; text-shadow: 0 0 12px rgba(204, 255, 0, 0.7);
+      color: #ffeb3b;
+      text-shadow: 0 0 10px rgba(255, 235, 59, 0.5);
     }
     .back-btn {
-      position: absolute; left: 16px; background: rgba(204, 255, 0, 0.2); color: #ccff00;
-      border: 1px solid #ccff00; padding: 8px 14px; border-radius: 10px; font-weight: bold; cursor: pointer;
+      position: absolute; left: 16px; background: rgba(255, 235, 59, 0.15); color: #ffeb3b;
+      border: 1px solid #ffeb3b; padding: 8px 14px; border-radius: 10px; font-weight: bold; cursor: pointer;
     }
     .welcome { padding: 20px 16px; background: rgba(30, 30, 30, 0.9); border-bottom: 1px solid #333; }
     .welcome-inner { display: flex; align-items: center; gap: 16px; }
-    .welcome-emoji { width: 60px; height: 60px; border-radius: 50%; background: rgba(204, 255, 0, 0.15); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; box-shadow: 0 0 16px rgba(204, 255, 0, 0.35); }
+    .welcome-emoji { 
+      width: 60px; height: 60px; border-radius: 50%; 
+      background: rgba(255, 235, 59, 0.12); 
+      display: flex; align-items: center; justify-content: center; 
+      font-size: 2.4rem; 
+      box-shadow: 0 0 12px rgba(255, 235, 59, 0.3);
+    }
     #products-grid { padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; }
     .card {
       background: rgba(30, 30, 30, 0.92); 
-      border: 2px solid #ccff00; 
+      border: 2px solid #ffeb3b;
       border-radius: 14px;
       overflow: hidden; 
       transition: all 0.25s; 
@@ -73,17 +79,17 @@
     }
     .card:hover { 
       transform: scale(1.04); 
-      border-color: #dfff00; 
-      box-shadow: 0 8px 24px rgba(204, 255, 0, 0.45);
+      border-color: #fff176;
+      box-shadow: 0 8px 24px rgba(255, 235, 59, 0.35);
     }
     .card-img { height: 240px; position: relative; background: #000; }
     .card-img video { width: 100%; height: 100%; object-fit: cover; }
     .badge-star { 
       position: absolute; top: 10px; left: 10px; 
-      background: #ccff00; color: #000; 
+      background: #ffeb3b; color: #000; 
       font-size: 0.8rem; padding: 5px 12px; 
       border-radius: 999px; font-weight: bold; 
-      box-shadow: 0 0 10px rgba(204, 255, 0, 0.7);
+      box-shadow: 0 0 8px rgba(255, 235, 59, 0.5);
     }
     .card-body { padding: 12px; }
     .card-title { font-size: 1.15rem; color: #e0e0e0; margin-bottom: 4px; font-weight: 700; }
@@ -92,24 +98,24 @@
     #product-detail { display: none; padding-bottom: 160px; }
     .product-hero { height: 340px; background: #000; position: relative; }
     .product-hero video { width: 100%; height: 100%; object-fit: cover; }
-    .product-title { padding: 16px; font-size: 2.1rem; font-weight: 900; color: #ccff00; text-shadow: 0 0 12px rgba(204, 255, 0, 0.6); }
+    .product-title { padding: 16px; font-size: 2.1rem; font-weight: 900; color: #ffeb3b; text-shadow: 0 0 10px rgba(255, 235, 59, 0.5); }
     .product-farm { padding: 0 16px 12px; font-size: 1.15rem; color: #aaa; }
     .badges { padding: 0 16px 16px; display: flex; flex-wrap: wrap; gap: 10px; }
     .badge { padding: 8px 16px; border-radius: 999px; font-size: 0.95rem; font-weight: bold; }
-    .badge-strain { background: rgba(204, 255, 0, 0.22); color: #ccff00; border: 1px solid #ccff00; }
+    .badge-strain { background: rgba(255, 235, 59, 0.18); color: #ffeb3b; border: 1px solid #ffeb3b; }
     .strain-section { padding: 0 16px 24px; color: #ccc; font-size: 1.1rem; line-height: 1.6; }
-    .quantity-section { padding: 16px; background: rgba(30, 30, 30, 0.7); margin: 12px 16px; border-radius: 16px; border: 1px solid #333; }
-    .quantity-title { font-size: 1.25rem; color: #ccff00; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .quantity-section { padding: 16px; background: rgba(30, 30, 30, 0.7); margin: 12px 16px; border-radius: 16px; border: 1px solid #444; }
+    .quantity-title { font-size: 1.25rem; color: #ffeb3b; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
     .quantity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .qty-btn {
       background: rgba(30, 30, 30, 0.8); border: 1px solid #444; color: #e0e0e0;
       padding: 16px 10px; border-radius: 14px; text-align: center; cursor: pointer; font-weight: bold; transition: 0.25s;
     }
-    .qty-btn:hover, .qty-btn.selected { background: #ccff00; color: #000; border-color: #ccff00; }
+    .qty-btn:hover, .qty-btn.selected { background: #ffeb3b; color: #111; border-color: #ffeb3b; }
     .add-to-cart {
-      margin: 16px; background: #ccff00; color: #000; border: none; padding: 18px;
+      margin: 16px; background: #ffeb3b; color: #111; border: none; padding: 18px;
       font-size: 1.2rem; font-weight: bold; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px;
-      cursor: pointer; box-shadow: 0 0 16px rgba(204, 255, 0, 0.6);
+      cursor: pointer; box-shadow: 0 0 12px rgba(255, 235, 59, 0.5);
     }
     #cart-page { padding: 16px; }
     .cart-item {
@@ -117,7 +123,7 @@
       padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
     }
     .delete-btn { background: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; }
-    .cart-total { text-align: center; font-size: 1.3rem; color: #ccff00; margin: 20px 0; }
+    .cart-total { text-align: center; font-size: 1.3rem; color: #ffeb3b; margin: 20px 0; }
     .questionnaire { background: rgba(30, 30, 30, 0.78); border: 1px solid #444; border-radius: 14px; padding: 20px; margin-top: 24px; }
     .question { margin-bottom: 20px; }
     .question-label { display: block; font-size: 1.1rem; color: #aaa; margin-bottom: 10px; font-weight: 500; }
@@ -125,35 +131,53 @@
       width: 100%; padding: 14px; margin: 6px 0; background: rgba(30, 30, 30, 0.8);
       border: 1px solid #444; color: #e0e0e0; border-radius: 12px; font-size: 1.05rem; cursor: pointer;
     }
-    .option-btn.active { background: #ccff00; color: #000; font-weight: bold; }
+    .option-btn.active { background: #ffeb3b; color: #111; font-weight: bold; }
     input[type="time"], input[type="text"], textarea {
       width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #444;
       background: rgba(40, 40, 40, 0.8); color: #e0e0e0; font-size: 1.05rem;
     }
     textarea { min-height: 90px; resize: vertical; }
     #submit-order-btn {
-      width: 100%; padding: 18px; background: #ccff00; color: #000; border: none;
+      width: 100%; padding: 18px; background: #ffeb3b; color: #111; border: none;
       border-radius: 14px; font-size: 1.25rem; font-weight: bold; margin-top: 24px; cursor: pointer;
-      box-shadow: 0 0 16px rgba(204, 255, 0, 0.6);
+      box-shadow: 0 0 12px rgba(255, 235, 59, 0.5);
     }
     #infos-page { display: none; padding: 16px; padding-bottom: 200px; font-size: 1.05rem; line-height: 1.6; }
-    .section-title { font-size: 1.45rem; color: #ccff00; margin: 28px 0 12px; font-weight: bold; text-align: center; text-shadow: 0 0 8px rgba(204,255,0,0.5); }
+    .section-title { font-size: 1.45rem; color: #ffeb3b; margin: 28px 0 12px; font-weight: bold; text-align: center; text-shadow: 0 0 6px rgba(255,235,59,0.4); }
     ul { padding-left: 0; margin: 12px 0; list-style: none; }
     ul li { margin-bottom: 8px; }
     .reseaux-list { display: flex; flex-direction: column; gap: 16px; margin-top: 20px; }
     .reseau-item {
-      background: rgba(30, 30, 30, 0.8); border: 1px solid #444; border-radius: 14px;
-      padding: 20px 16px; font-size: 1.3rem; font-weight: bold; color: #e0e0e0; text-align: center;
-      cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 12px;
+      background: rgba(30, 30, 30, 0.85); 
+      border: 2px solid #ffeb3b;              /* jaune clair autour des boutons réseaux */
+      border-radius: 14px;
+      padding: 20px 16px; 
+      font-size: 1.3rem; 
+      font-weight: bold; 
+      color: #e0e0e0; 
+      text-align: center;
+      cursor: pointer; 
+      transition: all 0.25s; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
-    .reseau-item:hover { background: #ccff00; color: #000; transform: scale(1.02); }
+    .reseau-item:hover { 
+      background: #ffeb3b; 
+      color: #111; 
+      border-color: #fff176;
+      transform: scale(1.03);
+      box-shadow: 0 6px 16px rgba(255, 235, 59, 0.35);
+    }
     nav {
       position: fixed; bottom: 0; left: 0; right: 0; background: rgba(30, 30, 30, 0.96);
       backdrop-filter: blur(18px); border-top: 1px solid #333; padding: 10px 0;
       display: flex; justify-content: space-around; z-index: 20;
     }
     .nav-item { display: flex; flex-direction: column; align-items: center; color: #aaa; font-size: 0.78rem; gap: 4px; cursor: pointer; flex: 1; position: relative; }
-    .nav-item.active { color: #ccff00; }
+    .nav-item.active { color: #ffeb3b; }
     #cart-badge {
       position: absolute; top: -6px; right: 12px; background: #ef4444; color: white;
       border-radius: 50%; padding: 3px 7px; font-size: 0.7rem; min-width: 18px; text-align: center; display: none;
@@ -209,7 +233,7 @@
 
     <!-- Page Panier -->
     <div id="cart-page">
-      <h2 style="color:#ccff00; text-align:center; margin:20px 0;">Votre Panier</h2>
+      <h2 style="color:#ffeb3b; text-align:center; margin:20px 0;">Votre Panier</h2>
       <div id="cart-items"></div>
       <div id="cart-total" class="cart-total"></div>
 
@@ -246,35 +270,35 @@
       </div>
     </div>
 
-    <!-- Page Infos - VERSION MISE À JOUR AVEC TES TEXTES -->
+    <!-- Page Infos -->
     <div id="infos-page">
       <div style="padding: 16px;">
 
         <!-- Bloc 1 -->
         <div style="background: rgba(30, 30, 30, 0.92); border: 1px solid #444; border-radius: 16px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);">
-          <h2 style="color: #ccff00; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 10px #ccff00;">
+          <h2 style="color: #ffeb3b; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 8px rgba(255,235,59,0.4);">
             Information de Dry.Coffee76
           </h2>
           <p style="color: #e0e0e0; line-height: 1.6; margin-bottom: 12px;">
             Pour toutes commande, une carte d’identité 🪪 est nécessaire et une photo 📸 de vous.
           </p>
-          <p style="color: #ccff00; font-weight: bold; text-align: center; margin-top: 16px;">
+          <p style="color: #ffeb3b; font-weight: bold; text-align: center; margin-top: 16px;">
             Contact secrétaire : @SAV_dry76
           </p>
         </div>
 
         <!-- Bloc 2 -->
         <div style="background: rgba(30, 30, 30, 0.92); border: 1px solid #444; border-radius: 16px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);">
-          <h2 style="color: #ccff00; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 10px #ccff00;">
+          <h2 style="color: #ffeb3b; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 8px rgba(255,235,59,0.4);">
             Info Livraison 🚚
           </h2>
           <p style="color: #e0e0e0; font-weight: bold; margin: 12px 0;">
             Zone de livraison<br>76 / 27 / 14
           </p>
           <ul style="color: #ccc; line-height: 1.6; padding-left: 0; list-style: none;">
-            <li>Moins de 10 km de Rouen : <strong style="color: #ccff00;">80€</strong></li>
-            <li>Au-delà de 10 km : <strong style="color: #ccff00;">150€</strong></li>
-            <li>Au-delà de 25 km : <strong style="color: #ccff00;">400€</strong></li>
+            <li>Moins de 10 km de Rouen : <strong style="color: #ffeb3b;">80€</strong></li>
+            <li>Au-delà de 10 km : <strong style="color: #ffeb3b;">150€</strong></li>
+            <li>Au-delà de 25 km : <strong style="color: #ffeb3b;">400€</strong></li>
           </ul>
           <p style="color: #ff6b6b; font-weight: bold; margin-top: 16px; text-align: center;">
             Frais de livraison obligatoire s'il n'y a pas de tournée !
@@ -283,13 +307,13 @@
 
         <!-- Bloc 3 -->
         <div style="background: rgba(30, 30, 30, 0.92); border: 1px solid #444; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);">
-          <h2 style="color: #ccff00; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 10px #ccff00;">
+          <h2 style="color: #ffeb3b; font-size: 1.6rem; margin-bottom: 16px; text-align: center; text-shadow: 0 0 8px rgba(255,235,59,0.4);">
             Info Meet-up 📍
           </h2>
           <p style="color: #e0e0e0; line-height: 1.6; margin-bottom: 12px;">
-            Nous nous situons sur <strong style="color: #ccff00;">Rive Gauche</strong> 📍
+            Nous nous situons sur <strong style="color: #ffeb3b;">Rive Gauche</strong> 📍
           </p>
-          <p style="color: #ccff00; font-weight: bold; text-align: center; font-size: 1.1rem; margin-top: 16px;">
+          <p style="color: #ffeb3b; font-weight: bold; text-align: center; font-size: 1.1rem; margin-top: 16px;">
             50€ de commande minimum pour venir sur place
           </p>
         </div>
@@ -299,7 +323,7 @@
 
     <!-- Page Réseaux -->
     <div id="reseaux-page">
-      <h2 style="text-align:center; color:#ccff00; margin:30px 0 40px; font-size:1.8rem;">Nos réseaux</h2>
+      <h2 style="text-align:center; color:#ffeb3b; margin:30px 0 40px; font-size:1.8rem;">Nos réseaux</h2>
       <div class="reseaux-list">
         <div class="reseau-item" data-link="http://t.me/+xkLrkV6xQBQ20TQO">📱 Telegram</div>
         <div class="reseau-item" data-link="https://duanym138.org/joinchat/vINUyihhgWD8SfEaRTWUCQ">🥔 Canal Potato</div>
