@@ -56,8 +56,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
 
         await update.message.reply_text(
-            " DINO TERPS 76\n\n"
-            "🔥 Boutique privée premium\n\n"
+            " 🤴Dry.Coffee76\n\n"
+            "✅ Boutique privée premium\n\n"
             "⚠️ Pour accéder à la Mini App, tu dois rejoindre notre canal officiel.",
             reply_markup=reply_markup
         )
