@@ -20,130 +20,145 @@
       background: #0b0b0f;
       color: #e8e8ff;
       min-height: 100vh;
-      padding-bottom: 90px;
+      padding-bottom: 110px;
     }
 
-    .top-bar {
+    .header {
       background: linear-gradient(to bottom, #1a0033, #0f001a);
       padding: 12px 16px;
       text-align: center;
       border-bottom: 1px solid #2a004a;
+      position: relative;
     }
 
-    .logo-container {
-      width: 100%;
-      max-width: 280px;
-      margin: 0 auto 10px;
+    .back-btn {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      background: rgba(40, 20, 60, 0.6);
+      border: 1px solid #444488;
+      color: #aaaaff;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      cursor: pointer;
     }
 
-    .logo-container img {
-      width: 100%;
+    .logo-small {
+      width: 140px;
       height: auto;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      border-radius: 12px;
+      margin: 8px auto;
+      display: block;
+      box-shadow: 0 4px 15px rgba(123,0,255,0.3);
     }
 
-    .title {
-      font-size: 2.1rem;
+    .product-title {
+      font-size: 1.8rem;
       font-weight: 800;
-      letter-spacing: 1px;
       background: linear-gradient(90deg, #c300ff, #00d4ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin: 8px 0 4px;
+      margin: 12px 0 8px;
     }
 
-    .welcome {
+    .product-image {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin: 16px 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+
+    .description {
+      padding: 0 16px;
       font-size: 0.95rem;
-      color: #a0a0ff;
-      margin: 6px 0;
+      color: #bbbbff;
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
 
-    .username {
-      color: #00ffaa;
+    .highlight {
+      color: #ffcc00;
       font-weight: 600;
     }
 
-    .filters {
-      display: flex;
-      gap: 12px;
-      padding: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
+    .quantity-section {
+      padding: 0 16px;
+      margin: 24px 0;
     }
 
-    .filter-btn {
-      background: rgba(40, 20, 60, 0.7);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(100, 60, 180, 0.4);
-      color: #ddd;
-      padding: 12px 20px;
-      border-radius: 999px;
-      font-size: 0.92rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: linear-gradient(135deg, #7b00ff, #b300ff);
-      color: white;
-      border-color: transparent;
-      box-shadow: 0 4px 15px rgba(123, 0, 255, 0.5);
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 16px;
-      padding: 0 14px 100px;
-    }
-
-    .product-card {
-      background: #14141a;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid #222244;
-      transition: transform 0.15s;
-    }
-
-    .product-card:active {
-      transform: scale(0.97);
-    }
-
-    .product-img-container {
-      height: 170px;
-      overflow: hidden;
-    }
-
-    .product-img-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .product-info {
-      padding: 10px 12px;
+    .quantity-title {
+      font-size: 1.3rem;
+      color: #00ffcc;
+      margin-bottom: 16px;
       text-align: center;
     }
 
-    .origin {
-      font-size: 0.82rem;
-      color: #9999cc;
-      display: block;
-      margin-bottom: 4px;
+    .quantity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
 
-    .product-info h3 {
-      font-size: 1.05rem;
-      margin: 4px 0 6px;
+    .qty-btn {
+      background: rgba(40, 20, 60, 0.7);
+      border: 2px solid #444488;
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qty-btn.selected {
+      background: linear-gradient(135deg, #7b00ff, #b300ff);
+      border-color: #00ffcc;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+      color: white;
+    }
+
+    .qty-btn:hover:not(.selected) {
+      background: rgba(123, 0, 255, 0.25);
+      border-color: #7b00ff;
+    }
+
+    .qty-weight {
+      font-size: 1.4rem;
+      font-weight: bold;
       color: #e0e0ff;
     }
 
-    .rating {
-      font-size: 0.9rem;
-      color: #ffcc00;
+    .qty-price {
+      font-size: 1.1rem;
+      color: #00ff9d;
+      margin-top: 4px;
+    }
+
+    .add-to-cart {
+      position: fixed;
+      bottom: 80px;
+      left: 16px;
+      right: 16px;
+      background: linear-gradient(90deg, #7b00ff, #00d4ff);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 16px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(123,0,255,0.5);
+      text-align: center;
+      z-index: 90;
+      transition: transform 0.15s;
+    }
+
+    .add-to-cart:active {
+      transform: scale(0.96);
     }
 
     .bottom-nav {
@@ -187,73 +202,103 @@
     .nav-btn:active {
       color: #00ffcc;
       background: rgba(0, 255, 200, 0.08);
-      transform: translateY(-2px);
+    }
+
+    .cart-icon {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #ff3366;
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <div class="logo-container">
-      <!-- Mets ton image chat.jpg au même niveau que ce fichier HTML -->
-      <!-- ou remplace par une URL complète ex: https://ton-site.com/chat.jpg -->
-      <img src="chat.JPG" alt="Logo Dry.Coffee76">
-    </div>
+  <div class="header">
+    <button class="back-btn" onclick="history.back()">← Retour</button>
+    <img src="chat.jpg" alt="Dry.Coffee76" class="logo-small">
+    <div class="product-title">CALIPLATESS SINGLE SOURCE</div>
+  </div>
 
-    <div class="title">Dry.Coffee76</div>
-    <div class="welcome">
-      Bienvenue sur la boutique officielle
-    </div>
-    <div class="username">
-      Bienvenue, <span class="username">@leroim Merlin</span>
+  <img 
+    src="https://images.unsplash.com/photo-1608248543803-3ee15a6b18f2?w=800" 
+    alt="Produit CaliPlates" 
+    class="product-image"
+  >
+
+  <div class="description">
+    <strong>NOUVEAU CALIPLATESS FROZEN SINGLE SOURCE</strong><br><br>
+    Source la <span class="highlight">meilleure farm US</span> à Lyon au meilleur prix 🔥<br>
+    Nouvelles saveurs explosives : 
+    <strong>CANDY FUMES</strong> / <strong>ICE CREAM CAKE</strong> / 
+    <strong>FORUM COOKIE</strong> / <strong>GUMBO</strong> / 
+    <strong>ZOAP</strong> / <strong>DOSIDOS</strong> 
+  </div>
+
+  <div class="quantity-section">
+    <div class="quantity-title">Sélectionner la Quantité</div>
+    
+    <div class="quantity-grid">
+      <button class="qty-btn" data-qty="1" data-price="40">
+        <div class="qty-weight">1G</div>
+        <div class="qty-price">40.00€</div>
+      </button>
+      <button class="qty-btn" data-qty="2" data-price="70">
+        <div class="qty-weight">2G</div>
+        <div class="qty-price">70.00€</div>
+      </button>
+      <button class="qty-btn" data-qty="5" data-price="130">
+        <div class="qty-weight">5G</div>
+        <div class="qty-price">130.00€</div>
+      </button>
+      <button class="qty-btn" data-qty="10" data-price="250">
+        <div class="qty-weight">10G</div>
+        <div class="qty-price">250.00€</div>
+      </button>
+      <button class="qty-btn" data-qty="50" data-price="1000">
+        <div class="qty-weight">50G</div>
+        <div class="qty-price">1000.00€</div>
+      </button>
+      <button class="qty-btn" data-qty="100" data-price="1900">
+        <div class="qty-weight">100G</div>
+        <div class="qty-price">1900.00€</div>
+      </button>
     </div>
   </div>
 
-  <div class="filters">
-    <button class="filter-btn active">Toutes les catégories ▼</button>
-    <button class="filter-btn">Toutes les farms ▼</button>
-  </div>
-
-  <div class="products-grid">
-
-    <div class="product-card">
-      <div class="product-img-container">
-        <img src="https://images.unsplash.com/photo-1608248543803-3ee15a6b18f2?w=500" alt="Cali espagnol"/>
-      </div>
-      <div class="product-info">
-        <span class="origin">Cali espagnol 🇪🇸</span>
-        <h3>Mac-1 ★</h3>
-        <div class="rating">★★★★★</div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-img-container">
-        <img src="https://images.unsplash.com/photo-1581093577421-f6a9380a3e9a?w=500" alt="Cali USA"/>
-      </div>
-      <div class="product-info">
-        <span class="origin">Cali USA Premium 🇺🇸</span>
-        <h3>Black Runtz 🦅✨</h3>
-        <div class="rating">★★★★☆</div>
-      </div>
-    </div>
-
-    <!-- Ajoute d'autres produits ici si besoin -->
-
-  </div>
+  <button class="add-to-cart" id="addToCart">
+    Ajouter au Panier • <span id="selectedQty">0G</span> – <span id="selectedPrice">0.00€</span>
+  </button>
 
   <div class="bottom-nav">
     <button class="nav-btn">
       <span>🏠</span>
-      <small>Menu</small>
+      <small>Accueil</small>
     </button>
     <button class="nav-btn">
+      <span>⭐</span>
+      <small>Avis</small>
+    </button>
+    <button class="nav-btn cart-icon">
       <span>🛒</span>
       <small>Panier</small>
+      <span class="cart-badge" id="cartCount">0</span>
     </button>
     <button class="nav-btn">
       <span>ℹ️</span>
-      <small>Info</small>
+      <small>Infos</small>
     </button>
     <button class="nav-btn">
       <span>✉️</span>
@@ -262,24 +307,47 @@
   </div>
 
   <script>
-    // Telegram Mini App init
-    if (window.Telegram?.WebApp) {
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      tg.expand();
+    const tg = window.Telegram?.WebApp || {};
+    tg.ready?.();
+    tg.expand?.();
 
-      const user = tg.initDataUnsafe?.user;
-      if (user?.username) {
-        document.querySelector('.username').innerHTML = 
-          `Bienvenue, <span class="username">@${user.username}</span>`;
+    // Sélection quantité
+    let selectedQty = 0;
+    let selectedPrice = 0;
+
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Retire selected sur tous
+        document.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
+        // Ajoute sur celui cliqué
+        btn.classList.add('selected');
+
+        selectedQty = parseInt(btn.dataset.qty);
+        selectedPrice = parseFloat(btn.dataset.price);
+
+        document.getElementById('selectedQty').textContent = selectedQty + 'G';
+        document.getElementById('selectedPrice').textContent = selectedPrice.toFixed(2) + '€';
+      });
+    });
+
+    // Ajouter au panier (simulation)
+    document.getElementById('addToCart').addEventListener('click', () => {
+      if (selectedQty === 0) {
+        alert("Sélectionne une quantité d'abord !");
+        return;
       }
 
-      // Bouton principal Telegram (optionnel)
-      tg.MainButton.setText("Ouvrir le panier");
-      tg.MainButton.show();
-      tg.MainButton.onClick(() => {
-        alert("Fonction panier en cours de développement");
-      });
+      // Ici tu peux stocker dans localStorage ou envoyer via tg.sendData()
+      alert(`Ajouté : ${selectedQty}G pour ${selectedPrice.toFixed(2)}€`);
+
+      // Mise à jour badge panier (simulation)
+      let count = parseInt(document.getElementById('cartCount').textContent) || 0;
+      document.getElementById('cartCount').textContent = count + 1;
+    });
+
+    // Mise à jour pseudo utilisateur
+    if (tg.initDataUnsafe?.user?.username) {
+      // Tu peux l'utiliser si besoin
     }
   </script>
 
