@@ -95,7 +95,7 @@
     .header-title { font-size:1.55rem; font-weight:900; letter-spacing:2px; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); }
     .back-btn {
       position: absolute;
-      top: 70px;          /* descendu pour être sous le header */
+      top: 70px;
       left: 16px;
       background: rgba(255,235,59,.15);
       color: #ffeb3b;
@@ -200,7 +200,7 @@
       <div id="home-page">
         <section class="welcome">
           <div class="welcome-inner">
-            <div class="welcome-emoji">🍣</div>
+            <div class="welcome-emoji">🤴</div>
             <div>
               <h2 id="welcome-name">Chargement...</h2>
               <p>Bienvenue sur le shop premium</p>
@@ -277,7 +277,35 @@
               Contact secrétaire : @SAV_dry76
             </p>
           </div>
-          <!-- Les autres blocs infos ici si besoin -->
+
+          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
+            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);">
+              Info Livraison 🚚
+            </h2>
+            <p style="color:#e0e0e0;font-weight:bold;margin:12px 0;">
+              Zone de livraison<br>76 / 27 / 14
+            </p>
+            <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
+              <li>Moins de 10 km de Rouen : <strong style="color:#ffeb3b;">80€</strong></li>
+              <li>Supérieur à 10 km de Rouen: <strong style="color:#ffeb3b;">150€</strong></li>
+              <li>Supérieur à 25 km de Rouen: <strong style="color:#ffeb3b;">400€</strong></li>
+            </ul>
+            <p style="color:#ff6b6b;font-weight:bold;margin-top:16px;text-align:center;">
+              Frais de livraison obligatoire s'il n'y a pas de tournée !
+            </p>
+          </div>
+
+          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
+            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);">
+              Info Meet-up 📍
+            </h2>
+            <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
+              Nous sommes situé sur <strong style="color:#ffeb3b;">Rouen Rive Gauche</strong> 📍
+            </p>
+            <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.1rem;margin-top:16px;">
+              50€ de commande minimum pour venir sur place
+            </p>
+          </div>
         </div>
       </div>
 
@@ -457,6 +485,7 @@
   function showCart() {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
 
     const itemsDiv = document.getElementById('cart-items');
@@ -531,7 +560,7 @@
     tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encoded}`);
   };
 
-  // Navigation
+  // Navigation complète - tous les boutons visibles
   document.getElementById('nav-home').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
