@@ -28,6 +28,7 @@
       align-items: center;
       justify-content: center;
       transition: opacity 0.6s ease;
+      pointer-events: none;
     }
     .splash.hidden { opacity: 0; pointer-events: none; }
     .splash-content {
@@ -220,7 +221,7 @@
       <div id="home-page">
         <section class="welcome">
           <div class="welcome-inner">
-            <div class="welcome-emoji">🤴</div>
+            <div class="welcome-emoji">🍣</div>
             <div>
               <h2 id="welcome-name">Chargement...</h2>
               <p>Bienvenue sur le shop premium</p>
@@ -307,8 +308,8 @@
             </p>
             <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
               <li>Moins de 10 km de Rouen : <strong style="color:#ffeb3b;">80€</strong></li>
-              <li>Supérieur à10 km de Rouen: <strong style="color:#ffeb3b;">150€</strong></li>
-              <li>Supérieur à25 km de Rouen: <strong style="color:#ffeb3b;">400€</strong></li>
+              <li>Au-delà de 10 km : <strong style="color:#ffeb3b;">150€</strong></li>
+              <li>Au-delà de 25 km : <strong style="color:#ffeb3b;">400€</strong></li>
             </ul>
             <p style="color:#ff6b6b;font-weight:bold;margin-top:16px;text-align:center;">
               Frais de livraison obligatoire s'il n'y a pas de tournée !
@@ -320,7 +321,7 @@
               Info Meet-up 📍
             </h2>
             <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
-              Nous sommes situé sur <strong style="color:#ffeb3b;">Rouen Rive Gauche</strong> 📍
+              Nous nous situons sur <strong style="color:#ffeb3b;">Rive Gauche</strong> 📍
             </p>
             <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.1rem;margin-top:16px;">
               50€ de commande minimum pour venir sur place
@@ -624,7 +625,7 @@
     document.getElementById('nav-reseaux').classList.add('active');
   };
 
-  // Splash + init
+  // Splash + init + attachement des clics Réseaux
   window.addEventListener('load', () => {
     const splash = document.getElementById('splash-screen');
     setTimeout(() => {
@@ -635,6 +636,16 @@
         document.getElementById('nav-home').classList.add('active');
         renderProducts();
         updateBadge();
+
+        // Attacher les clics sur les boutons Réseaux (après affichage)
+        document.querySelectorAll('.reseau-item').forEach(item => {
+          item.addEventListener('click', function() {
+            const link = this.dataset.link;
+            if (link) {
+              tg.openLink(link);
+            }
+          });
+        });
       }, 600);
     }, 2500);
   });
