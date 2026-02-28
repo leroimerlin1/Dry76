@@ -33,10 +33,7 @@
     .welcome-inner { display: flex; align-items: center; gap: 16px; }
     .welcome-emoji { width: 60px; height: 60px; border-radius: 50%; background: rgba(255, 235, 59, 0.12); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; box-shadow: 0 0 12px rgba(255, 235, 59, 0.3); }
     #products-grid { padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; }
-    .card {
-      background: rgba(30, 30, 30, 0.92); border: 2px solid #ffeb3b; border-radius: 14px;
-      overflow: hidden; transition: all 0.25s; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
+    .card { background: rgba(30, 30, 30, 0.92); border: 2px solid #ffeb3b; border-radius: 14px; overflow: hidden; transition: all 0.25s; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
     .card:hover { transform: scale(1.04); border-color: #fff176; box-shadow: 0 8px 24px rgba(255, 235, 59, 0.35); }
     .card-img { height: 240px; position: relative; background: #000; }
     .card-img video { width: 100%; height: 100%; object-fit: cover; }
@@ -57,41 +54,21 @@
     .quantity-section { padding: 16px; background: rgba(30, 30, 30, 0.7); margin: 12px 16px; border-radius: 16px; border: 1px solid #444; }
     .quantity-title { font-size: 1.25rem; color: #ffeb3b; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
     .quantity-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .qty-btn {
-      background: rgba(30, 30, 30, 0.8); border: 1px solid #444; color: #e0e0e0;
-      padding: 16px 10px; border-radius: 14px; text-align: center; cursor: pointer; font-weight: bold; transition: 0.25s;
-    }
+    .qty-btn { background: rgba(30, 30, 30, 0.8); border: 1px solid #444; color: #e0e0e0; padding: 16px 10px; border-radius: 14px; text-align: center; cursor: pointer; font-weight: bold; transition: 0.25s; }
     .qty-btn:hover, .qty-btn.selected { background: #ffeb3b; color: #111; border-color: #ffeb3b; }
-    .add-to-cart {
-      margin: 16px; background: #ffeb3b; color: #111; border: none; padding: 18px;
-      font-size: 1.2rem; font-weight: bold; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px;
-      cursor: pointer; box-shadow: 0 0 12px rgba(255, 235, 59, 0.5);
-    }
+    .add-to-cart { margin: 16px; background: #ffeb3b; color: #111; border: none; padding: 18px; font-size: 1.2rem; font-weight: bold; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; box-shadow: 0 0 12px rgba(255, 235, 59, 0.5); }
     #cart-page { padding: 16px; }
-    .cart-item {
-      background: rgba(30, 30, 30, 0.82); border: 1px solid #444; border-radius: 12px;
-      padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
-    }
+    .cart-item { background: rgba(30, 30, 30, 0.82); border: 1px solid #444; border-radius: 12px; padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
     .delete-btn { background: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; }
     .cart-total { text-align: center; font-size: 1.3rem; color: #ffeb3b; margin: 20px 0; }
     .questionnaire { background: rgba(30, 30, 30, 0.78); border: 1px solid #444; border-radius: 14px; padding: 20px; margin-top: 24px; }
     .question { margin-bottom: 20px; }
     .question-label { display: block; font-size: 1.1rem; color: #aaa; margin-bottom: 10px; font-weight: 500; }
-    .option-btn {
-      width: 100%; padding: 14px; margin: 6px 0; background: rgba(30, 30, 30, 0.8);
-      border: 1px solid #444; color: #e0e0e0; border-radius: 12px; font-size: 1.05rem; cursor: pointer;
-    }
+    .option-btn { width: 100%; padding: 14px; margin: 6px 0; background: rgba(30, 30, 30, 0.8); border: 1px solid #444; color: #e0e0e0; border-radius: 12px; font-size: 1.05rem; cursor: pointer; }
     .option-btn.active { background: #ffeb3b; color: #111; font-weight: bold; }
-    input[type="time"], input[type="text"], textarea {
-      width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #444;
-      background: rgba(40, 40, 40, 0.8); color: #e0e0e0; font-size: 1.05rem;
-    }
+    input[type="time"], input[type="text"], textarea { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #444; background: rgba(40, 40, 40, 0.8); color: #e0e0e0; font-size: 1.05rem; }
     textarea { min-height: 90px; resize: vertical; }
-    #submit-order-btn {
-      width: 100%; padding: 18px; background: #ffeb3b; color: #111; border: none;
-      border-radius: 14px; font-size: 1.25rem; font-weight: bold; margin-top: 24px; cursor: pointer;
-      box-shadow: 0 0 12px rgba(255, 235, 59, 0.5);
-    }
+    #submit-order-btn { width: 100%; padding: 18px; background: #ffeb3b; color: #111; border: none; border-radius: 14px; font-size: 1.25rem; font-weight: bold; margin-top: 24px; cursor: pointer; box-shadow: 0 0 12px rgba(255, 235, 59, 0.5); }
     #infos-page { display: none; padding: 16px; padding-bottom: 200px; font-size: 1.05rem; line-height: 1.6; }
     .section-title { font-size: 1.45rem; color: #ffeb3b; margin: 28px 0 12px; font-weight: bold; text-align: center; text-shadow: 0 0 6px rgba(255,235,59,0.4); }
     ul { padding-left: 0; margin: 12px 0; list-style: none; }
@@ -140,7 +117,6 @@
       </div>
     </header>
 
-    <!-- Page d'accueil -->
     <div id="home-page">
       <section class="welcome">
         <div class="welcome-inner">
@@ -151,11 +127,9 @@
           </div>
         </div>
       </section>
-
       <div id="products-grid"></div>
     </div>
 
-    <!-- Page détail produit -->
     <div id="product-detail">
       <div class="product-hero">
         <video id="detail-video" autoplay muted loop playsinline></video>
@@ -173,7 +147,6 @@
       <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
     </div>
 
-    <!-- Page Panier -->
     <div id="cart-page">
       <h2 style="color:#ffeb3b; text-align:center; margin:20px 0;">Votre Panier</h2>
       <div id="cart-items"></div>
@@ -212,7 +185,6 @@
       </div>
     </div>
 
-    <!-- Page Infos -->
     <div id="infos-page">
       <div style="padding: 16px;">
         <div style="background: rgba(30, 30, 30, 0.92); border: 1px solid #444; border-radius: 16px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.6);">
@@ -258,25 +230,24 @@
       </div>
     </div>
 
-    <!-- Page Réseaux avec logos -->
     <div id="reseaux-page">
       <h2 style="text-align:center; color:#ffeb3b; margin:30px 0 40px; font-size:1.8rem;">Nos réseaux</h2>
       <div class="reseaux-list">
         <div class="reseau-item" data-link="http://t.me/+xkLrkV6xQBQ20TQO">
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
           Telegram
+        </div>
         <div class="reseau-item" data-link="https://duanym138.org/joinchat/vINUyihhgWD8SfEaRTWUCQ">
-      <img src="potato.jpg" alt="Canal Potato">
-      Canal Potato
-    </div>
+          <img src="potato.jpg" alt="Canal Potato">
+          Canal Potato
+        </div>
         <div class="reseau-item" data-link="http://t.me/SAV_dry76">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
           Secrétaire
         </div>
       </div>
     </div>
 
-    <!-- Navigation -->
     <nav>
       <div class="nav-item active" id="nav-home">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -351,7 +322,10 @@
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateBadge(); }
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateBadge();
+  }
 
   function updateBadge() {
     const badge = document.getElementById('cart-badge');
@@ -360,11 +334,9 @@
   }
 
   function hideAllPages() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('product-detail').style.display = 'none';
-    document.getElementById('cart-page').style.display = 'none';
-    document.getElementById('infos-page').style.display = 'none';
-    document.getElementById('reseaux-page').style.display = 'none';
+    ['home-page', 'product-detail', 'cart-page', 'infos-page', 'reseaux-page'].forEach(id => {
+      document.getElementById(id).style.display = 'none';
+    });
     document.getElementById('btn-back').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   }
@@ -377,7 +349,7 @@
       card.className = 'card';
       card.innerHTML = `
         <div class="card-img">
-          <div style="height:240px; background:#111; display:flex; align-items:center; justify-content:center; color:#555; font-size:1.2rem;">
+          <div style="height:240px;background:#111;display:flex;align-items:center;justify-content:center;color:#555;font-size:1.2rem;">
             Image / Vidéo
           </div>
           <div class="badge-star">★</div>
@@ -395,6 +367,11 @@
 
   function openProductDetail(key) {
     const p = products[key];
+    const videoEl = document.getElementById('detail-video');
+    videoEl.innerHTML = '';
+    document.getElementById('detail-video').style.background = '#111';
+    document.getElementById('detail-video').innerHTML = '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#555;">Image / Vidéo à venir</div>';
+
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm').textContent = p.farm;
     document.getElementById('detail-farm').style.display = p.farm ? 'block' : 'none';
@@ -521,7 +498,6 @@
 
   document.querySelectorAll('.reseau-item').forEach(item => item.onclick = () => tg.openLink(item.dataset.link));
 
-  // Initialisation
   renderProducts();
   updateBadge();
 </script>
