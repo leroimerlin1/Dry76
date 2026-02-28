@@ -86,6 +86,7 @@
     .container { position:relative; min-height:100vh; }
     .overlay { position:absolute; inset:0; background:rgba(30,30,30,.75); backdrop-filter:blur(3px); z-index:-1; }
     .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; }
+
     header {
       position:sticky; top:0; background:rgba(30,30,30,.96); backdrop-filter:blur(14px);
       padding:12px 16px; border-bottom:1px solid #333; z-index:10;
@@ -94,6 +95,7 @@
     .header-inner { display:flex; align-items:center; max-width:420px; width:100%; }
     .header-logo { width:48px; height:48px; border-radius:50%; object-fit:cover; margin-right:14px; border:3px solid #ffeb3b; box-shadow:0 0 12px rgba(255,235,59,.4); }
     .header-title { font-family: 'Orbitron', sans-serif; font-size:1.55rem; font-weight:900; letter-spacing:2px; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); }
+
     .back-btn {
       position: absolute;
       top: 70px;
@@ -107,6 +109,7 @@
       cursor: pointer;
       z-index: 15;
     }
+
     .welcome { padding:20px 16px; background:rgba(30,30,30,.9); border-bottom:1px solid #333; }
     .welcome-inner { display:flex; align-items:center; gap:16px; }
     .welcome-emoji { width:60px; height:60px; border-radius:50%; background:rgba(255,235,59,.12); display:flex; align-items:center; justify-content:center; font-size:2.4rem; box-shadow:0 0 12px rgba(255,235,59,.3); }
@@ -121,7 +124,7 @@
     .card-body { padding:12px; }
     .card-title { font-family: 'Orbitron', sans-serif; font-size:1.3rem; color:#ffeb3b; margin-bottom:8px; font-weight:900; letter-spacing:1px; }
     .card-farm { font-size:1rem; color:#aaa; margin-bottom:8px; font-weight:bold; }
-    .card-info { display: none; }  /* ← description masquée dans la grille */
+    .card-info { display: none; }
 
     #product-detail { display:none; padding-bottom:160px; position:relative; }
     .product-hero { height:340px; background:#000; position:relative; }
@@ -131,6 +134,14 @@
     .badge { padding:8px 16px; border-radius:999px; font-size:.95rem; font-weight:bold; text-align:left; }
     .badge-farm { background:rgba(255,235,59,.25); color:#ffeb3b; border:1px solid #ffeb3b; }
     .strain-section { padding:0 16px 24px; color:#ccc; font-size:1.1rem; line-height:1.6; white-space:pre-line; }
+    .strain-section .strains { margin-bottom: 16px; }
+    .strain-section .description { 
+      margin-top: 20px; 
+      padding-top: 16px; 
+      border-top: 1px solid #444; 
+      color: #ddd; 
+      font-style: italic; 
+    }
 
     .quantity-section { padding:16px; background:rgba(30,30,30,.7); margin:12px 16px; border-radius:16px; border:1px solid #444; }
     .quantity-title { font-family: 'Orbitron', sans-serif; font-size:1.25rem; color:#ffeb3b; margin-bottom:16px; display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:1px; }
@@ -416,24 +427,21 @@
       title: '73u Frozen 🧊🦊',
       farm: 'KGF🦊',
       strain: '- Tutti Fruitti 🍓🍉🍒🍋🍏🍑🍌\n- Acai Cake S1 🫐🍰🍓',
-      quantities: [
-        { qty: '10G', price: '80€' },
-        { qty: '25G', price: '160€' },
-        { qty: '50G', price: '280€' },
-        { qty: '100G', price: '550€' }
-      ]
+      description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\n" +
+                   "Tutti Fruitti : bonbon fruité explosif, fraise-banane-ananas ultra sucré et givrée\n" +
+                   "Acai Cake S1 : myrtille crémeuse, gâteau aux baies, touche givrée et diesel subtil en fond\n" +
+                   "Puissance XXL, effet glacial qui monte vite et qui dure longtemps. Parfait pour les amateurs de saveurs fruitées intenses et de high puissant."
     },
     kgf35u: {
       key: 'kgf35u',
       title: 'KGF 35U ⚡️🦊',
       farm: 'KGF🦊',
       strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
-      quantities: [
-        { qty: '10G', price: '60€' },
-        { qty: '25G', price: '140€' },
-        { qty: '50G', price: '220€' },
-        { qty: '100G', price: '400€' }
-      ]
+      description: "Électricité dans les veines, terps électriques et bagout monstrueux.\n" +
+                   "Panacotta : dessert italien crémeux, vanille douce, fruits rouges et gelato profond\n" +
+                   "Golden Lemon : citron vert ultra vif, limonade pétillante, skunk acide et énergie solaire\n" +
+                   "Champaya : champagne frais, mangue exotique, notes florales et effervescentes\n" +
+                   "Profil très équilibré, montée rapide et euphorique, idéal pour la journée ou les sessions créatives."
     }
   };
 
@@ -487,7 +495,13 @@
     const p = products[key];
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm-badge').textContent = p.farm;
-    document.getElementById('detail-strain-desc').innerHTML = p.strain.replace(/\n/g, '<br>');
+
+    // Strains + description en dessous
+    let content = '<div class="strains">' + p.strain.replace(/\n/g, '<br>') + '</div>';
+    if (p.description) {
+      content += '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
+    }
+    document.getElementById('detail-strain-desc').innerHTML = content;
 
     const qtyGrid = document.getElementById('qty-grid');
     qtyGrid.innerHTML = '';
