@@ -46,13 +46,12 @@
     .product-hero { height:340px; background:#000; position:relative; }
     .product-hero video { width:100%; height:100%; object-fit:cover; }
     .product-title { padding:16px; font-size:2.1rem; font-weight:900; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); }
-    .product-farm { padding:0 16px 12px; font-size:1.25rem; color:#ffeb3b; font-weight:bold; text-align:center; }
-    .badges { padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
-    .badge { padding:8px 16px; border-radius:999px; font-size:.95rem; font-weight:bold; }
-    .badge-strain { background:rgba(255,235,59,.18); color:#ffeb3b; border:1px solid #ffeb3b; }
-    .strain-section { padding:0 16px 24px; color:#ccc; font-size:1.1rem; line-height:1.6; white-space:pre-line; text-align:center; }
+    .badges { padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:10px; justify-content:flex-start; }
+    .badge { padding:8px 16px; border-radius:999px; font-size:.95rem; font-weight:bold; text-align:left; }
+    .badge-farm { background:rgba(255,235,59,.25); color:#ffeb3b; border:1px solid #ffeb3b; }
+    .strain-section { padding:0 16px 24px; color:#ccc; font-size:1.1rem; line-height:1.6; white-space:pre-line; }
     .quantity-section { padding:16px; background:rgba(30,30,30,.7); margin:12px 16px; border-radius:16px; border:1px solid #444; }
-    .quantity-title { font-size:1.25rem; color:#ffeb3b; margin-bottom:16px; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .quantity-title { font-size:1.25rem; color:#ffeb3b; margin-bottom:16px; display:flex; align-items:center; gap:12px; }
     .quantity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
     .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
     .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
@@ -124,9 +123,9 @@
         <video id="detail-video" autoplay muted loop playsinline></video>
       </div>
       <div class="product-title" id="detail-title"></div>
-      <div class="product-farm" id="detail-farm"></div> <!-- FARM ici, en jaune -->
+      <!-- PAS de .product-farm ici pour éviter le doublon -->
       <div class="badges">
-        <div class="badge badge-strain" id="detail-strain"></div>
+        <div class="badge badge-farm" id="detail-farm-badge"></div>
       </div>
       <div class="strain-section" id="detail-strain-desc"></div>
       <div class="quantity-section">
@@ -318,10 +317,13 @@ function renderProducts() {
 
 function openProductDetail(key) {
   const p = products[key];
+  
   document.getElementById('detail-title').textContent = p.title;
-  document.getElementById('detail-farm').textContent = p.farm; // ← FARM ici
-  document.getElementById('detail-farm').style.display = p.farm ? 'block' : 'none';
-  document.getElementById('detail-strain').textContent = p.strain.split('\n')[0];
+  
+  // Badge = farm uniquement
+  document.getElementById('detail-farm-badge').textContent = p.farm;
+  
+  // Description complète (strain)
   document.getElementById('detail-strain-desc').innerHTML = p.strain.replace(/\n/g, '<br>');
 
   const qtyGrid = document.getElementById('qty-grid');
@@ -444,7 +446,6 @@ document.getElementById('nav-reseaux').onclick = () => { hideAllPages(); documen
 
 document.querySelectorAll('.reseau-item').forEach(item => item.onclick = () => tg.openLink(item.dataset.link));
 
-// Initialisation
 renderProducts();
 updateBadge();
 </script>
