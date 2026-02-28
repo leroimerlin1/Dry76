@@ -165,7 +165,19 @@
     }
     .nav-item { display:flex; flex-direction:column; align-items:center; color:#aaa; font-size:.78rem; gap:4px; cursor:pointer; flex:1; position:relative; }
     .nav-item.active { color:#ffeb3b; }
-    #cart-badge { position:absolute; top:-6px; right:12px; background:#ef4444; color:white; border-radius:50%; padding:3px 7px; font-size:.7rem; min-width:18px; text-align:center; display:none; }
+    #cart-badge {
+      position: absolute;
+      top: -6px;
+      right: 12px;
+      background: #ef4444;
+      color: white;
+      border-radius: 50%;
+      padding: 3px 7px;
+      font-size: .7rem;
+      min-width: 18px;
+      text-align: center;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -200,7 +212,7 @@
       <div id="home-page">
         <section class="welcome">
           <div class="welcome-inner">
-            <div class="welcome-emoji">🤴</div>
+            <div class="welcome-emoji">🍣</div>
             <div>
               <h2 id="welcome-name">Chargement...</h2>
               <p>Bienvenue sur le shop premium</p>
@@ -287,8 +299,8 @@
             </p>
             <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
               <li>Moins de 10 km de Rouen : <strong style="color:#ffeb3b;">80€</strong></li>
-              <li>Supérieur à 10 km de Rouen: <strong style="color:#ffeb3b;">150€</strong></li>
-              <li>Supérieur à 25 km de Rouen: <strong style="color:#ffeb3b;">400€</strong></li>
+              <li>Au-delà de 10 km : <strong style="color:#ffeb3b;">150€</strong></li>
+              <li>Au-delà de 25 km : <strong style="color:#ffeb3b;">400€</strong></li>
             </ul>
             <p style="color:#ff6b6b;font-weight:bold;margin-top:16px;text-align:center;">
               Frais de livraison obligatoire s'il n'y a pas de tournée !
@@ -300,7 +312,7 @@
               Info Meet-up 📍
             </h2>
             <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
-              Nous sommes situé sur <strong style="color:#ffeb3b;">Rouen Rive Gauche</strong> 📍
+              Nous nous situons sur <strong style="color:#ffeb3b;">Rive Gauche</strong> 📍
             </p>
             <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.1rem;margin-top:16px;">
               50€ de commande minimum pour venir sur place
@@ -403,6 +415,13 @@
 
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
+    updateBadge();
+  }
+
+  function updateBadge() {
+    const badge = document.getElementById('cart-badge');
+    badge.textContent = cart.length || '';
+    badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
   }
 
   function hideAllPages() {
@@ -560,7 +579,7 @@
     tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encoded}`);
   };
 
-  // Navigation complète - tous les boutons visibles
+  // Navigation
   document.getElementById('nav-home').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
@@ -600,6 +619,7 @@
         document.getElementById('home-page').style.display = 'block';
         document.getElementById('nav-home').classList.add('active');
         renderProducts();
+        updateBadge();
       }, 600);
     }, 2500);
   });
