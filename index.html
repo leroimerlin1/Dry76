@@ -18,7 +18,56 @@
       overflow-x:hidden;
     }
 
-    /* Fond fixe qui couvre tout l'écran et ne bouge pas */
+    /* Splash screen */
+    .splash {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease;
+    }
+    .splash.hidden { opacity: 0; pointer-events: none; }
+    .splash-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .splash-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+    .splash-logo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #ffeb3b;
+      box-shadow: 0 0 30px rgba(255,235,59,0.6);
+      z-index: 2;
+      animation: pulse 2s infinite;
+    }
+    .splash-text {
+      color: #ffeb3b;
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(255,235,59,0.6);
+      z-index: 2;
+    }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+
+    /* Fond fixe pour toute l'app */
     .background-fixed {
       position: fixed;
       inset: 0;
@@ -72,7 +121,7 @@
     .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
     .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
     .add-to-cart { margin:16px; background:#ffeb3b; color:#111; border:none; padding:18px; font-size:1.2rem; font-weight:bold; border-radius:16px; display:flex; align-items:center; justify-content:center; gap:12px; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); }
-    #cart-page { padding:16px; }
+    #cart-page { padding:16px; display:none; }
     .cart-item { background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
     .delete-btn { background:#ef4444; color:white; border:none; width:32px; height:32px; border-radius:50%; font-weight:bold; cursor:pointer; }
     .cart-total { text-align:center; font-size:1.3rem; color:#ffeb3b; margin:20px 0; }
@@ -109,7 +158,16 @@
 </head>
 <body>
 
-  <!-- Image de fond fixe -->
+  <!-- Écran de chargement -->
+  <div id="splash-screen" class="splash">
+    <div class="splash-content">
+      <img src="rouen.jpg" alt="Fond Rouen" class="splash-bg" />
+      <img src="chat.JPG" alt="Logo Dry.Coffee76" class="splash-logo" />
+      <div class="splash-text">Chargement...</div>
+    </div>
+  </div>
+
+  <!-- Fond fixe app principale -->
   <div class="background-fixed">
     <img src="rouen.jpg" alt="Fond Rouen" />
   </div>
@@ -129,7 +187,7 @@
       <div id="home-page">
         <section class="welcome">
           <div class="welcome-inner">
-            <div class="welcome-emoji">🤴</div>
+            <div class="welcome-emoji">🍣</div>
             <div>
               <h2 id="welcome-name">Chargement...</h2>
               <p>Bienvenue sur le shop premium</p>
@@ -156,7 +214,7 @@
       </div>
 
       <div id="cart-page">
-        <h2 style="color:#ffeb3b; text-align:center; margin:20px 0;">Votre Panier</h2>
+        <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
         <div id="cart-items"></div>
         <div id="cart-total" class="cart-total"></div>
 
@@ -216,8 +274,8 @@
             </p>
             <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
               <li>Moins de 10 km de Rouen : <strong style="color:#ffeb3b;">80€</strong></li>
-              <li>Supérieur à 10 km de Rouen: <strong style="color:#ffeb3b;">150€</strong></li>
-              <li>Supérieur à de 25 km de Rouen: <strong style="color:#ffeb3b;">400€</strong></li>
+              <li>Au-delà de 10 km : <strong style="color:#ffeb3b;">150€</strong></li>
+              <li>Au-delà de 25 km : <strong style="color:#ffeb3b;">400€</strong></li>
             </ul>
             <p style="color:#ff6b6b;font-weight:bold;margin-top:16px;text-align:center;">
               Frais de livraison obligatoire s'il n'y a pas de tournée !
@@ -229,7 +287,7 @@
               Info Meet-up 📍
             </h2>
             <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
-              Nous sommes situé sur <strong style="color:#ffeb3b;">Rouen Rive Gauche</strong> 📍
+              Nous nous situons sur <strong style="color:#ffeb3b;">Rive Gauche</strong> 📍
             </p>
             <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.1rem;margin-top:16px;">
               50€ de commande minimum pour venir sur place
@@ -330,7 +388,10 @@
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateBadge(); }
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateBadge();
+  }
 
   function updateBadge() {
     const badge = document.getElementById('cart-badge');
@@ -339,11 +400,9 @@
   }
 
   function hideAllPages() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('product-detail').style.display = 'none';
-    document.getElementById('cart-page').style.display = 'none';
-    document.getElementById('infos-page').style.display = 'none';
-    document.getElementById('reseaux-page').style.display = 'none';
+    ['home-page', 'product-detail', 'cart-page', 'infos-page', 'reseaux-page'].forEach(id => {
+      document.getElementById(id).style.display = 'none';
+    });
     document.getElementById('btn-back').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   }
@@ -397,23 +456,6 @@
     document.getElementById('btn-back').style.display = 'inline-block';
   }
 
-  document.getElementById('btn-back').onclick = () => {
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-  };
-
-  document.getElementById('add-to-cart-btn').onclick = () => {
-    const selected = document.querySelector('.qty-btn.selected');
-    if (!selected) return alert('Sélectionnez une quantité !');
-    const title = document.getElementById('detail-title').textContent;
-    const key = Object.keys(products).find(k => products[k].title === title);
-    const item = products[key].quantities[parseInt(selected.dataset.idx)];
-    cart.push({ title, qty: item.qty, price: item.price });
-    saveCart();
-    alert('Ajouté au panier !');
-  };
-
   function showCart() {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
@@ -454,6 +496,23 @@
     document.getElementById('questionnaire').style.display = 'block';
   }
 
+  document.getElementById('btn-back').onclick = () => {
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+  };
+
+  document.getElementById('add-to-cart-btn').onclick = () => {
+    const selected = document.querySelector('.qty-btn.selected');
+    if (!selected) return alert('Sélectionnez une quantité !');
+    const title = document.getElementById('detail-title').textContent;
+    const key = Object.keys(products).find(k => products[k].title === title);
+    const item = products[key].quantities[parseInt(selected.dataset.idx)];
+    cart.push({ title, qty: item.qty, price: item.price });
+    saveCart();
+    alert('Ajouté au panier !');
+  };
+
   document.querySelectorAll('.option-btn').forEach(btn => {
     btn.onclick = () => {
       document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
@@ -491,16 +550,50 @@
     tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encoded}`);
   };
 
-  document.getElementById('nav-home').onclick = () => { hideAllPages(); document.getElementById('home-page').style.display = 'block'; document.getElementById('nav-home').classList.add('active'); };
-  document.getElementById('nav-cart').onclick = showCart;
-  document.getElementById('nav-infos').onclick = () => { hideAllPages(); document.getElementById('infos-page').style.display = 'block'; document.getElementById('nav-infos').classList.add('active'); };
-  document.getElementById('nav-reseaux').onclick = () => { hideAllPages(); document.getElementById('reseaux-page').style.display = 'block'; document.getElementById('nav-reseaux').classList.add('active'); };
+  // Navigation - tous les onglets sont visibles, on affiche seulement la page cliquée
+  document.getElementById('nav-home').onclick = () => {
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('nav-home').classList.add('active');
+  };
 
-  document.querySelectorAll('.reseau-item').forEach(item => item.onclick = () => tg.openLink(item.dataset.link));
+  document.getElementById('nav-cart').onclick = () => {
+    hideAllPages();
+    document.getElementById('cart-page').style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('nav-cart').classList.add('active');
+    showCart();
+  };
 
-  // Initialisation
-  renderProducts();
-  updateBadge();
+  document.getElementById('nav-infos').onclick = () => {
+    hideAllPages();
+    document.getElementById('infos-page').style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('nav-infos').classList.add('active');
+  };
+
+  document.getElementById('nav-reseaux').onclick = () => {
+    hideAllPages();
+    document.getElementById('reseaux-page').style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('nav-reseaux').classList.add('active');
+  };
+
+  // Splash screen disparition + affichage accueil par défaut
+  window.addEventListener('load', () => {
+    const splash = document.getElementById('splash-screen');
+    setTimeout(() => {
+      splash.classList.add('hidden');
+      setTimeout(() => {
+        splash.style.display = 'none';
+        document.getElementById('home-page').style.display = 'block';
+        document.getElementById('nav-home').classList.add('active');
+        renderProducts();
+        updateBadge();
+      }, 600);
+    }, 2500);
+  });
   </script>
 </body>
 </html>
