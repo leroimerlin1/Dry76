@@ -13,10 +13,10 @@ from telegram.ext import (
 )
 
 # 🔐 METS TON NOUVEAU TOKEN ICI
-token = "8752967953:AAF_dLPlqkt95ELSc__QO7h3838yZuL9pMc"
+token = "8674121576:AAEeyc0iAPKA8vSy9NymCg-PgScwm-7pkFQs"
 
-CHANNEL_ID = -1003642049011  # Mets le vrai ID
-CHANNEL_LINK = "https://t.me/+GGWvRRmfJU8wZjVk"
+CHANNEL_ID = -1003798159205  # Mets le vrai ID
+CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
 MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 
 logging.basicConfig(
