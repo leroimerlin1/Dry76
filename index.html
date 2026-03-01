@@ -116,19 +116,52 @@
     #products-grid { 
       padding:16px; 
       display:grid; 
-      grid-template-columns: repeat(2, 1fr);   /* ← MODIFIÉ : 2 produits par ligne */
+      grid-template-columns: repeat(2, 1fr); 
       gap:16px; 
     }
 
-    .card { background:rgba(30,30,30,.92); border:2px solid #ffeb3b; border-radius:14px; overflow:hidden; transition:all .25s; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,.5); }
-    .card:hover { transform:scale(1.04); border-color:#fff176; box-shadow:0 8px 24px rgba(255,235,59,.35); }
-    .card-img { height:240px; position:relative; background:#000; }
-    .card-img video { width:100%; height:100%; object-fit:cover; }
-    .badge-star { position:absolute; top:10px; left:10px; background:#ffeb3b; color:#000; font-size:.8rem; padding:5px 12px; border-radius:999px; font-weight:bold; box-shadow:0 0 8px rgba(255,235,59,.5); }
+    .card { 
+      background:rgba(30,30,30,.92); 
+      border:2px solid #ffeb3b; 
+      border-radius:14px; 
+      overflow:hidden; 
+      transition:all .25s; 
+      cursor:pointer; 
+      box-shadow:0 4px 12px rgba(0,0,0,.5); 
+    }
+    .card:hover { 
+      transform:scale(1.04); 
+      border-color:#fff176; 
+      box-shadow:0 8px 24px rgba(255,235,59,.35); 
+    }
+    .card-img { 
+      height:240px; 
+      position:relative; 
+      background:#000; 
+      overflow: hidden;
+    }
+    .card-img video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .badge-star { 
+      position:absolute; 
+      top:10px; 
+      left:10px; 
+      background:#ffeb3b; 
+      color:#000; 
+      font-size:.8rem; 
+      padding:5px 12px; 
+      border-radius:999px; 
+      font-weight:bold; 
+      box-shadow:0 0 8px rgba(255,235,59,.5); 
+      z-index: 2;
+    }
     .card-body { padding:12px; }
     .card-title { font-family: 'Orbitron', sans-serif; font-size:1.3rem; color:#ffeb3b; margin-bottom:8px; font-weight:900; letter-spacing:1px; }
     .card-farm { font-size:1rem; color:#aaa; margin-bottom:8px; font-weight:bold; }
-    .card-info { display: none; }
 
     #product-detail { display:none; padding-bottom:160px; position:relative; }
     .product-hero { height:340px; background:#000; position:relative; }
@@ -429,6 +462,7 @@
       key: 'frozen',
       title: '73u Frozen 🧊🦊',
       farm: 'KGF🦊',
+      previewVideo: "kgf73u.mp4",
       strain: '- Tutti Fruitti 🍓🍉🍒🍋🍏🍑🍌\n- Acai Cake S1 🫐🍰🍓',
       description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\n" +
                    "Tutti Fruitti : bonbon fruité explosif, fraise-banane-ananas ultra sucré et givrée\n" +
@@ -445,6 +479,7 @@
       key: 'kgf35u',
       title: 'KGF 35U ⚡️🦊',
       farm: 'KGF🦊',
+      previewVideo: "kgf35u.mp4",
       strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
       description: "Électricité dans les veines, terps électriques et bagout monstrueux.\n" +
                    "Panacotta : dessert italien crémeux, vanille douce, fruits rouges et gelato profond\n" +
@@ -486,14 +521,30 @@
   function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
+    
     Object.values(products).forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
+      
+      const videoHtml = p.previewVideo ? `
+        <video 
+          autoplay 
+          muted 
+          loop 
+          playsinline
+        >
+          <source src="${p.previewVideo}" type="video/mp4">
+          Vidéo non supportée
+        </video>
+      ` : `
+        <div style="height:240px;background:#111;display:flex;align-items:center;justify-content:center;color:#555;font-size:1.2rem;">
+          Vidéo manquante
+        </div>
+      `;
+      
       card.innerHTML = `
         <div class="card-img">
-          <div style="height:240px;background:#111;display:flex;align-items:center;justify-content:center;color:#555;font-size:1.2rem;">
-            Image / Vidéo
-          </div>
+          ${videoHtml}
           <div class="badge-star">★</div>
         </div>
         <div class="card-body">
@@ -501,6 +552,7 @@
           <div class="card-farm">${p.farm}</div>
         </div>
       `;
+      
       card.onclick = () => openProductDetail(p.key);
       grid.appendChild(card);
     });
