@@ -90,22 +90,53 @@
       padding:12px 16px; border-bottom:1px solid #333; z-index:10;
       display:flex; align-items:center; justify-content:center;
     }
-    .header-inner { display:flex; align-items:center; max-width:420px; width:100%; }
-    .header-logo { width:48px; height:48px; border-radius:50%; object-fit:cover; margin-right:14px; border:3px solid #ffeb3b; box-shadow:0 0 12px rgba(255,235,59,.4); }
-    .header-title { font-family: 'Orbitron', sans-serif; font-size:1.55rem; font-weight:900; letter-spacing:2px; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); }
+    .header-inner {
+      display:flex;
+      align-items:center;
+      max-width:420px;
+      width:100%;
+      position:relative;
+    }
+    .header-logo {
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      object-fit:cover;
+      margin-right:14px;
+      border:3px solid #ffeb3b;
+      box-shadow:0 0 12px rgba(255,235,59,.4);
+    }
+    .header-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size:1.55rem;
+      font-weight:900;
+      letter-spacing:2px;
+      color:#ffeb3b;
+      text-shadow:0 0 10px rgba(255,235,59,.5);
+    }
 
-    .back-btn {
-      position: absolute;
-      top: 70px;
-      left: 16px;
-      background: rgba(255,235,59,.15);
+    #btn-back {
+      position: static;
+      margin-right: 12px;
+      background: rgba(255,235,59,.25);
       color: #ffeb3b;
       border: 1px solid #ffeb3b;
-      padding: 8px 14px;
-      border-radius: 10px;
+      padding: 6px 12px;
+      border-radius: 8px;
       font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
-      z-index: 15;
+      white-space: nowrap;
+    }
+
+    /* Cacher le logo sur la page détail */
+    body.detail-visible .header-logo {
+      display: none;
+    }
+
+    /* Légèrement ajuster le titre quand logo absent */
+    body.detail-visible .header-title {
+      margin-left: 0;
     }
 
     .welcome { padding:20px 16px; background:rgba(30,30,30,.9); border-bottom:1px solid #333; }
@@ -296,12 +327,11 @@
 
       <header>
         <div class="header-inner">
+          <button class="back-btn" id="btn-back" style="display:none;">← Retour</button>
           <img src="chat.JPG" alt="Logo" class="header-logo">
           <div class="header-title">Dry.Coffee76</div>
         </div>
       </header>
-
-      <button class="back-btn" id="btn-back" style="display:none;">← Retour</button>
 
       <div id="home-page">
         <section class="welcome">
@@ -545,6 +575,7 @@
     document.getElementById('reseaux-page').style.display = 'none';
     document.getElementById('btn-back').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.body.classList.remove('detail-visible');
   }
 
   function renderProducts() {
@@ -626,7 +657,8 @@
 
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
-    document.getElementById('btn-back').style.display = 'block';
+    document.getElementById('btn-back').style.display = 'inline-block';
+    document.body.classList.add('detail-visible');
     document.getElementById('nav-home').classList.add('active');
   }
 
@@ -634,6 +666,8 @@
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
+    document.body.classList.remove('detail-visible');
+    document.getElementById('btn-back').style.display = 'none';
   };
 
   document.getElementById('add-to-cart-btn').onclick = () => {
