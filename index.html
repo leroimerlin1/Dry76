@@ -179,35 +179,6 @@
       height: 100%;
       object-fit: cover;
       background: #111;
-      pointer-events: none;
-    }
-    :fullscreen #detail-video,
-    :-webkit-full-screen #detail-video {
-      object-fit: contain;
-    }
-    .fullscreen-btn {
-      position: absolute;
-      bottom: 16px;
-      right: 16px;
-      background: rgba(0,0,0,0.6);
-      color: #ffeb3b;
-      border: 2px solid #ffeb3b;
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      font-size: 1.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 10;
-      box-shadow: 0 0 12px rgba(255,235,59,0.4);
-      transition: all 0.2s;
-    }
-    .fullscreen-btn:hover {
-      background: #ffeb3b;
-      color: #111;
-      transform: scale(1.1);
     }
 
     .product-title { padding:16px; font-family: 'Orbitron', sans-serif; font-size:2.1rem; font-weight:900; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); letter-spacing:1.5px; }
@@ -347,8 +318,7 @@
 
       <div id="product-detail">
         <div class="product-hero">
-          <video id="detail-video" autoplay muted loop playsinline></video>
-          <div class="fullscreen-btn" id="btn-fullscreen">⛶</div>
+          <video id="detail-video" autoplay muted loop playsinline controls></video>
         </div>
         <div class="product-title" id="detail-title"></div>
         <div class="badges">
@@ -620,7 +590,6 @@
   function openProductDetail(key) {
     const p = products[key];
     
-    // Charger la vidéo
     const videoElement = document.getElementById('detail-video');
     videoElement.innerHTML = '';
     const source = document.createElement('source');
@@ -628,8 +597,6 @@
     source.type = 'video/mp4';
     videoElement.appendChild(source);
     videoElement.load();
-    videoElement.muted = true;
-    videoElement.playsInline = true;
     videoElement.play().catch(() => {});
 
     document.getElementById('detail-title').textContent = p.title;
@@ -653,11 +620,6 @@
       btn.onclick = () => {
         qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
-
-        // Relancer la vidéo si elle s'est arrêtée
-        if (videoElement.paused) {
-          videoElement.play().catch(() => {});
-        }
       };
       qtyGrid.appendChild(btn);
     });
@@ -667,31 +629,6 @@
     document.getElementById('btn-back').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
   }
-
-  // Gestion du plein écran
-  function toggleFullscreen() {
-    const elem = document.getElementById('detail-video');
-
-    if (!document.fullscreenElement) {
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else if (elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-    }
-  }
-
-  document.getElementById('btn-fullscreen')?.addEventListener('click', toggleFullscreen);
 
   document.getElementById('btn-back').onclick = () => {
     hideAllPages();
