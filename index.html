@@ -129,12 +129,10 @@
       white-space: nowrap;
     }
 
-    /* Cacher le logo sur la page détail */
     body.detail-visible .header-logo {
       display: none;
     }
 
-    /* Légèrement ajuster le titre quand logo absent */
     body.detail-visible .header-title {
       margin-left: 0;
     }
@@ -159,17 +157,19 @@
       transition:all .25s; 
       cursor:pointer; 
       box-shadow:0 4px 12px rgba(0,0,0,.5); 
+      position: relative;
+      height: 240px;
     }
     .card:hover { 
       transform:scale(1.04); 
       border-color:#fff176; 
       box-shadow:0 8px 24px rgba(255,235,59,.35); 
     }
+
     .card-img { 
-      height:240px; 
-      position:relative; 
-      background:#000; 
-      overflow: hidden;
+      height: 100%; 
+      width: 100%;
+      position: relative;
     }
     .card-img video {
       width: 100%;
@@ -177,22 +177,32 @@
       object-fit: cover;
       display: block;
     }
-    .badge-star { 
-      position:absolute; 
-      top:10px; 
-      left:10px; 
-      background:#ffeb3b; 
-      color:#000; 
-      font-size:.8rem; 
-      padding:5px 12px; 
-      border-radius:999px; 
-      font-weight:bold; 
-      box-shadow:0 0 8px rgba(255,235,59,.5); 
+
+    .card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+      padding: 16px 12px 12px;
+      color: white;
       z-index: 2;
     }
-    .card-body { padding:12px; }
-    .card-title { font-family: 'Orbitron', sans-serif; font-size:1.3rem; color:#ffeb3b; margin-bottom:8px; font-weight:900; letter-spacing:1px; }
-    .card-farm { font-size:1rem; color:#aaa; margin-bottom:8px; font-weight:bold; }
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      color: #ffeb3b;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+      text-shadow: 0 1px 3px black;
+    }
+    .card-farm {
+      font-size: 0.9rem;
+      color: #ddd;
+      font-weight: bold;
+      text-shadow: 0 1px 3px black;
+    }
 
     #product-detail { display:none; padding-bottom:160px; position:relative; }
     .product-hero { 
@@ -581,38 +591,35 @@
   function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
-    
+
     Object.values(products).forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
-      
+
       const videoHtml = p.previewVideo ? `
-        <video 
-          autoplay 
-          muted 
-          loop 
-          playsinline
-        >
-          <source src="${p.previewVideo}" type="video/mp4">
-          Vidéo non supportée
-        </video>
+        <div class="card-img">
+          <video 
+            autoplay 
+            muted 
+            loop 
+            playsinline
+          >
+            <source src="${p.previewVideo}" type="video/mp4">
+            Vidéo non supportée
+          </video>
+          <div class="card-overlay">
+            <div class="card-title">${p.title}</div>
+            <div class="card-farm">${p.farm}</div>
+          </div>
+        </div>
       ` : `
-        <div style="height:240px;background:#111;display:flex;align-items:center;justify-content:center;color:#555;font-size:1.2rem;">
+        <div style="height:100%;background:#111;display:flex;align-items:center;justify-content:center;color:#555;font-size:1.2rem;">
           Vidéo manquante
         </div>
       `;
-      
-      card.innerHTML = `
-        <div class="card-img">
-          ${videoHtml}
-          <div class="badge-star">★</div>
-        </div>
-        <div class="card-body">
-          <div class="card-title">${p.title}</div>
-          <div class="card-farm">${p.farm}</div>
-        </div>
-      `;
-      
+
+      card.innerHTML = videoHtml;
+
       card.onclick = () => openProductDetail(p.key);
       grid.appendChild(card);
     });
