@@ -113,7 +113,13 @@
     .welcome-emoji { width:60px; height:60px; border-radius:50%; background:rgba(255,235,59,.12); display:flex; align-items:center; justify-content:center; font-size:2.4rem; box-shadow:0 0 12px rgba(255,235,59,.3); }
     #welcome-name { font-family: 'Orbitron', sans-serif; font-size:1.5rem; font-weight:900; color:#ffeb3b; text-shadow:0 0 8px rgba(255,235,59,.4); }
 
-    #products-grid { padding:16px; display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:16px; }
+    #products-grid { 
+      padding:16px; 
+      display:grid; 
+      grid-template-columns: repeat(2, 1fr);   /* ← MODIFIÉ : 2 produits par ligne */
+      gap:16px; 
+    }
+
     .card { background:rgba(30,30,30,.92); border:2px solid #ffeb3b; border-radius:14px; overflow:hidden; transition:all .25s; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,.5); }
     .card:hover { transform:scale(1.04); border-color:#fff176; box-shadow:0 8px 24px rgba(255,235,59,.35); }
     .card-img { height:240px; position:relative; background:#000; }
