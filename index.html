@@ -48,18 +48,43 @@
       padding:12px 16px; border-bottom:1px solid #333; z-index:10;
       display:flex; align-items:center; justify-content:center;
     }
-    .header-inner { display:flex; align-items:center; max-width:420px; width:100%; position:relative; }
-    .header-logo { width:48px; height:48px; border-radius:50%; object-fit:cover; margin-right:14px; border:3px solid #ffeb3b; box-shadow:0 0 12px rgba(255,235,59,.4); }
-    .header-title { font-family: 'Orbitron', sans-serif; font-size:1.55rem; font-weight:900; letter-spacing:2px; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); }
-
-    #btn-back {
-      position: static; margin-right: 12px; background: rgba(255,235,59,.25); color: #ffeb3b;
-      border: 1px solid #ffeb3b; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 1rem;
-      cursor: pointer; white-space: nowrap;
+    .header-inner { 
+      display:flex; 
+      align-items:center; 
+      justify-content: center; 
+      max-width:420px; 
+      width:100%; 
+      position:relative; 
     }
 
-    body.detail-visible .header-logo { display: none; }
-    body.detail-visible .header-title { margin-left: 0; }
+    #btn-back {
+      position: absolute;
+      left: 16px;
+      background: rgba(255,235,59,.25); 
+      color: #ffeb3b;
+      border: 1px solid #ffeb3b; 
+      padding: 6px 12px; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      font-size: 1rem;
+      cursor: pointer; 
+      white-space: nowrap;
+      z-index: 11;
+    }
+
+    /* NOUVELLE IMAGE TITRE (remplace logo + texte) */
+    .header-title-img {
+      height: 48px;
+      width: auto;
+      max-width: 280px;
+      object-fit: contain;
+      margin: 0 auto;
+    }
+
+    /* Dans la page détail : bouton retour visible + image titre centrée */
+    body.detail-visible .header-title-img {
+      margin-left: 60px;   /* décalage pour laisser place au bouton retour */
+    }
 
     /* BLOC BIENVENUE */
     .welcome-capsule {
@@ -212,15 +237,15 @@
     /* ==================== PAGE DÉTAIL ==================== */
     #product-detail { 
       display:none; 
-      padding-bottom: 130px;           /* juste assez pour la barre Telegram */
+      padding-bottom: 130px;
       position:relative; 
-      background: #000000;             /* TOUT le fond sous la vidéo est noir */
+      background: #000000;
     }
     .product-hero { height: 55vh; min-height: 300px; max-height: 500px; width: 100%; background: #000; position: relative; margin-bottom: 16px; overflow: hidden; }
     #detail-video { width: 100%; height: 100%; object-fit: cover; background: #111; }
 
     .product-info {
-      background: transparent;         /* le noir vient du #product-detail */
+      background: transparent;
       padding-bottom: 0;
     }
 
@@ -308,7 +333,7 @@
     }
 
     .add-to-cart { 
-      margin:16px 16px 40px 16px;   /* marge minimale après le bouton */
+      margin:16px 16px 40px 16px;
       background:#ffeb3b; 
       color:#111; 
       border:none; 
@@ -463,8 +488,7 @@
       <header>
         <div class="header-inner">
           <button class="back-btn" id="btn-back" style="display:none;">← Retour</button>
-          <img src="chat.JPG" alt="Logo" class="header-logo">
-          <div class="header-title">Dry.Coffee76</div>
+          <img src="titre.jpg" alt="Dry.Coffee76" class="header-title-img">
         </div>
       </header>
 
@@ -500,7 +524,6 @@
         <div id="products-grid"></div>
       </div>
 
-      <!-- PAGE DÉTAIL -->
       <div id="product-detail">
         <div class="product-hero">
           <video id="detail-video" autoplay muted loop playsinline controls></video>
