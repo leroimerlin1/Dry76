@@ -47,7 +47,7 @@
       position:sticky; top:0; 
       background: transparent;
       border-bottom: none;
-      padding: 12px 16px; 
+      padding: 20px 16px 12px;   /* plus d'espace en haut pour la grande image */
       z-index:10;
       display:flex; align-items:center; justify-content:center;
     }
@@ -77,21 +77,21 @@
       z-index: 11;
     }
 
-    /* IMAGE TITRE PNG - TRÈS GROSSE ET PLEINE LARGEUR */
+    /* IMAGE TITRE PNG - BEAUCOUP PLUS GRANDE */
     .header-title-img {
       width: 100%;
       height: auto;
-      max-height: 92px;
+      max-height: 150px;        /* ← BEAUCOUP PLUS GRAND (150px) */
       object-fit: contain;
-      margin: 4px auto 0;
+      margin: 0 auto;
     }
 
     body.detail-visible .header-title-img {
-      margin-left: 70px;
-      width: calc(100% - 70px);
+      margin-left: 85px;        /* décalage plus grand pour le bouton retour */
+      width: calc(100% - 85px);
     }
 
-    /* BLOC BIENVENUE */
+    /* ==================== LE RESTE DU DESIGN (identique) ==================== */
     .welcome-capsule {
       margin: 12px 20px 20px 20px;
       background: rgba(20, 20, 30, 0.92);
@@ -140,7 +140,6 @@
       margin-top: 4px;
     }
 
-    /* Capsule produits */
     .products-capsule {
       margin: 0 20px 24px 20px;
       background: rgba(20, 20, 30, 0.9);
@@ -175,7 +174,6 @@
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
-    /* Filtres */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -239,7 +237,6 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* ==================== PAGE DÉTAIL ==================== */
     #product-detail { 
       display:none; 
       padding-bottom: 130px;
@@ -356,7 +353,6 @@
       letter-spacing:1px; 
     }
 
-    /* ==================== AUTRES PAGES ==================== */
     #cart-page { padding:16px; display:none; }
     .cart-item { background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
     .delete-btn { background:#ef4444; color:white; border:none; width:32px; height:32px; border-radius:50%; font-weight:bold; cursor:pointer; }
