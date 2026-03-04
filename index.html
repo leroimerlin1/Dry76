@@ -62,82 +62,90 @@
     body.detail-visible .header-logo { display: none; }
     body.detail-visible .header-title { margin-left: 0; }
 
-    /* BLOC ACCUEIL DÉTACHÉ – MODERNE, ARRONDIE, FLOTTANT COMME TA 2ÈME IMAGE */
-    .welcome-hero {
-      margin: 16px 20px 32px 20px;
-      background: rgba(15, 15, 25, 0.92);
+    /* BLOC BIENVENUE DÉTACHÉ – NOM UTILISATEUR + TEXTE PREMIUM EN DESSOUS */
+    .welcome-capsule {
+      margin: 16px 24px 32px 24px;
+      background: rgba(20, 20, 30, 0.94);
       backdrop-filter: blur(20px);
-      border-radius: 32px;
-      border: 1px solid rgba(255, 235, 59, 0.22);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.65), inset 0 0 30px rgba(255,235,59,0.08);
-      padding: 32px 24px;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 235, 59, 0.18);
+      box-shadow: 0 12px 50px rgba(0,0,0,0.65);
+      padding: 28px 20px;
       text-align: center;
+      position: relative;
       overflow: hidden;
     }
 
-    .welcome-logo-container {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 20px;
-      border-radius: 50%;
-      background: rgba(255,235,59,0.08);
-      border: 5px solid #ffeb3b;
-      box-shadow: 0 0 40px rgba(255,235,59,0.5);
+    .welcome-inner {
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
-    .welcome-logo-container img {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
+    .welcome-emoji {
+      font-size: 2.8rem;
+      animation: wave-hand 2.8s infinite;
     }
 
-    .welcome-title {
+    @keyframes wave-hand {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(-15deg); }
+      40% { transform: rotate(10deg); }
+      60% { transform: rotate(-10deg); }
+      80% { transform: rotate(5deg); }
+    }
+
+    .welcome-name {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.2rem;
+      font-size: 1.9rem;
       font-weight: 900;
       color: #ffeb3b;
-      text-shadow: 0 0 20px rgba(255,235,59,0.7);
-      letter-spacing: 3px;
-      margin-bottom: 12px;
+      text-shadow: 0 0 18px rgba(255,235,59,0.7);
+      letter-spacing: 1.5px;
     }
 
-    .welcome-greeting {
+    .welcome-premium {
+      font-size: 1.25rem;
+      color: #ddd;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    /* Capsule produits séparée */
+    .products-capsule {
+      margin: 0 24px 32px 24px;
+      background: rgba(20, 20, 30, 0.88);
+      backdrop-filter: blur(16px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 235, 59, 0.16);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+      padding: 16px 24px;
+      text-align: center;
+    }
+
+    .products-title {
       font-size: 1.4rem;
       font-weight: 700;
       color: #ffeb3b;
-      margin: 16px 0 24px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .welcome-greeting span.emoji {
-      font-size: 2.2rem;
-    }
-
-    .welcome-text {
-      font-size: 1.15rem;
-      color: #ddd;
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .products-count-modern {
-      background: rgba(255,235,59,0.18);
-      border: 1px solid rgba(255,235,59,0.45);
-      border-radius: 999px;
-      padding: 14px 32px;
-      font-size: 1.3rem;
-      font-weight: 900;
+    .products-count {
+      font-size: 1.2rem;
+      font-weight: 800;
       color: #ffeb3b;
+      background: rgba(255,235,59,0.12);
+      border: 1px solid rgba(255,235,59,0.4);
+      border-radius: 999px;
+      padding: 10px 28px;
       display: inline-block;
-      box-shadow: 0 0 25px rgba(255,235,59,0.3);
-      letter-spacing: 1px;
+      box-shadow: 0 0 20px rgba(255,235,59,0.25);
     }
 
     /* Cache l'ancien compteur */
@@ -372,20 +380,24 @@
       </header>
 
       <div id="home-page">
-        <!-- BLOC ACCUEIL MODERNE DÉTACHÉ ET ARRONDIE -->
-        <div class="welcome-hero">
-          <div class="welcome-logo-container">
-            <img src="chat.JPG" alt="Logo Dry.Coffee76">
+        <!-- BLOC BIENVENUE DÉTACHÉ – NOM UTILISATEUR RÉEL + TEXTE PREMIUM EN DESSOUS -->
+        <div class="welcome-capsule" id="welcome-capsule">
+          <div class="welcome-inner">
+            <span class="welcome-emoji">👋</span>
+            <span class="welcome-name" id="welcome-name">Chargement...</span>
           </div>
-          <div class="welcome-title">Dry.Coffee76</div>
-          <div class="welcome-greeting">
-            <span class="emoji">🤴</span> Salut LeRoiMerlin !
-          </div>
-          <div class="welcome-text">
+          <div class="welcome-premium">
             Bienvenue sur le shop premium
           </div>
-          <div class="products-count-modern">
-            3 produits disponibles
+        </div>
+
+        <!-- Capsule produits séparée -->
+        <div class="products-capsule">
+          <div class="products-title">
+            <span>🛍️</span> Produits
+          </div>
+          <div class="products-count" id="products-count-modern">
+            0 produits disponibles
           </div>
         </div>
 
@@ -577,6 +589,14 @@
   tg.disableVerticalSwipes();
 
   const user = tg.initDataUnsafe?.user || {};
+
+  // Mise à jour dynamique du nom + texte premium
+  const welcomeNameElement = document.getElementById('welcome-name');
+  const userName = user.first_name || user.username || 'Utilisateur';
+  welcomeNameElement.textContent = userName;
+
+  // Mise à jour du compteur produits (statique ici, tu peux le rendre dynamique plus tard)
+  document.getElementById('products-count-modern').textContent = '3 produits disponibles';
 
   const products = {
     frozen: {
