@@ -62,7 +62,7 @@
     body.detail-visible .header-logo { display: none; }
     body.detail-visible .header-title { margin-left: 0; }
 
-    /* BLOC BIENVENUE – TAILLE ET STYLE CALQUÉS SUR TA CAPTURE */
+    /* BLOC BIENVENUE – TAILLE COMPACTE COMME TA CAPTURE */
     .welcome-capsule {
       margin: 12px 20px 20px 20px;
       background: rgba(20, 20, 30, 0.92);
@@ -111,7 +111,7 @@
       margin-top: 4px;
     }
 
-    /* Capsule produits – style fin et arrondi comme ta capture */
+    /* Capsule produits */
     .products-capsule {
       margin: 0 20px 24px 20px;
       background: rgba(20, 20, 30, 0.9);
@@ -149,7 +149,24 @@
     /* Cache l'ancien compteur */
     #products-count-container { display: none; }
 
-    /* Filtres */
+    /* Badge panier */
+    #cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #ef4444;
+      color: white;
+      border-radius: 50%;
+      padding: 3px 7px;
+      font-size: 0.65rem;
+      min-width: 16px;
+      text-align: center;
+      box-shadow: 0 0 8px rgba(239,68,68,0.6);
+      z-index: 10;
+      display: none;
+    }
+
+    /* Filtres et produits */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -273,7 +290,6 @@
     .reseau-item:hover { background:#ffeb3b; color:#111; border-color:#fff176; transform:scale(1.03); box-shadow:0 6px 16px rgba(255,235,59,.35); }
     .reseau-item img { width:40px; height:40px; border-radius:50%; object-fit:contain; background:#fff; padding:4px; box-shadow:0 0 8px rgba(0,0,0,.5); }
 
-    /* BARRE DU BAS – ARRONDIE + FLOTTANTE */
     nav {
       position: fixed;
       bottom: 24px;
@@ -376,7 +392,6 @@
       </header>
 
       <div id="home-page">
-        <!-- BLOC BIENVENUE – TAILLE ET STYLE CALQUÉS SUR TA CAPTURE -->
         <div class="welcome-capsule" id="welcome-capsule">
           <div class="welcome-inner">
             <span class="welcome-emoji">👋</span>
@@ -387,7 +402,6 @@
           </div>
         </div>
 
-        <!-- Capsule produits -->
         <div class="products-capsule">
           <div class="products-title">
             <span>🛍️</span> Produits
@@ -586,12 +600,11 @@
 
   const user = tg.initDataUnsafe?.user || {};
 
-  // Mise à jour dynamique du nom de l'utilisateur
+  // Mise à jour dynamique du nom
   const welcomeNameElement = document.getElementById('welcome-name');
   const userName = user.first_name || user.username || 'Utilisateur';
   welcomeNameElement.textContent = userName;
 
-  // Compteur produits (statique ici, tu peux le rendre dynamique si besoin)
   document.getElementById('products-count-modern').textContent = '3 produits disponibles';
 
   let currentCategoryFilter = null;
@@ -684,6 +697,13 @@
 
     let filteredProducts = Object.values(products);
 
+    if (currentCategoryFilter) {
+      filteredProducts = filteredProducts.filter(p => p.title === currentCategoryFilter);
+    }
+    if (currentFarmFilter) {
+      filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
+    }
+
     filteredProducts.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
@@ -742,8 +762,10 @@
       const item = document.createElement('div');
       item.className = 'dropdown-item';
       item.textContent = shortenTitle(title);
+      item.dataset.fullTitle = title; // On stocke le titre complet ici
       item.onclick = () => {
-        currentCategoryFilter = currentCategoryFilter === title ? null : title;
+        const fullTitle = item.dataset.fullTitle;
+        currentCategoryFilter = currentCategoryFilter === fullTitle ? null : fullTitle;
         currentFarmFilter = null;
         renderProducts();
         catDropdown.style.display = 'none';
@@ -963,7 +985,6 @@
         document.getElementById('home-page').style.display = 'block';
         document.getElementById('nav-home').classList.add('active');
 
-        // Force l'affichage des produits au démarrage sans filtre
         currentCategoryFilter = null;
         currentFarmFilter = null;
         renderProducts();
