@@ -40,7 +40,7 @@
     }
 
     .container { position:relative; min-height:100vh; }
-    .content { position:relative; z-index:2; padding:16px 0 170px; }
+    .content { position:relative; z-index:2; padding:16px 0 180px; }
 
     header {
       position:sticky; top:0; background:rgba(17,17,17,0.95); backdrop-filter:blur(14px);
@@ -60,15 +60,17 @@
       padding:8px 14px; border-radius:14px; font-weight:700;
       transition:0.25s;
     }
-    #btn-back:hover { background:rgba(255,235,59,0.3); }
 
-    /* Titre + sous-titre en bas */
+    /* Bottom title - fond pour éviter le noir */
     .bottom-header {
       position: fixed;
       bottom: 102px; left: 0; right: 0;
       z-index: 99;
       text-align: center;
-      padding: 0 20px;
+      padding: 12px 20px 8px;
+      background: rgba(17,17,17,0.92);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255,235,59,0.2);
       display: none;
     }
     .bottom-welcome {
@@ -80,15 +82,14 @@
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 16px rgba(255,235,59,0.5);
       letter-spacing: 1.5px;
-      margin-bottom: 6px;
     }
     .bottom-subtitle {
       font-size: 1.1rem;
       color: #ddd;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+      margin-top: 4px;
     }
 
-    /* Produits capsule */
+    /* Capsule produits */
     .products-capsule {
       margin: 24px 20px 28px;
       background: rgba(25,25,35,0.85);
@@ -106,8 +107,8 @@
       color:#ffeb3b; font-weight:800; font-size:1.1rem;
     }
 
-    /* Filtres pill */
-    #filters-wrapper { padding:0 20px 32px; position:relative; }
+    /* Filtres */
+    #filters-wrapper { padding:0 20px 32px; position:relative; z-index:20; }
     #filters-container { display:flex; gap:12px; }
     .filter-tab {
       flex:1; padding:14px 0;
@@ -135,10 +136,10 @@
 
     .dropdown-menu {
       position:absolute; top:100%; left:4%; right:4%;
-      background:rgba(30,30,45,0.96); border:1px solid #444;
+      background:rgba(30,30,45,0.98); border:1px solid #444;
       border-radius:20px; margin-top:8px; max-height:340px; overflow-y:auto;
       backdrop-filter:blur(8px); box-shadow:0 10px 40px rgba(0,0,0,0.7);
-      z-index:100;
+      z-index:200;
     }
     .dropdown-item {
       padding:14px 18px; color:#ddd; border-bottom:1px solid #444;
@@ -428,8 +429,16 @@
       farm: 'KGF🦊',
       previewVideo: "kgf73u.mp4",
       strain: '- Tutti Fruitti 🍓🍉🍒🍋🍏🍑🍌\n- Acai Cake S1 🫐🍰🍓',
-      description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\nTutti Fruitti : bonbon fruité explosif, fraise-banane-ananas ultra sucré et givrée\nAcai Cake S1 : myrtille crémeuse, gâteau aux baies, touche givrée et diesel subtil en fond\nPuissance XXL, effet glacial qui monte vite et qui dure longtemps.",
-      quantities: [{ qty: '10G', price: '80€' }, { qty: '25G', price: '160€' }, { qty: '50G', price: '280€' }, { qty: '100G', price: '550€' }]
+      description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\n" +
+                   "Tutti Fruitti : bonbon fruité explosif, fraise-banane-ananas ultra sucré et givrée\n" +
+                   "Acai Cake S1 : myrtille crémeuse, gâteau aux baies, touche givrée et diesel subtil en fond\n" +
+                   "Puissance XXL, effet glacial qui monte vite et qui dure longtemps.",
+      quantities: [
+        { qty: '10G', price: '80€' },
+        { qty: '25G', price: '160€' },
+        { qty: '50G', price: '280€' },
+        { qty: '100G', price: '550€' }
+      ]
     },
     kgf35u: {
       key: 'kgf35u',
@@ -438,7 +447,12 @@
       previewVideo: "kgf35u.mp4",
       strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
       description: "Électricité dans les veines, terps électriques et bagout monstrueux.",
-      quantities: [{ qty: '10G', price: '60€' }, { qty: '25G', price: '140€' }, { qty: '50G', price: '220€' }, { qty: '100G', price: '400€' }]
+      quantities: [
+        { qty: '10G', price: '60€' },
+        { qty: '25G', price: '140€' },
+        { qty: '50G', price: '220€' },
+        { qty: '100G', price: '400€' }
+      ]
     },
     blanche: {
       key: 'blanche',
@@ -447,7 +461,13 @@
       previewVideo: "blanche.mp4",
       strain: '',
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
-      quantities: [{ qty: '1G', price: '60€' }, { qty: '3G', price: '160€' }, { qty: '5G', price: '230€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }]
+      quantities: [
+        { qty: '1G', price: '60€' },
+        { qty: '3G', price: '160€' },
+        { qty: '5G', price: '230€' },
+        { qty: '10G', price: '360€' },
+        { qty: '20G', price: '680€' }
+      ]
     }
   };
 
@@ -478,6 +498,7 @@
   function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
+
     let filtered = Object.values(products);
     if (currentCategoryFilter) filtered = filtered.filter(p => p.title === currentCategoryFilter);
     if (currentFarmFilter) filtered = filtered.filter(p => p.farm === currentFarmFilter);
@@ -499,11 +520,6 @@
     });
   }
 
-  function updateFilterUI() {
-    document.getElementById('filter-categories-btn').dataset.active = currentCategoryFilter ? "true" : "false";
-    document.getElementById('filter-farms-btn').dataset.active = currentFarmFilter ? "true" : "false";
-  }
-
   function initFilters() {
     const catBtn = document.getElementById('filter-categories-btn');
     const farmBtn = document.getElementById('filter-farms-btn');
@@ -511,8 +527,7 @@
     const farmDrop = document.getElementById('farms-dropdown');
 
     // Catégories
-    const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
-    uniqueTitles.forEach(title => {
+    [...new Set(Object.values(products).map(p => p.title))].forEach(title => {
       const item = document.createElement('div');
       item.className = 'dropdown-item';
       item.textContent = title;
@@ -520,14 +535,14 @@
         currentCategoryFilter = currentCategoryFilter === title ? null : title;
         currentFarmFilter = null;
         renderProducts();
+        updateFilterUI();
         catDrop.style.display = 'none';
       };
       catDrop.appendChild(item);
     });
 
     // Farms
-    const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
-    uniqueFarms.forEach(farm => {
+    [...new Set(Object.values(products).map(p => p.farm))].forEach(farm => {
       const item = document.createElement('div');
       item.className = 'dropdown-item';
       item.textContent = farm;
@@ -535,13 +550,23 @@
         currentFarmFilter = currentFarmFilter === farm ? null : farm;
         currentCategoryFilter = null;
         renderProducts();
+        updateFilterUI();
         farmDrop.style.display = 'none';
       };
       farmDrop.appendChild(item);
     });
 
-    catBtn.onclick = (e) => { e.stopPropagation(); catDrop.style.display = catDrop.style.display === 'block' ? 'none' : 'block'; farmDrop.style.display = 'none'; };
-    farmBtn.onclick = (e) => { e.stopPropagation(); farmDrop.style.display = farmDrop.style.display === 'block' ? 'none' : 'block'; catDrop.style.display = 'none'; };
+    catBtn.onclick = (e) => {
+      e.stopPropagation();
+      catDrop.style.display = (catDrop.style.display === 'block') ? 'none' : 'block';
+      farmDrop.style.display = 'none';
+    };
+
+    farmBtn.onclick = (e) => {
+      e.stopPropagation();
+      farmDrop.style.display = (farmDrop.style.display === 'block') ? 'none' : 'block';
+      catDrop.style.display = 'none';
+    };
 
     document.addEventListener('click', e => {
       if (!e.target.closest('#filters-wrapper')) {
@@ -549,6 +574,11 @@
         farmDrop.style.display = 'none';
       }
     });
+  }
+
+  function updateFilterUI() {
+    document.getElementById('filter-categories-btn').dataset.active = currentCategoryFilter ? "true" : "false";
+    document.getElementById('filter-farms-btn').dataset.active = currentFarmFilter ? "true" : "false";
   }
 
   function openProductDetail(key) {
