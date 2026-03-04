@@ -44,8 +44,11 @@
     .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 16px; }
 
     header {
-      position:sticky; top:0; background:rgba(30,30,30,.96); backdrop-filter:blur(14px);
-      padding:12px 16px; border-bottom:1px solid #333; z-index:10;
+      position:sticky; top:0; 
+      background: transparent;
+      border-bottom: none;
+      padding: 12px 16px; 
+      z-index:10;
       display:flex; align-items:center; justify-content:center;
     }
     .header-inner { 
@@ -60,6 +63,8 @@
     #btn-back {
       position: absolute;
       left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
       background: rgba(255,235,59,.25); 
       color: #ffeb3b;
       border: 1px solid #ffeb3b; 
@@ -72,18 +77,18 @@
       z-index: 11;
     }
 
-    /* NOUVELLE IMAGE TITRE (remplace logo + texte) */
+    /* IMAGE TITRE PNG - TRÈS GROSSE ET PLEINE LARGEUR */
     .header-title-img {
-      height: 48px;
-      width: auto;
-      max-width: 280px;
+      width: 100%;
+      height: auto;
+      max-height: 92px;
       object-fit: contain;
-      margin: 0 auto;
+      margin: 4px auto 0;
     }
 
-    /* Dans la page détail : bouton retour visible + image titre centrée */
     body.detail-visible .header-title-img {
-      margin-left: 60px;   /* décalage pour laisser place au bouton retour */
+      margin-left: 70px;
+      width: calc(100% - 70px);
     }
 
     /* BLOC BIENVENUE */
@@ -488,7 +493,7 @@
       <header>
         <div class="header-inner">
           <button class="back-btn" id="btn-back" style="display:none;">← Retour</button>
-          <img src="titre.jpg" alt="Dry.Coffee76" class="header-title-img">
+          <img src="titre.PNG" alt="Dry.Coffee76" class="header-title-img">
         </div>
       </header>
 
