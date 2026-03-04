@@ -174,14 +174,14 @@
 
     #infos-page {
       display: none;
-      padding: 16px 16px 80px 16px;          /* padding-bottom réduit */
+      padding: 16px 16px 80px 16px;
       font-size: 1.05rem;
       line-height: 1.6;
       min-height: auto;
     }
 
     #infos-page > div {
-      padding-bottom: 40px;                   /* espace après le dernier bloc */
+      padding-bottom: 40px;
     }
 
     .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
@@ -197,16 +197,73 @@
     .reseau-item img { width:40px; height:40px; border-radius:50%; object-fit:contain; background:#fff; padding:4px; box-shadow:0 0 8px rgba(0,0,0,.5); }
 
     nav {
-      position:fixed; bottom:0; left:0; right:0; background:rgba(30,30,30,.96);
-      backdrop-filter:blur(18px); border-top:1px solid #333; padding:10px 0;
-      display:flex; justify-content:space-around; z-index:20;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 74px;
+      background: rgba(15, 15, 20, 0.94);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 235, 59, 0.12);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      padding: 0 8px;
+      box-shadow: 0 -6px 20px rgba(0,0,0,0.6);
     }
-    .nav-item { display:flex; flex-direction:column; align-items:center; color:#aaa; font-size:.78rem; gap:4px; cursor:pointer; flex:1; position:relative; }
-    .nav-item.active { color:#ffeb3b; }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      font-size: 0.73rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 60px;
+      transition: all 0.25s;
+    }
+
+    .nav-item.active {
+      color: #ffeb3b;
+    }
+
+    .nav-icon-wrapper {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s;
+      margin-bottom: 3px;
+    }
+
+    .nav-item.active .nav-icon-wrapper {
+      background: rgba(255, 235, 59, 0.22);
+      box-shadow: 0 0 18px rgba(255, 235, 59, 0.55);
+    }
+
+    .nav-item svg {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+    }
+
     #cart-badge {
-      position: absolute; top: -6px; right: 12px; background: #ef4444; color: white;
-      border-radius: 50%; padding: 3px 7px; font-size: .7rem; min-width: 18px;
-      text-align: center; display: none;
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: #ef4444;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.6rem;
+      min-width: 16px;
+      text-align: center;
+      display: none;
     }
   </style>
 </head>
@@ -390,33 +447,41 @@
 
       <nav>
         <div class="nav-item active" id="nav-home">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
+          <div class="nav-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
           <span>Accueil</span>
         </div>
         <div class="nav-item" id="nav-cart">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="9" cy="21" r="1"/>
-            <circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-          </svg>
+          <div class="nav-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span id="cart-badge"></span>
+          </div>
           <span>Panier</span>
-          <span id="cart-badge"></span>
         </div>
         <div class="nav-item" id="nav-infos">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="16" x2="12" y2="12"/>
-            <line x1="12" y1="8" x2="12.01" y2="8"/>
-          </svg>
+          <div class="nav-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="16" x2="12" y2="12"/>
+              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+          </div>
           <span>Infos</span>
         </div>
         <div class="nav-item" id="nav-reseaux">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          </svg>
+          <div class="nav-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
           <span>Réseaux</span>
         </div>
       </nav>
@@ -513,7 +578,6 @@
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.body.classList.remove('detail-visible');
 
-    // Remonter tout en haut à chaque changement de page
     window.scrollTo(0, 0);
   }
 
