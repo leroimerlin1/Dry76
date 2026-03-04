@@ -148,25 +148,7 @@
 
     #products-count-container { display: none; }
 
-    /* Badge panier – position corrigée */
-    #cart-badge {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      transform: translate(50%, -50%);
-      background: #ef4444;
-      color: white;
-      border-radius: 50%;
-      padding: 3px 7px;
-      font-size: 0.7rem;
-      min-width: 18px;
-      text-align: center;
-      font-weight: bold;
-      box-shadow: 0 0 8px rgba(239,68,68,0.6);
-      z-index: 10;
-      display: none;
-    }
-
+    /* Filtres */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -318,6 +300,7 @@
       cursor: pointer;
       width: 60px;
       transition: all 0.3s ease;
+      position: relative;
     }
 
     .nav-item.active {
@@ -334,6 +317,7 @@
       border-radius: 50%;
       transition: all 0.3s ease;
       background: rgba(255, 235, 59, 0.05);
+      position: relative;
     }
 
     .nav-item.active .nav-icon-wrapper {
@@ -350,17 +334,18 @@
 
     #cart-badge {
       position: absolute;
-      top: -6px;
-      right: -6px;
-      transform: translate(50%, -50%);
+      top: -4px;
+      right: -4px;
       background: #ef4444;
       color: white;
       border-radius: 50%;
-      padding: 3px 7px;
-      font-size: 0.7rem;
       min-width: 18px;
-      text-align: center;
+      height: 18px;
+      padding: 0 4px;
+      font-size: 0.65rem;
       font-weight: bold;
+      text-align: center;
+      line-height: 18px;
       box-shadow: 0 0 8px rgba(239,68,68,0.6);
       z-index: 10;
       display: none;
@@ -567,7 +552,7 @@
               <circle cx="20" cy="21" r="1"/>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
             </svg>
-            <span id="cart-badge"></span> <!-- BADGE ICI = PANIER -->
+            <span id="cart-badge"></span>
           </div>
           <span>Panier</span>
         </div>
@@ -868,6 +853,7 @@
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
     updateBadge();
+    setTimeout(updateBadge, 100); // Force rafraîchissement du badge
     alert('Ajouté au panier !');
   };
 
