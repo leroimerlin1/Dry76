@@ -142,6 +142,17 @@
     .welcome-emoji { width:60px; height:60px; border-radius:50%; background:rgba(255,235,59,.12); display:flex; align-items:center; justify-content:center; font-size:2.4rem; box-shadow:0 0 12px rgba(255,235,59,.3); }
     #welcome-name { font-family: 'Orbitron', sans-serif; font-size:1.5rem; font-weight:900; color:#ffeb3b; text-shadow:0 0 8px rgba(255,235,59,.4); }
 
+    #products-count-container {
+      padding: 12px 16px;
+      color: #ffeb3b;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(255,235,59,0.5);
+      background: rgba(30,30,30,0.7);
+      border-bottom: 1px solid #444;
+    }
+
     #products-grid { 
       padding:16px; 
       display:grid; 
@@ -353,6 +364,11 @@
             </div>
           </div>
         </section>
+
+        <div id="products-count-container">
+          <span id="products-count">0</span> produit<span id="products-plural">s</span> disponible<span id="products-plural">s</span>
+        </div>
+
         <div id="products-grid"></div>
       </div>
 
@@ -592,6 +608,15 @@
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
 
+    const count = Object.keys(products).length;
+    document.getElementById('products-count').textContent = count;
+
+    // Gestion du "s" pluriel
+    const pluralElements = document.querySelectorAll('#products-plural');
+    pluralElements.forEach(el => {
+      el.style.display = (count !== 1) ? 'inline' : 'none';
+    });
+
     Object.values(products).forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
@@ -619,7 +644,6 @@
       `;
 
       card.innerHTML = videoHtml;
-
       card.onclick = () => openProductDetail(p.key);
       grid.appendChild(card);
     });
@@ -801,8 +825,11 @@
       splash.classList.add('hidden');
       setTimeout(() => {
         splash.style.display = 'none';
+
+        hideAllPages();
         document.getElementById('home-page').style.display = 'block';
         document.getElementById('nav-home').classList.add('active');
+
         renderProducts();
         updateBadge();
 
