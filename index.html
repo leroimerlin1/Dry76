@@ -41,7 +41,6 @@
     .background-fixed img { width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; }
 
     .container { position:relative; min-height:100vh; }
-    .overlay { position:absolute; inset:0; background:rgba(30,30,30,.75); backdrop-filter:blur(3px); z-index:-1; }
     .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 16px; }
 
     header {
@@ -213,15 +212,15 @@
     /* ==================== PAGE DÉTAIL ==================== */
     #product-detail { 
       display:none; 
-      padding-bottom: 110px;        /* juste assez pour la barre Telegram */
+      padding-bottom: 130px;           /* juste assez pour la barre Telegram */
       position:relative; 
+      background: #000000;             /* TOUT le fond sous la vidéo est noir */
     }
     .product-hero { height: 55vh; min-height: 300px; max-height: 500px; width: 100%; background: #000; position: relative; margin-bottom: 16px; overflow: hidden; }
     #detail-video { width: 100%; height: 100%; object-fit: cover; background: #111; }
 
-    /* FOND TOUT NOIR derrière titre / strains / description / prix */
     .product-info {
-      background: #000000;
+      background: transparent;         /* le noir vient du #product-detail */
       padding-bottom: 0;
     }
 
@@ -309,7 +308,7 @@
     }
 
     .add-to-cart { 
-      margin:16px 16px 50px 16px;   /* 50px en bas pour la barre nav */
+      margin:16px 16px 40px 16px;   /* marge minimale après le bouton */
       background:#ffeb3b; 
       color:#111; 
       border:none; 
@@ -325,11 +324,6 @@
       box-shadow:0 0 12px rgba(255,235,59,.5); 
       font-family: 'Orbitron', sans-serif; 
       letter-spacing:1px; 
-    }
-
-    /* Fond d'écran visible dans la page détail */
-    body.detail-visible .overlay {
-      display: none;
     }
 
     /* ==================== AUTRES PAGES ==================== */
@@ -355,10 +349,6 @@
       font-size: 1.05rem;
       line-height: 1.6;
       min-height: auto;
-    }
-
-    #infos-page > div {
-      padding-bottom: 40px;
     }
 
     .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
@@ -468,7 +458,6 @@
   </div>
 
   <div class="container">
-    <div class="overlay"></div>
     <div class="content">
 
       <header>
@@ -511,7 +500,7 @@
         <div id="products-grid"></div>
       </div>
 
-      <!-- PAGE DÉTAIL MODIFIÉE -->
+      <!-- PAGE DÉTAIL -->
       <div id="product-detail">
         <div class="product-hero">
           <video id="detail-video" autoplay muted loop playsinline controls></video>
