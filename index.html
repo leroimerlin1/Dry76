@@ -196,22 +196,23 @@
     .reseau-item:hover { background:#ffeb3b; color:#111; border-color:#fff176; transform:scale(1.03); box-shadow:0 6px 16px rgba(255,235,59,.35); }
     .reseau-item img { width:40px; height:40px; border-radius:50%; object-fit:contain; background:#fff; padding:4px; box-shadow:0 0 8px rgba(0,0,0,.5); }
 
-    /* BARRE DU BAS - VERSION SURÉLEVÉE COMME SUR TA PHOTO */
+    /* BARRE DU BAS – TRÈS SURÉLEVÉE, ARRONDIE, NE TOUCHE PAS LE BAS DE L'ÉCRAN */
     nav {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 82px;
+      bottom: 20px;                           /* espace important en bas → flotte vraiment */
+      left: 16px;
+      right: 16px;
+      height: 90px;                           /* barre plus haute */
       background: rgba(15, 15, 20, 0.94);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255, 235, 59, 0.1);
+      backdrop-filter: blur(24px);
+      border-radius: 28px 28px 0 0;           /* arrondi prononcé tout autour (sauf bas) */
+      border: 1px solid rgba(255, 235, 59, 0.20);
       display: flex;
       justify-content: space-around;
       align-items: flex-end;
       z-index: 100;
-      padding: 0 12px 14px 12px;
-      box-shadow: 0 -10px 30px rgba(0,0,0,0.7);
+      padding: 0 18px 20px 18px;              /* marge en bas pour accentuer le flottement */
+      box-shadow: 0 -16px 50px rgba(0,0,0,0.8);
     }
 
     .nav-item {
@@ -225,49 +226,49 @@
       cursor: pointer;
       width: 64px;
       height: 100%;
-      transition: all 0.3s;
-      padding-top: 10px;
+      transition: all 0.35s ease;
+      padding-top: 14px;
     }
 
     .nav-item.active {
       color: #ffeb3b;
-      transform: translateY(-8px); /* surélévation de l'onglet actif */
+      transform: translateY(-16px);           /* surélévation très marquée */
     }
 
     .nav-icon-wrapper {
-      width: 58px;
-      height: 58px;
+      width: 64px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      transition: all 0.3s;
-      margin-bottom: 4px;
-      background: rgba(255, 235, 59, 0.06);
+      transition: all 0.35s ease;
+      margin-bottom: 8px;
+      background: rgba(255, 235, 59, 0.05);
     }
 
     .nav-item.active .nav-icon-wrapper {
-      background: rgba(255, 235, 59, 0.30);
-      box-shadow: 0 8px 24px rgba(255, 235, 59, 0.55);
-      transform: scale(1.15);
+      background: rgba(255, 235, 59, 0.38);
+      box-shadow: 0 12px 36px rgba(255, 235, 59, 0.65);
+      transform: scale(1.20);
     }
 
     .nav-item svg {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       stroke: currentColor;
     }
 
     #cart-badge {
       position: absolute;
-      top: 4px;
+      top: 6px;
       right: 8px;
       background: #ef4444;
       color: white;
       border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 0.65rem;
-      min-width: 18px;
+      padding: 3px 7px;
+      font-size: 0.68rem;
+      min-width: 20px;
       text-align: center;
       display: none;
     }
