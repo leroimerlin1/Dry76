@@ -7,196 +7,263 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
 
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: 'M PLUS Rounded 1c', 'Orbitron', sans-serif;
-  background: #1a1a1a;
-  color: #e8e8e8;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
-/* Splash amélioré */
-.splash {
-  position: fixed; inset:0; background: #000; z-index:9999;
-  display:flex; align-items:center; justify-content:center;
-  transition:opacity 0.8s ease, transform 0.8s ease;
-}
-.splash.hidden { opacity:0; transform:scale(1.05); pointer-events:none; }
-.splash-content {
-  text-align:center;
-}
-.splash-logo {
-  width:150px; height:150px; border-radius:50%;
-  border:5px solid #ffeb3b; box-shadow:0 0 35px rgba(255,235,59,0.5);
-  animation: pulse 2.4s infinite ease-in-out;
-}
-.splash-text {
-  margin-top:24px; color:#ffeb3b; font-size:1.8rem; font-weight:900;
-  letter-spacing:1.5px; text-shadow:0 0 12px rgba(255,235,59,0.6);
-}
-@keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.06); } }
-
-/* Fond fixe (gardé tel quel) */
-.background-fixed { position:fixed; inset:0; z-index:-2; overflow:hidden; }
-.background-fixed img { width:100%; height:100%; object-fit:cover; pointer-events:none; filter:brightness(0.45) contrast(1.15); }
-
-/* Contenu principal */
-.container { position:relative; min-height:100vh; }
-.overlay { position:absolute; inset:0; background:rgba(26,26,26,0.82); backdrop-filter:blur(4px); z-index:-1; }
-.content { position:relative; z-index:2; padding:0 0 110px; }
-
-/* Header plus moderne */
-header {
-  position:sticky; top:0; background:rgba(26,26,26,0.94); backdrop-filter:blur(16px);
-  padding:10px 16px; border-bottom:1px solid #333; z-index:20;
-}
-.header-inner {
-  display:flex; align-items:center; max-width:420px; margin:0 auto; position:relative;
-}
-.header-logo {
-  width:50px; height:50px; border-radius:50%; object-fit:cover; margin-right:14px;
-  border:3px solid #ffeb3b44; box-shadow:0 0 16px rgba(255,235,59,0.3);
-}
-.header-title {
-  font-family:'Orbitron'; font-size:1.75rem; font-weight:900;
-  letter-spacing:2.5px; color:#ffeb3b; text-shadow:0 0 12px rgba(255,235,59,0.55);
-}
-
-#btn-back {
-  position:absolute; left:0;
-  background:rgba(255,235,59,0.2); color:#ffeb3b; border:1px solid #ffeb3b44;
-  padding:8px 14px; border-radius:14px; font-weight:700; font-size:1rem;
-  cursor:pointer; transition:0.25s;
-}
-#btn-back:hover { background:rgba(255,235,59,0.35); }
-
-/* Capsule bienvenue */
-.welcome-capsule {
-  margin:16px 20px 24px;
-  background:rgba(30,30,40,0.88); backdrop-filter:blur(16px);
-  border-radius:28px; border:1px solid rgba(255,235,59,0.18);
-  padding:20px 18px; text-align:center; box-shadow:0 8px 36px rgba(0,0,0,0.5);
-}
-.welcome-inner { display:flex; align-items:center; justify-content:center; gap:12px; }
-.welcome-emoji { font-size:2.6rem; animation:wave-hand 3s infinite; }
-.welcome-name {
-  font-family:'Orbitron'; font-size:1.65rem; font-weight:900;
-  color:#ffeb3b; text-shadow:0 0 12px rgba(255,235,59,0.5); letter-spacing:1px;
-}
-
-/* Capsule produits */
-.products-capsule {
-  margin:0 20px 28px;
-  background:rgba(30,30,40,0.85); backdrop-filter:blur(14px);
-  border-radius:24px; border:1px solid rgba(255,235,59,0.15);
-  padding:16px; text-align:center; box-shadow:0 6px 32px rgba(0,0,0,0.45);
-}
-.products-title {
-  font-size:1.3rem; color:#ffeb3b; font-weight:800;
-  display:flex; align-items:center; justify-content:center; gap:10px;
-}
-.products-count {
-  margin-top:10px; padding:8px 20px; border-radius:999px;
-  background:rgba(255,235,59,0.12); border:1px solid rgba(255,235,59,0.35);
-  color:#ffeb3b; font-weight:800; font-size:1.1rem; box-shadow:0 0 12px rgba(255,235,59,0.2);
-}
-
-/* Filtres */
-#filters-wrapper { padding:0 20px 20px; }
-#filters-container { display:flex; gap:12px; }
-.filter-tab {
-  flex:1; padding:12px 0; background:rgba(255,235,59,0.15);
-  border:1px solid #ffeb3b44; border-radius:16px; color:#ffeb3b;
-  font-weight:700; cursor:pointer; transition:0.3s; font-size:1.05rem;
-}
-.filter-tab[data-active="true"] {
-  background:#ffeb3b; color:#111; border-color:#ffeb3b; box-shadow:0 0 16px rgba(255,235,59,0.5);
-}
-
-/* Grid produits */
-#products-grid {
-  padding:0 20px; display:grid; grid-template-columns:repeat(2,1fr); gap:18px;
-}
-.card {
-  background:rgba(35,35,45,0.9); border:1px solid #ffeb3b22;
-  border-radius:24px; overflow:hidden; transition:0.35s; cursor:pointer;
-  height:260px; box-shadow:0 6px 24px rgba(0,0,0,0.4);
-}
-.card:hover {
-  transform:scale(1.04); border-color:#ffeb3b; box-shadow:0 12px 40px rgba(255,235,59,0.25);
-}
-.card-overlay {
-  position:absolute; bottom:0; left:0; right:0;
-  background:linear-gradient(to top, rgba(0,0,0,0.9) 20%, transparent 70%);
-  padding:16px 14px; color:#fff;
-}
-.card-title { font-size:1.25rem; font-weight:900; color:#ffeb3b; margin-bottom:4px; }
-.card-farm { font-size:0.95rem; color:#ddd; font-weight:600; }
-
-/* Navigation bottom modernisée */
-nav {
-  position:fixed; bottom:16px; left:16px; right:16px; height:84px;
-  background:rgba(20,20,30,0.96); backdrop-filter:blur(24px);
-  border-radius:32px; border:1px solid rgba(255,235,59,0.18);
-  box-shadow:0 12px 48px rgba(0,0,0,0.6);
-  display:flex; justify-content:space-around; align-items:center; z-index:100;
-}
-.nav-item {
-  display:flex; flex-direction:column; align-items:center; color:#aaa;
-  font-size:0.75rem; font-weight:700; cursor:pointer; transition:0.4s;
-}
-.nav-item.active {
-  color:#ffeb3b; transform:translateY(-10px);
-}
-.nav-icon-wrapper {
-  width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  background:rgba(255,235,59,0.08); transition:0.4s;
-}
-.nav-item.active .nav-icon-wrapper {
-  background:rgba(255,235,59,0.3); box-shadow:0 0 20px rgba(255,235,59,0.5);
-  transform:scale(1.15);
-}
-
-/* Boutons modernes */
-.add-to-cart, #submit-order-btn {
-  background:#ffeb3b; color:#111; border:none; padding:18px;
-  font-size:1.25rem; font-weight:800; border-radius:20px;
-  box-shadow:0 6px 24px rgba(255,235,59,0.4); transition:0.3s;
-}
-.add-to-cart:hover, #submit-order-btn:hover {
-  transform:translateY(-2px); box-shadow:0 10px 32px rgba(255,235,59,0.55);
-}
-.qty-btn.selected, .option-btn.active {
-  background:#ffeb3b !important; color:#111 !important; border-color:#ffeb3b;
-  box-shadow:0 0 16px rgba(255,235,59,0.5);
-}
-
-    .nav-item svg {
-      width: 28px;
-      height: 28px;
-      stroke: currentColor;
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'M PLUS Rounded 1c', 'Orbitron', sans-serif;
+      background: #1a1a1a;
+      color: #e8e8e8;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    /* Splash amélioré */
+    .splash {
+      position: fixed; inset:0; background: #000; z-index:9999;
+      display:flex; align-items:center; justify-content:center;
+      transition:opacity 0.8s ease, transform 0.8s ease;
+    }
+    .splash.hidden { opacity:0; transform:scale(1.05); pointer-events:none; }
+    .splash-content {
+      text-align:center;
+    }
+    .splash-logo {
+      width:150px; height:150px; border-radius:50%;
+      border:5px solid #ffeb3b; box-shadow:0 0 35px rgba(255,235,59,0.5);
+      animation: pulse 2.4s infinite ease-in-out;
+    }
+    .splash-text {
+      margin-top:24px; color:#ffeb3b; font-size:1.8rem; font-weight:900;
+      letter-spacing:1.5px; text-shadow:0 0 12px rgba(255,235,59,0.6);
+    }
+    @keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.06); } }
+
+    /* Fond fixe */
+    .background-fixed { position:fixed; inset:0; z-index:-2; overflow:hidden; }
+    .background-fixed img { width:100%; height:100%; object-fit:cover; pointer-events:none; filter:brightness(0.45) contrast(1.15); }
+
+    .container { position:relative; min-height:100vh; }
+    .overlay { position:absolute; inset:0; background:rgba(26,26,26,0.82); backdrop-filter:blur(4px); z-index:-1; }
+    .content { position:relative; z-index:2; padding:0 0 110px; }
+
+    /* Header */
+    header {
+      position:sticky; top:0; background:rgba(26,26,26,0.94); backdrop-filter:blur(16px);
+      padding:10px 16px; border-bottom:1px solid #333; z-index:20;
+    }
+    .header-inner {
+      display:flex; align-items:center; max-width:420px; margin:0 auto; position:relative;
+    }
+    .header-logo {
+      width:50px; height:50px; border-radius:50%; object-fit:cover; margin-right:14px;
+      border:3px solid #ffeb3b44; box-shadow:0 0 16px rgba(255,235,59,0.3);
+    }
+    .header-title {
+      font-family:'Orbitron'; font-size:1.75rem; font-weight:900;
+      letter-spacing:2.5px; color:#ffeb3b; text-shadow:0 0 12px rgba(255,235,59,0.55);
+    }
+
+    #btn-back {
+      position:absolute; left:0;
+      background:rgba(255,235,59,0.2); color:#ffeb3b; border:1px solid #ffeb3b44;
+      padding:8px 14px; border-radius:14px; font-weight:700; font-size:1rem;
+      cursor:pointer; transition:0.25s;
+    }
+    #btn-back:hover { background:rgba(255,235,59,0.35); }
+
+    /* Bienvenue */
+    .welcome-capsule {
+      margin:16px 20px 24px;
+      background:rgba(30,30,40,0.88); backdrop-filter:blur(16px);
+      border-radius:28px; border:1px solid rgba(255,235,59,0.18);
+      padding:20px 18px; text-align:center; box-shadow:0 8px 36px rgba(0,0,0,0.5);
+    }
+    .welcome-inner { display:flex; align-items:center; justify-content:center; gap:12px; }
+    .welcome-emoji { font-size:2.6rem; animation:wave-hand 3s infinite; }
+    @keyframes wave-hand {
+      0%,100% { transform:rotate(0deg); }
+      20% { transform:rotate(-14deg); }
+      40% { transform:rotate(10deg); }
+      60% { transform:rotate(-10deg); }
+      80% { transform:rotate(6deg); }
+    }
+    .welcome-name {
+      font-family:'Orbitron'; font-size:1.65rem; font-weight:900;
+      color:#ffeb3b; text-shadow:0 0 12px rgba(255,235,59,0.5); letter-spacing:1px;
+    }
+
+    /* Produits capsule */
+    .products-capsule {
+      margin:0 20px 28px;
+      background:rgba(30,30,40,0.85); backdrop-filter:blur(14px);
+      border-radius:24px; border:1px solid rgba(255,235,59,0.15);
+      padding:16px; text-align:center; box-shadow:0 6px 32px rgba(0,0,0,0.45);
+    }
+    .products-title {
+      font-size:1.3rem; color:#ffeb3b; font-weight:800;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    .products-count {
+      margin-top:10px; padding:8px 20px; border-radius:999px;
+      background:rgba(255,235,59,0.12); border:1px solid rgba(255,235,59,0.35);
+      color:#ffeb3b; font-weight:800; font-size:1.1rem; box-shadow:0 0 12px rgba(255,235,59,0.2);
+    }
+
+    /* Filtres */
+    #filters-wrapper { padding:0 20px 20px; }
+    #filters-container { display:flex; gap:12px; }
+    .filter-tab {
+      flex:1; padding:12px 0; background:rgba(255,235,59,0.15);
+      border:1px solid #ffeb3b44; border-radius:16px; color:#ffeb3b;
+      font-weight:700; cursor:pointer; transition:0.3s; font-size:1.05rem;
+    }
+    .filter-tab[data-active="true"] {
+      background:#ffeb3b; color:#111; border-color:#ffeb3b; box-shadow:0 0 16px rgba(255,235,59,0.5);
+    }
+
+    .dropdown-menu {
+      position:absolute; top:100%; left:4%; right:4%;
+      background:rgba(30,30,40,0.96); border:1px solid #444;
+      border-radius:20px; margin-top:8px; max-height:340px; overflow-y:auto;
+      backdrop-filter:blur(8px); box-shadow:0 10px 40px rgba(0,0,0,0.7);
+    }
+    .dropdown-item {
+      padding:14px 18px; color:#ddd; border-bottom:1px solid #444;
+      cursor:pointer; transition:0.2s;
+    }
+    .dropdown-item:hover { background:rgba(255,235,59,0.15); color:#ffeb3b; }
+
+    /* Grid produits */
+    #products-grid {
+      padding:0 20px; display:grid; grid-template-columns:repeat(2,1fr); gap:18px;
+    }
+    .card {
+      background:rgba(35,35,45,0.9); border:1px solid #ffeb3b22;
+      border-radius:24px; overflow:hidden; transition:0.35s; cursor:pointer;
+      height:260px; box-shadow:0 6px 24px rgba(0,0,0,0.4); position:relative;
+    }
+    .card:hover {
+      transform:scale(1.04); border-color:#ffeb3b; box-shadow:0 12px 40px rgba(255,235,59,0.25);
+    }
+    .card video { width:100%; height:100%; object-fit:cover; }
+    .card-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.9) 20%, transparent 70%);
+      display:flex; flex-direction:column; justify-content:flex-end; padding:16px 14px;
+    }
+    .card-title { font-size:1.25rem; font-weight:900; color:#ffeb3b; margin-bottom:4px; }
+    .card-farm { font-size:0.95rem; color:#ddd; font-weight:600; }
+
+    /* Detail page */
+    #product-detail { display:none; padding:0 0 160px; }
+    .product-hero { height:50vh; min-height:280px; background:#000; position:relative; }
+    #detail-video { width:100%; height:100%; object-fit:cover; }
+
+    .product-title { padding:20px 16px; font-size:2.2rem; font-weight:900; color:#ffeb3b; text-shadow:0 0 12px rgba(255,235,59,0.5); letter-spacing:1px; }
+    .badges { padding:0 16px 20px; display:flex; flex-wrap:wrap; gap:10px; }
+    .badge { padding:8px 16px; border-radius:999px; font-size:0.95rem; font-weight:700; }
+    .badge-farm { background:rgba(255,235,59,0.2); color:#ffeb3b; border:1px solid #ffeb3b44; }
+
+    .strain-section { padding:0 16px 24px; color:#ccc; font-size:1.1rem; line-height:1.6; white-space:pre-line; }
+
+    /* Quantité & boutons */
+    .quantity-section { padding:16px; background:rgba(30,30,40,0.7); margin:12px 16px; border-radius:20px; border:1px solid #444; }
+    .quantity-title { font-size:1.3rem; color:#ffeb3b; margin-bottom:16px; font-weight:700; display:flex; align-items:center; gap:12px; }
+    .quantity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    .qty-btn {
+      background:rgba(40,40,50,0.9); border:1px solid #444; color:#e0e0e0;
+      padding:16px 10px; border-radius:16px; text-align:center; cursor:pointer; transition:0.3s;
+    }
+    .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
+
+    .add-to-cart {
+      margin:16px; background:#ffeb3b; color:#111; border:none; padding:18px;
+      font-size:1.25rem; font-weight:800; border-radius:20px; display:flex; align-items:center;
+      justify-content:center; gap:12px; cursor:pointer; box-shadow:0 6px 24px rgba(255,235,59,0.4);
+      transition:0.3s;
+    }
+    .add-to-cart:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(255,235,59,0.55); }
+
+    /* Panier */
+    #cart-page { padding:16px; display:none; }
+    .cart-item {
+      background:rgba(30,30,40,0.82); border:1px solid #444; border-radius:16px;
+      padding:16px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;
+    }
+    .delete-btn {
+      background:#ef4444; color:white; border:none; width:36px; height:36px;
+      border-radius:50%; font-weight:bold; cursor:pointer;
+    }
+    .cart-total { text-align:center; font-size:1.4rem; color:#ffeb3b; margin:24px 0; font-weight:700; }
+
+    /* Formulaire */
+    .questionnaire { background:rgba(30,30,40,0.78); border:1px solid #444; border-radius:20px; padding:20px; margin-top:24px; }
+    .question { margin-bottom:20px; }
+    .question-label { display:block; font-size:1.1rem; color:#aaa; margin-bottom:10px; font-weight:500; }
+    .option-btn {
+      width:100%; padding:14px; margin:6px 0; background:rgba(40,40,50,0.9);
+      border:1px solid #444; color:#e0e0e0; border-radius:16px; font-size:1.05rem; cursor:pointer; transition:0.25s;
+    }
+    .option-btn.active { background:#ffeb3b; color:#111; font-weight:bold; }
+
+    input[type="time"], input[type="text"], textarea {
+      width:100%; padding:14px; border-radius:14px; border:1px solid #444;
+      background:rgba(40,40,50,0.9); color:#e0e0e0; font-size:1.05rem;
+    }
+    textarea { min-height:100px; resize:vertical; }
+
+    #submit-order-btn {
+      width:100%; padding:18px; background:#ffeb3b; color:#111; border:none;
+      border-radius:20px; font-size:1.3rem; font-weight:800; margin-top:24px;
+      cursor:pointer; box-shadow:0 6px 24px rgba(255,235,59,0.4); transition:0.3s;
+    }
+    #submit-order-btn:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(255,235,59,0.55); }
+
+    /* Infos & Réseaux */
+    #infos-page, #reseaux-page { display:none; padding:16px; }
+    .section-title {
+      font-family:'Orbitron'; font-size:1.6rem; color:#ffeb3b; margin:32px 0 16px;
+      font-weight:900; text-align:center; text-shadow:0 0 10px rgba(255,235,59,0.4);
+    }
+    .reseaux-list { display:flex; flex-direction:column; gap:16px; margin-top:20px; }
+    .reseau-item {
+      background:rgba(30,30,40,0.85); border:1px solid #ffeb3b33; border-radius:20px;
+      padding:18px; font-size:1.3rem; font-weight:700; color:#e0e0e0; text-align:center;
+      cursor:pointer; transition:0.3s; display:flex; align-items:center; justify-content:center; gap:16px;
+    }
+    .reseau-item:hover {
+      background:rgba(255,235,59,0.15); border-color:#ffeb3b; transform:scale(1.02);
+      box-shadow:0 8px 24px rgba(255,235,59,0.25);
+    }
+    .reseau-item img { width:48px; height:48px; border-radius:12px; object-fit:contain; }
+
+    /* Navigation */
+    nav {
+      position:fixed; bottom:16px; left:16px; right:16px; height:84px;
+      background:rgba(20,20,30,0.96); backdrop-filter:blur(24px);
+      border-radius:32px; border:1px solid rgba(255,235,59,0.18);
+      box-shadow:0 12px 48px rgba(0,0,0,0.6);
+      display:flex; justify-content:space-around; align-items:center; z-index:100;
+    }
+    .nav-item {
+      display:flex; flex-direction:column; align-items:center; color:#aaa;
+      font-size:0.75rem; font-weight:700; cursor:pointer; transition:0.4s;
+    }
+    .nav-item.active { color:#ffeb3b; transform:translateY(-10px); }
+    .nav-icon-wrapper {
+      width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+      background:rgba(255,235,59,0.08); transition:0.4s;
+    }
+    .nav-item.active .nav-icon-wrapper {
+      background:rgba(255,235,59,0.3); box-shadow:0 0 20px rgba(255,235,59,0.5);
+      transform:scale(1.15);
+    }
     #cart-badge {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      background: #ef4444;
-      color: white;
-      border-radius: 50%;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 4px;
-      font-size: 0.65rem;
-      font-weight: bold;
-      text-align: center;
-      line-height: 18px;
-      box-shadow: 0 0 8px rgba(239,68,68,0.6);
-      z-index: 10;
-      display: none;
+      position:absolute; top:-4px; right:-4px;
+      background:#ef4444; color:white; border-radius:50%;
+      min-width:20px; height:20px; font-size:0.75rem; line-height:20px;
+      text-align:center; box-shadow:0 0 10px #ef4444aa; display:none;
     }
   </style>
 </head>
@@ -204,7 +271,7 @@ nav {
 
   <div id="splash-screen" class="splash">
     <div class="splash-content">
-      <img src="rouen.jpg" alt="Fond Rouen" class="splash-bg" />
+      <img src="rouen.jpg" alt="Fond Rouen" class="splash-bg" style="display:none;" />
       <img src="chat.JPG" alt="Logo Dry.Coffee76" class="splash-logo" />
       <div class="splash-text">Chargement...</div>
     </div>
@@ -232,7 +299,7 @@ nav {
             <span class="welcome-emoji">👋</span>
             <span class="welcome-name" id="welcome-name">Chargement...</span>
           </div>
-          <div class="welcome-premium">
+          <div class="welcome-premium" style="margin-top:8px; color:#ccc; font-size:1.05rem;">
             Bienvenue sur le shop premium
           </div>
         </div>
@@ -275,7 +342,7 @@ nav {
       </div>
 
       <div id="cart-page">
-        <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
+        <h2 style="color:#ffeb3b;text-align:center;margin:24px 0;font-size:1.8rem;">Votre Panier</h2>
         <div id="cart-items"></div>
         <div id="cart-total" class="cart-total"></div>
 
@@ -314,8 +381,8 @@ nav {
 
       <div id="infos-page">
         <div style="padding:16px;">
-          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
-            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+          <div style="background:rgba(30,30,40,0.92);border:1px solid #444;border-radius:20px;padding:24px;margin-bottom:24px;box-shadow:0 6px 24px rgba(0,0,0,0.5);">
+            <h2 style="color:#ffeb3b;font-size:1.7rem;margin-bottom:16px;text-align:center;text-shadow:0 0 10px rgba(255,235,59,0.4);">
               Information de Dry.Coffee76
             </h2>
             <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
@@ -326,14 +393,14 @@ nav {
             </p>
           </div>
 
-          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
-            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+          <div style="background:rgba(30,30,40,0.92);border:1px solid #444;border-radius:20px;padding:24px;margin-bottom:24px;box-shadow:0 6px 24px rgba(0,0,0,0.5);">
+            <h2 style="color:#ffeb3b;font-size:1.7rem;margin-bottom:16px;text-align:center;text-shadow:0 0 10px rgba(255,235,59,0.4);">
               Info Livraison 🚚
             </h2>
             <p style="color:#e0e0e0;font-weight:bold;margin:12px 0;">
               Zone de livraison<br>76 / 27 / 14
             </p>
-            <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
+            <ul style="color:#ccc;line-height:1.6;padding-left:20px;">
               <li>Sur Rouen : <strong style="color:#ffeb3b;">70€</strong></li>
               <li>Moins de 10 km de Rouen : <strong style="color:#ffeb3b;">100€</strong></li>
               <li>Supérieur à 10 km : <strong style="color:#ffeb3b;">150€</strong></li>
@@ -344,14 +411,14 @@ nav {
             </p>
           </div>
 
-          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
-            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+          <div style="background:rgba(30,30,40,0.92);border:1px solid #444;border-radius:20px;padding:24px;box-shadow:0 6px 24px rgba(0,0,0,0.5);">
+            <h2 style="color:#ffeb3b;font-size:1.7rem;margin-bottom:16px;text-align:center;text-shadow:0 0 10px rgba(255,235,59,0.4);">
               Info Meet-up 📍
             </h2>
             <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
               Nous sommes situé sur <strong style="color:#ffeb3b;">Rouen Rive Gauche</strong> 📍
             </p>
-            <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.1rem;margin-top:16px;">
+            <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.15rem;margin-top:16px;">
               50€ de commande minimum pour venir sur place
             </p>
           </div>
@@ -359,23 +426,20 @@ nav {
       </div>
 
       <div id="reseaux-page">
-        <h2 style="text-align:center;color:#ffeb3b;margin:30px 0 40px;font-size:1.8rem;font-family:'Orbitron',sans-serif;letter-spacing:2px;">Nos réseaux</h2>
+        <h2 style="text-align:center;color:#ffeb3b;margin:32px 0 24px;font-size:1.9rem;letter-spacing:2px;">Nos réseaux</h2>
         <div class="reseaux-list">
           <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
             Telegram VIP⭐️
           </div>
-
           <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
             <img src="potato.jpg" alt="Canal Potato">
             Canal Potato🥔
           </div>
-
           <div class="reseau-item" data-link="http://t.me/SAV_dry76">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
             Secrétaire👨‍💼
           </div>
-
           <div class="reseau-item" data-link="https://discord.gg/tWV3knGs">
             <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384e89d1d54d704ece7_3437c10597c1526c3dbd98c737c2bcae.svg" alt="Discord">
             Chat retour✍️
@@ -701,7 +765,7 @@ nav {
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
     updateBadge();
-    setTimeout(updateBadge, 100); // Force rafraîchissement du badge
+    setTimeout(updateBadge, 100);
     alert('Ajouté au panier !');
   };
 
