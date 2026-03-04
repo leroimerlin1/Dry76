@@ -80,18 +80,18 @@
     }
 
     .filter-tab {
-      flex: 1; padding: 14px 0; background: rgba(255,235,59,0.18);
-      border: 1px solid #ffeb3b; border-radius: 12px; color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 700;
+      flex: 1; padding: 10px 0; background: rgba(255,235,59,0.18);
+      border: 1px solid #ffeb3b; border-radius: 10px; color: #ffeb3b;
+      font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700;
       cursor: pointer; text-align: center; transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4); min-height: 42px;
     }
 
     .filter-tab:hover { background: rgba(255,235,59,0.35); border-color: #fff176; }
 
     .filter-tab[data-active="true"] {
       background: #ffeb3b; color: #111; border-color: #fff176;
-      box-shadow: 0 0 14px rgba(255,235,59,0.6);
+      box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
     .dropdown-menu {
@@ -172,7 +172,18 @@
 
     #submit-order-btn { width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
 
-    #infos-page { display:none; padding:16px; padding-bottom:200px; font-size:1.05rem; line-height:1.6; }
+    #infos-page {
+      display: none;
+      padding: 16px 16px 80px 16px;          /* padding-bottom réduit */
+      font-size: 1.05rem;
+      line-height: 1.6;
+      min-height: auto;
+    }
+
+    #infos-page > div {
+      padding-bottom: 40px;                   /* espace après le dernier bloc */
+    }
+
     .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
 
     .reseaux-list { display:flex; flex-direction:column; gap:16px; margin-top:20px; }
@@ -251,8 +262,6 @@
 
         <div id="products-grid"></div>
       </div>
-
-      <!-- Les autres pages (détail produit, panier, infos, réseaux) restent identiques -->
 
       <div id="product-detail">
         <div class="product-hero">
@@ -466,7 +475,7 @@
       farm: 'R8🏎️',
       previewVideo: "blanche.mp4",
       strain: '',
-      description: "Blanche comme la neige fraîche, texture bien grasse et cristalline, terpènes intenses qui claquent dès l'ouverture.\n" +
+      description: "Blanche comme la neige fraîche, texture ultra-sèche et cristalline, terpènes intenses qui claquent dès l'ouverture.\n" +
                    "Profil glacial dominant avec une montée puissante, propre et longue durée.\n" +
                    "Idéal pour les amateurs de sensations pures, nettes et sans fioritures – le classique revisité en version élite.",
       quantities: [
@@ -503,6 +512,9 @@
     document.getElementById('btn-back').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.body.classList.remove('detail-visible');
+
+    // Remonter tout en haut à chaque changement de page
+    window.scrollTo(0, 0);
   }
 
   function renderProducts() {
@@ -768,7 +780,6 @@
   document.getElementById('nav-home').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-home').classList.add('active');
   };
 
@@ -783,14 +794,12 @@
   document.getElementById('nav-infos').onclick = () => {
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-infos').classList.add('active');
   };
 
   document.getElementById('nav-reseaux').onclick = () => {
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-reseaux').classList.add('active');
   };
 
