@@ -80,9 +80,9 @@
     }
 
     .filter-tab {
-      flex: 1; padding: 12px 0; background: rgba(255,235,59,0.18);
+      flex: 1; padding: 14px 0; background: rgba(255,235,59,0.18);
       border: 1px solid #ffeb3b; border-radius: 12px; color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 700;
+      font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 700;
       cursor: pointer; text-align: center; transition: all 0.2s;
       box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
@@ -95,14 +95,16 @@
     }
 
     .dropdown-menu {
-      position: absolute; top: 100%; left: 16px; right: 16px; background: rgba(15,15,20,0.96);
-      border: 1px solid #555; border-radius: 12px; margin-top: 6px; z-index: 99;
-      max-height: 320px; overflow-y: auto; box-shadow: 0 8px 28px rgba(0,0,0,0.7);
+      position: absolute; top: 100%; left: 10%; right: 10%;
+      width: 80%; max-width: 360px; margin: 6px auto 0;
+      background: rgba(15,15,20,0.96); border: 1px solid #555;
+      border-radius: 12px; z-index: 99; max-height: 320px;
+      overflow-y: auto; box-shadow: 0 8px 28px rgba(0,0,0,0.7);
       backdrop-filter: blur(6px);
     }
 
     .dropdown-item {
-      padding: 14px 18px; color: #ddd; border-bottom: 1px solid #333;
+      padding: 12px 16px; color: #ddd; border-bottom: 1px solid #333;
       cursor: pointer; font-size: 1.05rem; transition: all 0.15s;
     }
 
@@ -240,8 +242,8 @@
 
         <div id="filters-wrapper">
           <div id="filters-container">
-            <button id="filter-categories-btn" class="filter-tab" data-active="false">Catégories</button>
-            <button id="filter-farms-btn" class="filter-tab" data-active="false">Farms</button>
+            <button id="filter-categories-btn" class="filter-tab" data-active="false">Catégories ↓</button>
+            <button id="filter-farms-btn" class="filter-tab" data-active="false">Farms ↓</button>
           </div>
           <div id="categories-dropdown" class="dropdown-menu" style="display:none;"></div>
           <div id="farms-dropdown" class="dropdown-menu" style="display:none;"></div>
@@ -249,6 +251,8 @@
 
         <div id="products-grid"></div>
       </div>
+
+      <!-- Les autres pages (détail produit, panier, infos, réseaux) restent identiques -->
 
       <div id="product-detail">
         <div class="product-hero">
@@ -455,6 +459,23 @@
         { qty: '50G', price: '220€' },
         { qty: '100G', price: '400€' }
       ]
+    },
+    blanche: {
+      key: 'blanche',
+      title: 'Blanche❄️',
+      farm: 'R8🏎️',
+      previewVideo: "blanche.mp4",
+      strain: '',
+      description: "Blanche comme la neige fraîche, texture bien grasse et cristalline, terpènes intenses qui claquent dès l'ouverture.\n" +
+                   "Profil glacial dominant avec une montée puissante, propre et longue durée.\n" +
+                   "Idéal pour les amateurs de sensations pures, nettes et sans fioritures – le classique revisité en version élite.",
+      quantities: [
+        { qty: '1G', price: '60€' },
+        { qty: '3G', price: '160€' },
+        { qty: '5G', price: '230€' },
+        { qty: '10G', price: '360€' },
+        { qty: '20G', price: '680€' }
+      ]
     }
   };
 
@@ -546,11 +567,13 @@
     const shortenTitle = (title) => {
       if (title.includes('73u Frozen')) return '73u Frozen 🧊';
       if (title.includes('KGF 35U'))     return 'KGF 35U ⚡️';
+      if (title.includes('Blanche'))     return 'Blanche ❄️';
       return title.substring(0, 22) + (title.length > 22 ? '...' : '');
     };
 
     const shortenFarm = (farm) => {
       if (farm === 'KGF🦊') return 'KGF🦊';
+      if (farm === 'R8🏎️')  return 'R8🏎️';
       return farm.substring(0, 18) + (farm.length > 18 ? '...' : '');
     };
 
@@ -617,13 +640,12 @@
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm-badge').textContent = p.farm;
 
-    let content = p.strain.replace(/\n/g, '<br>');
+    let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
     if (p.description) {
-      content += '<br><br><div style="border-top:1px solid #444; padding-top:16px; margin-top:16px; font-style:italic; color:#ddd;">' 
-               + p.description.replace(/\n/g, '<br>') 
-               + '</div>';
+      if (content) content += '<br><br>';
+      content += '<div style="font-style:italic; color:#ddd;">' + p.description.replace(/\n/g, '<br>') + '</div>';
     }
-    document.getElementById('detail-strain-desc').innerHTML = content;
+    document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888; font-style:italic;">Aucune description de strain disponible</p>';
 
     const qtyGrid = document.getElementById('qty-grid');
     qtyGrid.innerHTML = '';
