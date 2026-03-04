@@ -199,13 +199,13 @@
     /* BARRE DU BAS – ARRONDIE SUR LES 4 COINS + FLOTTANTE + SURÉLEVÉE */
     nav {
       position: fixed;
-      bottom: 24px;                           /* espace visible en bas (ne touche plus l'écran) */
+      bottom: 24px;
       left: 20px;
       right: 20px;
       height: 90px;
       background: rgba(15, 15, 20, 0.94);
       backdrop-filter: blur(24px);
-      border-radius: 28px;                    /* arrondi COMPLET sur les 4 coins */
+      border-radius: 28px;
       border: 1px solid rgba(255, 235, 59, 0.20);
       display: flex;
       justify-content: space-around;
@@ -229,7 +229,7 @@
 
     .nav-item.active {
       color: #ffeb3b;
-      transform: translateY(-16px);           /* surélévation très marquée */
+      transform: translateY(-16px);
     }
 
     .nav-icon-wrapper {
@@ -257,15 +257,19 @@
 
     #cart-badge {
       position: absolute;
-      top: 6px;
-      right: 8px;
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
       background: #ef4444;
       color: white;
       border-radius: 50%;
       padding: 3px 7px;
-      font-size: 0.68rem;
-      min-width: 20px;
+      font-size: 0.7rem;
+      min-width: 18px;
       text-align: center;
+      font-weight: bold;
+      box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+      z-index: 10;
       display: none;
     }
   </style>
@@ -763,6 +767,7 @@
     const item = products[key].quantities[parseInt(selected.dataset.idx)];
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
+    updateBadge(); // force la mise à jour du badge panier
     alert('Ajouté au panier !');
   };
 
