@@ -40,7 +40,7 @@
     }
 
     .container { position:relative; min-height:100vh; }
-    .content { position:relative; z-index:2; padding:16px 0 180px; }
+    .content { position:relative; z-index:2; padding:16px 0 120px; }
 
     header {
       position:sticky; top:0; background:rgba(17,17,17,0.95); backdrop-filter:blur(14px);
@@ -61,37 +61,24 @@
       transition:0.25s;
     }
 
-    /* Bottom title - fond pour éviter le noir */
-    .bottom-header {
-      position: fixed;
-      bottom: 102px; left: 0; right: 0;
-      z-index: 99;
-      text-align: center;
-      padding: 12px 20px 8px;
-      background: rgba(17,17,17,0.92);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255,235,59,0.2);
-      display: none;
+    /* Bienvenue en haut */
+    .welcome-capsule {
+      margin:16px 20px 24px;
+      background:rgba(30,30,40,0.88); backdrop-filter:blur(16px);
+      border-radius:28px; border:1px solid rgba(255,235,59,0.18);
+      padding:20px 18px; text-align:center; box-shadow:0 8px 36px rgba(0,0,0,0.5);
     }
-    .bottom-welcome {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      font-weight: 900;
-      background: linear-gradient(90deg, #ffeb3b, #ffdd55, #ffeb3b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 16px rgba(255,235,59,0.5);
-      letter-spacing: 1.5px;
-    }
-    .bottom-subtitle {
-      font-size: 1.1rem;
-      color: #ddd;
-      margin-top: 4px;
+    .welcome-inner { display:flex; align-items:center; justify-content:center; gap:12px; }
+    .welcome-emoji { font-size:2.6rem; animation:wave-hand 3s infinite; }
+    @keyframes wave-hand { 0%,100%{transform:rotate(0deg);} 20%{transform:rotate(-14deg);} 40%{transform:rotate(10deg);} 60%{transform:rotate(-10deg);} 80%{transform:rotate(6deg);} }
+    .welcome-name {
+      font-family:'Orbitron'; font-size:1.65rem; font-weight:900;
+      color:#ffeb3b; text-shadow:0 0 12px rgba(255,235,59,0.5);
     }
 
-    /* Capsule produits */
+    /* Produits : "Produits" + phrase complète dans petite case */
     .products-capsule {
-      margin: 24px 20px 28px;
+      margin:0 20px 28px;
       background: rgba(25,25,35,0.85);
       backdrop-filter: blur(12px);
       border-radius: 24px;
@@ -100,14 +87,28 @@
       text-align: center;
       box-shadow: 0 6px 28px rgba(0,0,0,0.5);
     }
-    .products-title { font-size: 1.35rem; color: #ffeb3b; font-weight: 800; display: flex; align-items:center; justify-content:center; gap:10px; }
+    .products-title {
+      font-size: 1.35rem;
+      color: #ffeb3b;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
     .products-count {
-      margin-top:10px; padding:8px 20px; border-radius:999px;
-      background:rgba(255,235,59,0.1); border:1px solid rgba(255,235,59,0.3);
-      color:#ffeb3b; font-weight:800; font-size:1.1rem;
+      background: rgba(255,235,59,0.12);
+      border: 1px solid rgba(255,235,59,0.35);
+      color: #ffeb3b;
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 8px 20px;
+      border-radius: 999px;
+      display: inline-block;
+      box-shadow: 0 0 12px rgba(255,235,59,0.2);
     }
 
-    /* Filtres */
+    /* Filtres modernes */
     #filters-wrapper { padding:0 20px 32px; position:relative; z-index:20; }
     #filters-container { display:flex; gap:12px; }
     .filter-tab {
@@ -239,9 +240,25 @@
       </header>
 
       <div id="home-page">
+        <!-- Bienvenue en haut -->
+        <div class="welcome-capsule">
+          <div class="welcome-inner">
+            <span class="welcome-emoji">👋</span>
+            <span class="welcome-name" id="welcome-name">Chargement...</span>
+          </div>
+          <div style="margin-top:8px; color:#ccc; font-size:1.05rem;">
+            Bienvenue sur le shop premium
+          </div>
+        </div>
+
+        <!-- Produits avec phrase complète -->
         <div class="products-capsule">
-          <div class="products-title"><span>🛍️</span> Produits</div>
-          <div class="products-count" id="products-count-modern">3 produits disponibles</div>
+          <div class="products-title">
+            <span>🛍️</span> Produits
+          </div>
+          <div class="products-count" id="products-count-modern">
+            3 produits disponibles
+          </div>
         </div>
 
         <div id="filters-wrapper">
@@ -358,11 +375,6 @@
         </div>
       </div>
 
-      <div class="bottom-header" id="bottom-header">
-        <div class="bottom-welcome" id="bottom-welcome-name">Chargement...</div>
-        <div class="bottom-subtitle">Bienvenue sur le shop premium</div>
-      </div>
-
       <nav>
         <div class="nav-item active" id="nav-home">
           <div class="nav-icon-wrapper">
@@ -415,8 +427,7 @@
 
   const user = tg.initDataUnsafe?.user || {};
   const userName = user.first_name || user.username || 'Utilisateur';
-
-  document.getElementById('bottom-welcome-name').textContent = userName;
+  document.getElementById('welcome-name').textContent = userName;
   document.getElementById('products-count-modern').textContent = '3 produits disponibles';
 
   let currentCategoryFilter = null;
@@ -432,7 +443,7 @@
       description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\n" +
                    "Tutti Fruitti : bonbon fruité explosif, fraise-banane-ananas ultra sucré et givrée\n" +
                    "Acai Cake S1 : myrtille crémeuse, gâteau aux baies, touche givrée et diesel subtil en fond\n" +
-                   "Puissance XXL, effet glacial qui monte vite et qui dure longtemps.",
+                   "Puissance XXL, effet glacial qui monte vite et qui dure longtemps. Parfait pour les amateurs de saveurs fruitées intenses et de high puissant.",
       quantities: [
         { qty: '10G', price: '80€' },
         { qty: '25G', price: '160€' },
@@ -446,7 +457,11 @@
       farm: 'KGF🦊',
       previewVideo: "kgf35u.mp4",
       strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
-      description: "Électricité dans les veines, terps électriques et bagout monstrueux.",
+      description: "Électricité dans les veines, terps électriques et bagout monstrueux.\n" +
+                   "Panacotta : dessert italien crémeux, vanille douce, fruits rouges et gelato profond\n" +
+                   "Golden Lemon : citron vert ultra vif, limonade pétillante, skunk acide et énergie solaire\n" +
+                   "Champaya : champagne frais, mangue exotique, notes florales et effervescentes\n" +
+                   "Profil très équilibré, montée rapide et euphorique, idéal pour la journée ou les sessions créatives.",
       quantities: [
         { qty: '10G', price: '60€' },
         { qty: '25G', price: '140€' },
@@ -460,7 +475,9 @@
       farm: 'R8🏎️',
       previewVideo: "blanche.mp4",
       strain: '',
-      description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
+      description: "Blanche comme la neige fraîche, texture bien grasse et cristalline, terpènes intenses qui claquent dès l'ouverture.\n" +
+                   "Profil glacial dominant avec une montée puissante, propre et longue durée.\n" +
+                   "Idéal pour les amateurs de sensations pures, nettes et sans fioritures – le classique revisité en version élite.",
       quantities: [
         { qty: '1G', price: '60€' },
         { qty: '3G', price: '160€' },
@@ -491,7 +508,6 @@
     document.getElementById('infos-page').style.display = 'none';
     document.getElementById('reseaux-page').style.display = 'none';
     document.getElementById('btn-back').style.display = 'none';
-    document.getElementById('bottom-header').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   }
 
@@ -499,11 +515,11 @@
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
 
-    let filtered = Object.values(products);
-    if (currentCategoryFilter) filtered = filtered.filter(p => p.title === currentCategoryFilter);
-    if (currentFarmFilter) filtered = filtered.filter(p => p.farm === currentFarmFilter);
+    let filteredProducts = Object.values(products);
+    if (currentCategoryFilter) filteredProducts = filteredProducts.filter(p => p.title === currentCategoryFilter);
+    if (currentFarmFilter) filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
 
-    filtered.forEach(p => {
+    filteredProducts.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
@@ -523,11 +539,11 @@
   function initFilters() {
     const catBtn = document.getElementById('filter-categories-btn');
     const farmBtn = document.getElementById('filter-farms-btn');
-    const catDrop = document.getElementById('categories-dropdown');
-    const farmDrop = document.getElementById('farms-dropdown');
+    const catDropdown = document.getElementById('categories-dropdown');
+    const farmDropdown = document.getElementById('farms-dropdown');
 
-    // Catégories
-    [...new Set(Object.values(products).map(p => p.title))].forEach(title => {
+    const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
+    uniqueTitles.forEach(title => {
       const item = document.createElement('div');
       item.className = 'dropdown-item';
       item.textContent = title;
@@ -535,14 +551,13 @@
         currentCategoryFilter = currentCategoryFilter === title ? null : title;
         currentFarmFilter = null;
         renderProducts();
-        updateFilterUI();
-        catDrop.style.display = 'none';
+        catDropdown.style.display = 'none';
       };
-      catDrop.appendChild(item);
+      catDropdown.appendChild(item);
     });
 
-    // Farms
-    [...new Set(Object.values(products).map(p => p.farm))].forEach(farm => {
+    const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
+    uniqueFarms.forEach(farm => {
       const item = document.createElement('div');
       item.className = 'dropdown-item';
       item.textContent = farm;
@@ -550,49 +565,46 @@
         currentFarmFilter = currentFarmFilter === farm ? null : farm;
         currentCategoryFilter = null;
         renderProducts();
-        updateFilterUI();
-        farmDrop.style.display = 'none';
+        farmDropdown.style.display = 'none';
       };
-      farmDrop.appendChild(item);
+      farmDropdown.appendChild(item);
     });
 
     catBtn.onclick = (e) => {
       e.stopPropagation();
-      catDrop.style.display = (catDrop.style.display === 'block') ? 'none' : 'block';
-      farmDrop.style.display = 'none';
+      catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block';
+      farmDropdown.style.display = 'none';
     };
 
     farmBtn.onclick = (e) => {
       e.stopPropagation();
-      farmDrop.style.display = (farmDrop.style.display === 'block') ? 'none' : 'block';
-      catDrop.style.display = 'none';
+      farmDropdown.style.display = farmDropdown.style.display === 'block' ? 'none' : 'block';
+      catDropdown.style.display = 'none';
     };
 
     document.addEventListener('click', e => {
       if (!e.target.closest('#filters-wrapper')) {
-        catDrop.style.display = 'none';
-        farmDrop.style.display = 'none';
+        catDropdown.style.display = 'none';
+        farmDropdown.style.display = 'none';
       }
     });
   }
 
-  function updateFilterUI() {
-    document.getElementById('filter-categories-btn').dataset.active = currentCategoryFilter ? "true" : "false";
-    document.getElementById('filter-farms-btn').dataset.active = currentFarmFilter ? "true" : "false";
-  }
-
   function openProductDetail(key) {
     const p = products[key];
-    const video = document.getElementById('detail-video');
-    video.innerHTML = `<source src="${p.previewVideo}" type="video/mp4">`;
-    video.load();
-    video.play().catch(() => {});
+    const videoElement = document.getElementById('detail-video');
+    videoElement.innerHTML = `<source src="${p.previewVideo}" type="video/mp4">`;
+    videoElement.load();
+    videoElement.play().catch(() => {});
 
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm-badge').textContent = p.farm;
 
     let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
-    if (p.description) content += (content ? '<br><br>' : '') + `<div style="font-style:italic;color:#ddd;">${p.description.replace(/\n/g, '<br>')}</div>`;
+    if (p.description) {
+      if (content) content += '<br><br>';
+      content += `<div style="font-style:italic;color:#ddd;">${p.description.replace(/\n/g, '<br>')}</div>`;
+    }
     document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888;font-style:italic;">Aucune description disponible</p>';
 
     const qtyGrid = document.getElementById('qty-grid');
@@ -618,7 +630,6 @@
   document.getElementById('btn-back').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
-    document.getElementById('bottom-header').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
   };
 
@@ -651,7 +662,13 @@
     cart.forEach((item, index) => {
       const div = document.createElement('div');
       div.className = 'cart-item';
-      div.innerHTML = `<div><strong>${item.title}</strong><br>${item.qty} — ${item.price}</div><button class="delete-btn" data-index="${index}">X</button>`;
+      div.innerHTML = `
+        <div>
+          <strong>${item.title}</strong><br>
+          ${item.qty} — ${item.price}
+        </div>
+        <button class="delete-btn" data-index="${index}">X</button>
+      `;
       itemsDiv.appendChild(div);
     });
 
@@ -680,28 +697,54 @@
   document.getElementById('submit-order-btn').onclick = () => {
     const modeBtn = document.querySelector('.option-btn.active');
     if (!modeBtn) return alert('Choisis un mode de récupération !');
+
     const mode = modeBtn.dataset.type;
-    let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\nMode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
+    let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
+    message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
+
     cart.forEach(item => message += `• ${item.title} × ${item.qty} (${item.price})\n`);
+
     if (mode === 'pickup') {
       const time = document.getElementById('pickup-time').value;
-      if (time) message += `\nHeure meet-up : ${time}`;
+      if (time) message += `\nHeure meet-up souhaitée : ${time}`;
     } else {
       const time = document.getElementById('delivery-time').value;
       const address = document.getElementById('delivery-address').value.trim();
       const details = document.getElementById('delivery-details').value.trim();
-      if (time) message += `\nHeure livraison : ${time}`;
+      if (time) message += `\nHeure livraison souhaitée : ${time}`;
       if (address) message += `\nAdresse : ${address}`;
       if (details) message += `\nDétails : ${details}`;
     }
+
     message += `\n\nMerci !`;
     tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encodeURIComponent(message)}`);
   };
 
-  document.getElementById('nav-home').onclick = () => { hideAllPages(); document.getElementById('home-page').style.display = 'block'; document.getElementById('bottom-header').style.display = 'block'; document.getElementById('nav-home').classList.add('active'); };
-  document.getElementById('nav-cart').onclick = () => { hideAllPages(); document.getElementById('cart-page').style.display = 'block'; document.getElementById('nav-cart').classList.add('active'); showCart(); };
-  document.getElementById('nav-infos').onclick = () => { hideAllPages(); document.getElementById('infos-page').style.display = 'block'; document.getElementById('nav-infos').classList.add('active'); };
-  document.getElementById('nav-reseaux').onclick = () => { hideAllPages(); document.getElementById('reseaux-page').style.display = 'block'; document.getElementById('nav-reseaux').classList.add('active'); };
+  document.getElementById('nav-home').onclick = () => {
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+  };
+
+  document.getElementById('nav-cart').onclick = () => {
+    hideAllPages();
+    document.getElementById('cart-page').style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    document.getElementById('nav-cart').classList.add('active');
+    showCart();
+  };
+
+  document.getElementById('nav-infos').onclick = () => {
+    hideAllPages();
+    document.getElementById('infos-page').style.display = 'block';
+    document.getElementById('nav-infos').classList.add('active');
+  };
+
+  document.getElementById('nav-reseaux').onclick = () => {
+    hideAllPages();
+    document.getElementById('reseaux-page').style.display = 'block';
+    document.getElementById('nav-reseaux').classList.add('active');
+  };
 
   window.addEventListener('load', () => {
     const splash = document.getElementById('splash-screen');
@@ -709,10 +752,13 @@
       splash.classList.add('hidden');
       setTimeout(() => {
         splash.style.display = 'none';
+
         hideAllPages();
         document.getElementById('home-page').style.display = 'block';
-        document.getElementById('bottom-header').style.display = 'block';
         document.getElementById('nav-home').classList.add('active');
+
+        currentCategoryFilter = null;
+        currentFarmFilter = null;
         renderProducts();
         initFilters();
         updateBadge();
