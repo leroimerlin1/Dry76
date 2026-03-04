@@ -47,7 +47,7 @@
       position:sticky; top:0; 
       background: transparent;
       border-bottom: none;
-      padding: 20px 16px 12px;   /* plus d'espace en haut pour la grande image */
+      padding: 25px 16px 15px;   /* plus d'espace pour la très grande image */
       z-index:10;
       display:flex; align-items:center; justify-content:center;
     }
@@ -77,21 +77,21 @@
       z-index: 11;
     }
 
-    /* IMAGE TITRE PNG - BEAUCOUP PLUS GRANDE */
+    /* IMAGE TITRE PNG - 3 FOIS PLUS GRANDE */
     .header-title-img {
       width: 100%;
       height: auto;
-      max-height: 150px;        /* ← BEAUCOUP PLUS GRAND (150px) */
+      max-height: 450px;        /* ← 3 fois plus grand (150px → 450px) */
       object-fit: contain;
       margin: 0 auto;
     }
 
     body.detail-visible .header-title-img {
-      margin-left: 85px;        /* décalage plus grand pour le bouton retour */
-      width: calc(100% - 85px);
+      margin-left: 110px;       /* décalage plus important pour le bouton retour */
+      width: calc(100% - 110px);
     }
 
-    /* ==================== LE RESTE DU DESIGN (identique) ==================== */
+    /* ==================== LE RESTE DU CODE (identique) ==================== */
     .welcome-capsule {
       margin: 12px 20px 20px 20px;
       background: rgba(20, 20, 30, 0.92);
