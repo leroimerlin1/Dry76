@@ -80,17 +80,18 @@
     }
 
     .filter-tab {
-      flex: 1; padding: 12px 0; background: rgba(20,20,25,0.85); border: 1px solid #444;
-      border-radius: 12px; color: #ddd; font-family: 'Orbitron', sans-serif; font-size: 1.05rem;
-      font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s;
+      flex: 1; padding: 12px 0; background: rgba(255,235,59,0.18);
+      border: 1px solid #ffeb3b; border-radius: 12px; color: #ffeb3b;
+      font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 700;
+      cursor: pointer; text-align: center; transition: all 0.2s;
       box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
-    .filter-tab:hover { background: rgba(40,40,50,0.9); border-color: #666; }
+    .filter-tab:hover { background: rgba(255,235,59,0.35); border-color: #fff176; }
 
     .filter-tab[data-active="true"] {
-      background: linear-gradient(135deg, #1a3a2a, #0f5c2f); border-color: #4ade80;
-      color: #e0ffe0; box-shadow: 0 0 12px rgba(74,222,128,0.4);
+      background: #ffeb3b; color: #111; border-color: #fff176;
+      box-shadow: 0 0 14px rgba(255,235,59,0.6);
     }
 
     .dropdown-menu {
@@ -248,8 +249,6 @@
 
         <div id="products-grid"></div>
       </div>
-
-      <!-- Le reste des pages (product-detail, cart-page, infos-page, reseaux-page) reste identique à la version précédente -->
 
       <div id="product-detail">
         <div class="product-hero">
@@ -530,7 +529,7 @@
       grid.appendChild(card);
     });
 
-    updateFilterUI();  // Mise à jour visuelle des boutons
+    updateFilterUI();
   }
 
   function updateFilterUI() {
@@ -544,37 +543,45 @@
     const catDropdown = document.getElementById('categories-dropdown');
     const farmDropdown = document.getElementById('farms-dropdown');
 
-    // Catégories (titres uniques)
+    const shortenTitle = (title) => {
+      if (title.includes('73u Frozen')) return '73u Frozen 🧊';
+      if (title.includes('KGF 35U'))     return 'KGF 35U ⚡️';
+      return title.substring(0, 22) + (title.length > 22 ? '...' : '');
+    };
+
+    const shortenFarm = (farm) => {
+      if (farm === 'KGF🦊') return 'KGF🦊';
+      return farm.substring(0, 18) + (farm.length > 18 ? '...' : '');
+    };
+
     const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
     uniqueTitles.forEach(title => {
       const item = document.createElement('div');
       item.className = 'dropdown-item';
-      item.textContent = title;
+      item.textContent = shortenTitle(title);
       item.onclick = () => {
         currentCategoryFilter = currentCategoryFilter === title ? null : title;
-        currentFarmFilter = null; // reset l'autre filtre
+        currentFarmFilter = null;
         renderProducts();
         catDropdown.style.display = 'none';
       };
       catDropdown.appendChild(item);
     });
 
-    // Farms uniques
     const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
     uniqueFarms.forEach(farm => {
       const item = document.createElement('div');
       item.className = 'dropdown-item';
-      item.textContent = farm;
+      item.textContent = shortenFarm(farm);
       item.onclick = () => {
         currentFarmFilter = currentFarmFilter === farm ? null : farm;
-        currentCategoryFilter = null; // reset l'autre
+        currentCategoryFilter = null;
         renderProducts();
         farmDropdown.style.display = 'none';
       };
       farmDropdown.appendChild(item);
     });
 
-    // Clic sur boutons
     catBtn.onclick = (e) => {
       e.stopPropagation();
       catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block';
@@ -587,7 +594,6 @@
       catDropdown.style.display = 'none';
     };
 
-    // Fermer si clic ailleurs
     document.addEventListener('click', e => {
       if (!e.target.closest('#filters-wrapper')) {
         catDropdown.style.display = 'none';
