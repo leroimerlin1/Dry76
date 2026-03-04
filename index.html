@@ -196,38 +196,35 @@
     .reseau-item:hover { background:#ffeb3b; color:#111; border-color:#fff176; transform:scale(1.03); box-shadow:0 6px 16px rgba(255,235,59,.35); }
     .reseau-item img { width:40px; height:40px; border-radius:50%; object-fit:contain; background:#fff; padding:4px; box-shadow:0 0 8px rgba(0,0,0,.5); }
 
-    /* BARRE DU BAS – TRÈS SURÉLEVÉE, ARRONDIE, NE TOUCHE PAS LE BAS DE L'ÉCRAN */
+    /* BARRE DU BAS – ARRONDIE SUR LES 4 COINS + FLOTTANTE + SURÉLEVÉE */
     nav {
       position: fixed;
-      bottom: 20px;                           /* espace important en bas → flotte vraiment */
-      left: 16px;
-      right: 16px;
-      height: 90px;                           /* barre plus haute */
+      bottom: 24px;                           /* espace visible en bas (ne touche plus l'écran) */
+      left: 20px;
+      right: 20px;
+      height: 90px;
       background: rgba(15, 15, 20, 0.94);
       backdrop-filter: blur(24px);
-      border-radius: 28px 28px 0 0;           /* arrondi prononcé tout autour (sauf bas) */
+      border-radius: 28px;                    /* arrondi COMPLET sur les 4 coins */
       border: 1px solid rgba(255, 235, 59, 0.20);
       display: flex;
       justify-content: space-around;
-      align-items: flex-end;
+      align-items: center;
       z-index: 100;
-      padding: 0 18px 20px 18px;              /* marge en bas pour accentuer le flottement */
-      box-shadow: 0 -16px 50px rgba(0,0,0,0.8);
+      padding: 0 20px;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.7);
     }
 
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
       color: #aaa;
       font-size: 0.72rem;
       font-weight: 600;
       cursor: pointer;
       width: 64px;
-      height: 100%;
       transition: all 0.35s ease;
-      padding-top: 14px;
     }
 
     .nav-item.active {
@@ -243,14 +240,13 @@
       justify-content: center;
       border-radius: 50%;
       transition: all 0.35s ease;
-      margin-bottom: 8px;
       background: rgba(255, 235, 59, 0.05);
     }
 
     .nav-item.active .nav-icon-wrapper {
       background: rgba(255, 235, 59, 0.38);
       box-shadow: 0 12px 36px rgba(255, 235, 59, 0.65);
-      transform: scale(1.20);
+      transform: scale(1.22);
     }
 
     .nav-item svg {
