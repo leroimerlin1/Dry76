@@ -52,15 +52,6 @@
     .header-logo { width:48px; height:48px; border-radius:50%; object-fit:cover; margin-right:14px; border:3px solid #ffeb3b; box-shadow:0 0 12px rgba(255,235,59,.4); }
     .header-title { font-family: 'Orbitron', sans-serif; font-size:1.55rem; font-weight:900; letter-spacing:2px; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); }
 
-    #btn-back {
-      position: static; margin-right: 12px; background: rgba(255,235,59,.25); color: #ffeb3b;
-      border: 1px solid #ffeb3b; padding: 6px 12px; border-radius: 8px; font-weight: bold; font-size: 1rem;
-      cursor: pointer; white-space: nowrap;
-    }
-
-    body.detail-visible .header-logo { display: none; }
-    body.detail-visible .header-title { margin-left: 0; }
-
     /* BLOC BIENVENUE */
     .welcome-capsule {
       margin: 12px 20px 20px 20px;
@@ -110,7 +101,7 @@
       margin-top: 4px;
     }
 
-    /* NOUVEAU HEADER PRODUITS (comme sur TheReef76) */
+    /* HEADER PRODUITS */
     #products-header {
       margin: 0 20px 16px 20px;
       background: rgba(20, 20, 30, 0.92);
@@ -146,7 +137,7 @@
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
-    /* Filtres */
+    /* FILTRES */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -154,20 +145,35 @@
     }
 
     .filter-tab {
-      flex: 1; padding: 10px 0; background: rgba(255,235,59,0.18);
-      border: 1px solid #ffeb3b; border-radius: 10px; color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700;
-      cursor: pointer; text-align: center; transition: all 0.2s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4); min-height: 42px;
+      flex: 1; 
+      padding: 12px 0; 
+      background: rgba(255,235,59,0.15);
+      border: 1px solid #ffeb3b; 
+      border-radius: 12px; 
+      color: #ffeb3b;
+      font-family: 'Orbitron', sans-serif; 
+      font-size: 1.05rem; 
+      font-weight: 700;
+      cursor: pointer; 
+      text-align: center; 
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4); 
+      min-height: 46px;
     }
 
-    .filter-tab:hover { background: rgba(255,235,59,0.35); border-color: #fff176; }
+    .filter-tab:hover { 
+      background: rgba(255,235,59,0.35); 
+      border-color: #fff176; 
+    }
 
     .filter-tab[data-active="true"] {
-      background: #ffeb3b; color: #111; border-color: #fff176;
+      background: #ffeb3b; 
+      color: #111; 
+      border-color: #fff176;
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
+    /* DROPDOWN */
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
       width: 80%; max-width: 360px; margin: 8px auto 0;
@@ -182,16 +188,17 @@
     }
 
     .dropdown-header {
-      padding: 14px 20px;
+      padding: 16px 20px;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: #ffeb3b;
+      background: rgba(255,235,59,0.15);
       border-bottom: 1px solid rgba(255,235,59,0.25);
+      border-radius: 16px 16px 0 0;
       display: flex;
       align-items: center;
       gap: 10px;
-      text-shadow: 0 0 8px rgba(255,235,59,0.4);
     }
 
     .dropdown-item {
@@ -395,12 +402,9 @@
 
     #submit-order-btn { width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
 
-    #infos-page {
+    #infos-page, #reseaux-page {
       display: none;
       padding: 16px 16px 80px 16px;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      min-height: auto;
     }
 
     .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
@@ -512,9 +516,8 @@
   <div class="container">
     <div class="content">
 
-      <header>
+      <header id="custom-header">
         <div class="header-inner">
-          <button class="back-btn" id="btn-back" style="display:none;">← Retour</button>
           <img src="chat.JPG" alt="Logo" class="header-logo">
           <div class="header-title">Dry.Coffee76</div>
         </div>
@@ -531,7 +534,6 @@
           </div>
         </div>
 
-        <!-- NOUVEAU HEADER PRODUITS (exactement comme sur TheReef76) -->
         <div id="products-header">
           <div class="products-title">
             <span style="font-size:1.6rem;">🛍️</span>
@@ -662,17 +664,14 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
             Telegram VIP⭐️
           </div>
-
           <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
             <img src="potato.jpg" alt="Canal Potato">
             Canal Potato🥔
           </div>
-
           <div class="reseau-item" data-link="http://t.me/SAV_dry76">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
             Secrétaire👨‍💼
           </div>
-
           <div class="reseau-item" data-link="https://discord.gg/tWV3knGs">
             <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384e89d1d54d704ece7_3437c10597c1526c3dbd98c737c2bcae.svg" alt="Discord">
             Chat retour✍️
@@ -731,10 +730,7 @@
   tg.disableVerticalSwipes();
 
   const user = tg.initDataUnsafe?.user || {};
-
-  const welcomeNameElement = document.getElementById('welcome-name');
-  const userName = user.first_name || user.username || 'Utilisateur';
-  welcomeNameElement.textContent = userName;
+  document.getElementById('welcome-name').textContent = user.first_name || user.username || 'Utilisateur';
 
   let currentCategoryFilter = null;
   let currentFarmFilter = null;
@@ -813,10 +809,8 @@
     document.getElementById('cart-page').style.display = 'none';
     document.getElementById('infos-page').style.display = 'none';
     document.getElementById('reseaux-page').style.display = 'none';
-    document.getElementById('btn-back').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.body.classList.remove('detail-visible');
-
     window.scrollTo(0, 0);
   }
 
@@ -826,43 +820,28 @@
 
     let filteredProducts = Object.values(products);
 
-    if (currentCategoryFilter) {
-      filteredProducts = filteredProducts.filter(p => p.title === currentCategoryFilter);
-    }
-    if (currentFarmFilter) {
-      filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
-    }
+    if (currentCategoryFilter) filteredProducts = filteredProducts.filter(p => p.title === currentCategoryFilter);
+    if (currentFarmFilter) filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
 
     filteredProducts.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
-
-      const videoHtml = p.previewVideo ? `
+      card.innerHTML = `
         <div class="card-img">
           <video autoplay muted loop playsinline>
             <source src="${p.previewVideo}" type="video/mp4">
-            Vidéo non supportée
           </video>
           <div class="card-overlay">
             <div class="card-title">${p.title}</div>
             <div class="card-farm">${p.farm}</div>
           </div>
         </div>
-      ` : `
-        <div style="height:100%;background:#111;display:flex;align-items:center;justify-content:center;color:#555;font-size:1.2rem;">
-          Vidéo manquante
-        </div>
       `;
-
-      card.innerHTML = videoHtml;
       card.onclick = () => openProductDetail(p.key);
       grid.appendChild(card);
     });
 
-    // Mise à jour dynamique du nombre de produits (comme sur TheReef76)
-    const countEl = document.getElementById('products-count-modern');
-    countEl.textContent = `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`;
-
+    document.getElementById('products-count-modern').textContent = `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`;
     updateFilterUI();
   }
 
@@ -879,27 +858,16 @@
 
     function populateCategories() {
       catDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Catégories</div>`;
-
       const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
       uniqueTitles.forEach(title => {
         const item = document.createElement('div');
         item.className = `dropdown-item ${title === currentCategoryFilter ? 'active' : ''}`;
-
-        let icon = '';
-        let name = title;
+        let icon = '', name = title;
         if (title.includes('73u Frozen')) { icon = '🧊🦊'; name = '73u Frozen'; }
         else if (title.includes('KGF 35U')) { icon = '⚡️🦊'; name = 'KGF 35U'; }
         else if (title.includes('Blanche')) { icon = '❄️'; name = 'Blanche'; }
-
-        item.innerHTML = `
-          <span class="icon">${icon}</span>
-          <span class="name">${name}</span>
-        `;
-
-        if (title === currentCategoryFilter) {
-          item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
-        }
-
+        item.innerHTML = `<span class="icon">${icon}</span><span class="name">${name}</span>`;
+        if (title === currentCategoryFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
         item.onclick = () => {
           currentCategoryFilter = currentCategoryFilter === title ? null : title;
           currentFarmFilter = null;
@@ -912,26 +880,15 @@
 
     function populateFarms() {
       farmDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Farms</div>`;
-
       const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
       uniqueFarms.forEach(farm => {
         const item = document.createElement('div');
         item.className = `dropdown-item ${farm === currentFarmFilter ? 'active' : ''}`;
-
-        let icon = '';
-        let name = farm;
+        let icon = '', name = farm;
         if (farm === 'KGF🦊') { icon = '🦊'; name = 'KGF'; }
         else if (farm === 'R8🏎️') { icon = '🏎️'; name = 'R8'; }
-
-        item.innerHTML = `
-          <span class="icon">${icon}</span>
-          <span class="name">${name}</span>
-        `;
-
-        if (farm === currentFarmFilter) {
-          item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
-        }
-
+        item.innerHTML = `<span class="icon">${icon}</span><span class="name">${name}</span>`;
+        if (farm === currentFarmFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
         item.onclick = () => {
           currentFarmFilter = currentFarmFilter === farm ? null : farm;
           currentCategoryFilter = null;
@@ -942,19 +899,8 @@
       });
     }
 
-    catBtn.onclick = (e) => {
-      e.stopPropagation();
-      populateCategories();
-      catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block';
-      farmDropdown.style.display = 'none';
-    };
-
-    farmBtn.onclick = (e) => {
-      e.stopPropagation();
-      populateFarms();
-      farmDropdown.style.display = farmDropdown.style.display === 'block' ? 'none' : 'block';
-      catDropdown.style.display = 'none';
-    };
+    catBtn.onclick = (e) => { e.stopPropagation(); populateCategories(); catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block'; farmDropdown.style.display = 'none'; };
+    farmBtn.onclick = (e) => { e.stopPropagation(); populateFarms(); farmDropdown.style.display = farmDropdown.style.display === 'block' ? 'none' : 'block'; catDropdown.style.display = 'none'; };
 
     document.addEventListener('click', e => {
       if (!e.target.closest('#filters-wrapper')) {
@@ -964,15 +910,29 @@
     });
   }
 
+  // ===================== TELEGRAM NATIVE HEADER =====================
+  function showDetail() {
+    document.getElementById('custom-header').style.display = 'none';
+    tg.BackButton.show();
+  }
+
+  function hideDetail() {
+    document.getElementById('custom-header').style.display = 'flex';
+    tg.BackButton.hide();
+  }
+
+  tg.BackButton.onClick(() => {
+    hideDetail();
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+  });
+
   function openProductDetail(key) {
     const p = products[key];
-    
+
     const videoElement = document.getElementById('detail-video');
-    videoElement.innerHTML = '';
-    const source = document.createElement('source');
-    source.src = p.previewVideo || '';
-    source.type = 'video/mp4';
-    videoElement.appendChild(source);
+    videoElement.innerHTML = `<source src="${p.previewVideo}" type="video/mp4">`;
     videoElement.load();
     videoElement.play().catch(() => {});
 
@@ -984,7 +944,7 @@
       if (content) content += '<br><br>';
       content += '<div style="font-style:italic; color:#ddd;">' + p.description.replace(/\n/g, '<br>') + '</div>';
     }
-    document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888; font-style:italic;">Aucune description de strain disponible</p>';
+    document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888; font-style:italic;">Aucune description disponible</p>';
 
     const qtyGrid = document.getElementById('qty-grid');
     qtyGrid.innerHTML = '';
@@ -1002,18 +962,10 @@
 
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
-    document.getElementById('btn-back').style.display = 'inline-block';
     document.body.classList.add('detail-visible');
-    document.getElementById('nav-home').classList.add('active');
-  }
 
-  document.getElementById('btn-back').onclick = () => {
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-    document.body.classList.remove('detail-visible');
-    document.getElementById('btn-back').style.display = 'none';
-  };
+    showDetail(); // Telegram affiche "Fermer" + bouton Retour natif
+  }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
     const selected = document.querySelector('.qty-btn.selected');
@@ -1024,14 +976,12 @@
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
     updateBadge();
-    setTimeout(updateBadge, 100);
     alert('Ajouté au panier !');
   };
 
   function showCart() {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
 
     const itemsDiv = document.getElementById('cart-items');
@@ -1086,7 +1036,6 @@
     const mode = modeBtn.dataset.type;
     let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
     message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
-
     cart.forEach(item => message += `• ${item.title} × ${item.qty} (${item.price})\n`);
 
     if (mode === 'pickup') {
@@ -1102,8 +1051,7 @@
     }
 
     message += `\n\nMerci !`;
-    const encoded = encodeURIComponent(message);
-    tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encoded}`);
+    tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encodeURIComponent(message)}`);
   };
 
   document.getElementById('nav-home').onclick = () => {
@@ -1115,7 +1063,6 @@
   document.getElementById('nav-cart').onclick = () => {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
     showCart();
   };
@@ -1151,8 +1098,7 @@
 
         document.querySelectorAll('.reseau-item').forEach(item => {
           item.addEventListener('click', function() {
-            const link = this.dataset.link;
-            if (link) tg.openLink(link);
+            if (this.dataset.link) tg.openLink(this.dataset.link);
           });
         });
       }, 600);
