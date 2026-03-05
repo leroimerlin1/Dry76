@@ -231,6 +231,12 @@
 
     .swiper-button-next, .swiper-button-prev {
       color: #ffeb3b;
+      opacity: 1 !important; /* Garder les flèches visibles en permanence */
+      transition: none; /* Empêcher les transitions qui pourraient les faire disparaître */
+    }
+
+    .swiper-button-next:after, .swiper-button-prev:after {
+      font-size: 30px; /* Ajuster la taille si nécessaire */
     }
 
     .product-info {
@@ -238,7 +244,7 @@
       background: #000000;
       overflow-y: auto;
       padding-bottom: 90px;
-      margin-top: 10px; /* Ajoute un margin pour redescendre le fond noir */
+      margin-top: 20px; /* Augmenté pour descendre le fond noir plus bas */
     }
 
     .product-title { 
