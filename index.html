@@ -116,7 +116,7 @@
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
-    .filter-tab .arrow { margin-left: 4px; color: #ccc; } /* Arrow darker */
+    .filter-tab .arrow { margin-left: 4px; color: #999; } /* Arrow darker */
 
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
@@ -169,7 +169,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* PAGE DÉTAIL - carousel pour image + vidéo, réduit la taille */
+    /* PAGE DÉTAIL - carousel pour image + vidéo, réduit la taille et ajoute margin pour redescendre le fond */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -180,9 +180,9 @@
       margin-top: 0 !important;
     }
     .product-hero { 
-      flex: 0 0 30vh;      /* Réduit pour éviter que la vidéo soit trop grande */
-      min-height: 200px;
-      max-height: 300px;
+      flex: 0 0 25vh;      /* Réduit pour éviter que la vidéo soit trop grande */
+      min-height: 180px;
+      max-height: 250px;
       width: 100%;
       background: #000;
       position: relative;
@@ -238,6 +238,7 @@
       background: #000000;
       overflow-y: auto;
       padding-bottom: 90px;
+      margin-top: 10px; /* Ajoute un margin pour redescendre le fond noir */
     }
 
     .product-title { 
