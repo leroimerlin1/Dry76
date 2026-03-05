@@ -110,38 +110,39 @@
       margin-top: 4px;
     }
 
-    /* Capsule produits */
-    .products-capsule {
-      margin: 0 20px 24px 20px;
-      background: rgba(20, 20, 30, 0.9);
+    /* NOUVEAU HEADER PRODUITS (comme sur TheReef76) */
+    #products-header {
+      margin: 0 20px 16px 20px;
+      background: rgba(20, 20, 30, 0.92);
       backdrop-filter: blur(14px);
       border-radius: 20px;
-      border: 1px solid rgba(255, 235, 59, 0.12);
+      border: 1px solid rgba(255, 235, 59, 0.15);
       box-shadow: 0 6px 28px rgba(0,0,0,0.4);
-      padding: 12px 16px;
-      text-align: center;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .products-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #ffeb3b;
-      margin-bottom: 6px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      gap: 12px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffeb3b;
     }
 
     .products-count {
-      font-size: 1rem;
-      font-weight: 800;
+      background: rgba(255,235,59,0.15);
+      border: 1px solid #ffeb3b;
       color: #ffeb3b;
-      background: rgba(255,235,59,0.08);
-      border: 1px solid rgba(255,235,59,0.3);
+      padding: 7px 18px;
       border-radius: 999px;
-      padding: 6px 16px;
-      display: inline-block;
+      font-weight: 800;
+      font-size: 1rem;
+      white-space: nowrap;
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
@@ -169,23 +170,63 @@
 
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
-      width: 80%; max-width: 360px; margin: 6px auto 0;
-      background: rgba(15,15,20,0.96); border: 1px solid #555;
-      border-radius: 12px; z-index: 99; max-height: 320px;
-      overflow-y: auto; box-shadow: 0 8px 28px rgba(0,0,0,0.7);
-      backdrop-filter: blur(6px);
+      width: 80%; max-width: 360px; margin: 8px auto 0;
+      background: rgba(15,15,20,0.98); 
+      border: 1px solid rgba(255,235,59,0.3);
+      border-radius: 16px; 
+      z-index: 99; 
+      max-height: 420px;
+      overflow-y: auto; 
+      box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+      backdrop-filter: blur(12px);
+    }
+
+    .dropdown-header {
+      padding: 14px 20px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffeb3b;
+      border-bottom: 1px solid rgba(255,235,59,0.25);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-shadow: 0 0 8px rgba(255,235,59,0.4);
     }
 
     .dropdown-item {
-      padding: 12px 16px; color: #ddd; border-bottom: 1px solid #333;
-      cursor: pointer; font-size: 1.05rem; transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 16px 20px;
+      color: #ddd;
+      border-bottom: 1px solid #333;
+      cursor: pointer;
+      font-size: 1.15rem;
+      transition: all 0.2s;
     }
-
     .dropdown-item:last-child { border-bottom: none; }
 
-    .dropdown-item:hover { background: rgba(60,60,70,0.6); color: #fff; }
+    .dropdown-item:hover {
+      background: rgba(255,235,59,0.12);
+      color: #fff;
+    }
 
-    .dropdown-item.active { background: rgba(74,222,128,0.15); color: #a7f3d0; font-weight: 600; }
+    .dropdown-item .icon {
+      font-size: 2.3rem;
+      min-width: 48px;
+      text-align: center;
+    }
+
+    .dropdown-item .name {
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .dropdown-item.active {
+      background: rgba(74,222,128,0.18);
+      color: #a7f3d0;
+    }
 
     #products-grid { 
       padding:16px; display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; 
@@ -209,7 +250,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* ==================== PAGE DÉTAIL - SWIPE ARRÊTÉ À LA FIN DU NOIR ==================== */
+    /* PAGE DÉTAIL */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -232,7 +273,7 @@
       flex: 1;
       background: #000000;
       overflow-y: auto;
-      padding-bottom: 90px;   /* juste pour la barre nav */
+      padding-bottom: 90px;
     }
 
     .product-title { 
@@ -490,13 +531,13 @@
           </div>
         </div>
 
-        <div class="products-capsule">
+        <!-- NOUVEAU HEADER PRODUITS (exactement comme sur TheReef76) -->
+        <div id="products-header">
           <div class="products-title">
-            <span>🛍️</span> Produits
+            <span style="font-size:1.6rem;">🛍️</span>
+            Produits
           </div>
-          <div class="products-count" id="products-count-modern">
-            3 produits disponibles
-          </div>
+          <div id="products-count-modern" class="products-count">3 produits</div>
         </div>
 
         <div id="filters-wrapper">
@@ -695,8 +736,6 @@
   const userName = user.first_name || user.username || 'Utilisateur';
   welcomeNameElement.textContent = userName;
 
-  document.getElementById('products-count-modern').textContent = '3 produits disponibles';
-
   let currentCategoryFilter = null;
   let currentFarmFilter = null;
 
@@ -820,6 +859,10 @@
       grid.appendChild(card);
     });
 
+    // Mise à jour dynamique du nombre de produits (comme sur TheReef76)
+    const countEl = document.getElementById('products-count-modern');
+    countEl.textContent = `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`;
+
     updateFilterUI();
   }
 
@@ -834,57 +877,81 @@
     const catDropdown = document.getElementById('categories-dropdown');
     const farmDropdown = document.getElementById('farms-dropdown');
 
-    const shortenTitle = (title) => {
-      if (title.includes('73u Frozen')) return '73u Frozen 🧊';
-      if (title.includes('KGF 35U'))     return 'KGF 35U ⚡️';
-      if (title.includes('Blanche'))     return 'Blanche ❄️';
-      return title.substring(0, 22) + (title.length > 22 ? '...' : '');
-    };
+    function populateCategories() {
+      catDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Catégories</div>`;
 
-    const shortenFarm = (farm) => {
-      if (farm === 'KGF🦊') return 'KGF🦊';
-      if (farm === 'R8🏎️')  return 'R8🏎️';
-      return farm.substring(0, 18) + (farm.length > 18 ? '...' : '');
-    };
+      const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
+      uniqueTitles.forEach(title => {
+        const item = document.createElement('div');
+        item.className = `dropdown-item ${title === currentCategoryFilter ? 'active' : ''}`;
 
-    const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
-    uniqueTitles.forEach(title => {
-      const item = document.createElement('div');
-      item.className = 'dropdown-item';
-      item.textContent = shortenTitle(title);
-      item.dataset.fullTitle = title;
-      item.onclick = () => {
-        const fullTitle = item.dataset.fullTitle;
-        currentCategoryFilter = currentCategoryFilter === fullTitle ? null : fullTitle;
-        currentFarmFilter = null;
-        renderProducts();
-        catDropdown.style.display = 'none';
-      };
-      catDropdown.appendChild(item);
-    });
+        let icon = '';
+        let name = title;
+        if (title.includes('73u Frozen')) { icon = '🧊🦊'; name = '73u Frozen'; }
+        else if (title.includes('KGF 35U')) { icon = '⚡️🦊'; name = 'KGF 35U'; }
+        else if (title.includes('Blanche')) { icon = '❄️'; name = 'Blanche'; }
 
-    const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
-    uniqueFarms.forEach(farm => {
-      const item = document.createElement('div');
-      item.className = 'dropdown-item';
-      item.textContent = shortenFarm(farm);
-      item.onclick = () => {
-        currentFarmFilter = currentFarmFilter === farm ? null : farm;
-        currentCategoryFilter = null;
-        renderProducts();
-        farmDropdown.style.display = 'none';
-      };
-      farmDropdown.appendChild(item);
-    });
+        item.innerHTML = `
+          <span class="icon">${icon}</span>
+          <span class="name">${name}</span>
+        `;
+
+        if (title === currentCategoryFilter) {
+          item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
+        }
+
+        item.onclick = () => {
+          currentCategoryFilter = currentCategoryFilter === title ? null : title;
+          currentFarmFilter = null;
+          renderProducts();
+          catDropdown.style.display = 'none';
+        };
+        catDropdown.appendChild(item);
+      });
+    }
+
+    function populateFarms() {
+      farmDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Farms</div>`;
+
+      const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
+      uniqueFarms.forEach(farm => {
+        const item = document.createElement('div');
+        item.className = `dropdown-item ${farm === currentFarmFilter ? 'active' : ''}`;
+
+        let icon = '';
+        let name = farm;
+        if (farm === 'KGF🦊') { icon = '🦊'; name = 'KGF'; }
+        else if (farm === 'R8🏎️') { icon = '🏎️'; name = 'R8'; }
+
+        item.innerHTML = `
+          <span class="icon">${icon}</span>
+          <span class="name">${name}</span>
+        `;
+
+        if (farm === currentFarmFilter) {
+          item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
+        }
+
+        item.onclick = () => {
+          currentFarmFilter = currentFarmFilter === farm ? null : farm;
+          currentCategoryFilter = null;
+          renderProducts();
+          farmDropdown.style.display = 'none';
+        };
+        farmDropdown.appendChild(item);
+      });
+    }
 
     catBtn.onclick = (e) => {
       e.stopPropagation();
+      populateCategories();
       catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block';
       farmDropdown.style.display = 'none';
     };
 
     farmBtn.onclick = (e) => {
       e.stopPropagation();
+      populateFarms();
       farmDropdown.style.display = farmDropdown.style.display === 'block' ? 'none' : 'block';
       catDropdown.style.display = 'none';
     };
