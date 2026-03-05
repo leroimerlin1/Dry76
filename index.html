@@ -137,7 +137,7 @@
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
-    /* FILTRES - tout en noir (fond + contour + texte) */
+    /* FILTRES - tout en noir (fond + contour) */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -150,7 +150,7 @@
       background: #111;           /* fond noir */
       border: 1px solid #333;     /* contour noir */
       border-radius: 12px; 
-      color: #ffeb3b;             /* texte jaune pour rester visible */
+      color: #ffeb3b;
       font-family: 'Orbitron', sans-serif; 
       font-size: 1.05rem; 
       font-weight: 700;
@@ -173,7 +173,7 @@
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
-    /* DROPDOWN - titres et sous-titres encore plus petits */
+    /* DROPDOWN - titres et sous-titres très petits */
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
       width: 80%; max-width: 360px; margin: 8px auto 0;
@@ -190,7 +190,7 @@
     .dropdown-header {
       padding: 14px 20px;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.10rem;        /* plus petit */
+      font-size: 1.10rem;
       font-weight: 700;
       color: #ffeb3b;
       background: rgba(255,235,59,0.15);
@@ -209,7 +209,7 @@
       color: #ddd;
       border-bottom: 1px solid #333;
       cursor: pointer;
-      font-size: 0.98rem;        /* encore plus petit */
+      font-size: 0.98rem;
       transition: all 0.2s;
     }
     .dropdown-item:last-child { border-bottom: none; }
@@ -257,7 +257,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* DÉTAIL - vidéo montée jusqu'en haut (pas d'espace vide) */
+    /* PAGE DÉTAIL - vidéo réduite + collée tout en haut sans espace */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -268,14 +268,14 @@
       margin-top: 0 !important;
     }
     .product-hero { 
-      flex: 0 0 58vh;
-      min-height: 320px;
+      flex: 0 0 55vh;          /* taille comme avant */
+      min-height: 300px;
       width: 100%;
       background: #000;
       position: relative;
       overflow: hidden;
-      margin-top: 0;
-      padding-top: 0;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
     }
     #detail-video { width: 100%; height: 100%; object-fit: cover; background: #111; }
 
@@ -834,7 +834,7 @@
       const card = document.createElement('div');
       card.className = 'card';
 
-      const videoHtml = `
+      card.innerHTML = `
         <div class="card-img">
           <video autoplay muted loop playsinline>
             <source src="${p.previewVideo}" type="video/mp4">
@@ -846,7 +846,6 @@
         </div>
       `;
 
-      card.innerHTML = videoHtml;
       card.onclick = () => openProductDetail(p.key);
       grid.appendChild(card);
     });
