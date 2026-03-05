@@ -150,7 +150,7 @@
       background: rgba(255,235,59,0.15);
       border: 1px solid #ffeb3b; 
       border-radius: 12px; 
-      color: #ffeb3b;
+      color: #111;
       font-family: 'Orbitron', sans-serif; 
       font-size: 1.05rem; 
       font-weight: 700;
@@ -173,7 +173,7 @@
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
-    /* DROPDOWN */
+    /* DROPDOWN - titres et sous-titres réduits */
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
       width: 80%; max-width: 360px; margin: 8px auto 0;
@@ -188,9 +188,9 @@
     }
 
     .dropdown-header {
-      padding: 16px 20px;
+      padding: 14px 20px;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.35rem;
+      font-size: 1.18rem;
       font-weight: 700;
       color: #ffeb3b;
       background: rgba(255,235,59,0.15);
@@ -205,11 +205,11 @@
       display: flex;
       align-items: center;
       gap: 18px;
-      padding: 16px 20px;
+      padding: 14px 20px;
       color: #ddd;
       border-bottom: 1px solid #333;
       cursor: pointer;
-      font-size: 1.15rem;
+      font-size: 1.02rem;
       transition: all 0.2s;
     }
     .dropdown-item:last-child { border-bottom: none; }
@@ -220,8 +220,8 @@
     }
 
     .dropdown-item .icon {
-      font-size: 2.3rem;
-      min-width: 48px;
+      font-size: 2.2rem;
+      min-width: 46px;
       text-align: center;
     }
 
@@ -257,18 +257,19 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* PAGE DÉTAIL */
+    /* PAGE DÉTAIL - vidéo collée au maximum en haut */
     #product-detail { 
       display: none;
       flex-direction: column;
       height: 100vh;
       background: #000000;
       position: relative;
+      padding-top: 0 !important;
+      margin-top: 0 !important;
     }
     .product-hero { 
-      flex: 0 0 55vh;
-      min-height: 300px;
-      max-height: 500px;
+      flex: 0 0 65vh;
+      min-height: 340px;
       width: 100%;
       background: #000;
       position: relative;
@@ -402,10 +403,7 @@
 
     #submit-order-btn { width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
 
-    #infos-page, #reseaux-page {
-      display: none;
-      padding: 16px 16px 80px 16px;
-    }
+    #infos-page, #reseaux-page { display: none; padding: 16px 16px 80px 16px; }
 
     .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
 
@@ -664,14 +662,17 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
             Telegram VIP⭐️
           </div>
+
           <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
             <img src="potato.jpg" alt="Canal Potato">
             Canal Potato🥔
           </div>
+
           <div class="reseau-item" data-link="http://t.me/SAV_dry76">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
             Secrétaire👨‍💼
           </div>
+
           <div class="reseau-item" data-link="https://discord.gg/tWV3knGs">
             <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384e89d1d54d704ece7_3437c10597c1526c3dbd98c737c2bcae.svg" alt="Discord">
             Chat retour✍️
@@ -820,12 +821,17 @@
 
     let filteredProducts = Object.values(products);
 
-    if (currentCategoryFilter) filteredProducts = filteredProducts.filter(p => p.title === currentCategoryFilter);
-    if (currentFarmFilter) filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
+    if (currentCategoryFilter) {
+      filteredProducts = filteredProducts.filter(p => p.title === currentCategoryFilter);
+    }
+    if (currentFarmFilter) {
+      filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
+    }
 
     filteredProducts.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
+
       card.innerHTML = `
         <div class="card-img">
           <video autoplay muted loop playsinline>
@@ -837,6 +843,7 @@
           </div>
         </div>
       `;
+
       card.onclick = () => openProductDetail(p.key);
       grid.appendChild(card);
     });
@@ -858,16 +865,27 @@
 
     function populateCategories() {
       catDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Catégories</div>`;
+
       const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
       uniqueTitles.forEach(title => {
         const item = document.createElement('div');
         item.className = `dropdown-item ${title === currentCategoryFilter ? 'active' : ''}`;
-        let icon = '', name = title;
+
+        let icon = '';
+        let name = title;
         if (title.includes('73u Frozen')) { icon = '🧊🦊'; name = '73u Frozen'; }
         else if (title.includes('KGF 35U')) { icon = '⚡️🦊'; name = 'KGF 35U'; }
         else if (title.includes('Blanche')) { icon = '❄️'; name = 'Blanche'; }
-        item.innerHTML = `<span class="icon">${icon}</span><span class="name">${name}</span>`;
-        if (title === currentCategoryFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
+
+        item.innerHTML = `
+          <span class="icon">${icon}</span>
+          <span class="name">${name}</span>
+        `;
+
+        if (title === currentCategoryFilter) {
+          item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
+        }
+
         item.onclick = () => {
           currentCategoryFilter = currentCategoryFilter === title ? null : title;
           currentFarmFilter = null;
@@ -880,15 +898,26 @@
 
     function populateFarms() {
       farmDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Farms</div>`;
+
       const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
       uniqueFarms.forEach(farm => {
         const item = document.createElement('div');
         item.className = `dropdown-item ${farm === currentFarmFilter ? 'active' : ''}`;
-        let icon = '', name = farm;
+
+        let icon = '';
+        let name = farm;
         if (farm === 'KGF🦊') { icon = '🦊'; name = 'KGF'; }
         else if (farm === 'R8🏎️') { icon = '🏎️'; name = 'R8'; }
-        item.innerHTML = `<span class="icon">${icon}</span><span class="name">${name}</span>`;
-        if (farm === currentFarmFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
+
+        item.innerHTML = `
+          <span class="icon">${icon}</span>
+          <span class="name">${name}</span>
+        `;
+
+        if (farm === currentFarmFilter) {
+          item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
+        }
+
         item.onclick = () => {
           currentFarmFilter = currentFarmFilter === farm ? null : farm;
           currentCategoryFilter = null;
@@ -899,8 +928,19 @@
       });
     }
 
-    catBtn.onclick = (e) => { e.stopPropagation(); populateCategories(); catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block'; farmDropdown.style.display = 'none'; };
-    farmBtn.onclick = (e) => { e.stopPropagation(); populateFarms(); farmDropdown.style.display = farmDropdown.style.display === 'block' ? 'none' : 'block'; catDropdown.style.display = 'none'; };
+    catBtn.onclick = (e) => {
+      e.stopPropagation();
+      populateCategories();
+      catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block';
+      farmDropdown.style.display = 'none';
+    };
+
+    farmBtn.onclick = (e) => {
+      e.stopPropagation();
+      populateFarms();
+      farmDropdown.style.display = farmDropdown.style.display === 'block' ? 'none' : 'block';
+      catDropdown.style.display = 'none';
+    };
 
     document.addEventListener('click', e => {
       if (!e.target.closest('#filters-wrapper')) {
@@ -910,7 +950,6 @@
     });
   }
 
-  // ===================== TELEGRAM NATIVE HEADER =====================
   function showDetail() {
     document.getElementById('custom-header').style.display = 'none';
     tg.BackButton.show();
@@ -930,7 +969,7 @@
 
   function openProductDetail(key) {
     const p = products[key];
-
+    
     const videoElement = document.getElementById('detail-video');
     videoElement.innerHTML = `<source src="${p.previewVideo}" type="video/mp4">`;
     videoElement.load();
@@ -963,8 +1002,7 @@
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
     document.body.classList.add('detail-visible');
-
-    showDetail(); // Telegram affiche "Fermer" + bouton Retour natif
+    showDetail();
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
@@ -982,6 +1020,7 @@
   function showCart() {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
 
     const itemsDiv = document.getElementById('cart-items');
@@ -1036,6 +1075,7 @@
     const mode = modeBtn.dataset.type;
     let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
     message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
+
     cart.forEach(item => message += `• ${item.title} × ${item.qty} (${item.price})\n`);
 
     if (mode === 'pickup') {
@@ -1051,7 +1091,8 @@
     }
 
     message += `\n\nMerci !`;
-    tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encodeURIComponent(message)}`);
+    const encoded = encodeURIComponent(message);
+    tg.openTelegramLink(`https://t.me/SAV_dry76?text=${encoded}`);
   };
 
   document.getElementById('nav-home').onclick = () => {
@@ -1063,6 +1104,7 @@
   document.getElementById('nav-cart').onclick = () => {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
     showCart();
   };
@@ -1098,7 +1140,8 @@
 
         document.querySelectorAll('.reseau-item').forEach(item => {
           item.addEventListener('click', function() {
-            if (this.dataset.link) tg.openLink(this.dataset.link);
+            const link = this.dataset.link;
+            if (link) tg.openLink(link);
           });
         });
       }, 600);
