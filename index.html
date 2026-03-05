@@ -41,64 +41,15 @@
     .background-fixed img { width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; }
 
     .container { position:relative; min-height:100vh; }
-    .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 16px; }
+    .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 0; }  /* padding-top:0 pour coller l'image en haut */
 
-    header {
-      position:sticky; top:0; background:rgba(30,30,30,.96); backdrop-filter:blur(14px);
-      padding:12px 16px; border-bottom:1px solid #333; z-index:10;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .header-inner { display:flex; align-items:center; max-width:420px; width:100%; position:relative; }
-    .header-logo { width:48px; height:48px; border-radius:50%; object-fit:cover; margin-right:14px; border:3px solid #ffeb3b; box-shadow:0 0 12px rgba(255,235,59,.4); }
-    .header-title { font-family: 'Orbitron', sans-serif; font-size:1.55rem; font-weight:900; letter-spacing:2px; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); }
-
-    /* BLOC BIENVENUE */
-    .welcome-capsule {
-      margin: 12px 20px 20px 20px;
-      background: rgba(20, 20, 30, 0.92);
-      backdrop-filter: blur(16px);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 235, 59, 0.15);
-      box-shadow: 0 6px 32px rgba(0,0,0,0.45);
-      padding: 16px 14px;
-      text-align: center;
-    }
-
-    .welcome-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .welcome-emoji {
-      font-size: 2rem;
-      animation: wave-hand 2.8s infinite;
-    }
-
-    @keyframes wave-hand {
-      0%, 100% { transform: rotate(0deg); }
-      20% { transform: rotate(-12deg); }
-      40% { transform: rotate(8deg); }
-      60% { transform: rotate(-8deg); }
-      80% { transform: rotate(4deg); }
-    }
-
-    .welcome-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.45rem;
-      font-weight: 900;
-      color: #ffeb3b;
-      text-shadow: 0 0 10px rgba(255,235,59,0.45);
-      letter-spacing: 1px;
-    }
-
-    .welcome-premium {
-      font-size: 1rem;
-      color: #ccc;
-      line-height: 1.3;
-      margin-top: 4px;
+    #top-logo {
+      width: 100%;
+      height: auto;
+      max-height: 160px; /* Rétréci la taille de l'image titre.PNG */
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
     }
 
     /* HEADER PRODUITS */
@@ -137,7 +88,7 @@
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
-    /* FILTRES - tout en noir (fond + contour) */
+    /* FILTRES */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -145,95 +96,39 @@
     }
 
     .filter-tab {
-      flex: 1; 
-      padding: 12px 0; 
-      background: #111;           /* fond noir */
-      border: 1px solid #333;     /* contour noir */
-      border-radius: 12px; 
-      color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif; 
-      font-size: 1.05rem; 
-      font-weight: 700;
-      cursor: pointer; 
-      text-align: center; 
-      transition: all 0.2s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4); 
-      min-height: 46px;
+      flex: 1; padding: 10px 0; background: rgba(255,235,59,0.18);
+      border: 1px solid #ffeb3b; border-radius: 10px; color: #ffeb3b;
+      font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700;
+      cursor: pointer; text-align: center; transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4); min-height: 42px;
     }
 
-    .filter-tab:hover { 
-      background: #1a1a1a; 
-      border-color: #555; 
-    }
+    .filter-tab:hover { background: rgba(255,235,59,0.35); border-color: #fff176; }
 
     .filter-tab[data-active="true"] {
-      background: #ffeb3b; 
-      color: #111; 
-      border-color: #fff176;
+      background: #ffeb3b; color: #111; border-color: #fff176;
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
-    /* DROPDOWN - titres et sous-titres très petits */
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
-      width: 80%; max-width: 360px; margin: 8px auto 0;
-      background: rgba(15,15,20,0.98); 
-      border: 1px solid rgba(255,235,59,0.3);
-      border-radius: 16px; 
-      z-index: 99; 
-      max-height: 420px;
-      overflow-y: auto; 
-      box-shadow: 0 12px 40px rgba(0,0,0,0.8);
-      backdrop-filter: blur(12px);
-    }
-
-    .dropdown-header {
-      padding: 12px 20px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.08rem;
-      font-weight: 700;
-      color: #ffeb3b;
-      background: rgba(255,235,59,0.15);
-      border-bottom: 1px solid rgba(255,235,59,0.25);
-      border-radius: 16px 16px 0 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      width: 80%; max-width: 360px; margin: 6px auto 0;
+      background: rgba(15,15,20,0.96); border: 1px solid #555;
+      border-radius: 12px; z-index: 99; max-height: 320px;
+      overflow-y: auto; box-shadow: 0 8px 28px rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
     }
 
     .dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 12px 20px;
-      color: #ddd;
-      border-bottom: 1px solid #333;
-      cursor: pointer;
-      font-size: 0.96rem;
-      transition: all 0.2s;
+      padding: 12px 16px; color: #ddd; border-bottom: 1px solid #333;
+      cursor: pointer; font-size: 1.05rem; transition: all 0.15s;
     }
+
     .dropdown-item:last-child { border-bottom: none; }
 
-    .dropdown-item:hover {
-      background: rgba(255,235,59,0.12);
-      color: #fff;
-    }
+    .dropdown-item:hover { background: rgba(60,60,70,0.6); color: #fff; }
 
-    .dropdown-item .icon {
-      font-size: 2.1rem;
-      min-width: 44px;
-      text-align: center;
-    }
-
-    .dropdown-item .name {
-      flex: 1;
-      font-weight: 500;
-    }
-
-    .dropdown-item.active {
-      background: rgba(74,222,128,0.18);
-      color: #a7f3d0;
-    }
+    .dropdown-item.active { background: rgba(74,222,128,0.15); color: #a7f3d0; font-weight: 600; }
 
     #products-grid { 
       padding:16px; display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; 
@@ -247,7 +142,7 @@
     .card:hover { transform:scale(1.04); border-color:#fff176; box-shadow:0 8px 24px rgba(255,235,59,.35); }
 
     .card-img { height: 100%; width: 100%; position: relative; }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-img video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .card-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -257,7 +152,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* PAGE DÉTAIL - vidéo collée tout en haut sans espace */
+    /* PAGE DÉTAIL - vidéo rétréciée */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -268,15 +163,15 @@
       margin-top: 0 !important;
     }
     .product-hero { 
-      flex: 0 0 55vh;
-      min-height: 300px;
-      max-height: 500px;
+      flex: 0 0 40vh;      /* Rétréciée beaucoup */
+      min-height: 240px;
+      max-height: 360px;
       width: 100%;
       background: #000;
       position: relative;
       overflow: hidden;
-      margin-top: 0 !important;
-      padding-top: 0 !important;
+      margin-top: 0;
+      padding-top: 0;
     }
     #detail-video { width: 100%; height: 100%; object-fit: cover; background: #111; }
 
@@ -525,6 +420,7 @@
       </header>
 
       <div id="home-page">
+        <img src="titre.PNG" alt="Logo" style="width:100%; height:auto; display:block;">
         <div id="products-header">
           <div class="products-title">
             <span style="font-size:1.6rem;">🛍️</span>
@@ -546,13 +442,8 @@
       </div>
 
       <div id="product-detail">
-        <div class="detail-carousel">
-          <div class="carousel-slide">
-            <img id="detail-image" src="" alt="Produit">
-          </div>
-          <div class="carousel-slide">
-            <video id="detail-video" autoplay muted loop playsinline controls></video>
-          </div>
+        <div class="product-hero">
+          <video id="detail-video" autoplay muted loop playsinline controls></video>
         </div>
         
         <div class="product-info">
@@ -831,7 +722,9 @@
 
       card.innerHTML = `
         <div class="card-img">
-          <img src="${p.previewVideo.replace('.mp4', '.jpg')}" alt="${p.title}">
+          <video autoplay muted loop playsinline>
+            <source src="${p.previewVideo}" type="video/mp4">
+          </video>
           <div class="card-overlay">
             <div class="card-title">${p.title}</div>
             <div class="card-farm">${p.farm}</div>
