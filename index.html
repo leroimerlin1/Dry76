@@ -137,7 +137,7 @@
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
-    /* FILTRES */
+    /* FILTRES - tout en noir (fond + contour + texte) */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -147,10 +147,10 @@
     .filter-tab {
       flex: 1; 
       padding: 12px 0; 
-      background: rgba(255,235,59,0.15);
-      border: 1px solid #ffeb3b; 
+      background: #111;           /* fond noir */
+      border: 1px solid #333;     /* contour noir */
       border-radius: 12px; 
-      color: #111;
+      color: #ffeb3b;             /* texte jaune pour rester visible */
       font-family: 'Orbitron', sans-serif; 
       font-size: 1.05rem; 
       font-weight: 700;
@@ -162,8 +162,8 @@
     }
 
     .filter-tab:hover { 
-      background: rgba(255,235,59,0.35); 
-      border-color: #fff176; 
+      background: #1a1a1a; 
+      border-color: #555; 
     }
 
     .filter-tab[data-active="true"] {
@@ -173,7 +173,7 @@
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
-    /* DROPDOWN - titres et sous-titres réduits */
+    /* DROPDOWN - titres et sous-titres encore plus petits */
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
       width: 80%; max-width: 360px; margin: 8px auto 0;
@@ -190,7 +190,7 @@
     .dropdown-header {
       padding: 14px 20px;
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.18rem;
+      font-size: 1.10rem;        /* plus petit */
       font-weight: 700;
       color: #ffeb3b;
       background: rgba(255,235,59,0.15);
@@ -209,7 +209,7 @@
       color: #ddd;
       border-bottom: 1px solid #333;
       cursor: pointer;
-      font-size: 1.02rem;
+      font-size: 0.98rem;        /* encore plus petit */
       transition: all 0.2s;
     }
     .dropdown-item:last-child { border-bottom: none; }
@@ -257,7 +257,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* PAGE DÉTAIL - vidéo collée au maximum en haut */
+    /* DÉTAIL - vidéo montée jusqu'en haut (pas d'espace vide) */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -268,12 +268,14 @@
       margin-top: 0 !important;
     }
     .product-hero { 
-      flex: 0 0 65vh;
-      min-height: 340px;
+      flex: 0 0 58vh;
+      min-height: 320px;
       width: 100%;
       background: #000;
       position: relative;
       overflow: hidden;
+      margin-top: 0;
+      padding-top: 0;
     }
     #detail-video { width: 100%; height: 100%; object-fit: cover; background: #111; }
 
@@ -832,7 +834,7 @@
       const card = document.createElement('div');
       card.className = 'card';
 
-      card.innerHTML = `
+      const videoHtml = `
         <div class="card-img">
           <video autoplay muted loop playsinline>
             <source src="${p.previewVideo}" type="video/mp4">
@@ -844,6 +846,7 @@
         </div>
       `;
 
+      card.innerHTML = videoHtml;
       card.onclick = () => openProductDetail(p.key);
       grid.appendChild(card);
     });
