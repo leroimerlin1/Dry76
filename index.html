@@ -93,7 +93,7 @@
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
-    /* FILTRES */
+    /* FILTRES PRO */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -101,19 +101,22 @@
     }
 
     .filter-tab {
-      flex: 1; padding: 10px 0; background: rgba(255,235,59,0.18);
+      flex: 1; padding: 10px 0; background: rgba(30,30,30,0.8);
       border: 1px solid #ffeb3b; border-radius: 10px; color: #ffeb3b;
       font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700;
       cursor: pointer; text-align: center; transition: all 0.2s;
       box-shadow: 0 2px 6px rgba(0,0,0,0.4); min-height: 42px;
+      display: flex; align-items: center; justify-content: center;
     }
 
-    .filter-tab:hover { background: rgba(255,235,59,0.35); border-color: #fff176; }
+    .filter-tab:hover { background: rgba(50,50,50,0.8); border-color: #fff176; }
 
     .filter-tab[data-active="true"] {
       background: #ffeb3b; color: #111; border-color: #fff176;
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
+
+    .filter-tab .arrow { margin-left: 4px; color: #ccc; } /* Arrow darker */
 
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
@@ -124,10 +127,19 @@
       backdrop-filter: blur(6px);
     }
 
+    .dropdown-header {
+      font-weight: bold; text-align: center; padding: 10px; border-bottom: 1px solid #444; color: #ffeb3b;
+    }
+
     .dropdown-item {
       padding: 12px 16px; color: #ddd; border-bottom: 1px solid #333;
       cursor: pointer; font-size: 1.05rem; transition: all 0.15s;
+      display: flex; align-items: center;
     }
+
+    .dropdown-item .icon { margin-right: 8px; font-size: 1.2rem; }
+
+    .dropdown-item .name { flex: 1; }
 
     .dropdown-item:last-child { border-bottom: none; }
 
@@ -157,7 +169,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* PAGE DÉTAIL - carousel pour image + vidéo */
+    /* PAGE DÉTAIL - carousel pour image + vidéo, réduit la taille */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -168,9 +180,9 @@
       margin-top: 0 !important;
     }
     .product-hero { 
-      flex: 0 0 40vh;
-      min-height: 250px;
-      max-height: 400px;
+      flex: 0 0 30vh;      /* Réduit pour éviter que la vidéo soit trop grande */
+      min-height: 200px;
+      max-height: 300px;
       width: 100%;
       background: #000;
       position: relative;
@@ -197,14 +209,14 @@
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .swiper-slide video {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .swiper-pagination-bullet {
@@ -470,8 +482,8 @@
 
         <div id="filters-wrapper">
           <div id="filters-container">
-            <button id="filter-categories-btn" class="filter-tab" data-active="false">Catégories ↓</button>
-            <button id="filter-farms-btn" class="filter-tab" data-active="false">Farms ↓</button>
+            <button id="filter-categories-btn" class="filter-tab" data-active="false">Catégories <span class="arrow">↓</span></button>
+            <button id="filter-farms-btn" class="filter-tab" data-active="false">Farms <span class="arrow">↓</span></button>
           </div>
           <div id="categories-dropdown" class="dropdown-menu" style="display:none;"></div>
           <div id="farms-dropdown" class="dropdown-menu" style="display:none;"></div>
