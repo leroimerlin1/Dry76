@@ -41,17 +41,18 @@
     .background-fixed img { width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; }
 
     .container { position:relative; min-height:100vh; }
-    .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 0; }
+    .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 0; }  /* padding-top:0 pour coller l'image en haut */
 
     #top-logo {
       width: 100%;
       height: auto;
-      max-height: 160px;
+      max-height: 160px; /* Rétréci la taille de l'image titre.PNG */
       object-fit: contain;
       display: block;
       margin: 0 auto;
     }
 
+    /* HEADER PRODUITS */
     #products-header {
       margin: 0 20px 16px 20px;
       background: rgba(20, 20, 30, 0.92);
@@ -87,6 +88,7 @@
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
+    /* FILTRES */
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
 
     #filters-container {
@@ -150,7 +152,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* PAGE DÉTAIL - VIDÉO TRÈS PETITE (exactement ce que tu veux) */
+    /* PAGE DÉTAIL - vidéo rétréciée */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -161,7 +163,7 @@
       margin-top: 0 !important;
     }
     .product-hero { 
-      flex: 0 0 20vh;      /* VIDÉO BEAUCOUP PLUS PETITE */
+      flex: 0 0 20vh;      /* Rétréciée beaucoup */
       min-height: 150px;
       max-height: 210px;
       width: 100%;
@@ -171,12 +173,7 @@
       margin-top: 0;
       padding-top: 0;
     }
-    #detail-video { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: contain;   /* Toute la vidéo visible sans couper le haut */
-      background: #000; 
-    }
+    #detail-video { width: 100%; height: 100%; object-fit: contain; background: #000; }
 
     .product-info {
       flex: 1;
@@ -287,6 +284,7 @@
       letter-spacing:1px; 
     }
 
+    /* AUTRES PAGES */
     #cart-page { padding:16px; display:none; }
     .cart-item { background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
     .delete-btn { background:#ef4444; color:white; border:none; width:32px; height:32px; border-radius:50%; font-weight:bold; cursor:pointer; }
