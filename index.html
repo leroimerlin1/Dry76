@@ -216,7 +216,7 @@
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover; /* Changé à cover pour remplir l'espace sans espace noir */
     }
 
     .swiper-pagination-bullet {
@@ -244,7 +244,7 @@
       background: #000000;
       overflow-y: auto;
       padding-bottom: 90px;
-      margin-top: 160px; /* Augmenté pour descendre les éléments (titre, sous-titre, description, prix) un petit peu plus bas */
+      margin-top: 0px; /* Supprimé la marge pour éliminer l'espace noir au-dessus du titre */
     }
 
     .product-title { 
@@ -1133,3 +1133,4 @@
   </script>
 </body>
 </html>
+```c:wght
