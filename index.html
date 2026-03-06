@@ -241,10 +241,10 @@
 
     .product-info {
       flex: 1;
-      background: #000000;
+      background: transparent;
       overflow-y: auto;
       padding-bottom: 90px;
-      margin-top: -60px; /* Inversé pour remonter la description et le fond noir au-dessus */
+      margin-top: 0px; /* Supprimé la marge pour éliminer l'espace noir au-dessus du titre */
     }
 
     .product-title { 
@@ -959,7 +959,7 @@
     `;
 
     new Swiper('#media-swiper', {
-      loop: false,
+      loop: false;
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
