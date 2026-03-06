@@ -174,7 +174,7 @@
       display: none;
       flex-direction: column;
       height: 100vh;
-      background: #000000;
+      background: transparent; /* Supprimé le fond noir pour le conteneur parent */
       position: relative;
       padding-top: 0 !important;
       margin-top: 0 !important;
@@ -241,7 +241,7 @@
 
     .product-info {
       flex: 1;
-      background: transparent;
+      background: transparent; /* Supprimé le fond noir */
       overflow-y: auto;
       padding-bottom: 90px;
       margin-top: 0px; /* Supprimé la marge pour éliminer l'espace noir au-dessus du titre */
@@ -959,7 +959,7 @@
     `;
 
     new Swiper('#media-swiper', {
-      loop: false;
+      loop: false,
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
