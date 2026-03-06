@@ -244,7 +244,7 @@
       background: #000000;
       overflow-y: auto;
       padding-bottom: 90px;
-      margin-top: 50px; /* Décalage ajouté pour descendre les infos */
+      margin-top: 0px; /* Supprimé la marge pour éliminer l'espace noir au-dessus du titre */
     }
 
     .product-title { 
@@ -1104,7 +1104,7 @@
     document.getElementById('nav-reseaux').classList.add('active');
   };
 
-  window.addEventListener('load', () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
     setTimeout(() => {
       splash.classList.add('hidden');
@@ -1129,6 +1129,13 @@
         });
       }, 600);
     }, 2500);
+
+    // Fallback to hide splash after 5 seconds if stuck
+    setTimeout(() => {
+      if (splash.style.display !== 'none') {
+        splash.style.display = 'none';
+      }
+    }, 5000);
   });
   </script>
 </body>
