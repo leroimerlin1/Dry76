@@ -182,14 +182,13 @@
     .product-hero { 
       flex: 0 0 25vh;      /* Réduit pour éviter que la vidéo soit trop grande */
       min-height: 180px;
-      max-height: 200px; /* Réduit pour rapprocher le titre */
+      max-height: 250px;
       width: 100%;
       background: #000;
       position: relative;
       overflow: hidden;
       margin-top: 0;
       padding-top: 0;
-      margin-bottom: 0;
     }
 
     .swiper {
@@ -217,7 +216,7 @@
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Changé à cover pour remplir l'espace sans espace noir */
+      object-fit: contain;
     }
 
     .swiper-pagination-bullet {
@@ -246,7 +245,6 @@
       overflow-y: auto;
       padding-bottom: 90px;
       margin-top: 0px; /* Supprimé la marge pour éliminer l'espace noir au-dessus du titre */
-      padding-top: 0;
     }
 
     .product-title { 
@@ -1135,3 +1133,5 @@
   </script>
 </body>
 </html>
+""")</parameter>
+</xai:function_call>
