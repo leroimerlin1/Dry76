@@ -180,8 +180,8 @@
     }
     .product-hero { 
       flex: 0 0 25vh;      /* Réduit pour éviter que la vidéo soit trop grande */
-      min-height: 270px;
-      max-height: 400px;
+      min-height: 150px;
+      max-height: 200px;
       width: 100%;
       background: #000;
       position: relative;
@@ -201,7 +201,7 @@
     }
 
     .product-title { 
-      padding:8px 16px 8px; 
+      padding:24px 16px 8px; 
       font-family: 'Orbitron', sans-serif; 
       font-size:2.1rem; 
       font-weight:900; 
@@ -504,7 +504,7 @@
 
       <div id="product-detail">
         <div class="product-hero">
-          <video id="detail-video" autoplay loop muted playsinline controls></video>
+          <video id="detail-video" autoplay loop muted playsinline></video>
         </div>
         <!-- Switcher moderne avec miniatures -->
         <div id="video-switcher" class="video-switcher"></div>
@@ -781,7 +781,10 @@
     videoEl.innerHTML = `<source src="${src}" type="video/mp4">`;
     videoEl.load();
     if (src) {
+      videoEl.setAttribute('controls', '');
       videoEl.play().catch(() => {});
+    } else {
+      videoEl.removeAttribute('controls');
     }
   }
 
