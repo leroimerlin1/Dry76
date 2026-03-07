@@ -186,11 +186,11 @@
       padding-top: 0;
     }
 
-    .product-hero video { width: 100%; height: 500px; object-fit: contain; background: transparent; }
+    .product-hero video, .product-hero img { width: 100%; height: 500px; object-fit: contain; background: transparent; }
 
     .product-info {
       flex: 1;
-      background: transparent;
+      background: #333; /* Dark gray background for text */
       overflow-y: auto;
       padding-bottom: 90px;
       margin-top: 0px; /* Supprimé la marge pour éliminer l'espace noir au-dessus du titre */
@@ -495,9 +495,7 @@
       </div>
 
       <div id="product-detail">
-        <div class="product-hero">
-          <video id="detail-video" autoplay loop muted playsinline></video>
-        </div>
+        <div class="product-hero" id="product-hero"></div>
         <!-- Switcher moderne avec miniatures -->
         <div id="video-switcher" class="video-switcher"></div>
         
@@ -767,16 +765,26 @@
     window.scrollTo(0, 0);
   }
 
-  function loadVideo(src, poster) {
-    const videoEl = document.getElementById('detail-video');
-    videoEl.poster = poster || '';
-    videoEl.innerHTML = `<source src="${src}" type="video/mp4">`;
-    videoEl.load();
+  function loadMedia(src, poster) {
+    const hero = document.getElementById('product-hero');
+    hero.innerHTML = '';
     if (src) {
-      videoEl.setAttribute('controls', '');
+      const videoEl = document.createElement('video');
+      videoEl.autoplay = true;
+      videoEl.loop = true;
+      videoEl.muted = true;
+      videoEl.playsinline = true;
+      videoEl.controls = true;
+      videoEl.poster = poster || '';
+      videoEl.innerHTML = `<source src="${src}" type="video/mp4">`;
+      videoEl.load();
       videoEl.play().catch(() => {});
+      hero.appendChild(videoEl);
     } else {
-      videoEl.removeAttribute('controls');
+      const imgEl = document.createElement('img');
+      imgEl.src = poster;
+      imgEl.alt = 'Product image';
+      hero.appendChild(imgEl);
     }
   }
 
@@ -975,7 +983,7 @@
         preview.onclick = () => {
           switcher.querySelectorAll('.video-preview').forEach(b => b.classList.remove('active'));
           preview.classList.add('active');
-          loadVideo(vid.src, vid.poster);
+          loadMedia(vid.src, vid.poster);
         };
         switcher.appendChild(preview);
       });
@@ -983,8 +991,8 @@
       switcher.style.display = 'none';
     }
 
-    // Première vidéo
-    loadVideo(p.videos[0].src, p.videos[0].poster);
+    // Première média
+    loadMedia(p.videos[0].src, p.videos[0].poster);
 
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
