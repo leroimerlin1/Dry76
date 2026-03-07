@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Dry.Coffee76</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
@@ -169,7 +168,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* PAGE DÉTAIL - carousel pour image + vidéo, réduit la taille et ajoute margin pour redescendre le fond */
+    /* PAGE DÉTAIL - réduit la taille et ajoute margin pour redescendre le fond */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -191,53 +190,7 @@
       padding-top: 0;
     }
 
-    .swiper {
-      width: 100%;
-      height: 100%;
-    }
-
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .swiper-slide video {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .swiper-pagination-bullet {
-      background: #ffeb3b;
-      opacity: 0.7;
-    }
-
-    .swiper-pagination-bullet-active {
-      background: #ffeb3b;
-      opacity: 1;
-    }
-
-    .swiper-button-next, .swiper-button-prev {
-      color: #ffeb3b;
-      opacity: 1 !important; /* Garder les flèches visibles en permanence */
-      transition: none; /* Empêcher les transitions qui pourraient les faire disparaître */
-    }
-
-    .swiper-button-next:after, .swiper-button-prev:after {
-      font-size: 30px; /* Ajuster la taille si nécessaire */
-    }
+    .product-hero video { width: 100%; height: 100%; object-fit: contain; }
 
     .product-info {
       flex: 1;
@@ -347,6 +300,56 @@
       box-shadow:0 0 12px rgba(255,235,59,.5); 
       font-family: 'Orbitron', sans-serif; 
       letter-spacing:1px; 
+    }
+
+    /* SWITCHER VIDÉO ULTRA MODERNE (miniatures avec aperçu + play) */
+    .video-switcher {
+      padding: 12px 16px 24px;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .video-preview {
+      width: 96px;
+      height: 54px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+    .video-preview:hover {
+      transform: scale(1.12) translateY(-2px);
+      border-color: #ffeb3b;
+      box-shadow: 0 10px 25px rgba(255,235,59,0.35);
+    }
+    .video-preview.active {
+      border-color: #ffeb3b;
+      box-shadow: 0 0 0 4px rgba(255,235,59,0.5);
+      transform: scale(1.08);
+    }
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #ffeb3b;
+      text-shadow: 0 0 8px rgba(255,235,59,0.8);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
     }
 
     /* AUTRES PAGES */
@@ -501,13 +504,10 @@
 
       <div id="product-detail">
         <div class="product-hero">
-          <div class="swiper" id="media-swiper">
-            <div class="swiper-wrapper"></div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-          </div>
+          <video id="detail-video" autoplay loop muted playsinline controls></video>
         </div>
+        <!-- Switcher moderne avec miniatures -->
+        <div id="video-switcher" class="video-switcher"></div>
         
         <div class="product-info">
           <div class="product-title" id="detail-title"></div>
@@ -676,7 +676,6 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
   const tg = window.Telegram.WebApp;
   tg.ready();
@@ -693,8 +692,10 @@
       key: 'frozen',
       title: '73u Frozen 🧊🦊',
       farm: 'KGF🦊',
-      previewImage: "kgf73u.jpg",  // Assurez-vous que cette image existe
-      previewVideo: "kgf73u.mp4",
+      videos: [
+        { src: '', poster: 'kgf73u.jpg' }, // photo
+        { src: 'kgf73u.mp4', poster: 'kgf73u.jpg' } // video
+      ],
       strain: '- Tutti Fruitti 🍓🍉🍒🍋🍏🍑🍌\n- Acai Cake S1 🫐🍰🍓',
       description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\n" +
                    "Tutti Fruitti : bonbon fruité explosif, fraise-banane-ananas ultra sucré et givrée\n" +
@@ -711,8 +712,10 @@
       key: 'kgf35u',
       title: 'KGF 35U ⚡️🦊',
       farm: 'KGF🦊',
-      previewImage: "kgf35u.jpg",  // Assurez-vous que cette image existe
-      previewVideo: "kgf35u.mp4",
+      videos: [
+        { src: '', poster: 'kgf35u.jpg' }, // photo
+        { src: 'kgf35u.mp4', poster: 'kgf35u.jpg' } // video
+      ],
       strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
       description: "Électricité dans les veines, terps électriques et bagout monstrueux.\n" +
                    "Panacotta : dessert italien crémeux, vanille douce, fruits rouges et gelato profond\n" +
@@ -730,8 +733,10 @@
       key: 'blanche',
       title: 'Blanche❄️',
       farm: 'R8🏎️',
-      previewImage: "blanche.jpg",  // Assurez-vous que cette image existe
-      previewVideo: "blanche.mp4",
+      videos: [
+        { src: '', poster: 'blanche.jpg' }, // photo
+        { src: 'blanche.mp4', poster: 'blanche.jpg' } // video
+      ],
       strain: '',
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline, terpènes intenses qui claquent dès l'ouverture.\n" +
                    "Profil glacial dominant avec une montée puissante, propre et longue durée.\n" +
@@ -770,6 +775,16 @@
     window.scrollTo(0, 0);
   }
 
+  function loadVideo(src, poster) {
+    const videoEl = document.getElementById('detail-video');
+    videoEl.poster = poster || '';
+    videoEl.innerHTML = `<source src="${src}" type="video/mp4">`;
+    videoEl.load();
+    if (src) {
+      videoEl.play().catch(() => {});
+    }
+  }
+
   function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
@@ -789,7 +804,7 @@
 
       card.innerHTML = `
         <div class="card-img">
-          <img src="${p.previewImage}" alt="${p.title}">
+          <img src="${p.videos[0].poster}" alt="${p.title}">
           <div class="card-overlay">
             <div class="card-title">${p.title}</div>
             <div class="card-farm">${p.farm}</div>
@@ -945,42 +960,36 @@
       qtyGrid.appendChild(btn);
     });
 
-    // Initialiser le carousel Swiper
-    const swiperWrapper = document.querySelector('#media-swiper .swiper-wrapper');
-    swiperWrapper.innerHTML = `
-      <div class="swiper-slide">
-        <img src="${p.previewImage}" alt="${p.title}">
-      </div>
-      <div class="swiper-slide">
-        <video autoplay muted loop playsinline controls>
-          <source src="${p.previewVideo}" type="video/mp4">
-        </video>
-      </div>
-    `;
-
-    new Swiper('#media-swiper', {
-      loop: false,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      on: {
-        slideChange: function () {
-          const videos = this.el.querySelectorAll('video');
-          videos.forEach(video => {
-            if (this.activeIndex === 1) {
-              video.play();
-            } else {
-              video.pause();
-            }
-          });
+    // Switcher miniatures modernes
+    const switcher = document.getElementById('video-switcher');
+    switcher.innerHTML = '';
+    if (p.videos.length > 1) {
+      switcher.style.display = 'flex';
+      p.videos.forEach((vid, idx) => {
+        const preview = document.createElement('div');
+        preview.className = `video-preview ${idx === 0 ? 'active' : ''}`;
+        preview.style.backgroundImage = `url('${vid.poster}')`;
+        
+        if (vid.src) { // only for video
+          const play = document.createElement('div');
+          play.className = 'play-icon';
+          play.innerHTML = '▶';
+          preview.appendChild(play);
         }
-      }
-    });
+
+        preview.onclick = () => {
+          switcher.querySelectorAll('.video-preview').forEach(b => b.classList.remove('active'));
+          preview.classList.add('active');
+          loadVideo(vid.src, vid.poster);
+        };
+        switcher.appendChild(preview);
+      });
+    } else {
+      switcher.style.display = 'none';
+    }
+
+    // Première vidéo
+    loadVideo(p.videos[0].src, p.videos[0].poster);
 
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
