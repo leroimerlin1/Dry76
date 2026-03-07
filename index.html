@@ -37,10 +37,8 @@
     .splash-text { color: #ffeb3b; font-size: 1.6rem; font-weight: bold; text-shadow: 0 0 10px rgba(255,235,59,0.6); z-index: 2; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-    .background-fixed { position: fixed; inset: 0; z-index: -2; overflow: hidden; }
-    .background-fixed img { width: 100%; height: 100%; object-fit: cover; object-position: center; pointer-events: none; }
-
-    .container { position:relative; min-height:100vh; }
+    .container { position: relative; min-height: 100vh; background: url('rouen.jpg') center/cover no-repeat fixed; }
+    .overlay { position: absolute; inset: 0; background: rgba(30, 30, 30, 0.88); backdrop-filter: blur(3px); z-index: 1; }
     .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 0; }  /* padding-top:0 pour coller l'image en haut */
 
     #top-logo {
@@ -180,8 +178,8 @@
     }
     .product-hero { 
       flex: 0 0 25vh;      /* Réduit pour éviter que la vidéo soit trop grande */
-      min-height: 150px;
-      max-height: 200px;
+      min-height: 300px;
+      max-height: 400px;
       width: 100%;
       background: transparent;
       position: relative;
@@ -190,7 +188,7 @@
       padding-top: 0;
     }
 
-    .product-hero video { width: 100%; height: 100%; object-fit: cover; }
+    .product-hero video { width: 100%; height: 100%; object-fit: contain; }
 
     .product-info {
       flex: 1;
@@ -473,11 +471,8 @@
     </div>
   </div>
 
-  <div class="background-fixed">
-    <img src="rouen.jpg" alt="Fond Rouen" />
-  </div>
-
   <div class="container">
+    <div class="overlay"></div>
     <div class="content">
 
       <div id="home-page">
@@ -1022,7 +1017,7 @@
     itemsDiv.innerHTML = '';
     if (cart.length === 0) {
       itemsDiv.innerHTML = '<p style="text-align:center; color:#aaa; padding:80px 0;">Votre panier est vide</p>';
-      document.getElementById('questionnaire').style.display = 'none';
+      document.getById('questionnaire').style.display = 'none';
       document.getElementById('cart-total').textContent = '';
       return;
     }
