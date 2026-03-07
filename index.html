@@ -38,7 +38,7 @@
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
     .container { position: relative; min-height: 100vh; background: url('rouen.jpg') center/cover no-repeat fixed; }
-    .overlay { position: absolute; inset: 0; background: rgba(30, 30, 30, 0.88); z-index: 1; }
+    .overlay { position: absolute; inset: 0; background: transparent; z-index: 1; }
     .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 0; }  /* padding-top:0 pour coller l'image en haut */
 
     #top-logo {
@@ -58,7 +58,6 @@
     #products-header {
       margin: 0 20px 16px 20px;
       background: rgba(20, 20, 30, 0.92);
-      backdrop-filter: blur(14px);
       border-radius: 20px;
       border: 1px solid rgba(255, 235, 59, 0.15);
       box-shadow: 0 6px 28px rgba(0,0,0,0.4);
@@ -121,7 +120,6 @@
       background: rgba(15,15,20,0.96); border: 1px solid #555;
       border-radius: 12px; z-index: 99; max-height: 320px;
       overflow-y: auto; box-shadow: 0 8px 28px rgba(0,0,0,0.7);
-      backdrop-filter: blur(6px);
     }
 
     .dropdown-header {
@@ -149,13 +147,13 @@
     }
 
     .card { 
-      background:rgba(30,30,30,.92); border:2px solid #ffeb3b; border-radius:14px; 
+      background:transparent; border:2px solid #ffeb3b; border-radius:14px; 
       overflow:hidden; transition:all .25s; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,.5); 
       position: relative; height: 240px;
     }
     .card:hover { transform:scale(1.04); border-color:#fff176; box-shadow:0 8px 24px rgba(255,235,59,.35); }
 
-    .card-img { height: 100%; width: 100%; position: relative; background: #000; }
+    .card-img { height: 100%; width: 100%; position: relative; background: transparent; }
     .card-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
     .card-overlay {
@@ -188,11 +186,11 @@
       padding-top: 0;
     }
 
-    .product-hero video { width: 100%; height: 100%; object-fit: contain; }
+    .product-hero video { width: 100%; height: 100%; object-fit: contain; background: transparent; }
 
     .product-info {
       flex: 1;
-      background: #000000;
+      background: transparent;
       overflow-y: auto;
       padding-bottom: 90px;
       margin-top: 0px; /* Supprimé la marge pour éliminer l'espace noir au-dessus du titre */
@@ -388,7 +386,6 @@
       right: 20px;
       height: 80px;
       background: rgba(15, 15, 20, 0.94);
-      backdrop-filter: blur(24px);
       border-radius: 24px;
       border: 1px solid rgba(255, 235, 59, 0.18);
       display: flex;
