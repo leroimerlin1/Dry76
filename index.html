@@ -14,7 +14,6 @@
     html, body {
       height: 100%;
       width: 100%;
-      overflow: hidden;
       font-family:'M PLUS Rounded 1c', Orbitron, sans-serif;
       background:#1e1e1e;
       color:#e0e0e0;
@@ -51,6 +50,7 @@
       height: 100vh; 
       padding-bottom:220px; 
       padding-top: 0; 
+      overflow-y: auto; /* ← Permet de swiper en bas */
     }  
 
     #top-logo {
@@ -251,14 +251,26 @@
 
     .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
 
+    /* FIX LOGOS RÉSEAUX (ils étaient trop gros) */
     .reseaux-list { display:flex; flex-direction:column; gap:16px; margin-top:20px; }
     .reseau-item {
       background:rgba(30,30,30,.85); border:2px solid #ffeb3b; border-radius:16px;
       padding:16px; font-size:1.3rem; font-weight:bold; color:#e0e0e0; text-align:center;
-      cursor:pointer; transition:all .25s; display:flex; align-items:center; justify-content:center; gap:12px;
+      cursor:pointer; transition:all .25s; display:flex; align-items:center; gap:12px;
       box-shadow:0 2px 8px rgba(0,0,0,.4); font-family: 'Orbitron', sans-serif; letter-spacing:1px;
+      min-height: 70px;
     }
     .reseau-item:hover { background:#ffeb3b; color:#111; border-color:#fff176; transform:scale(1.03); }
+    .reseau-item img { 
+      width: 40px !important; 
+      height: 40px !important; 
+      border-radius: 50%; 
+      object-fit: contain; 
+      background:#fff; 
+      padding:4px; 
+      box-shadow:0 0 8px rgba(0,0,0,.5); 
+      flex-shrink: 0;
+    }
 
     nav {
       position: fixed;
@@ -549,7 +561,7 @@
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
   tg.expand();
-  tg.disableVerticalSwipes();
+  // tg.disableVerticalSwipes(); ← désactivé pour pouvoir swiper en bas
 
   const user = tg.initDataUnsafe?.user || {};
 
@@ -561,72 +573,37 @@
       key: 'frozen',
       title: '73u Frozen 🧊🦊',
       farm: 'KGF🦊',
-      videos: [
-        { src: '', poster: 'kgf73u.jpg' },
-        { src: 'kgf73u.mp4', poster: 'kgf73u.jpg' }
-      ],
+      videos: [{ src: '', poster: 'kgf73u.jpg' }, { src: 'kgf73u.mp4', poster: 'kgf73u.jpg' }],
       strain: '- Tutti Fruitti 🍓🍉🍒🍋🍏🍑🍌\n- Acai Cake S1 🫐🍰🍓',
       description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\n" +
                    "Tutti Fruitti : bonbon fruité explosif, fraise-banane-ananas ultra sucré et givrée\n" +
                    "Acai Cake S1 : myrtille crémeuse, gâteau aux baies, touche givrée et diesel subtil en fond\n" +
-                   "Puissance XXL, effet glacial qui monte vite et qui dure longtemps. Parfait pour les amateurs de saveurs fruitées intenses et de high puissant.",
-      quantities: [
-        { qty: '10G', price: '80€' },
-        { qty: '25G', price: '160€' },
-        { qty: '50G', price: '280€' },
-        { qty: '100G', price: '550€' }
-      ]
+                   "Puissance XXL, effet glacial qui monte vite et qui dure longtemps.",
+      quantities: [{ qty: '10G', price: '80€' }, { qty: '25G', price: '160€' }, { qty: '50G', price: '280€' }, { qty: '100G', price: '550€' }]
     },
     kgf35u: {
       key: 'kgf35u',
       title: 'KGF 35U ⚡️🦊',
       farm: 'KGF🦊',
-      videos: [
-        { src: '', poster: 'kgf35u.jpg' },
-        { src: 'kgf35u.mp4', poster: 'kgf35u.jpg' }
-      ],
+      videos: [{ src: '', poster: 'kgf35u.jpg' }, { src: 'kgf35u.mp4', poster: 'kgf35u.jpg' }],
       strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
-      description: "Électricité dans les veines, terps électriques et bagout monstrueux.\n" +
-                   "Panacotta : dessert italien crémeux, vanille douce, fruits rouges et gelato profond\n" +
-                   "Golden Lemon : citron vert ultra vif, limonade pétillante, skunk acide et énergie solaire\n" +
-                   "Champaya : champagne frais, mangue exotique, notes florales et effervescentes\n" +
-                   "Profil très équilibré, montée rapide et euphorique, idéal pour la journée ou les sessions créatives.",
-      quantities: [
-        { qty: '10G', price: '60€' },
-        { qty: '25G', price: '140€' },
-        { qty: '50G', price: '220€' },
-        { qty: '100G', price: '400€' }
-      ]
+      description: "Électricité dans les veines, terps électriques et bagout monstrueux.",
+      quantities: [{ qty: '10G', price: '60€' }, { qty: '25G', price: '140€' }, { qty: '50G', price: '220€' }, { qty: '100G', price: '400€' }]
     },
     blanche: {
       key: 'blanche',
       title: 'Blanche❄️',
       farm: 'R8🏎️',
-      videos: [
-        { src: '', poster: 'blanche.jpg' },
-        { src: 'blanche.mp4', poster: 'blanche.jpg' }
-      ],
+      videos: [{ src: '', poster: 'blanche.jpg' }, { src: 'blanche.mp4', poster: 'blanche.jpg' }],
       strain: '',
-      description: "Blanche comme la neige fraîche, texture bien grasse et cristalline, terpènes intenses qui claquent dès l'ouverture.\n" +
-                   "Profil glacial dominant avec une montée puissante, propre et longue durée.\n" +
-                   "Idéal pour les amateurs de sensations pures, nettes et sans fioritures – le classique revisité en version élite.",
-      quantities: [
-        { qty: '1G', price: '60€' },
-        { qty: '3G', price: '160€' },
-        { qty: '5G', price: '230€' },
-        { qty: '10G', price: '360€' },
-        { qty: '20G', price: '680€' }
-      ]
+      description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
+      quantities: [{ qty: '1G', price: '60€' }, { qty: '3G', price: '160€' }, { qty: '5G', price: '230€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }]
     }
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  function saveCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateBadge();
-  }
-
+  function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateBadge(); }
   function updateBadge() {
     const badge = document.getElementById('cart-badge');
     badge.textContent = cart.length || '';
@@ -640,34 +617,21 @@
     document.getElementById('infos-page').style.display = 'none';
     document.getElementById('reseaux-page').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    document.body.classList.remove('detail-visible');
-    window.scrollTo(0, 0);
   }
 
   function loadMedia(src, poster) {
     const hero = document.getElementById('product-hero');
     hero.innerHTML = '';
     if (src) {
-      const videoEl = document.createElement('video');
-      videoEl.autoplay = true;
-      videoEl.loop = true;
-      videoEl.muted = true;
-      videoEl.playsinline = true;
-      videoEl.controls = true;
-      videoEl.poster = poster || '';
-      videoEl.innerHTML = `<source src="${src}" type="video/mp4">`;
-      videoEl.load();
-      videoEl.play().catch(() => {});
-      hero.appendChild(videoEl);
+      const v = document.createElement('video');
+      v.autoplay = v.loop = v.muted = v.playsinline = true; v.controls = true;
+      v.poster = poster; v.innerHTML = `<source src="${src}" type="video/mp4">`;
+      hero.appendChild(v);
     } else {
-      const imgEl = document.createElement('img');
-      imgEl.src = poster;
-      imgEl.alt = 'Product image';
-      hero.appendChild(imgEl);
+      const i = document.createElement('img'); i.src = poster; hero.appendChild(i);
     }
   }
-
-  function renderProducts() {
+    function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
 
@@ -1024,7 +988,7 @@
         splash.style.display = 'none';
       }
     }, 5000);
-  });
+});
   </script>
 </body>
 </html>
