@@ -10,12 +10,14 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
 
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
       font-family:'M PLUS Rounded 1c', Orbitron, sans-serif;
       background:#1e1e1e;
       color:#e0e0e0;
-      min-height:100vh;
-      overflow-x:hidden;
     }
 
     .splash {
@@ -37,14 +39,24 @@
     .splash-text { color: #ffeb3b; font-size: 1.6rem; font-weight: bold; text-shadow: 0 0 10px rgba(255,235,59,0.6); z-index: 2; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-    .container { position: relative; min-height: 100vh; background: url('rouen.jpg') center/cover no-repeat fixed; }
+    .container { 
+      position: relative; 
+      height: 100vh; 
+      background: url('rouen.jpg') center/cover no-repeat fixed; 
+    }
     .overlay { position: absolute; inset: 0; background: transparent; z-index: 1; }
-    .content { position:relative; z-index:2; min-height:100vh; padding-bottom:220px; padding-top: 0; }  /* padding-top:0 pour coller l'image en haut */
+    .content { 
+      position:relative; 
+      z-index:2; 
+      height: 100vh; 
+      padding-bottom:220px; 
+      padding-top: 0; 
+    }  
 
     #top-logo {
       width: 100%;
       height: auto;
-      max-height: 160px; /* Rétréci la taille de l'image titre.PNG */
+      max-height: 160px;
       object-fit: contain;
       display: block;
       margin: 0 auto;
@@ -112,7 +124,7 @@
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
-    .filter-tab .arrow { margin-left: 4px; color: #999; } /* Arrow darker */
+    .filter-tab .arrow { margin-left: 4px; color: #999; }
 
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
@@ -164,7 +176,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* PAGE DÉTAIL - réduit la taille et ajoute margin pour redescendre le fond */
+    /* PAGE DÉTAIL */
     #product-detail { 
       display: none;
       flex-direction: column;
@@ -175,181 +187,50 @@
       margin-top: 0 !important;
     }
     .product-hero { 
-      flex: 0 0 500px;      /* Réduit pour éviter que la vidéo soit trop grande */
-      min-height: 500px;
-      max-height: 500px;
-      width: 100%;
-      background: transparent;
-      position: relative;
-      overflow: hidden;
-      margin-top: 0;
-      padding-top: 0;
+      flex: 0 0 500px; min-height: 500px; max-height: 500px; width: 100%;
+      background: transparent; position: relative; overflow: hidden;
     }
-
-    .product-hero video, .product-hero img { width: 100%; height: 500px; object-fit: fill; background: transparent; border-radius: 0; }
+    .product-hero video, .product-hero img { width: 100%; height: 500px; object-fit: fill; }
 
     .product-info {
-      flex: 1;
-      background: #333; /* Dark gray background for text */
-      overflow-y: auto;
-      padding-bottom: 90px;
-      margin-top: 0px; /* Supprimé la marge pour éliminer l'espace noir au-dessus du titre */
+      flex: 1; background: #333; overflow-y: auto; padding-bottom: 90px;
     }
 
     .product-title { 
-      padding:24px 16px 8px; 
-      font-family: 'Orbitron', sans-serif; 
-      font-size:2.1rem; 
-      font-weight:900; 
-      color:#ffeb3b; 
-      text-shadow:0 0 10px rgba(255,235,59,.5); 
-      letter-spacing:1.5px; 
+      padding:24px 16px 8px; font-family: 'Orbitron', sans-serif; font-size:2.1rem; 
+      font-weight:900; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); letter-spacing:1.5px; 
     }
-    .badges { 
-      padding:0 16px 16px; 
-      display:flex; 
-      flex-wrap:wrap; 
-      gap:10px; 
-      justify-content:flex-start; 
-    }
-    .badge { 
-      padding:8px 16px; 
-      border-radius:999px; 
-      font-size:.95rem; 
-      font-weight:bold; 
-    }
-    .badge-farm { 
-      background:rgba(255,235,59,.25); 
-      color:#ffeb3b; 
-      border:1px solid #ffeb3b; 
-    }
+    .badges { padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:10px; }
+    .badge { padding:8px 16px; border-radius:999px; font-size:.95rem; font-weight:bold; }
+    .badge-farm { background:rgba(255,235,59,.25); color:#ffeb3b; border:1px solid #ffeb3b; }
 
-    .strain-section { 
-      padding:0 16px 24px; 
-      color:#ccc; 
-      font-size:1.1rem; 
-      line-height:1.6; 
-      white-space:pre-line; 
-    }
-    .strain-section .description { 
-      margin-top: 0;
-      padding-top: 0;
-      border-top: none;
-      color: #ddd; 
-      font-style: italic; 
-    }
+    .strain-section { padding:0 16px 24px; color:#ccc; font-size:1.1rem; line-height:1.6; white-space:pre-line; }
+    .strain-section .description { color: #ddd; font-style: italic; }
 
-    .quantity-section { 
-      padding:16px; 
-      background: transparent; 
-      margin:12px 16px; 
-      border-radius:16px; 
-      border:1px solid #444; 
-    }
-    .quantity-title { 
-      font-family: 'Orbitron', sans-serif; 
-      font-size:1.25rem; 
-      color:#ffeb3b; 
-      margin-bottom:16px; 
-      display:flex; 
-      align-items:center; 
-      gap:12px; 
-      font-weight:700; 
-      letter-spacing:1px; 
-    }
-    .quantity-grid { 
-      display:grid; 
-      grid-template-columns:repeat(2,1fr); 
-      gap:14px; 
-    }
-    .qty-btn { 
-      background:rgba(30,30,30,.8); 
-      border:1px solid #444; 
-      color:#e0e0e0; 
-      padding:16px 10px; 
-      border-radius:14px; 
-      text-align:center; 
-      cursor:pointer; 
-      font-weight:bold; 
-      transition:.25s; 
-    }
-    .qty-btn:hover, .qty-btn.selected { 
-      background:#ffeb3b; 
-      color:#111; 
-      border-color:#ffeb3b; 
-    }
+    .quantity-section { padding:16px; background: transparent; margin:12px 16px; border-radius:16px; border:1px solid #444; }
+    .quantity-title { font-family: 'Orbitron', sans-serif; font-size:1.25rem; color:#ffeb3b; margin-bottom:16px; display:flex; align-items:center; gap:12px; font-weight:700; }
+    .quantity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
+    .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
 
     .add-to-cart { 
-      margin:16px 16px 40px 16px;
-      background:#ffeb3b; 
-      color:#111; 
-      border:none; 
-      padding:18px; 
-      font-size:1.2rem; 
-      font-weight:bold; 
-      border-radius:16px; 
-      display:flex; 
-      align-items:center; 
-      justify-content:center; 
-      gap:12px; 
-      cursor:pointer; 
-      box-shadow:0 0 12px rgba(255,235,59,.5); 
-      font-family: 'Orbitron', sans-serif; 
-      letter-spacing:1px; 
+      margin:16px 16px 40px 16px; background:#ffeb3b; color:#111; border:none; 
+      padding:18px; font-size:1.2rem; font-weight:bold; border-radius:16px; 
+      display:flex; align-items:center; justify-content:center; gap:12px; cursor:pointer; 
+      box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; 
     }
 
-    /* SWITCHER VIDÉO ULTRA MODERNE (miniatures avec aperçu + play) */
     .video-switcher {
-      padding: 12px 16px 24px;
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      background: #333;
+      padding: 12px 16px 24px; display: flex; gap: 14px; justify-content: center;
+      overflow-x: auto; background: #333;
     }
     .video-preview {
-      width: 96px;
-      height: 54px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 0;
-      position: relative;
-      cursor: pointer;
-      border: 3px solid transparent;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-      overflow: hidden;
+      width: 96px; height: 54px; background-size: cover; background-position: center;
+      border-radius: 0; position: relative; cursor: pointer; border: 3px solid transparent;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     }
-    .video-preview:hover {
-      transform: scale(1.12) translateY(-2px);
-      border-color: #ffeb3b;
-      box-shadow: 0 10px 25px rgba(255,235,59,0.35);
-    }
-    .video-preview.active {
-      border-color: #ffeb3b;
-      box-shadow: 0 0 0 4px rgba(255,235,59,0.5);
-      transform: scale(1.08);
-    }
-    .play-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 32px;
-      height: 32px;
-      background: rgba(15, 23, 42, 0.92);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      color: #ffeb3b;
-      text-shadow: 0 0 8px rgba(255,235,59,0.8);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-    }
+    .video-preview:hover, .video-preview.active { border-color: #ffeb3b; transform: scale(1.08); }
 
-    /* AUTRES PAGES */
     #cart-page { padding:16px; display:none; }
     .cart-item { background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
     .delete-btn { background:#ef4444; color:white; border:none; width:32px; height:32px; border-radius:50%; font-weight:bold; cursor:pointer; }
@@ -377,8 +258,7 @@
       cursor:pointer; transition:all .25s; display:flex; align-items:center; justify-content:center; gap:12px;
       box-shadow:0 2px 8px rgba(0,0,0,.4); font-family: 'Orbitron', sans-serif; letter-spacing:1px;
     }
-    .reseau-item:hover { background:#ffeb3b; color:#111; border-color:#fff176; transform:scale(1.03); box-shadow:0 6px 16px rgba(255,235,59,.35); }
-    .reseau-item img { width:40px; height:40px; border-radius:50%; object-fit:contain; background:#fff; padding:4px; box-shadow:0 0 8px rgba(0,0,0,.5); }
+    .reseau-item:hover { background:#ffeb3b; color:#111; border-color:#fff176; transform:scale(1.03); }
 
     nav {
       position: fixed;
@@ -464,7 +344,7 @@
   <div id="splash-screen" class="splash">
     <div class="splash-content">
       <img src="rouen.jpg" alt="Fond Rouen" class="splash-bg" />
-      <img src="chat.JPG" alt="Logo Dry.Coffee76" class="splash-logo" />
+      <img src="chat.jpg" alt="Logo Dry.Coffee76" class="splash-logo" />
       <div class="splash-text">Chargement...</div>
     </div>
   </div>
@@ -474,7 +354,7 @@
     <div class="content">
 
       <div id="home-page">
-        <img id="top-logo" src="titre.PNG" alt="Logo" style="width:100%; height:auto; display:block;">
+        <img id="top-logo" src="chat.jpg" alt="Logo" style="width:100%; height:auto; display:block;">
         <div id="products-header">
           <div class="products-title">
             <span style="font-size:1.6rem;">🛍️</span>
@@ -497,7 +377,6 @@
 
       <div id="product-detail">
         <div class="product-hero" id="product-hero"></div>
-        <!-- Switcher moderne avec miniatures -->
         <div id="video-switcher" class="video-switcher"></div>
         
         <div class="product-info">
@@ -605,17 +484,14 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
             Telegram VIP⭐️
           </div>
-
           <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
             <img src="potato.jpg" alt="Canal Potato">
             Canal Potato🥔
           </div>
-
           <div class="reseau-item" data-link="http://t.me/SAV_dry76">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
             Secrétaire👨‍💼
           </div>
-
           <div class="reseau-item" data-link="https://discord.gg/tWV3knGs">
             <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384e89d1d54d704ece7_3437c10597c1526c3dbd98c737c2bcae.svg" alt="Discord">
             Chat retour✍️
@@ -670,6 +546,8 @@
   <script>
   const tg = window.Telegram.WebApp;
   tg.ready();
+  tg.setHeaderColor('#1e1e1e');
+  tg.setBackgroundColor('#1e1e1e');
   tg.expand();
   tg.disableVerticalSwipes();
 
@@ -684,8 +562,8 @@
       title: '73u Frozen 🧊🦊',
       farm: 'KGF🦊',
       videos: [
-        { src: '', poster: 'kgf73u.jpg' }, // photo
-        { src: 'kgf73u.mp4', poster: 'kgf73u.jpg' } // video
+        { src: '', poster: 'kgf73u.jpg' },
+        { src: 'kgf73u.mp4', poster: 'kgf73u.jpg' }
       ],
       strain: '- Tutti Fruitti 🍓🍉🍒🍋🍏🍑🍌\n- Acai Cake S1 🫐🍰🍓',
       description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\n" +
@@ -704,8 +582,8 @@
       title: 'KGF 35U ⚡️🦊',
       farm: 'KGF🦊',
       videos: [
-        { src: '', poster: 'kgf35u.jpg' }, // photo
-        { src: 'kgf35u.mp4', poster: 'kgf35u.jpg' } // video
+        { src: '', poster: 'kgf35u.jpg' },
+        { src: 'kgf35u.mp4', poster: 'kgf35u.jpg' }
       ],
       strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
       description: "Électricité dans les veines, terps électriques et bagout monstrueux.\n" +
@@ -725,8 +603,8 @@
       title: 'Blanche❄️',
       farm: 'R8🏎️',
       videos: [
-        { src: '', poster: 'blanche.jpg' }, // photo
-        { src: 'blanche.mp4', poster: 'blanche.jpg' } // video
+        { src: '', poster: 'blanche.jpg' },
+        { src: 'blanche.mp4', poster: 'blanche.jpg' }
       ],
       strain: '',
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline, terpènes intenses qui claquent dès l'ouverture.\n" +
@@ -964,7 +842,6 @@
       qtyGrid.appendChild(btn);
     });
 
-    // Switcher miniatures modernes
     const switcher = document.getElementById('video-switcher');
     switcher.innerHTML = '';
     if (p.videos.length > 1) {
@@ -974,7 +851,7 @@
         preview.className = `video-preview ${idx === 0 ? 'active' : ''}`;
         preview.style.backgroundImage = `url('${vid.poster}')`;
         
-        if (vid.src) { // only for video
+        if (vid.src) {
           const play = document.createElement('div');
           play.className = 'play-icon';
           play.innerHTML = '▶';
@@ -992,7 +869,6 @@
       switcher.style.display = 'none';
     }
 
-    // Première média
     loadMedia(p.videos[0].src, p.videos[0].poster);
 
     hideAllPages();
@@ -1143,7 +1019,6 @@
       }, 600);
     }, 2500);
 
-    // Fallback to hide splash after 5 seconds if stuck
     setTimeout(() => {
       if (splash.style.display !== 'none') {
         splash.style.display = 'none';
