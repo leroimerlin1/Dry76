@@ -63,10 +63,10 @@
     #top-logo {
       width: 100%;
       height: auto;
-      max-height: 160px;
+      max-height: 220px;               /* ← Agrandi ici (était 160px) */
       object-fit: contain;
       display: block;
-      margin: 0 auto;
+      margin: 20px auto 30px;          /* ← Plus d'espace autour */
       position: sticky;
       top: 0;
       z-index: 20;
@@ -576,14 +576,13 @@
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
 
-  // ─── Demande le VRAI plein écran (supprime la barre Telegram du haut) ───
+  // Demande le vrai plein écran pour supprimer la barre Telegram supérieure
   if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
     tg.requestFullscreen();
   }
 
-  // Optionnel : écoute pour savoir si ça a marché (utile pour debug)
   tg.onEvent('fullscreenChanged', () => {
-    console.log('Fullscreen status:', tg.isFullscreen ? 'ACTIVÉ' : 'non activé');
+    console.log('Fullscreen activé ?', tg.isFullscreen);
   });
 
   tg.onEvent('fullscreenFailed', (err) => {
