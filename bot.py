@@ -13,7 +13,7 @@ from telegram.ext import (
 )
 
 # 🔐 METS TON NOUVEAU TOKEN ICI
-token = "8674121576:AAEeyc0iAPKA8vSy9NymCgPgScwm-7pkFQs"
+token = "8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE"
 
 CHANNEL_ID = -1003798159205  # Mets le vrai ID
 CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
