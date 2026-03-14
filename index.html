@@ -63,10 +63,10 @@
     #top-logo {
       width: 100%;
       height: auto;
-      max-height: 220px;               /* ← Agrandi ici (était 160px) */
+      max-height: 220px;
       object-fit: contain;
       display: block;
-      margin: 20px auto 30px;          /* ← Plus d'espace autour */
+      margin: 20px auto 30px;
       position: sticky;
       top: 0;
       z-index: 20;
@@ -385,7 +385,7 @@
             <span style="font-size:1.6rem;">🛍️</span>
             Produits
           </div>
-          <div id="products-count-modern" class="products-count">3 produits</div>
+          <div id="products-count-modern" class="products-count">2 produits</div>
         </div>
 
         <div id="filters-wrapper">
@@ -517,10 +517,7 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
             Secrétaire👨‍💼
           </div>
-          <div class="reseau-item" data-link="https://discord.gg/tWV3knGs">
-            <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384e89d1d54d704ece7_3437c10597c1526c3dbd98c737c2bcae.svg" alt="Discord">
-            Chat retour✍️
-          </div>
+          <!-- Le bouton Discord "Chat retour" a été supprimé -->
         </div>
       </div>
 
@@ -576,7 +573,6 @@
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
 
-  // Demande le vrai plein écran pour supprimer la barre Telegram supérieure
   if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
     tg.requestFullscreen();
   }
@@ -595,18 +591,6 @@
   let currentFarmFilter = null;
 
   const products = {
-    frozen: {
-      key: 'frozen',
-      title: '73u Frozen 🧊🦊',
-      farm: 'KGF🦊',
-      videos: [{ src: '', poster: 'kgf73u.jpg' }, { src: 'kgf73u.mp4', poster: 'kgf73u.jpg' }],
-      strain: '- Tutti Fruitti 🍓🍉🍒🍋🍏🍑🍌\n- Acai Cake S1 🫐🍰🍓',
-      description: "Une explosion de fraîcheur ultra-purée, texture cristalline et terpènes qui claquent fort.\n" +
-                   "Tutti Fruitti : bonbon fruité explosif, fraise-banane-ananas ultra sucré et givrée\n" +
-                   "Acai Cake S1 : myrtille crémeuse, gâteau aux baies, touche givrée et diesel subtil en fond\n" +
-                   "Puissance XXL, effet glacial qui monte vite et qui dure longtemps.",
-      quantities: [{ qty: '10G', price: '80€' }, { qty: '25G', price: '160€' }, { qty: '50G', price: '280€' }, { qty: '100G', price: '550€' }]
-    },
     kgf35u: {
       key: 'kgf35u',
       title: 'KGF 35U ⚡️🦊',
@@ -714,8 +698,7 @@
 
         let icon = '';
         let name = title;
-        if (title.includes('73u Frozen')) { icon = '🧊🦊'; name = '73u Frozen'; }
-        else if (title.includes('KGF 35U')) { icon = '⚡️🦊'; name = 'KGF 35U'; }
+        if (title.includes('KGF 35U')) { icon = '⚡️🦊'; name = 'KGF 35U'; }
         else if (title.includes('Blanche')) { icon = '❄️'; name = 'Blanche'; }
 
         item.innerHTML = `
@@ -804,6 +787,7 @@
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
   });
 
   function openProductDetail(key) {
@@ -866,6 +850,7 @@
     document.getElementById('product-detail').style.display = 'block';
     document.body.classList.add('detail-visible');
     showDetail();
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
@@ -885,6 +870,7 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
 
     const itemsDiv = document.getElementById('cart-items');
     itemsDiv.innerHTML = '';
@@ -962,6 +948,7 @@
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
   };
 
   document.getElementById('nav-cart').onclick = () => {
@@ -969,6 +956,7 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
     showCart();
   };
 
@@ -976,12 +964,14 @@
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
   };
 
   document.getElementById('nav-reseaux').onclick = () => {
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
   };
 
   document.addEventListener('DOMContentLoaded', () => {
