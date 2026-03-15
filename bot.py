@@ -56,7 +56,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
 
         await update.message.reply_text(
-            " 🤴Dry.Coffee76\n\n"
+            " 🤴Bart Coffee76\n\n"
             "✅ Boutique privée premium\n\n"
             "⚠️ Pour accéder à la Mini App, tu dois rejoindre notre canal officiel.",
             reply_markup=reply_markup
@@ -70,7 +70,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text(
-        " Bienvenue chez Dry.Coffee76\n\n"
+        " Bienvenue chez Bart Coffee76\n\n"
         "✅ Accès autorisé\n\n"
         "Clique ci-dessous pour ouvrir la boutique 👇",
         reply_markup=reply_markup
