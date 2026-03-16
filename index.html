@@ -517,7 +517,6 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
             Secrétaire👨‍💼
           </div>
-          <!-- Le bouton Discord "Chat retour" a été supprimé -->
         </div>
       </div>
 
@@ -594,6 +593,7 @@
     kgf35u: {
       key: 'kgf35u',
       title: 'KGF 35U ⚡️🦊',
+      category: 'KGF 35U ⚡️🦊',          // ← catégorie = titre du produit
       farm: 'KGF🦊',
       videos: [{ src: '', poster: 'kgf35u.jpg' }, { src: 'kgf35u.mp4', poster: 'kgf35u.jpg' }],
       strain: '- 🟣Panacotta 🍮🍮\n- 🟢Golden Lemon 🏆🍋🍋‍🟩\n- 🟤Champaya 🍾🥂🥭',
@@ -603,12 +603,14 @@
     blanche: {
       key: 'blanche',
       title: 'Blanche❄️',
+      category: 'Blanche❄️',             // ← catégorie = titre du produit
       farm: 'R8🏎️',
       videos: [{ src: '', poster: 'blanche.jpg' }, { src: 'blanche.mp4', poster: 'blanche.jpg' }],
       strain: '',
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
       quantities: [{ qty: '1G', price: '60€' }, { qty: '3G', price: '160€' }, { qty: '5G', price: '230€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }]
     }
+    // ← Ajoute ici tes prochains produits en conservant category: 'Nom Du Produit Emoji'
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -649,7 +651,7 @@
     let filteredProducts = Object.values(products);
 
     if (currentCategoryFilter) {
-      filteredProducts = filteredProducts.filter(p => p.title === currentCategoryFilter);
+      filteredProducts = filteredProducts.filter(p => p.category === currentCategoryFilter);
     }
     if (currentFarmFilter) {
       filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
@@ -696,14 +698,8 @@
         const item = document.createElement('div');
         item.className = `dropdown-item ${title === currentCategoryFilter ? 'active' : ''}`;
 
-        let icon = '';
-        let name = title;
-        if (title.includes('KGF 35U')) { icon = '⚡️🦊'; name = 'KGF 35U'; }
-        else if (title.includes('Blanche')) { icon = '❄️'; name = 'Blanche'; }
-
         item.innerHTML = `
-          <span class="icon">${icon}</span>
-          <span class="name">${name}</span>
+          <span class="name">${title}</span>
         `;
 
         if (title === currentCategoryFilter) {
@@ -712,7 +708,6 @@
 
         item.onclick = () => {
           currentCategoryFilter = currentCategoryFilter === title ? null : title;
-          currentFarmFilter = null;
           renderProducts();
           catDropdown.style.display = 'none';
         };
@@ -729,13 +724,12 @@
         item.className = `dropdown-item ${farm === currentFarmFilter ? 'active' : ''}`;
 
         let icon = '';
-        let name = farm;
-        if (farm === 'KGF🦊') { icon = '🦊'; name = 'KGF'; }
-        else if (farm === 'R8🏎️') { icon = '🏎️'; name = 'R8'; }
+        if (farm === 'KGF🦊') icon = '🦊 ';
+        else if (farm === 'R8🏎️') icon = '🏎️ ';
 
         item.innerHTML = `
           <span class="icon">${icon}</span>
-          <span class="name">${name}</span>
+          <span class="name">${farm}</span>
         `;
 
         if (farm === currentFarmFilter) {
@@ -744,7 +738,6 @@
 
         item.onclick = () => {
           currentFarmFilter = currentFarmFilter === farm ? null : farm;
-          currentCategoryFilter = null;
           renderProducts();
           farmDropdown.style.display = 'none';
         };
@@ -787,7 +780,7 @@
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
   });
 
   function openProductDetail(key) {
@@ -850,7 +843,7 @@
     document.getElementById('product-detail').style.display = 'block';
     document.body.classList.add('detail-visible');
     showDetail();
-    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
@@ -870,7 +863,7 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
 
     const itemsDiv = document.getElementById('cart-items');
     itemsDiv.innerHTML = '';
@@ -948,7 +941,7 @@
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   document.getElementById('nav-cart').onclick = () => {
@@ -956,7 +949,7 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
     showCart();
   };
 
@@ -964,14 +957,14 @@
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   document.getElementById('nav-reseaux').onclick = () => {
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' }); // Retour en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   document.addEventListener('DOMContentLoaded', () => {
