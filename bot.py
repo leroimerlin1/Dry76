@@ -9,19 +9,24 @@ from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     CallbackQueryHandler,
-    ContextTypes,
-    MessageHandler,
-    filters
+    ContextTypes
 )
 
-# 🔐 METS TON TOKEN ICI
-token = "8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE"
+# =============================================================
+# CONFIGURATION - À MODIFIER SI BESOIN
+# =============================================================
 
-CHANNEL_ID = -1003798159205   # ← change si besoin
+TOKEN = "8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE"
+
+CHANNEL_ID = -1003798159205          # ID du canal Telegram (avec le -100...)
 CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
+
 MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 
-# Ton texte d'information (exactement comme demandé)
+# Fichier image de bienvenue (changé en .jpg)
+IMAGE_WELCOME = "chat.jpg"
+
+# Texte Informations
 INFO_TEXT = """Information de Dry.Coffee76
 
 Pour toutes commande, une carte d’identité 🪪 est nécessaire et une photo 📸 de vous.
@@ -46,48 +51,55 @@ Nous sommes situé sur Rouen Rive Gauche 📍
 
 50€ de commande minimum pour venir sur place"""
 
+# =============================================================
+# LOGGING
+# =============================================================
+
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
 )
 
-# ================================
-# Vérification abonnement
-# ================================
-async def check_subscription(user_id, context):
+logger = logging.getLogger(__name__)
+
+# =============================================================
+# FONCTIONS UTILITAIRES
+# =============================================================
+
+async def check_subscription(user_id: int, context: ContextTypes.DEFAULT_TYPE) -> bool:
     try:
         member = await context.bot.get_chat_member(CHANNEL_ID, user_id)
         return member.status in ["member", "administrator", "creator"]
     except Exception as e:
-        logging.error(f"Erreur vérif abonnement : {e}")
+        logger.error(f"Erreur lors de la vérification d'abonnement : {e}")
         return False
 
 
-# ================================
-# Clavier principal (Contact + Infos)
-# ================================
 def get_main_menu_keyboard():
     keyboard = [
         [
             InlineKeyboardButton("📩 Contact", callback_data="contact"),
-            InlineKeyboardButton("ℹ️ Informations", callback_data="info")
+            InlineKeyboardButton("ℹ️ Informations", callback_data="info"),
         ],
-        [InlineKeyboardButton("🛍 Ouvrir la boutique", web_app=WebAppInfo(url=MINI_APP_URL))]
+        [
+            InlineKeyboardButton("🛍 Ouvrir la boutique", web_app=WebAppInfo(url=MINI_APP_URL))
+        ]
     ]
     return InlineKeyboardMarkup(keyboard)
 
 
-# ================================
-# Commande /start
-# ================================
+# =============================================================
+# HANDLERS
+# =============================================================
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     if not user:
         return
 
-    is_subscribed = await check_subscription(user.id, context)
+    is_sub = await check_subscription(user.id, context)
 
-    if not is_subscribed:
+    if not is_sub:
         keyboard = [
             [InlineKeyboardButton("🔔 Rejoindre le canal", url=CHANNEL_LINK)],
             [InlineKeyboardButton("✅ Vérifier l'abonnement", callback_data="check_sub")]
@@ -95,37 +107,52 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(
             "🤴 Bart Coffee76\n\n"
             "✅ Boutique privée premium\n\n"
-            "⚠️ Pour accéder à la boutique, rejoins notre canal officiel.",
+            "⚠️ Pour accéder à la boutique, rejoins notre canal officiel d'abord.",
             reply_markup=InlineKeyboardMarkup(keyboard)
         )
         return
 
-    # Abonné → menu principal
-    await update.message.reply_text(
-        "Bienvenue chez Bart Coffee76 🔥\n\n"
-        "Choisis une option :",
-        reply_markup=get_main_menu_keyboard()
-    )
+    # Utilisateur abonné → photo + menu
+    try:
+        with open(IMAGE_WELCOME, "rb") as photo_file:
+            await context.bot.send_photo(
+                chat_id=update.effective_chat.id,
+                photo=photo_file,
+                caption=(
+                    "Bienvenue chez Bart Coffee76 🔥\n\n"
+                    "Choisis une option ci-dessous :"
+                ),
+                reply_markup=get_main_menu_keyboard()
+            )
+    except FileNotFoundError:
+        logger.warning(f"Image non trouvée : {IMAGE_WELCOME}")
+        await update.message.reply_text(
+            "Bienvenue chez Bart Coffee76 🔥\n\n"
+            f"(image '{IMAGE_WELCOME}' introuvable dans le dossier du bot)\n\n"
+            "Choisis une option :",
+            reply_markup=get_main_menu_keyboard()
+        )
+    except Exception as e:
+        logger.error(f"Erreur lors de l'envoi de la photo : {e}")
+        await update.message.reply_text(
+            "Bienvenue chez Bart Coffee76 🔥\n\n"
+            "Choisis une option :",
+            reply_markup=get_main_menu_keyboard()
+        )
 
 
-# ================================
-# Gestion des boutons
-# ================================
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-    user = query.from_user
 
+    user_id = query.from_user.id
     data = query.data
 
-    # Vérif abonnement au cas où
-    if not await check_subscription(user.id, context):
+    if not await check_subscription(user_id, context):
         await query.answer("❌ Tu dois être abonné au canal.", show_alert=True)
         return
 
-    # ─────────────────────────────────────
-    # Retour au menu principal
-    # ─────────────────────────────────────
+    # ──────────────── Retour au menu principal ────────────────
     if data == "back":
         try:
             await query.message.delete()
@@ -139,26 +166,26 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # ─────────────────────────────────────
-    # Contact → lien vers @sav_Bart76
-    # ─────────────────────────────────────
+    # ──────────────── Contact ────────────────
     if data == "contact":
         try:
             await query.message.delete()
         except:
             pass
 
-        keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
+        keyboard = [
+            [InlineKeyboardButton("💬 Contacter le support", url="https://t.me/sav_Bart76")],
+            [InlineKeyboardButton("← Retour", callback_data="back")]
+        ]
+
         await context.bot.send_message(
             chat_id=query.message.chat_id,
-            text="Contacte le support ici :\n\n@sav_Bart76",
+            text="Tu veux parler à l'équipe ?\n\nClique ci-dessous pour ouvrir le chat privé :",
             reply_markup=InlineKeyboardMarkup(keyboard)
         )
         return
 
-    # ─────────────────────────────────────
-    # Informations
-    # ─────────────────────────────────────
+    # ──────────────── Informations ────────────────
     if data == "info":
         try:
             await query.message.delete()
@@ -166,6 +193,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             pass
 
         keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
+
         await context.bot.send_message(
             chat_id=query.message.chat_id,
             text=INFO_TEXT,
@@ -173,33 +201,54 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # Cas fallback (check_sub par ex.)
+    # ──────────────── Vérification abonnement (depuis l'écran non abonné) ────────────────
     if data == "check_sub":
-        is_sub = await check_subscription(user.id, context)
-        if is_sub:
+        if await check_subscription(user_id, context):
             try:
                 await query.message.delete()
             except:
                 pass
-            await context.bot.send_message(
-                chat_id=query.message.chat_id,
-                text="✅ Accès autorisé !\n\nChoisis une option :",
-                reply_markup=get_main_menu_keyboard()
-            )
+
+            try:
+                with open(IMAGE_WELCOME, "rb") as photo_file:
+                    await context.bot.send_photo(
+                        chat_id=query.message.chat_id,
+                        photo=photo_file,
+                        caption="✅ Accès autorisé !\n\nChoisis une option :",
+                        reply_markup=get_main_menu_keyboard()
+                    )
+            except FileNotFoundError:
+                await context.bot.send_message(
+                    chat_id=query.message.chat_id,
+                    text="✅ Accès autorisé !\n\n"
+                         f"(image '{IMAGE_WELCOME}' introuvable)\n\n"
+                         "Choisis une option :",
+                    reply_markup=get_main_menu_keyboard()
+                )
+            except Exception as e:
+                logger.error(f"Erreur envoi photo après check_sub : {e}")
+                await context.bot.send_message(
+                    chat_id=query.message.chat_id,
+                    text="✅ Accès autorisé !\n\nChoisis une option :",
+                    reply_markup=get_main_menu_keyboard()
+                )
         else:
-            await query.answer("❌ Pas encore abonné.", show_alert=True)
+            await query.answer("❌ Tu n'es toujours pas abonné.", show_alert=True)
 
 
-# ================================
-# Lancement
-# ================================
+# =============================================================
+# LANCEMENT
+# =============================================================
+
 def main():
-    app = ApplicationBuilder().token(token).build()
+    app = ApplicationBuilder() \
+        .token(TOKEN) \
+        .build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler))
 
-    print("Bot lancé 🚀")
+    print("Bot démarré → Bart Coffee76  |  Image utilisée : chat.jpg")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
