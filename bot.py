@@ -13,18 +13,17 @@ from telegram.ext import (
 )
 
 # =============================================================
-# CONFIGURATION - À MODIFIER SI BESOIN
+# CONFIGURATION
 # =============================================================
 
 TOKEN = "8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE"
 
-CHANNEL_ID = -1003798159205          # ID du canal Telegram (avec le -100...)
+CHANNEL_ID = -1003798159205          # ID du canal (avec -100...)
 CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
 
 MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 
-# Fichier image de bienvenue (changé en .jpg)
-IMAGE_WELCOME = "chat.jpg"
+IMAGE_WELCOME = "chat.jpg"           # ← fichier à placer dans le même dossier
 
 # Texte Informations
 INFO_TEXT = """Information de Dry.Coffee76
@@ -71,7 +70,7 @@ async def check_subscription(user_id: int, context: ContextTypes.DEFAULT_TYPE) -
         member = await context.bot.get_chat_member(CHANNEL_ID, user_id)
         return member.status in ["member", "administrator", "creator"]
     except Exception as e:
-        logger.error(f"Erreur lors de la vérification d'abonnement : {e}")
+        logger.error(f"Erreur vérif abonnement : {e}")
         return False
 
 
@@ -86,6 +85,41 @@ def get_main_menu_keyboard():
         ]
     ]
     return InlineKeyboardMarkup(keyboard)
+
+
+async def send_welcome_menu(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
+    """
+    Envoie exactement le même message de bienvenue que /start (photo + texte + boutons)
+    """
+    try:
+        with open(IMAGE_WELCOME, "rb") as photo_file:
+            await context.bot.send_photo(
+                chat_id=chat_id,
+                photo=photo_file,
+                caption=(
+                    "Bienvenue chez Bart Coffee76 🔥\n\n"
+                    "Choisis une option ci-dessous :"
+                ),
+                reply_markup=get_main_menu_keyboard()
+            )
+    except FileNotFoundError:
+        logger.warning(f"Image introuvable : {IMAGE_WELCOME}")
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text=(
+                "Bienvenue chez Bart Coffee76 🔥\n\n"
+                f"(image '{IMAGE_WELCOME}' introuvable dans le dossier)\n\n"
+                "Choisis une option :"
+            ),
+            reply_markup=get_main_menu_keyboard()
+        )
+    except Exception as e:
+        logger.error(f"Erreur envoi photo : {e}")
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text="Bienvenue chez Bart Coffee76 🔥\n\nChoisis une option :",
+            reply_markup=get_main_menu_keyboard()
+        )
 
 
 # =============================================================
@@ -112,33 +146,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # Utilisateur abonné → photo + menu
-    try:
-        with open(IMAGE_WELCOME, "rb") as photo_file:
-            await context.bot.send_photo(
-                chat_id=update.effective_chat.id,
-                photo=photo_file,
-                caption=(
-                    "Bienvenue chez Bart Coffee76 🔥\n\n"
-                    "Choisis une option ci-dessous :"
-                ),
-                reply_markup=get_main_menu_keyboard()
-            )
-    except FileNotFoundError:
-        logger.warning(f"Image non trouvée : {IMAGE_WELCOME}")
-        await update.message.reply_text(
-            "Bienvenue chez Bart Coffee76 🔥\n\n"
-            f"(image '{IMAGE_WELCOME}' introuvable dans le dossier du bot)\n\n"
-            "Choisis une option :",
-            reply_markup=get_main_menu_keyboard()
-        )
-    except Exception as e:
-        logger.error(f"Erreur lors de l'envoi de la photo : {e}")
-        await update.message.reply_text(
-            "Bienvenue chez Bart Coffee76 🔥\n\n"
-            "Choisis une option :",
-            reply_markup=get_main_menu_keyboard()
-        )
+    # Abonné → menu avec photo
+    await send_welcome_menu(update.effective_chat.id, context)
 
 
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -152,25 +161,21 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.answer("❌ Tu dois être abonné au canal.", show_alert=True)
         return
 
-    # ──────────────── Retour au menu principal ────────────────
+    # ──────────────── RETOUR → même message que /start ────────────────
     if data == "back":
         try:
             await query.message.delete()
-        except:
-            pass
+        except Exception:
+            pass  # on continue même si suppression échoue
 
-        await context.bot.send_message(
-            chat_id=query.message.chat_id,
-            text="Menu principal :",
-            reply_markup=get_main_menu_keyboard()
-        )
+        await send_welcome_menu(query.message.chat_id, context)
         return
 
     # ──────────────── Contact ────────────────
     if data == "contact":
         try:
             await query.message.delete()
-        except:
+        except Exception:
             pass
 
         keyboard = [
@@ -189,7 +194,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if data == "info":
         try:
             await query.message.delete()
-        except:
+        except Exception:
             pass
 
         keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
@@ -201,39 +206,16 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # ──────────────── Vérification abonnement (depuis l'écran non abonné) ────────────────
+    # ──────────────── Vérification abonnement ────────────────
     if data == "check_sub":
         if await check_subscription(user_id, context):
             try:
                 await query.message.delete()
-            except:
+            except Exception:
                 pass
-
-            try:
-                with open(IMAGE_WELCOME, "rb") as photo_file:
-                    await context.bot.send_photo(
-                        chat_id=query.message.chat_id,
-                        photo=photo_file,
-                        caption="✅ Accès autorisé !\n\nChoisis une option :",
-                        reply_markup=get_main_menu_keyboard()
-                    )
-            except FileNotFoundError:
-                await context.bot.send_message(
-                    chat_id=query.message.chat_id,
-                    text="✅ Accès autorisé !\n\n"
-                         f"(image '{IMAGE_WELCOME}' introuvable)\n\n"
-                         "Choisis une option :",
-                    reply_markup=get_main_menu_keyboard()
-                )
-            except Exception as e:
-                logger.error(f"Erreur envoi photo après check_sub : {e}")
-                await context.bot.send_message(
-                    chat_id=query.message.chat_id,
-                    text="✅ Accès autorisé !\n\nChoisis une option :",
-                    reply_markup=get_main_menu_keyboard()
-                )
+            await send_welcome_menu(query.message.chat_id, context)
         else:
-            await query.answer("❌ Tu n'es toujours pas abonné.", show_alert=True)
+            await query.answer("❌ Toujours pas abonné au canal.", show_alert=True)
 
 
 # =============================================================
@@ -248,7 +230,7 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(button_handler))
 
-    print("Bot démarré → Bart Coffee76  |  Image utilisée : chat.jpg")
+    print("Bot démarré → Bart Coffee76  |  Image : chat.jpg")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
