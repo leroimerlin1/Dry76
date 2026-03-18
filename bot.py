@@ -40,7 +40,7 @@ Zone de livraison
 • Sur Rouen : 70€
 • Moins de 10 km de Rouen : 100€
 • Supérieur à 10 km : 150€
-• Supérieur à 25 km : 380€
+• Supérieur à 25 km : 270€
 
 Frais de livraison obligatoire s'il n'y a pas de tournée !
 
