@@ -277,124 +277,6 @@
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     }
     .video-preview:hover, .video-preview.active { border-color: #ffeb3b; transform: scale(1.08); }
-
-    #cart-page { padding:16px; display:none; }
-    .cart-item { background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
-    .delete-btn { background:#ef4444; color:white; border:none; width:32px; height:32px; border-radius:50%; font-weight:bold; cursor:pointer; }
-    .cart-total { text-align:center; font-size:1.3rem; color:#ffeb3b; margin:20px 0; font-family: 'Orbitron', sans-serif; }
-
-    .questionnaire { background:rgba(30,30,30,.78); border:1px solid #444; border-radius:14px; padding:20px; margin-top:24px; }
-    .question { margin-bottom:20px; }
-    .question-label { display:block; font-size:1.1rem; color:#aaa; margin-bottom:10px; font-weight:500; }
-    .option-btn { width:100%; padding:14px; margin:6px 0; background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; border-radius:12px; font-size:1.05rem; cursor:pointer; }
-    .option-btn.active { background:#ffeb3b; color:#111; font-weight:bold; }
-
-    input[type="time"], input[type="text"], textarea { width:100%; padding:14px; border-radius:10px; border:1px solid #444; background:rgba(40,40,40,.8); color:#e0e0e0; font-size:1.05rem; }
-    textarea { min-height:90px; resize:vertical; }
-
-    #submit-order-btn { width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
-
-    #infos-page, #reseaux-page { display: none; padding: 16px 16px 80px 16px; }
-
-    .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
-
-    .reseaux-list { display:flex; flex-direction:column; gap:16px; margin-top:20px; }
-    .reseau-item {
-      background:rgba(30,30,30,.85); border:2px solid #ffeb3b; border-radius:16px;
-      padding:16px; font-size:1.3rem; font-weight:bold; color:#e0e0e0; text-align:center;
-      cursor:pointer; transition:all .25s; display:flex; align-items:center; gap:12px;
-      box-shadow:0 2px 8px rgba(0,0,0,.4); font-family: 'Orbitron', sans-serif; letter-spacing:1px;
-      min-height: 70px;
-    }
-    .reseau-item:hover { background:#ffeb3b; color:#111; border-color:#fff176; transform:scale(1.03); }
-    .reseau-item img { 
-      width: 40px !important; 
-      height: 40px !important; 
-      border-radius: 50%; 
-      object-fit: contain; 
-      background:#fff; 
-      padding:4px; 
-      box-shadow:0 0 8px rgba(0,0,0,.5); 
-      flex-shrink: 0;
-    }
-
-    nav {
-      position: fixed;
-      bottom: 24px;
-      left: 20px;
-      right: 20px;
-      height: 80px;
-      background: rgba(15, 15, 20, 0.94);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 235, 59, 0.18);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 100;
-      padding: 0 16px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #aaa;
-      font-size: 0.7rem;
-      font-weight: 600;
-      cursor: pointer;
-      width: 60px;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .nav-item.active {
-      color: #ffeb3b;
-      transform: translateY(-12px);
-    }
-
-    .nav-icon-wrapper {
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      background: rgba(255, 235, 59, 0.05);
-      position: relative;
-    }
-
-    .nav-item.active .nav-icon-wrapper {
-      background: rgba(255, 235, 59, 0.35);
-      box-shadow: 0 8px 24px rgba(255, 235, 59, 0.5);
-      transform: scale(1.15);
-    }
-
-    .nav-item svg {
-      width: 28px;
-      height: 28px;
-      stroke: currentColor;
-    }
-
-    #cart-badge {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      background: #ef4444;
-      color: white;
-      border-radius: 50%;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 4px;
-      font-size: 0.65rem;
-      font-weight: bold;
-      text-align: center;
-      line-height: 18px;
-      box-shadow: 0 0 8px rgba(239,68,68,0.6);
-      z-index: 10;
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -643,7 +525,7 @@
       title: '🍀Cali Weed🍀',
       category: '🍀Cali Weed🍀',
       farm: '🏆 Top Shelf',
-      videos: [{ src: '', poster: 'caliweed.jpg' }, { src: 'caliweed.mp4', poster: 'caliweed.jpg' }],
+      videos: [{ src: 'caliweed.mp4', poster: '' }],   // Vidéo uniquement, pas d'image
       strain: '- Runtz🌈',
       description: "🌟Nous vous avons sorti l’une des meilleures games de Weed🍀 pour vous satisfaire 👍",
       quantities: [
@@ -679,11 +561,15 @@
     hero.innerHTML = '';
     if (src) {
       const v = document.createElement('video');
-      v.autoplay = v.loop = v.muted = v.playsinline = true; v.controls = true;
-      v.poster = poster; v.innerHTML = `<source src="${src}" type="video/mp4">`;
+      v.autoplay = v.loop = v.muted = v.playsinline = true;
+      v.controls = true;
+      if (poster) v.poster = poster;
+      v.innerHTML = `<source src="${src}" type="video/mp4">`;
       hero.appendChild(v);
     } else {
-      const i = document.createElement('img'); i.src = poster; hero.appendChild(i);
+      const i = document.createElement('img'); 
+      i.src = poster || 'chat.PNG'; // fallback si jamais
+      hero.appendChild(i);
     }
   }
 
@@ -693,20 +579,19 @@
 
     let filteredProducts = Object.values(products);
 
-    if (currentCategoryFilter) {
-      filteredProducts = filteredProducts.filter(p => p.category === currentCategoryFilter);
-    }
-    if (currentFarmFilter) {
-      filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
-    }
+    if (currentCategoryFilter) filteredProducts = filteredProducts.filter(p => p.category === currentCategoryFilter);
+    if (currentFarmFilter) filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
 
     filteredProducts.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
 
+      // On utilise la vidéo comme aperçu sur la carte (première frame ou poster si disponible)
+      const thumb = p.videos[0].poster || p.videos[0].src;
+
       card.innerHTML = `
         <div class="card-img">
-          <img src="${p.videos[0].poster}" alt="${p.title}">
+          <img src="${thumb}" alt="${p.title}">
           <div class="card-overlay">
             <div class="card-title">${p.title}</div>
             <div class="card-farm">${p.farm}</div>
@@ -723,6 +608,7 @@
     renderActiveFilters();
   }
 
+  // Le reste des fonctions (filters, cart, etc.) reste identique
   function updateFilterUI() {
     document.getElementById('filter-categories-btn').dataset.active = currentCategoryFilter ? "true" : "false";
     document.getElementById('filter-farms-btn').dataset.active = currentFarmFilter ? "true" : "false";
@@ -736,10 +622,7 @@
       const chip = document.createElement('div');
       chip.className = 'active-chip';
       chip.innerHTML = `Catégorie : ${currentCategoryFilter} <span class="remove">×</span>`;
-      chip.onclick = () => {
-        currentCategoryFilter = null;
-        renderProducts();
-      };
+      chip.onclick = () => { currentCategoryFilter = null; renderProducts(); };
       container.appendChild(chip);
     }
 
@@ -747,10 +630,7 @@
       const chip = document.createElement('div');
       chip.className = 'active-chip';
       chip.innerHTML = `Farm : ${currentFarmFilter} <span class="remove">×</span>`;
-      chip.onclick = () => {
-        currentFarmFilter = null;
-        renderProducts();
-      };
+      chip.onclick = () => { currentFarmFilter = null; renderProducts(); };
       container.appendChild(chip);
     }
   }
@@ -763,15 +643,10 @@
 
     function populateCategories() {
       catDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Catégories</div>`;
-
       const allCat = document.createElement('div');
       allCat.className = 'dropdown-item';
       allCat.innerHTML = `<span class="name">Tout afficher</span>`;
-      allCat.onclick = () => {
-        currentCategoryFilter = null;
-        renderProducts();
-        catDropdown.style.display = 'none';
-      };
+      allCat.onclick = () => { currentCategoryFilter = null; renderProducts(); catDropdown.style.display = 'none'; };
       catDropdown.appendChild(allCat);
 
       const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
@@ -779,9 +654,7 @@
         const item = document.createElement('div');
         item.className = `dropdown-item ${title === currentCategoryFilter ? 'active' : ''}`;
         item.innerHTML = `<span class="name">${title}</span>`;
-        if (title === currentCategoryFilter) {
-          item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
-        }
+        if (title === currentCategoryFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
         item.onclick = () => {
           currentCategoryFilter = currentCategoryFilter === title ? null : title;
           renderProducts();
@@ -793,36 +666,22 @@
 
     function populateFarms() {
       farmDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Farms</div>`;
-
       const allFarm = document.createElement('div');
       allFarm.className = 'dropdown-item';
       allFarm.innerHTML = `<span class="name">Tout afficher</span>`;
-      allFarm.onclick = () => {
-        currentFarmFilter = null;
-        renderProducts();
-        farmDropdown.style.display = 'none';
-      };
+      allFarm.onclick = () => { currentFarmFilter = null; renderProducts(); farmDropdown.style.display = 'none'; };
       farmDropdown.appendChild(allFarm);
 
       const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
       uniqueFarms.forEach(farm => {
         const item = document.createElement('div');
         item.className = `dropdown-item ${farm === currentFarmFilter ? 'active' : ''}`;
-
         let icon = '';
         if (farm === 'KGF🦊') icon = '🦊 ';
         else if (farm === 'R8🏎️') icon = '🏎️ ';
         else if (farm === '🏆 Top Shelf') icon = '🏆 ';
-
-        item.innerHTML = `
-          <span class="icon">${icon}</span>
-          <span class="name">${farm}</span>
-        `;
-
-        if (farm === currentFarmFilter) {
-          item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
-        }
-
+        item.innerHTML = `<span class="icon">${icon}</span><span class="name">${farm}</span>`;
+        if (farm === currentFarmFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
         item.onclick = () => {
           currentFarmFilter = currentFarmFilter === farm ? null : farm;
           renderProducts();
@@ -894,18 +753,20 @@
 
     const switcher = document.getElementById('video-switcher');
     switcher.innerHTML = '';
-    if (p.videos.length > 1) {
+    if (p.videos.length > 0) {
       switcher.style.display = 'flex';
       p.videos.forEach((vid, idx) => {
         const preview = document.createElement('div');
         preview.className = `video-preview ${idx === 0 ? 'active' : ''}`;
-        preview.style.backgroundImage = `url('${vid.poster}')`;
+        preview.style.backgroundImage = `url('${vid.poster || vid.src}')`; // fallback sur la vidéo elle-même
+
         if (vid.src) {
           const play = document.createElement('div');
           play.className = 'play-icon';
           play.innerHTML = '▶';
           preview.appendChild(play);
         }
+
         preview.onclick = () => {
           switcher.querySelectorAll('.video-preview').forEach(b => b.classList.remove('active'));
           preview.classList.add('active');
@@ -1016,6 +877,7 @@
     tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encoded}`);
   };
 
+  // Navigation
   document.getElementById('nav-home').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
@@ -1073,9 +935,7 @@
     }, 2500);
 
     setTimeout(() => {
-      if (splash.style.display !== 'none') {
-        splash.style.display = 'none';
-      }
+      if (splash.style.display !== 'none') splash.style.display = 'none';
     }, 5000);
   });
   </script>
