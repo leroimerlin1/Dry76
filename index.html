@@ -901,7 +901,7 @@
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
     tg.BackButton.show();
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();   // ← Remonte en haut à chaque ouverture de produit
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
@@ -921,51 +921,15 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();   // ← Remonte en haut
   }
 
-  document.querySelectorAll('.option-btn').forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const type = btn.dataset.type;
-      document.getElementById('pickup-questions').style.display = type === 'pickup' ? 'block' : 'none';
-      document.getElementById('delivery-questions').style.display = type === 'delivery' ? 'block' : 'none';
-    };
-  });
-
-  document.getElementById('submit-order-btn').onclick = () => {
-    const modeBtn = document.querySelector('.option-btn.active');
-    if (!modeBtn) return alert('Choisis un mode de récupération !');
-
-    const mode = modeBtn.dataset.type;
-    let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
-    message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
-
-    cart.forEach(item => message += `• ${item.title} × ${item.qty} (${item.price})\n`);
-
-    if (mode === 'pickup') {
-      const time = document.getElementById('pickup-time').value;
-      if (time) message += `\nHeure meet-up souhaitée : ${time}`;
-    } else {
-      const time = document.getElementById('delivery-time').value;
-      const address = document.getElementById('delivery-address').value.trim();
-      const details = document.getElementById('delivery-details').value.trim();
-      if (time) message += `\nHeure livraison souhaitée : ${time}`;
-      if (address) message += `\nAdresse : ${address}`;
-      if (details) message += `\nDétails : ${details}`;
-    }
-
-    message += `\n\nMerci !`;
-    const encoded = encodeURIComponent(message);
-    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encoded}`);
-  };
-
+  // Navigation avec remontée en haut à chaque clic
   document.getElementById('nav-home').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   };
 
   document.getElementById('nav-cart').onclick = () => {
@@ -973,29 +937,33 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   };
 
   document.getElementById('nav-infos').onclick = () => {
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   };
 
   document.getElementById('nav-reseaux').onclick = () => {
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   };
 
   tg.BackButton.onClick(() => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   });
+
+  function hideDetail() {
+    tg.BackButton.hide();
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
