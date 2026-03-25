@@ -645,7 +645,7 @@
       farm: '🏆 Top Shelf',
       videos: [{ src: 'caliweed.mp4', poster: '' }],
       strain: '- Runtz🌈',
-      description: "🌟Nous vous avons sorti l’une des meilleures games de Weed🍀 pour vous satisfaire 👍",
+      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l’euphorie et la motivation. Parfaite pour profiter pleinement de votre journée ou soirée.",
       quantities: [
         { qty: '5G', price: '80€' },
         { qty: '10G', price: '140€' },
@@ -901,7 +901,7 @@
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
     tg.BackButton.show();
-    scrollToTop();                    // ← Remonte en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
@@ -921,15 +921,51 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    scrollToTop();                    // ← Remonte en haut
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
-  // Navigation avec scroll en haut à chaque changement de page
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const type = btn.dataset.type;
+      document.getElementById('pickup-questions').style.display = type === 'pickup' ? 'block' : 'none';
+      document.getElementById('delivery-questions').style.display = type === 'delivery' ? 'block' : 'none';
+    };
+  });
+
+  document.getElementById('submit-order-btn').onclick = () => {
+    const modeBtn = document.querySelector('.option-btn.active');
+    if (!modeBtn) return alert('Choisis un mode de récupération !');
+
+    const mode = modeBtn.dataset.type;
+    let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
+    message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
+
+    cart.forEach(item => message += `• ${item.title} × ${item.qty} (${item.price})\n`);
+
+    if (mode === 'pickup') {
+      const time = document.getElementById('pickup-time').value;
+      if (time) message += `\nHeure meet-up souhaitée : ${time}`;
+    } else {
+      const time = document.getElementById('delivery-time').value;
+      const address = document.getElementById('delivery-address').value.trim();
+      const details = document.getElementById('delivery-details').value.trim();
+      if (time) message += `\nHeure livraison souhaitée : ${time}`;
+      if (address) message += `\nAdresse : ${address}`;
+      if (details) message += `\nDétails : ${details}`;
+    }
+
+    message += `\n\nMerci !`;
+    const encoded = encodeURIComponent(message);
+    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encoded}`);
+  };
+
   document.getElementById('nav-home').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    scrollToTop();
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   document.getElementById('nav-cart').onclick = () => {
@@ -937,34 +973,29 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    showCart();
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   document.getElementById('nav-infos').onclick = () => {
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
-    scrollToTop();
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   document.getElementById('nav-reseaux').onclick = () => {
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
-    scrollToTop();
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   tg.BackButton.onClick(() => {
-    hideDetail();
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    scrollToTop();
+    window.scrollTo({ top: 0, behavior: 'instant' });
   });
-
-  function hideDetail() {
-    tg.BackButton.hide();
-  }
 
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
