@@ -418,7 +418,7 @@
             <span style="font-size:1.6rem;">🛍️</span>
             Produits
           </div>
-          <div id="products-count-modern" class="products-count">2 produits</div>
+          <div id="products-count-modern" class="products-count">3 produits</div>
         </div>
 
         <div id="filters-wrapper">
@@ -645,6 +645,21 @@
       strain: '',
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
       quantities: [{ qty: '1G', price: '60€' }, { qty: '3G', price: '160€' }, { qty: '5G', price: '230€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }]
+    },
+    weed: {
+      key: 'weed',
+      title: '🍀Weed🍀',
+      category: '🍀Weed🍀',
+      farm: 'Cali US🇺🇸',
+      videos: [{ src: '', poster: 'weed.jpg' }, { src: 'weed.mp4', poster: 'weed.jpg' }],
+      strain: '- Cali Runtz🟣',
+      description: "🌟La frappe est arrivée tout droit des Amérique pour vous l’équipe.\n✈️ Provenances USA🇺🇸",
+      quantities: [
+        { qty: '5G', price: '80€' },
+        { qty: '10G', price: '140€' },
+        { qty: '25G', price: '300€' },
+        { qty: '50G', price: '540€' }
+      ]
     }
   };
 
@@ -809,6 +824,7 @@
         let icon = '';
         if (farm === 'KGF🦊') icon = '🦊 ';
         else if (farm === 'R8🏎️') icon = '🏎️ ';
+        else if (farm === 'Cali US🇺🇸') icon = '🇺🇸 ';
 
         item.innerHTML = `
           <span class="icon">${icon}</span>
