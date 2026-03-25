@@ -643,7 +643,7 @@
       title: '🍀Cali Weed🍀',
       category: '🍀Cali Weed🍀',
       farm: '🏆 Top Shelf',
-      videos: [{ src: 'caliweed.mp4', poster: '' }],   // Vidéo uniquement - pas d'image
+      videos: [{ src: 'caliweed.mp4', poster: '' }],
       strain: '- Runtz🌈',
       description: "🌟Nous vous avons sorti l’une des meilleures games de Weed🍀 pour vous satisfaire 👍",
       quantities: [
@@ -672,6 +672,10 @@
     document.getElementById('infos-page').style.display = 'none';
     document.getElementById('reseaux-page').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function loadMedia(src, poster) {
@@ -708,7 +712,6 @@
       const card = document.createElement('div');
       card.className = 'card';
 
-      // Correction du bug : on prend la vidéo comme miniature si pas de poster
       let thumbSrc = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
 
       card.innerHTML = `
@@ -834,17 +837,6 @@
     });
   }
 
-  function showDetail() { tg.BackButton.show(); }
-  function hideDetail() { tg.BackButton.hide(); }
-
-  tg.BackButton.onClick(() => {
-    hideDetail();
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  });
-
   function openProductDetail(key) {
     const p = products[key];
 
@@ -908,8 +900,8 @@
 
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
-    showDetail();
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    tg.BackButton.show();
+    scrollToTop();                    // ← Remonte en haut
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
@@ -929,85 +921,15 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
-
-    const itemsDiv = document.getElementById('cart-items');
-    itemsDiv.innerHTML = '';
-    if (cart.length === 0) {
-      itemsDiv.innerHTML = '<p style="text-align:center; color:#aaa; padding:80px 0;">Votre panier est vide</p>';
-      document.getElementById('questionnaire').style.display = 'none';
-      document.getElementById('cart-total').textContent = '';
-      return;
-    }
-
-    cart.forEach((item, index) => {
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
-        <div>
-          <strong>${item.title}</strong><br>
-          ${item.qty} — ${item.price}
-        </div>
-        <button class="delete-btn" data-index="${index}">X</button>
-      `;
-      itemsDiv.appendChild(div);
-    });
-
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.onclick = () => {
-        const idx = parseInt(btn.dataset.index);
-        cart.splice(idx, 1);
-        saveCart();
-        showCart();
-      };
-    });
-
-    document.getElementById('cart-total').textContent = `Total : ${cart.length} article${cart.length > 1 ? 's' : ''}`;
-    document.getElementById('questionnaire').style.display = 'block';
+    scrollToTop();                    // ← Remonte en haut
   }
 
-  document.querySelectorAll('.option-btn').forEach(btn => {
-    btn.onclick = () => {
-      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const type = btn.dataset.type;
-      document.getElementById('pickup-questions').style.display = type === 'pickup' ? 'block' : 'none';
-      document.getElementById('delivery-questions').style.display = type === 'delivery' ? 'block' : 'none';
-    };
-  });
-
-  document.getElementById('submit-order-btn').onclick = () => {
-    const modeBtn = document.querySelector('.option-btn.active');
-    if (!modeBtn) return alert('Choisis un mode de récupération !');
-
-    const mode = modeBtn.dataset.type;
-    let message = `Commande de ${user.first_name || 'Client'} (@${user.username || 'pas de pseudo'})\n\n`;
-    message += `Mode : ${mode === 'pickup' ? 'Meet-up' : 'Livraison'}\n\n`;
-
-    cart.forEach(item => message += `• ${item.title} × ${item.qty} (${item.price})\n`);
-
-    if (mode === 'pickup') {
-      const time = document.getElementById('pickup-time').value;
-      if (time) message += `\nHeure meet-up souhaitée : ${time}`;
-    } else {
-      const time = document.getElementById('delivery-time').value;
-      const address = document.getElementById('delivery-address').value.trim();
-      const details = document.getElementById('delivery-details').value.trim();
-      if (time) message += `\nHeure livraison souhaitée : ${time}`;
-      if (address) message += `\nAdresse : ${address}`;
-      if (details) message += `\nDétails : ${details}`;
-    }
-
-    message += `\n\nMerci !`;
-    const encoded = encodeURIComponent(message);
-    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encoded}`);
-  };
-
+  // Navigation avec scroll en haut à chaque changement de page
   document.getElementById('nav-home').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   };
 
   document.getElementById('nav-cart').onclick = () => {
@@ -1015,7 +937,6 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
     showCart();
   };
 
@@ -1023,15 +944,27 @@
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   };
 
   document.getElementById('nav-reseaux').onclick = () => {
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    scrollToTop();
   };
+
+  tg.BackButton.onClick(() => {
+    hideDetail();
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+    scrollToTop();
+  });
+
+  function hideDetail() {
+    tg.BackButton.hide();
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
