@@ -612,14 +612,6 @@
     tg.requestFullscreen();
   }
 
-  tg.onEvent('fullscreenChanged', () => {
-    console.log('Fullscreen activé ?', tg.isFullscreen);
-  });
-
-  tg.onEvent('fullscreenFailed', (err) => {
-    console.warn('Échec fullscreen:', err.error);
-  });
-
   const user = tg.initDataUnsafe?.user || {};
 
   let currentCategoryFilter = null;
@@ -646,19 +638,20 @@
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
       quantities: [{ qty: '1G', price: '60€' }, { qty: '3G', price: '160€' }, { qty: '5G', price: '230€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }]
     },
-    weed: {
-      key: 'weed',
-      title: '🍀Weed🍀',
-      category: '🍀Weed🍀',
-      farm: 'Cali US🇺🇸',
-      videos: [{ src: '', poster: 'weed.jpg' }, { src: 'weed.mp4', poster: 'weed.jpg' }],
-      strain: '- Cali Runtz🟣',
-      description: "🌟La frappe est arrivée tout droit des Amérique pour vous l’équipe.\n✈️ Provenances USA🇺🇸",
+    caliweed: {
+      key: 'caliweed',
+      title: '🍀Cali Weed🍀',
+      category: '🍀Cali Weed🍀',
+      farm: '🏆 Top Shelf',
+      videos: [{ src: '', poster: 'caliweed.jpg' }, { src: 'caliweed.mp4', poster: 'caliweed.jpg' }],
+      strain: '- Runtz🌈',
+      description: "🌟Nous vous avons sorti l’une des meilleures games de Weed🍀 pour vous satisfaire 👍",
       quantities: [
         { qty: '5G', price: '80€' },
         { qty: '10G', price: '140€' },
-        { qty: '25G', price: '300€' },
-        { qty: '50G', price: '540€' }
+        { qty: '25G', price: '270€' },
+        { qty: '50G', price: '420€' },
+        { qty: '100G', price: '780€' }
       ]
     }
   };
@@ -785,15 +778,10 @@
       uniqueTitles.forEach(title => {
         const item = document.createElement('div');
         item.className = `dropdown-item ${title === currentCategoryFilter ? 'active' : ''}`;
-
-        item.innerHTML = `
-          <span class="name">${title}</span>
-        `;
-
+        item.innerHTML = `<span class="name">${title}</span>`;
         if (title === currentCategoryFilter) {
           item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
         }
-
         item.onclick = () => {
           currentCategoryFilter = currentCategoryFilter === title ? null : title;
           renderProducts();
@@ -824,7 +812,7 @@
         let icon = '';
         if (farm === 'KGF🦊') icon = '🦊 ';
         else if (farm === 'R8🏎️') icon = '🏎️ ';
-        else if (farm === 'Cali US🇺🇸') icon = '🇺🇸 ';
+        else if (farm === '🏆 Top Shelf') icon = '🏆 ';
 
         item.innerHTML = `
           <span class="icon">${icon}</span>
@@ -866,13 +854,8 @@
     });
   }
 
-  function showDetail() {
-    tg.BackButton.show();
-  }
-
-  function hideDetail() {
-    tg.BackButton.hide();
-  }
+  function showDetail() { tg.BackButton.show(); }
+  function hideDetail() { tg.BackButton.hide(); }
 
   tg.BackButton.onClick(() => {
     hideDetail();
@@ -917,14 +900,12 @@
         const preview = document.createElement('div');
         preview.className = `video-preview ${idx === 0 ? 'active' : ''}`;
         preview.style.backgroundImage = `url('${vid.poster}')`;
-        
         if (vid.src) {
           const play = document.createElement('div');
           play.className = 'play-icon';
           play.innerHTML = '▶';
           preview.appendChild(play);
         }
-
         preview.onclick = () => {
           switcher.querySelectorAll('.video-preview').forEach(b => b.classList.remove('active'));
           preview.classList.add('active');
@@ -940,7 +921,6 @@
 
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
-    document.body.classList.add('detail-visible');
     showDetail();
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
