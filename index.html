@@ -311,6 +311,13 @@
       width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; 
       border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; 
       cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; 
+      transition: all 0.3s;
+    }
+    #submit-order-btn:disabled {
+      background: #555;
+      color: #999;
+      cursor: not-allowed;
+      box-shadow: none;
     }
 
     #infos-page, #reseaux-page { display: none; padding: 16px 16px 80px 16px; }
@@ -682,12 +689,19 @@
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateBadge();
+    updateSubmitButton();   // Mise à jour du bouton Commander
   }
 
   function updateBadge() {
     const badge = document.getElementById('cart-badge');
     badge.textContent = cart.length || '';
     badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
+  }
+
+  // Active / Désactive le bouton "Commander" selon le contenu du panier
+  function updateSubmitButton() {
+    const btn = document.getElementById('submit-order-btn');
+    btn.disabled = cart.length === 0;
   }
 
   function renderCart() {
@@ -697,6 +711,7 @@
     if (cart.length === 0) {
       container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Votre panier est vide</p>';
       document.getElementById('cart-total').textContent = '';
+      updateSubmitButton();
       return;
     }
 
@@ -718,6 +733,7 @@
     });
 
     document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
+    updateSubmitButton();
   }
 
   function hideAllPages() {
@@ -989,7 +1005,6 @@
     renderCart();
     scrollToTop();
 
-    // Gestion des boutons de mode récupération
     const pickupBtn = document.querySelector('.option-btn[data-type="pickup"]');
     const deliveryBtn = document.querySelector('.option-btn[data-type="delivery"]');
 
@@ -1007,7 +1022,6 @@
       document.getElementById('delivery-questions').style.display = 'block';
     };
 
-    // Suppression d'article du panier
     document.getElementById('cart-items').addEventListener('click', (e) => {
       if (e.target.classList.contains('delete-btn')) {
         const index = parseInt(e.target.dataset.index);
@@ -1042,7 +1056,7 @@
 
   // ====================== ENVOI VERS TELEGRAM ======================
   document.getElementById('submit-order-btn').onclick = () => {
-    if (cart.length === 0) return alert("Votre panier est vide !");
+    if (cart.length === 0) return; // Sécurité supplémentaire
 
     const modeBtn = document.querySelector('.option-btn.active');
     if (!modeBtn) return alert("Veuillez choisir un mode de récupération.");
@@ -1083,7 +1097,6 @@
 
     message += `\nMerci de traiter cette commande rapidement !`;
 
-    // Ouvre la conversation avec @sav_Bart76 et pré-remplit le message
     tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
   };
 
@@ -1100,6 +1113,7 @@
         renderProducts();
         initFilters();
         updateBadge();
+        updateSubmitButton();   // Initialisation du bouton Commander
 
         document.querySelectorAll('.reseau-item').forEach(item => {
           item.addEventListener('click', function() {
