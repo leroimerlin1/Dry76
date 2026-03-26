@@ -608,14 +608,17 @@
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
 
-  // Activation de la confirmation de fermeture (bouton X en haut à gauche)
-  tg.enableClosingConfirmation();
+  // Fonction pour activer la confirmation de fermeture (X en haut à gauche)
+  function enableCloseConfirmation() {
+    tg.enableClosingConfirmation();
+  }
+
+  // Activation initiale
+  enableCloseConfirmation();
 
   if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
     tg.requestFullscreen();
   }
-
-  const user = tg.initDataUnsafe?.user || {};
 
   let currentCategoryFilter = null;
   let currentFarmFilter = null;
@@ -679,6 +682,16 @@
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  // Fonction principale pour revenir à l'accueil avec réactivation de la confirmation
+  function goToHome() {
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();      // Réactive la confirmation du bouton X
+    scrollToTop();
   }
 
   function loadMedia(src, poster) {
@@ -919,26 +932,15 @@
     alert('Ajouté au panier !');
   };
 
-  function showCart() {
-    hideAllPages();
-    document.getElementById('cart-page').style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    document.getElementById('nav-cart').classList.add('active');
-    scrollToTop();
-  }
-
-  document.getElementById('nav-home').onclick = () => {
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-    scrollToTop();
-  };
+  // Navigation
+  document.getElementById('nav-home').onclick = goToHome;
 
   document.getElementById('nav-cart').onclick = () => {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();
     scrollToTop();
   };
 
@@ -946,6 +948,8 @@
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();
     scrollToTop();
   };
 
@@ -953,14 +957,14 @@
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();
     scrollToTop();
   };
 
+  // BackButton Telegram
   tg.BackButton.onClick(() => {
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-    scrollToTop();
+    goToHome();
   });
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -969,10 +973,7 @@
       splash.classList.add('hidden');
       setTimeout(() => {
         splash.style.display = 'none';
-
-        hideAllPages();
-        document.getElementById('home-page').style.display = 'block';
-        document.getElementById('nav-home').classList.add('active');
+        goToHome();   // Démarrage avec confirmation activée
 
         currentCategoryFilter = null;
         currentFarmFilter = null;
