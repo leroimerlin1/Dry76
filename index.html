@@ -607,25 +607,10 @@
   tg.expand();
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
-<script>
-  const tg = window.Telegram.WebApp;
 
-  tg.ready();
-  tg.expand();
-  tg.setHeaderColor('#1e1e1e');
-  tg.setBackgroundColor('#1e1e1e');
+  // Activation de la confirmation de fermeture (bouton X en haut à gauche)
+  tg.enableClosingConfirmation();
 
-  // ← AJOUTE ÇA ICI
-  tg.enableClosingConfirmation();   // Active la confirmation native de Telegram
-
-  // Optionnel : si tu veux un message personnalisé (Telegram utilise un texte standard, mais c’est très clair)
-  // tg.enableClosingConfirmation(); suffit dans 95% des cas.
-
-  if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
-    tg.requestFullscreen();
-  }
-  ...
-</script>
   if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
     tg.requestFullscreen();
   }
@@ -919,7 +904,7 @@
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
     tg.BackButton.show();
-    scrollToTop();   // ← Remonte en haut à chaque ouverture de produit
+    scrollToTop();
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
@@ -939,10 +924,9 @@
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    scrollToTop();   // ← Remonte en haut
+    scrollToTop();
   }
 
-  // Navigation avec remontée en haut à chaque clic
   document.getElementById('nav-home').onclick = () => {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
@@ -978,10 +962,6 @@
     document.getElementById('nav-home').classList.add('active');
     scrollToTop();
   });
-
-  function hideDetail() {
-    tg.BackButton.hide();
-  }
 
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
