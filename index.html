@@ -616,7 +616,6 @@
 
   let currentCategoryFilter = null;
   let currentFarmFilter = null;
-  let isOnProductDetail = false;
 
   const products = {
     kgf35u: {
@@ -679,25 +678,6 @@
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
-  function updateBackButton() {
-    if (isOnProductDetail) {
-      tg.BackButton.show();
-      tg.BackButton.onClick(goBackFromProduct);
-    } else {
-      tg.BackButton.show();
-      tg.BackButton.onClick(() => tg.close());
-    }
-  }
-
-  function goBackFromProduct() {
-    isOnProductDetail = false;
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-    updateBackButton();
-    scrollToTop();
-  }
-
   function loadMedia(src, poster) {
     const hero = document.getElementById('product-hero');
     hero.innerHTML = '';
@@ -709,9 +689,13 @@
       v.innerHTML = `<source src="${src}" type="video/mp4">`;
       hero.appendChild(v);
     } else if (poster) {
-      const i = document.createElement('img'); i.src = poster; hero.appendChild(i);
+      const i = document.createElement('img'); 
+      i.src = poster;
+      hero.appendChild(i);
     } else {
-      const i = document.createElement('img'); i.src = 'chat.PNG'; hero.appendChild(i);
+      const i = document.createElement('img'); 
+      i.src = 'chat.PNG';
+      hero.appendChild(i);
     }
   }
 
@@ -855,7 +839,6 @@
 
   function openProductDetail(key) {
     const p = products[key];
-    isOnProductDetail = true;
 
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm-badge').textContent = p.farm;
@@ -889,6 +872,7 @@
         const preview = document.createElement('div');
         preview.className = `video-preview ${idx === 0 ? 'active' : ''}`;
         preview.style.backgroundImage = `url('${vid.poster || vid.src || 'chat.PNG'}')`;
+
         if (vid.src) {
           const play = document.createElement('div');
           play.innerHTML = '▶';
@@ -900,6 +884,7 @@
           play.style.color = '#ffeb3b';
           preview.appendChild(play);
         }
+
         preview.onclick = () => {
           switcher.querySelectorAll('.video-preview').forEach(b => b.classList.remove('active'));
           preview.classList.add('active');
@@ -915,8 +900,8 @@
 
     hideAllPages();
     document.getElementById('product-detail').style.display = 'block';
-    updateBackButton();
-    scrollToTop();
+    tg.BackButton.show();
+    scrollToTop();   // ← Remonte en haut à chaque ouverture de produit
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
@@ -932,59 +917,53 @@
   };
 
   function showCart() {
-    isOnProductDetail = false;
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    updateBackButton();
-    scrollToTop();
+    scrollToTop();   // ← Remonte en haut
   }
 
+  // Navigation avec remontée en haut à chaque clic
   document.getElementById('nav-home').onclick = () => {
-    isOnProductDetail = false;
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    updateBackButton();
     scrollToTop();
   };
 
   document.getElementById('nav-cart').onclick = () => {
-    isOnProductDetail = false;
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
     document.getElementById('nav-cart').classList.add('active');
-    updateBackButton();
     scrollToTop();
   };
 
   document.getElementById('nav-infos').onclick = () => {
-    isOnProductDetail = false;
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
-    updateBackButton();
     scrollToTop();
   };
 
   document.getElementById('nav-reseaux').onclick = () => {
-    isOnProductDetail = false;
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
-    updateBackButton();
     scrollToTop();
   };
 
   tg.BackButton.onClick(() => {
-    if (isOnProductDetail) {
-      goBackFromProduct();
-    } else {
-      tg.close();
-    }
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+    scrollToTop();
   });
+
+  function hideDetail() {
+    tg.BackButton.hide();
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
@@ -996,8 +975,6 @@
         hideAllPages();
         document.getElementById('home-page').style.display = 'block';
         document.getElementById('nav-home').classList.add('active');
-        isOnProductDetail = false;
-        updateBackButton();
 
         currentCategoryFilter = null;
         currentFarmFilter = null;
