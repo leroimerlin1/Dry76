@@ -607,7 +607,25 @@
   tg.expand();
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
+<script>
+  const tg = window.Telegram.WebApp;
 
+  tg.ready();
+  tg.expand();
+  tg.setHeaderColor('#1e1e1e');
+  tg.setBackgroundColor('#1e1e1e');
+
+  // ← AJOUTE ÇA ICI
+  tg.enableClosingConfirmation();   // Active la confirmation native de Telegram
+
+  // Optionnel : si tu veux un message personnalisé (Telegram utilise un texte standard, mais c’est très clair)
+  // tg.enableClosingConfirmation(); suffit dans 95% des cas.
+
+  if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
+    tg.requestFullscreen();
+  }
+  ...
+</script>
   if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
     tg.requestFullscreen();
   }
