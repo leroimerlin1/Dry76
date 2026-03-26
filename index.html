@@ -279,9 +279,21 @@
     .video-preview:hover, .video-preview.active { border-color: #ffeb3b; transform: scale(1.08); }
 
     #cart-page { padding:16px; display:none; }
-    .cart-item { background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
-    .delete-btn { background:#ef4444; color:white; border:none; width:32px; height:32px; border-radius:50%; font-weight:bold; cursor:pointer; }
-    .cart-total { text-align:center; font-size:1.3rem; color:#ffeb3b; margin:20px 0; font-family: 'Orbitron', sans-serif; }
+    .cart-item { 
+      background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; 
+      padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; 
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-title { font-weight: bold; color: #ffeb3b; }
+    .cart-item-qty { color: #ccc; font-size: 0.95rem; }
+    .delete-btn { 
+      background:#ef4444; color:white; border:none; width:32px; height:32px; 
+      border-radius:50%; font-weight:bold; cursor:pointer; 
+    }
+    .cart-total { 
+      text-align:center; font-size:1.3rem; color:#ffeb3b; margin:20px 0; 
+      font-family: 'Orbitron', sans-serif; 
+    }
 
     .questionnaire { background:rgba(30,30,30,.78); border:1px solid #444; border-radius:14px; padding:20px; margin-top:24px; }
     .question { margin-bottom:20px; }
@@ -289,10 +301,17 @@
     .option-btn { width:100%; padding:14px; margin:6px 0; background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; border-radius:12px; font-size:1.05rem; cursor:pointer; }
     .option-btn.active { background:#ffeb3b; color:#111; font-weight:bold; }
 
-    input[type="time"], input[type="text"], textarea { width:100%; padding:14px; border-radius:10px; border:1px solid #444; background:rgba(40,40,40,.8); color:#e0e0e0; font-size:1.05rem; }
+    input[type="time"], input[type="text"], textarea { 
+      width:100%; padding:14px; border-radius:10px; border:1px solid #444; 
+      background:rgba(40,40,40,.8); color:#e0e0e0; font-size:1.05rem; 
+    }
     textarea { min-height:90px; resize:vertical; }
 
-    #submit-order-btn { width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
+    #submit-order-btn { 
+      width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; 
+      border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; 
+      cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; 
+    }
 
     #infos-page, #reseaux-page { display: none; padding: 16px 16px 80px 16px; }
 
@@ -426,9 +445,7 @@
             <button id="filter-categories-btn" class="filter-tab" data-active="false">Catégories <span class="arrow">↓</span></button>
             <button id="filter-farms-btn" class="filter-tab" data-active="false">Farms <span class="arrow">↓</span></button>
           </div>
-
           <div id="active-filters"></div>
-
           <div id="categories-dropdown" class="dropdown-menu" style="display:none;"></div>
           <div id="farms-dropdown" class="dropdown-menu" style="display:none;"></div>
         </div>
@@ -608,12 +625,10 @@
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
 
-  // Fonction pour activer la confirmation de fermeture (X en haut à gauche)
   function enableCloseConfirmation() {
     tg.enableClosingConfirmation();
   }
 
-  // Activation initiale
   enableCloseConfirmation();
 
   if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
@@ -664,11 +679,45 @@
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); updateBadge(); }
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateBadge();
+  }
+
   function updateBadge() {
     const badge = document.getElementById('cart-badge');
     badge.textContent = cart.length || '';
     badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
+  }
+
+  function renderCart() {
+    const container = document.getElementById('cart-items');
+    container.innerHTML = '';
+
+    if (cart.length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Votre panier est vide</p>';
+      document.getElementById('cart-total').textContent = '';
+      return;
+    }
+
+    let total = 0;
+    cart.forEach((item, index) => {
+      const priceNum = parseInt(item.price) || 0;
+      total += priceNum;
+
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div class="cart-item-info">
+          <div class="cart-item-title">${item.title}</div>
+          <div class="cart-item-qty">${item.qty} — ${item.price}</div>
+        </div>
+        <button class="delete-btn" data-index="${index}">×</button>
+      `;
+      container.appendChild(div);
+    });
+
+    document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
   }
 
   function hideAllPages() {
@@ -684,13 +733,12 @@
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
-  // Fonction principale pour revenir à l'accueil avec réactivation de la confirmation
   function goToHome() {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
     tg.BackButton.hide();
-    enableCloseConfirmation();      // Réactive la confirmation du bouton X
+    enableCloseConfirmation();
     scrollToTop();
   }
 
@@ -727,7 +775,6 @@
     filteredProducts.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
-
       let thumbSrc = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
 
       card.innerHTML = `
@@ -739,7 +786,6 @@
           </div>
         </div>
       `;
-
       card.onclick = () => openProductDetail(p.key);
       grid.appendChild(card);
     });
@@ -928,7 +974,6 @@
     const item = products[key].quantities[parseInt(selected.dataset.idx)];
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
-    updateBadge();
     alert('Ajouté au panier !');
   };
 
@@ -941,7 +986,36 @@
     document.getElementById('nav-cart').classList.add('active');
     tg.BackButton.hide();
     enableCloseConfirmation();
+    renderCart();
     scrollToTop();
+
+    // Gestion des boutons de mode récupération
+    const pickupBtn = document.querySelector('.option-btn[data-type="pickup"]');
+    const deliveryBtn = document.querySelector('.option-btn[data-type="delivery"]');
+
+    pickupBtn.onclick = () => {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      pickupBtn.classList.add('active');
+      document.getElementById('pickup-questions').style.display = 'block';
+      document.getElementById('delivery-questions').style.display = 'none';
+    };
+
+    deliveryBtn.onclick = () => {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      deliveryBtn.classList.add('active');
+      document.getElementById('pickup-questions').style.display = 'none';
+      document.getElementById('delivery-questions').style.display = 'block';
+    };
+
+    // Suppression d'article du panier
+    document.getElementById('cart-items').addEventListener('click', (e) => {
+      if (e.target.classList.contains('delete-btn')) {
+        const index = parseInt(e.target.dataset.index);
+        cart.splice(index, 1);
+        saveCart();
+        renderCart();
+      }
+    });
   };
 
   document.getElementById('nav-infos').onclick = () => {
@@ -962,10 +1036,56 @@
     scrollToTop();
   };
 
-  // BackButton Telegram
   tg.BackButton.onClick(() => {
     goToHome();
   });
+
+  // ====================== ENVOI VERS TELEGRAM ======================
+  document.getElementById('submit-order-btn').onclick = () => {
+    if (cart.length === 0) return alert("Votre panier est vide !");
+
+    const modeBtn = document.querySelector('.option-btn.active');
+    if (!modeBtn) return alert("Veuillez choisir un mode de récupération.");
+
+    const mode = modeBtn.dataset.type === 'pickup' ? 'Venir sur place' : 'Livraison';
+    let heure = '', adresse = '', precisions = '';
+
+    if (modeBtn.dataset.type === 'pickup') {
+      heure = document.getElementById('pickup-time').value || 'Non précisée';
+    } else {
+      heure = document.getElementById('delivery-time').value || 'Non précisée';
+      adresse = document.getElementById('delivery-address').value || 'Non précisée';
+      precisions = document.getElementById('delivery-details').value || 'Aucune';
+    }
+
+    let message = `🛒 *NOUVELLE COMMANDE* 🛒\n\n`;
+    message += `👤 Utilisateur : ${tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : tg.initDataUnsafe?.user?.first_name || 'Inconnu'}\n`;
+    message += `📅 ${new Date().toLocaleString('fr-FR')}\n\n`;
+    message += `🛍️ *Articles :*\n`;
+
+    let total = 0;
+    cart.forEach(item => {
+      const priceNum = parseInt(item.price) || 0;
+      total += priceNum;
+      message += `• ${item.title} — ${item.qty} (${item.price})\n`;
+    });
+
+    message += `\n💰 *Total : ${total}€*\n\n`;
+    message += `📦 *Mode :* ${mode}\n`;
+
+    if (modeBtn.dataset.type === 'pickup') {
+      message += `⏰ Heure : ${heure}\n`;
+    } else {
+      message += `⏰ Heure : ${heure}\n`;
+      message += `📍 Adresse : ${adresse}\n`;
+      message += `📝 Précisions : ${precisions}\n`;
+    }
+
+    message += `\nMerci de traiter cette commande rapidement !`;
+
+    // Ouvre la conversation avec @sav_Bart76 et pré-remplit le message
+    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
+  };
 
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
@@ -973,7 +1093,7 @@
       splash.classList.add('hidden');
       setTimeout(() => {
         splash.style.display = 'none';
-        goToHome();   // Démarrage avec confirmation activée
+        goToHome();
 
         currentCategoryFilter = null;
         currentFarmFilter = null;
@@ -989,12 +1109,6 @@
         });
       }, 600);
     }, 2500);
-
-    setTimeout(() => {
-      if (splash.style.display !== 'none') {
-        splash.style.display = 'none';
-      }
-    }, 5000);
   });
   </script>
 </body>
