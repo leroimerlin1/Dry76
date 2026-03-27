@@ -444,7 +444,7 @@
             <span style="font-size:1.6rem;">🛍️</span>
             Produits
           </div>
-          <div id="products-count-modern" class="products-count">3 produits</div>
+          <div id="products-count-modern" class="products-count">4 produits</div>
         </div>
 
         <div id="filters-wrapper">
@@ -681,6 +681,24 @@
         { qty: '50G', price: '420€' },
         { qty: '100G', price: '780€' }
       ]
+    },
+    dry90u: {
+      key: 'dry90u',
+      title: 'Dry 90u⚡️',
+      category: 'Dry 90u⚡️',
+      farm: 'Total farm🧑‍🌾🌝',
+      videos: [
+        { src: '', poster: 'dry90u.jpg' },           // Photo principale
+        { src: 'dry90u.mp4', poster: 'dry90u.jpg' }  // Vidéo
+      ],
+      strain: '',
+      description: "Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés. Effet puissant, relaxant et cérébral à la fois.",
+      quantities: [
+        { qty: '10g', price: '90€' },
+        { qty: '25g', price: '190€' },
+        { qty: '50g', price: '300€' },
+        { qty: '100g', price: '550€' }
+      ]
     }
   };
 
@@ -689,7 +707,7 @@
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateBadge();
-    updateSubmitButton();   // Mise à jour du bouton Commander
+    updateSubmitButton();
   }
 
   function updateBadge() {
@@ -698,7 +716,6 @@
     badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
   }
 
-  // Active / Désactive le bouton "Commander" selon le contenu du panier
   function updateSubmitButton() {
     const btn = document.getElementById('submit-order-btn');
     btn.disabled = cart.length === 0;
@@ -882,6 +899,7 @@
         if (farm === 'KGF🦊') icon = '🦊 ';
         else if (farm === 'R8🏎️') icon = '🏎️ ';
         else if (farm === '🏆 Top Shelf') icon = '🏆 ';
+        else if (farm === 'Total farm🧑‍🌾🌝') icon = '🧑‍🌾 ';
         item.innerHTML = `<span class="icon">${icon}</span><span class="name">${farm}</span>`;
         if (farm === currentFarmFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
         item.onclick = () => {
@@ -1056,7 +1074,7 @@
 
   // ====================== ENVOI VERS TELEGRAM ======================
   document.getElementById('submit-order-btn').onclick = () => {
-    if (cart.length === 0) return; // Sécurité supplémentaire
+    if (cart.length === 0) return;
 
     const modeBtn = document.querySelector('.option-btn.active');
     if (!modeBtn) return alert("Veuillez choisir un mode de récupération.");
@@ -1113,7 +1131,7 @@
         renderProducts();
         initFilters();
         updateBadge();
-        updateSubmitButton();   // Initialisation du bouton Commander
+        updateSubmitButton();
 
         document.querySelectorAll('.reseau-item').forEach(item => {
           item.addEventListener('click', function() {
