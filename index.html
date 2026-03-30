@@ -206,6 +206,29 @@
     .card-img { height: 100%; width: 100%; position: relative; background: transparent; display: flex; align-items: center; justify-content: center; }
     .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+    /* Badge Promotion */
+    .promo-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #ef4444;
+      color: white;
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.6);
+      z-index: 10;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.5px;
+      animation: pulse-promo 2s infinite;
+    }
+
+    @keyframes pulse-promo {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
     .card-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
@@ -236,7 +259,7 @@
       width: 100%; 
       height: 100%; 
       object-fit: cover; 
-      display: block;
+      display: block; 
     }
 
     .product-info {
@@ -259,6 +282,18 @@
     .quantity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
     .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
     .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
+
+    /* Style prix promo dans le détail */
+    .price-old {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 0.9rem;
+    }
+    .price-new {
+      color: #4ade80;
+      font-weight: 900;
+      font-size: 1.15rem;
+    }
 
     .add-to-cart { 
       margin:16px 16px 40px 16px; background:#ffeb3b; color:#111; border:none; 
@@ -665,12 +700,14 @@
       strain: '- Runtz🌈',
       description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l’euphorie et la motivation. Parfaite pour profiter pleinement de votre journée ou soirée.",
       quantities: [
-        { qty: '5G', price: '80€' },
-        { qty: '10G', price: '140€' },
-        { qty: '25G', price: '270€' },
-        { qty: '50G', price: '420€' },
-        { qty: '100G', price: '780€' }
-      ]
+        { qty: '5G', price: '70€' },
+        { qty: '10G', price: '130€' },
+        { qty: '25G', price: '260€' },
+        { qty: '50G', price: '410€' },
+        { qty: '100G', price: '770€' }
+      ],
+      promo: true,
+      originalPrices: ['80€', '140€', '270€', '420€', '780€']
     },
     capncrunch: {
       key: 'capncrunch',
@@ -678,8 +715,8 @@
       category: 'Cap’n Crunch🥣🌾',
       farm: 'Total farm🧑‍🌾🌝',
       videos: [
-        { src: '', poster: 'dry90u.jpg' },           // Photo
-        { src: 'dry90u.mp4', poster: 'dry90u.jpg' }  // Vidéo
+        { src: '', poster: 'dry90u.jpg' },
+        { src: 'dry90u.mp4', poster: 'dry90u.jpg' }
       ],
       strain: '',
       description: "Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés. Effet puissant, relaxant et cérébral à la fois.",
@@ -800,8 +837,14 @@
       card.className = 'card';
       let thumbSrc = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
 
+      let promoHTML = '';
+      if (p.promo) {
+        promoHTML = `<div class="promo-badge">PROMO -10€</div>`;
+      }
+
       card.innerHTML = `
         <div class="card-img">
+          ${promoHTML}
           <img src="${thumbSrc}" alt="${p.title}">
           <div class="card-overlay">
             <div class="card-title">${p.title}</div>
@@ -940,7 +983,13 @@
     p.quantities.forEach((item, idx) => {
       const btn = document.createElement('button');
       btn.className = 'qty-btn';
-      btn.innerHTML = `${item.qty}<br>${item.price}`;
+
+      if (p.promo && p.originalPrices && p.originalPrices[idx]) {
+        btn.innerHTML = `${item.qty}<br><span class="price-old">${p.originalPrices[idx]}</span><br><span class="price-new">${item.price}</span>`;
+      } else {
+        btn.innerHTML = `${item.qty}<br>${item.price}`;
+      }
+
       btn.dataset.idx = idx;
       btn.onclick = () => {
         qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
