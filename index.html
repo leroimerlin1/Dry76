@@ -129,8 +129,6 @@
       box-shadow: 0 0 12px rgba(255,235,59,0.6);
     }
 
-    .filter-tab .arrow { margin-left: 4px; color: #999; }
-
     .dropdown-menu {
       position: absolute; top: 100%; left: 10%; right: 10%;
       width: 80%; max-width: 360px; margin: 6px auto 0;
@@ -206,7 +204,6 @@
     .card-img { height: 100%; width: 100%; position: relative; background: transparent; display: flex; align-items: center; justify-content: center; }
     .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    /* Badge Promotion */
     .promo-badge {
       position: absolute;
       top: 12px;
@@ -283,7 +280,6 @@
     .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
     .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
 
-    /* Style prix promo dans le détail */
     .price-old {
       text-decoration: line-through;
       color: #888;
@@ -689,7 +685,13 @@
       videos: [{ src: '', poster: 'blanche.jpg' }, { src: 'blanche.mp4', poster: 'blanche.jpg' }],
       strain: '',
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
-      quantities: [{ qty: '1G', price: '60€' }, { qty: '3G', price: '160€' }, { qty: '5G', price: '230€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }]
+      quantities: [
+        { qty: '1G', price: '50€' },
+        { qty: '3G', price: '150€' },
+        { qty: '5G', price: '210€' },
+        { qty: '10G', price: '360€' },
+        { qty: '20G', price: '680€' }
+      ]
     },
     caliweed: {
       key: 'caliweed',
@@ -983,13 +985,7 @@
     p.quantities.forEach((item, idx) => {
       const btn = document.createElement('button');
       btn.className = 'qty-btn';
-
-      if (p.promo && p.originalPrices && p.originalPrices[idx]) {
-        btn.innerHTML = `${item.qty}<br><span class="price-old">${p.originalPrices[idx]}</span><br><span class="price-new">${item.price}</span>`;
-      } else {
-        btn.innerHTML = `${item.qty}<br>${item.price}`;
-      }
-
+      btn.innerHTML = `${item.qty}<br>${item.price}`;
       btn.dataset.idx = idx;
       btn.onclick = () => {
         qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
