@@ -691,7 +691,9 @@
         { qty: '5G', price: '210€' },
         { qty: '10G', price: '360€' },
         { qty: '20G', price: '680€' }
-      ]
+      ],
+      promo: true,
+      originalPrices: ['60€', '160€', '230€', '360€', '680€']
     },
     caliweed: {
       key: 'caliweed',
@@ -841,7 +843,7 @@
 
       let promoHTML = '';
       if (p.promo) {
-        promoHTML = `<div class="promo-badge">PROMO -10€</div>`;
+        promoHTML = `<div class="promo-badge">PROMO</div>`;
       }
 
       card.innerHTML = `
@@ -985,7 +987,13 @@
     p.quantities.forEach((item, idx) => {
       const btn = document.createElement('button');
       btn.className = 'qty-btn';
-      btn.innerHTML = `${item.qty}<br>${item.price}`;
+
+      if (p.promo && p.originalPrices && p.originalPrices[idx]) {
+        btn.innerHTML = `${item.qty}<br><span class="price-old">${p.originalPrices[idx]}</span><br><span class="price-new">${item.price}</span>`;
+      } else {
+        btn.innerHTML = `${item.qty}<br>${item.price}`;
+      }
+
       btn.dataset.idx = idx;
       btn.onclick = () => {
         qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
