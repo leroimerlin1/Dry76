@@ -353,26 +353,90 @@
 
     #infos-page, #reseaux-page { display: none; padding: 16px 16px 80px 16px; }
 
-    .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
+    /* ==================== PAGE AVIS ==================== */
+    #reviews-page { display: none; padding: 16px 16px 100px 16px; }
 
-    .reseaux-list { display:flex; flex-direction:column; gap:16px; margin-top:20px; }
-    .reseau-item {
-      background:rgba(30,30,30,.85); border:2px solid #ffeb3b; border-radius:16px;
-      padding:16px; font-size:1.3rem; font-weight:bold; color:#e0e0e0; text-align:center;
-      cursor:pointer; transition:all .25s; display:flex; align-items:center; gap:12px;
-      box-shadow:0 2px 8px rgba(0,0,0,.4); font-family: 'Orbitron', sans-serif; letter-spacing:1px;
-      min-height: 70px;
+    .review-form {
+      background: rgba(30,30,30,0.92);
+      border: 1px solid #ffeb3b;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
     }
-    .reseau-item:hover { background:#ffeb3b; color:#111; border-color:#fff176; transform:scale(1.03); }
-    .reseau-item img { 
-      width: 40px !important; 
-      height: 40px !important; 
-      border-radius: 50%; 
-      object-fit: contain; 
-      background:#fff; 
-      padding:4px; 
-      box-shadow:0 0 8px rgba(0,0,0,.5); 
-      flex-shrink: 0;
+
+    .stars {
+      display: flex;
+      gap: 8px;
+      font-size: 2.4rem;
+      margin: 15px 0;
+      justify-content: center;
+    }
+
+    .star {
+      cursor: pointer;
+      color: #555;
+      transition: all 0.2s;
+    }
+
+    .star.active, .star:hover {
+      color: #ffeb3b;
+      transform: scale(1.15);
+    }
+
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .review-card {
+      background: rgba(30,30,30,0.85);
+      border: 1px solid #444;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .review-user {
+      font-weight: bold;
+      color: #ffeb3b;
+    }
+
+    .review-stars {
+      color: #ffeb3b;
+      font-size: 1.4rem;
+    }
+
+    .review-text {
+      color: #ddd;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .review-date {
+      font-size: 0.85rem;
+      color: #888;
+      text-align: right;
+      margin-top: 8px;
+    }
+
+    .section-title { 
+      font-family: 'Orbitron', sans-serif; 
+      font-size:1.45rem; 
+      color:#ffeb3b; 
+      margin:28px 0 12px; 
+      font-weight:bold; 
+      text-align:center; 
+      text-shadow:0 0 6px rgba(255,235,59,.4); 
+      letter-spacing:1.5px; 
     }
 
     nav {
@@ -388,7 +452,7 @@
       justify-content: space-around;
       align-items: center;
       z-index: 100;
-      padding: 0 16px;
+      padding: 0 10px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.6);
     }
 
@@ -400,7 +464,7 @@
       font-size: 0.7rem;
       font-weight: 600;
       cursor: pointer;
-      width: 60px;
+      width: 55px;
       transition: all 0.3s ease;
       position: relative;
     }
@@ -611,6 +675,33 @@
         </div>
       </div>
 
+      <!-- ==================== PAGE AVIS ==================== -->
+      <div id="reviews-page">
+        <h2 class="section-title">📝 Laisser un avis sur votre commande</h2>
+
+        <div class="review-form">
+          <div class="question-label" style="text-align:center; margin-bottom:12px; font-size:1.1rem;">Notez votre expérience</div>
+          <div class="stars" id="stars">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
+
+          <textarea id="review-comment" placeholder="Votre commentaire (facultatif)..." style="margin-top:15px; width:100%;"></textarea>
+
+          <input type="text" id="review-pseudo" placeholder="Pseudo (facultatif)" style="margin-top:12px; width:100%;">
+
+          <button id="submit-review-btn" style="width:100%; margin-top:20px; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5);">
+            Envoyer mon avis
+          </button>
+        </div>
+
+        <h2 class="section-title">📋 Avis des clients</h2>
+        <div id="review-list" class="review-list"></div>
+      </div>
+
       <nav>
         <div class="nav-item active" id="nav-home">
           <div class="nav-icon-wrapper">
@@ -631,6 +722,14 @@
             <span id="cart-badge"></span>
           </div>
           <span>Panier</span>
+        </div>
+        <div class="nav-item" id="nav-reviews">
+          <div class="nav-icon-wrapper">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+            </svg>
+          </div>
+          <span>Avis</span>
         </div>
         <div class="nav-item" id="nav-infos">
           <div class="nav-icon-wrapper">
@@ -734,11 +833,16 @@
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateBadge();
     updateSubmitButton();
+  }
+
+  function saveReviews() {
+    localStorage.setItem('reviews', JSON.stringify(reviews));
   }
 
   function updateBadge() {
@@ -790,6 +894,7 @@
     document.getElementById('cart-page').style.display = 'none';
     document.getElementById('infos-page').style.display = 'none';
     document.getElementById('reseaux-page').style.display = 'none';
+    document.getElementById('reviews-page').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   }
 
@@ -1110,6 +1215,17 @@
     scrollToTop();
   };
 
+  // Navigation Avis
+  document.getElementById('nav-reviews').onclick = () => {
+    hideAllPages();
+    document.getElementById('reviews-page').style.display = 'block';
+    document.getElementById('nav-reviews').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();
+    scrollToTop();
+    renderReviews();
+  };
+
   tg.BackButton.onClick(() => {
     goToHome();
   });
@@ -1160,6 +1276,82 @@
     tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
   };
 
+  // ====================== GESTION DES AVIS ======================
+  function renderReviews() {
+    const container = document.getElementById('review-list');
+    container.innerHTML = '';
+
+    if (reviews.length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Aucun avis pour le moment...</p>';
+      return;
+    }
+
+    reviews.forEach(review => {
+      const div = document.createElement('div');
+      div.className = 'review-card';
+      div.innerHTML = `
+        <div class="review-header">
+          <div class="review-user">${review.pseudo || 'Anonyme'}</div>
+          <div class="review-stars">${'★'.repeat(review.rating)}</div>
+        </div>
+        <div class="review-text">${review.comment || '<em style="color:#777;">Aucun commentaire</em>'}</div>
+        <div class="review-date">${review.date}</div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  function initReviewForm() {
+    let selectedRating = 0;
+    const stars = document.querySelectorAll('#stars .star');
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.dataset.value);
+        stars.forEach(s => {
+          s.classList.toggle('active', parseInt(s.dataset.value) <= selectedRating);
+        });
+      });
+    });
+
+    document.getElementById('submit-review-btn').addEventListener('click', () => {
+      const comment = document.getElementById('review-comment').value.trim();
+      const pseudo = document.getElementById('review-pseudo').value.trim();
+
+      if (selectedRating === 0) {
+        alert("Veuillez donner une note avec les étoiles !");
+        return;
+      }
+
+      const newReview = {
+        rating: selectedRating,
+        comment: comment,
+        pseudo: pseudo || '',
+        date: new Date().toLocaleDateString('fr-FR', { 
+          day: '2-digit', 
+          month: '2-digit', 
+          year: 'numeric' 
+        }) + ' ' + new Date().toLocaleTimeString('fr-FR', { 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        })
+      };
+
+      reviews.unshift(newReview);
+      saveReviews();
+      renderReviews();
+
+      // Réinitialiser
+      selectedRating = 0;
+      stars.forEach(s => s.classList.remove('active'));
+      document.getElementById('review-comment').value = '';
+      document.getElementById('review-pseudo').value = '';
+
+      alert("✅ Merci pour votre avis !");
+    });
+  }
+
+  // ====================== LANCEMENT ======================
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
     setTimeout(() => {
@@ -1174,6 +1366,8 @@
         initFilters();
         updateBadge();
         updateSubmitButton();
+        initReviewForm();
+        renderReviews();
 
         document.querySelectorAll('.reseau-item').forEach(item => {
           item.addEventListener('click', function() {
