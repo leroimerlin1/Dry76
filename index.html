@@ -351,11 +351,68 @@
       box-shadow: none;
     }
 
-    #infos-page, #reseaux-page { display: none; padding: 16px 16px 80px 16px; }
+    #infos-page, #reseaux-page, #reviews-page { 
+      display: none; 
+      padding: 16px 16px 100px 16px; 
+    }
 
-    /* ==================== PAGE AVIS ==================== */
-    #reviews-page { display: none; padding: 16px 16px 100px 16px; }
+    .section-title { 
+      font-family: 'Orbitron', sans-serif; 
+      font-size:1.45rem; 
+      color:#ffeb3b; 
+      margin:28px 0 16px; 
+      font-weight:bold; 
+      text-align:center; 
+      text-shadow:0 0 6px rgba(255,235,59,.4); 
+      letter-spacing:1.5px; 
+    }
 
+    /* Page Réseaux - logos corrigés */
+    .reseaux-list { 
+      display:flex; 
+      flex-direction:column; 
+      gap:16px; 
+      margin-top:10px;
+    }
+
+    .reseau-item {
+      background:rgba(30,30,30,.85); 
+      border:2px solid #ffeb3b; 
+      border-radius:16px;
+      padding:14px 16px;
+      font-size:1.25rem; 
+      font-weight:bold; 
+      color:#e0e0e0; 
+      display:flex; 
+      align-items:center; 
+      gap:14px;
+      cursor:pointer; 
+      transition:all .25s; 
+      box-shadow:0 2px 8px rgba(0,0,0,.4); 
+      font-family: 'Orbitron', sans-serif; 
+      letter-spacing:1px;
+      min-height: 62px;
+    }
+
+    .reseau-item:hover { 
+      background:#ffeb3b; 
+      color:#111; 
+      border-color:#fff176; 
+      transform:scale(1.02); 
+    }
+
+    .reseau-item img { 
+      width: 48px !important; 
+      height: 48px !important; 
+      border-radius: 50%; 
+      object-fit: contain; 
+      background:#fff; 
+      padding:4px; 
+      box-shadow:0 0 8px rgba(0,0,0,.5); 
+      flex-shrink: 0;
+    }
+
+    /* Page Avis */
     .review-form {
       background: rgba(30,30,30,0.92);
       border: 1px solid #ffeb3b;
@@ -426,17 +483,6 @@
       color: #888;
       text-align: right;
       margin-top: 8px;
-    }
-
-    .section-title { 
-      font-family: 'Orbitron', sans-serif; 
-      font-size:1.45rem; 
-      color:#ffeb3b; 
-      margin:28px 0 12px; 
-      font-weight:bold; 
-      text-align:center; 
-      text-shadow:0 0 6px rgba(255,235,59,.4); 
-      letter-spacing:1.5px; 
     }
 
     nav {
@@ -558,7 +604,6 @@
       <div id="product-detail">
         <div class="product-hero" id="product-hero"></div>
         <div id="video-switcher" class="video-switcher"></div>
-        
         <div class="product-info">
           <div class="product-title" id="detail-title"></div>
           <div class="badges">
@@ -658,7 +703,7 @@
       </div>
 
       <div id="reseaux-page">
-        <h2 style="text-align:center;color:#ffeb3b;margin:30px 0 40px;font-size:1.8rem;font-family:'Orbitron',sans-serif;letter-spacing:2px;">Nos réseaux</h2>
+        <h2 class="section-title">Nos réseaux</h2>
         <div class="reseaux-list">
           <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
@@ -675,7 +720,6 @@
         </div>
       </div>
 
-      <!-- ==================== PAGE AVIS ==================== -->
       <div id="reviews-page">
         <h2 class="section-title">📝 Laisser un avis sur votre commande</h2>
 
@@ -690,7 +734,6 @@
           </div>
 
           <textarea id="review-comment" placeholder="Votre commentaire (facultatif)..." style="margin-top:15px; width:100%;"></textarea>
-
           <input type="text" id="review-pseudo" placeholder="Pseudo (facultatif)" style="margin-top:12px; width:100%;">
 
           <button id="submit-review-btn" style="width:100%; margin-top:20px; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5);">
@@ -698,7 +741,7 @@
           </button>
         </div>
 
-        <h2 class="section-title">📋 Avis des clients</h2>
+        <h2 class="section-title">📋 Mes avis</h2>
         <div id="review-list" class="review-list"></div>
       </div>
 
@@ -756,7 +799,6 @@
 
   <script>
   const tg = window.Telegram.WebApp;
-
   tg.ready();
   tg.expand();
   tg.setHeaderColor('#1e1e1e');
@@ -765,12 +807,7 @@
   function enableCloseConfirmation() {
     tg.enableClosingConfirmation();
   }
-
   enableCloseConfirmation();
-
-  if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
-    tg.requestFullscreen();
-  }
 
   let currentCategoryFilter = null;
   let currentFarmFilter = null;
@@ -1215,7 +1252,6 @@
     scrollToTop();
   };
 
-  // Navigation Avis
   document.getElementById('nav-reviews').onclick = () => {
     hideAllPages();
     document.getElementById('reviews-page').style.display = 'block';
@@ -1230,7 +1266,7 @@
     goToHome();
   });
 
-  // ====================== ENVOI VERS TELEGRAM ======================
+  // Submit Order
   document.getElementById('submit-order-btn').onclick = () => {
     if (cart.length === 0) return;
 
@@ -1276,7 +1312,64 @@
     tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
   };
 
-  // ====================== GESTION DES AVIS ======================
+  // Avis - Envoi à tous via admin
+  function sendReviewToAdmin(rating, comment, pseudo) {
+    const user = tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : tg.initDataUnsafe?.user?.first_name || 'Inconnu';
+
+    let message = `⭐ *NOUVEL AVIS CLIENT* ⭐\n\n`;
+    message += `👤 Utilisateur : ${user}\n`;
+    message += `📅 ${new Date().toLocaleString('fr-FR')}\n\n`;
+    message += `Note : ${'★'.repeat(rating)} (${rating}/5)\n`;
+    if (pseudo) message += `Pseudo : ${pseudo}\n`;
+    if (comment) message += `Commentaire : ${comment}\n\n`;
+    message += `Merci de publier cet avis si pertinent !`;
+
+    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
+  }
+
+  function initReviewForm() {
+    let selectedRating = 0;
+    const stars = document.querySelectorAll('#stars .star');
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.dataset.value);
+        stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value) <= selectedRating));
+      });
+    });
+
+    document.getElementById('submit-review-btn').addEventListener('click', () => {
+      const comment = document.getElementById('review-comment').value.trim();
+      const pseudo = document.getElementById('review-pseudo').value.trim();
+
+      if (selectedRating === 0) {
+        alert("Veuillez donner une note avec les étoiles !");
+        return;
+      }
+
+      const newReview = {
+        rating: selectedRating,
+        comment: comment,
+        pseudo: pseudo || '',
+        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' +
+              new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+      };
+
+      reviews.unshift(newReview);
+      saveReviews();
+      renderReviews();
+
+      sendReviewToAdmin(selectedRating, comment, pseudo);
+
+      selectedRating = 0;
+      stars.forEach(s => s.classList.remove('active'));
+      document.getElementById('review-comment').value = '';
+      document.getElementById('review-pseudo').value = '';
+
+      alert("✅ Merci pour votre avis ! Il a été envoyé à l'équipe pour publication.");
+    });
+  }
+
   function renderReviews() {
     const container = document.getElementById('review-list');
     container.innerHTML = '';
@@ -1301,57 +1394,7 @@
     });
   }
 
-  function initReviewForm() {
-    let selectedRating = 0;
-    const stars = document.querySelectorAll('#stars .star');
-
-    stars.forEach(star => {
-      star.addEventListener('click', () => {
-        selectedRating = parseInt(star.dataset.value);
-        stars.forEach(s => {
-          s.classList.toggle('active', parseInt(s.dataset.value) <= selectedRating);
-        });
-      });
-    });
-
-    document.getElementById('submit-review-btn').addEventListener('click', () => {
-      const comment = document.getElementById('review-comment').value.trim();
-      const pseudo = document.getElementById('review-pseudo').value.trim();
-
-      if (selectedRating === 0) {
-        alert("Veuillez donner une note avec les étoiles !");
-        return;
-      }
-
-      const newReview = {
-        rating: selectedRating,
-        comment: comment,
-        pseudo: pseudo || '',
-        date: new Date().toLocaleDateString('fr-FR', { 
-          day: '2-digit', 
-          month: '2-digit', 
-          year: 'numeric' 
-        }) + ' ' + new Date().toLocaleTimeString('fr-FR', { 
-          hour: '2-digit', 
-          minute: '2-digit' 
-        })
-      };
-
-      reviews.unshift(newReview);
-      saveReviews();
-      renderReviews();
-
-      // Réinitialiser
-      selectedRating = 0;
-      stars.forEach(s => s.classList.remove('active'));
-      document.getElementById('review-comment').value = '';
-      document.getElementById('review-pseudo').value = '';
-
-      alert("✅ Merci pour votre avis !");
-    });
-  }
-
-  // ====================== LANCEMENT ======================
+  // Lancement
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
     setTimeout(() => {
