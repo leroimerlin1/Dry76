@@ -72,6 +72,18 @@
       background: transparent;
     }
 
+    #products-header {
+      margin: 0 20px 16px 20px;
+      background: rgba(20, 20, 30, 0.92);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 235, 59, 0.15);
+      box-shadow: 0 6px 28px rgba(0,0,0,0.4);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     .products-title {
       display: flex;
       align-items: center;
@@ -92,18 +104,6 @@
       font-size: 1rem;
       white-space: nowrap;
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
-    }
-
-    #products-header {
-      margin: 0 20px 16px 20px;
-      background: rgba(20, 20, 30, 0.92);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 235, 59, 0.15);
-      box-shadow: 0 6px 28px rgba(0,0,0,0.4);
-      padding: 14px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
 
     #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
@@ -227,6 +227,13 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
+    #product-detail { 
+      display: none;
+      flex-direction: column;
+      height: 100dvh;
+      background: #000;
+      position: relative;
+    }
     .product-hero { 
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -250,7 +257,7 @@
       padding:24px 16px 8px; font-family: 'Orbitron', sans-serif; font-size:2.1rem; 
       font-weight:900; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); letter-spacing:1.5px; 
     }
-
+    .badges { padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:10px; }
     .badge { padding:8px 16px; border-radius:999px; font-size:.95rem; font-weight:bold; }
     .badge-farm { background:rgba(255,235,59,.25); color:#ffeb3b; border:1px solid #ffeb3b; }
 
@@ -281,10 +288,12 @@
     }
     .video-preview:hover, .video-preview.active { border-color: #ffeb3b; transform: scale(1.08); }
 
+    #cart-page { padding:16px; display:none; }
     .cart-item { 
       background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; 
       padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; 
     }
+    .cart-item-info { flex: 1; }
     .cart-item-title { font-weight: bold; color: #ffeb3b; }
     .cart-item-qty { color: #ccc; font-size: 0.95rem; }
     .delete-btn { 
@@ -296,28 +305,25 @@
       font-family: 'Orbitron', sans-serif; 
     }
 
+    .questionnaire { background:rgba(30,30,30,.78); border:1px solid #444; border-radius:14px; padding:20px; margin-top:24px; }
     .question { margin-bottom:20px; }
-    .question-label { 
-      display:block; 
-      font-size:1.1rem; 
-      color:#aaa; 
-      margin-bottom:10px; 
-      font-weight:500; 
-    }
+    .question-label { display:block; font-size:1.1rem; color:#aaa; margin-bottom:10px; font-weight:500; }
+    .option-btn { width:100%; padding:14px; margin:6px 0; background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; border-radius:12px; font-size:1.05rem; cursor:pointer; }
+    .option-btn.active { background:#ffeb3b; color:#111; font-weight:bold; }
+
     input[type="time"], input[type="text"], textarea { 
       width:100%; padding:14px; border-radius:10px; border:1px solid #444; 
       background:rgba(40,40,40,.8); color:#e0e0e0; font-size:1.05rem; 
     }
     textarea { min-height:90px; resize:vertical; }
 
-    .option-btn { width:100%; padding:14px; margin:6px 0; background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; border-radius:12px; font-size:1.05rem; cursor:pointer; }
-    .option-btn.active { background:#ffeb3b; color:#111; font-weight:bold; }
-
     #submit-order-btn { 
       width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; 
       border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; 
       cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; 
     }
+
+    #infos-page, #reseaux-page { display: none; padding: 16px 16px 80px 16px; }
 
     .section-title { 
       font-family: 'Orbitron', sans-serif; 
@@ -428,7 +434,7 @@
       display: none;
     }
 
-    /* Styles pour les avis */
+    /* Styles Avis */
     .avis-card {
       background:rgba(30,30,30,0.85); 
       border:1px solid #555; 
@@ -458,9 +464,9 @@
     <div class="overlay"></div>
     <div class="content">
 
-      <!-- HOME -->
+      <!-- HOME PAGE -->
       <div id="home-page">
-        <img id="top-logo" src="chat.PNG" alt="Logo">
+        <img id="top-logo" src="chat.PNG" alt="Logo" style="width:100%; height:auto; display:block;">
         <div id="products-header">
           <div class="products-title">
             <span style="font-size:1.6rem;">🛍️</span>
@@ -483,7 +489,7 @@
       </div>
 
       <!-- PRODUCT DETAIL -->
-      <div id="product-detail" style="display:none; flex-direction:column; height:100dvh; background:#000;">
+      <div id="product-detail">
         <div class="product-hero" id="product-hero"></div>
         <div id="video-switcher" class="video-switcher"></div>
         
@@ -501,8 +507,8 @@
         </div>
       </div>
 
-      <!-- CART -->
-      <div id="cart-page" style="display:none; padding:16px;">
+      <!-- CART PAGE -->
+      <div id="cart-page">
         <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
         <div id="cart-items"></div>
         <div id="cart-total" class="cart-total"></div>
@@ -531,8 +537,8 @@
               <input type="text" id="delivery-address" placeholder="Rue, numéro, ville...">
             </div>
             <div class="question">
-              <span class="question-label">Précisions</span>
-              <textarea id="delivery-details" placeholder="Interphone, digicode..."></textarea>
+              <span class="question-label">Précisions (étage, code, etc.)</span>
+              <textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea>
             </div>
           </div>
 
@@ -540,23 +546,55 @@
         </div>
       </div>
 
-      <!-- INFOS -->
-      <div id="infos-page" style="display:none; padding:16px 16px 80px 16px;">
-        <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
-          <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
-            Information de Bart.Coffee76
-          </h2>
-          <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
-            Pour toutes commande, une carte d’identité 🪪 est nécessaire et une photo 📸 de vous.
-          </p>
-          <p style="color:#ffeb3b;font-weight:bold;text-align:center;margin-top:16px;">
-            Contact secrétaire : @sav_Bart76
-          </p>
+      <!-- INFOS PAGE -->
+      <div id="infos-page">
+        <div style="padding:16px;">
+          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
+            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+              Information de Bart.Coffee76
+            </h2>
+            <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
+              Pour toutes commande, une carte d’identité 🪪 est nécessaire et une photo 📸 de vous.
+            </p>
+            <p style="color:#ffeb3b;font-weight:bold;text-align:center;margin-top:16px;">
+              Contact secrétaire : @sav_Bart76
+            </p>
+          </div>
+
+          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
+            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+              Info Livraison 🚚
+            </h2>
+            <p style="color:#e0e0e0;font-weight:bold;margin:12px 0;">
+              Zone de livraison<br>76 / 27 / 14
+            </p>
+            <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
+              <li>Sur Rouen : <strong style="color:#ffeb3b;">70€</strong></li>
+              <li>Moins de 10 km de Rouen : <strong style="color:#ffeb3b;">100€</strong></li>
+              <li>Supérieur à 10 km : <strong style="color:#ffeb3b;">150€</strong></li>
+              <li>Supérieur à 25 km : <strong style="color:#ffeb3b;">270€</strong></li>
+            </ul>
+            <p style="color:#ff6b6b;font-weight:bold;margin-top:16px;text-align:center;">
+              Frais de livraison obligatoire s'il n'y a pas de tournée !
+            </p>
+          </div>
+
+          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
+            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+              Info Meet-up 📍
+            </h2>
+            <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
+              Nous sommes situé sur <strong style="color:#ffeb3b;">Rouen Rive Gauche</strong> 📍
+            </p>
+            <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.1rem;margin-top:16px;">
+              50€ de commande minimum pour venir sur place
+            </p>
+          </div>
         </div>
       </div>
 
-      <!-- RESEAUX -->
-      <div id="reseaux-page" style="display:none; padding:16px 16px 80px 16px;">
+      <!-- RESEAUX PAGE -->
+      <div id="reseaux-page">
         <h2 style="text-align:center;color:#ffeb3b;margin:30px 0 40px;font-size:1.8rem;font-family:'Orbitron',sans-serif;letter-spacing:2px;">Nos réseaux</h2>
         <div class="reseaux-list">
           <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
@@ -574,22 +612,26 @@
         </div>
       </div>
 
-      <!-- AVIS PAGE -->
+      <!-- PAGE AVIS (publique) -->
       <div id="avis-page" style="display:none; padding:16px 16px 100px 16px;">
+        
         <div class="section-title" style="margin:20px 0 16px;">
           ⭐ Avis Clients
         </div>
 
-        <div id="avis-list" style="margin-bottom:40px; max-height:420px; overflow-y:auto; padding-right:8px;"></div>
+        <div id="avis-list" style="margin-bottom:40px; max-height:420px; overflow-y:auto; padding-right:8px;">
+          <!-- Avis injectés par JS -->
+        </div>
 
         <div class="section-title" style="margin:30px 0 16px; font-size:1.35rem;">
           ⭐ Laisser un Avis
         </div>
 
         <div style="background:rgba(30,30,30,0.92); border:1px solid #444; border-radius:16px; padding:24px; box-shadow:0 4px 16px rgba(0,0,0,0.6);">
+          
           <div class="question">
             <span class="question-label">Produit / Commande</span>
-            <input type="text" id="avis-produit" placeholder="Ex: Blanche 5G, Cali Weed 10G...">
+            <input type="text" id="avis-produit" placeholder="Ex: Blanche 5G, Cali Weed 10G, Cap’n Crunch..." style="margin-bottom:16px;">
           </div>
 
           <div class="question">
@@ -605,10 +647,10 @@
 
           <div class="question">
             <span class="question-label">Ton commentaire</span>
-            <textarea id="avis-commentaire" placeholder="Qualité, odeur, effet, livraison, service client..." rows="4"></textarea>
+            <textarea id="avis-commentaire" placeholder="Qualité, odeur, effet, livraison, service client... Dis-nous tout !" rows="4"></textarea>
           </div>
 
-          <button id="submit-avis-btn" class="add-to-cart" style="margin-top:20px; background:#4ade80; color:#111;">
+          <button id="submit-avis-btn" class="add-to-cart" style="margin-top:20px; background:#4ade80; color:#111; font-size:1.15rem;">
             📤 Publier mon avis
           </button>
         </div>
@@ -675,39 +717,71 @@
 
   <script>
   const tg = window.Telegram.WebApp;
+
   tg.ready();
   tg.expand();
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
   tg.enableClosingConfirmation();
 
-  // Produits
+  // Données produits
   const products = {
-    blanche: { key: 'blanche', title: 'Blanche❄️', category: 'Blanche❄️', farm: 'R8🏎️',
+    blanche: {
+      key: 'blanche',
+      title: 'Blanche❄️',
+      category: 'Blanche❄️',
+      farm: 'R8🏎️',
       videos: [{ src: '', poster: 'blanche.jpg' }, { src: 'blanche.mp4', poster: 'blanche.jpg' }],
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
-      quantities: [{ qty: '1G', price: '50€' }, { qty: '3G', price: '150€' }, { qty: '5G', price: '210€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }],
-      promo: true, originalPrices: ['60€', '160€', '230€', '360€', '680€']
+      quantities: [
+        { qty: '1G', price: '50€' },
+        { qty: '3G', price: '150€' },
+        { qty: '5G', price: '210€' },
+        { qty: '10G', price: '360€' },
+        { qty: '20G', price: '680€' }
+      ],
+      promo: true,
+      originalPrices: ['60€', '160€', '230€', '360€', '680€']
     },
-    caliweed: { key: 'caliweed', title: '🍀Cali Weed🍀', category: '🍀Cali Weed🍀', farm: '🏆 Top Shelf',
+    caliweed: {
+      key: 'caliweed',
+      title: '🍀Cali Weed🍀',
+      category: '🍀Cali Weed🍀',
+      farm: '🏆 Top Shelf',
       videos: [{ src: 'caliweed.mp4', poster: '' }],
       strain: '- Runtz🌈',
-      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant.",
-      quantities: [{ qty: '5G', price: '70€' }, { qty: '10G', price: '130€' }, { qty: '25G', price: '260€' }, { qty: '50G', price: '410€' }, { qty: '100G', price: '770€' }],
-      promo: true, originalPrices: ['80€', '140€', '270€', '420€', '780€']
+      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium.",
+      quantities: [
+        { qty: '5G', price: '70€' },
+        { qty: '10G', price: '130€' },
+        { qty: '25G', price: '260€' },
+        { qty: '50G', price: '410€' },
+        { qty: '100G', price: '770€' }
+      ],
+      promo: true,
+      originalPrices: ['80€', '140€', '270€', '420€', '780€']
     },
-    capncrunch: { key: 'capncrunch', title: 'Cap’n Crunch🥣🌾', category: 'Cap’n Crunch🥣🌾', farm: 'Total farm🧑‍🌾🌝',
+    capncrunch: {
+      key: 'capncrunch',
+      title: 'Cap’n Crunch🥣🌾',
+      category: 'Cap’n Crunch🥣🌾',
+      farm: 'Total farm🧑‍🌾🌝',
       videos: [{ src: '', poster: 'dry90u.jpg' }, { src: 'dry90u.mp4', poster: 'dry90u.jpg' }],
-      description: "Hash artisanal full melt, pressé à la main.",
-      quantities: [{ qty: '10g', price: '90€' }, { qty: '25g', price: '190€' }, { qty: '50g', price: '300€' }, { qty: '100g', price: '550€' }]
+      description: "Hash artisanal full melt, pressé à la main. Texture parfaite.",
+      quantities: [
+        { qty: '10g', price: '90€' },
+        { qty: '25g', price: '190€' },
+        { qty: '50g', price: '300€' },
+        { qty: '100g', price: '550€' }
+      ]
     }
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   let allAvis = JSON.parse(localStorage.getItem('drycoffee_avis')) || [];
-  let selectedRating = 0;
   let currentCategoryFilter = null;
   let currentFarmFilter = null;
+  let selectedRating = 0;
 
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -757,7 +831,7 @@
     selectedRating = 0;
   }
 
-  // Avis
+  // === GESTION AVIS PUBLICS ===
   function saveAvis() {
     localStorage.setItem('drycoffee_avis', JSON.stringify(allAvis));
   }
@@ -767,10 +841,11 @@
     container.innerHTML = '';
 
     if (allAvis.length === 0) {
-      container.innerHTML = `<div style="text-align:center; padding:60px 20px; color:#777; background:rgba(30,30,30,0.6); border-radius:16px;">
-        <p>Aucun avis pour le moment...</p>
-        <p style="font-size:0.95rem; margin-top:12px;">Sois le premier à partager ton expérience ! ⭐</p>
-      </div>`;
+      container.innerHTML = `
+        <div style="text-align:center; padding:60px 20px; color:#777; background:rgba(30,30,30,0.6); border-radius:16px;">
+          <p>Aucun avis pour le moment...</p>
+          <p style="font-size:0.95rem; margin-top:12px;">Sois le premier à partager ton expérience ! ⭐</p>
+        </div>`;
       return;
     }
 
@@ -788,7 +863,7 @@
         <div style="font-size:1.6rem; margin-bottom:10px; color:#ffeb3b;">
           ${'★'.repeat(avis.note)}${'☆'.repeat(5 - avis.note)}
         </div>
-        ${avis.commentaire ? `<p style="color:#ddd; line-height:1.5;">${avis.commentaire.replace(/\n/g, '<br>')}</p>` : ''}
+        ${avis.commentaire ? `<p style="color:#ddd; line-height:1.5; margin:0;">${avis.commentaire.replace(/\n/g, '<br>')}</p>` : ''}
         <div style="margin-top:12px; font-size:0.85rem; color:#888;">
           Par ${avis.username || 'Utilisateur'}
         </div>
@@ -804,23 +879,29 @@
     });
   }
 
-  // Gestion des étoiles
-  document.addEventListener('click', e => {
+  // Clic sur les étoiles
+  document.addEventListener('click', function(e) {
     if (e.target.classList.contains('star') && e.target.closest('#star-rating')) {
       selectedRating = parseInt(e.target.dataset.star);
-      document.querySelectorAll('#star-rating .star').forEach((star, i) => {
-        star.textContent = (i + 1 <= selectedRating) ? '★' : '☆';
-        star.style.color = (i + 1 <= selectedRating) ? '#ffeb3b' : '#888';
+      const stars = document.querySelectorAll('#star-rating .star');
+      stars.forEach((star, i) => {
+        if (i + 1 <= selectedRating) {
+          star.textContent = '★';
+          star.style.color = '#ffeb3b';
+        } else {
+          star.textContent = '☆';
+          star.style.color = '#888';
+        }
       });
     }
   });
 
-  // Soumission avis
+  // Soumission de l'avis
   document.getElementById('submit-avis-btn').addEventListener('click', () => {
     const produit = document.getElementById('avis-produit').value.trim();
     const commentaire = document.getElementById('avis-commentaire').value.trim();
 
-    if (!produit) return alert("Indique le produit ou la commande.");
+    if (!produit) return alert("Indique le produit ou la commande concernée.");
     if (selectedRating === 0) return alert("Donne une note sur 5 étoiles.");
 
     const newAvis = {
@@ -828,7 +909,8 @@
       produit: produit,
       note: selectedRating,
       commentaire: commentaire,
-      username: tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : (tg.initDataUnsafe?.user?.first_name || 'Utilisateur'),
+      username: tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : 
+                 (tg.initDataUnsafe?.user?.first_name || 'Utilisateur'),
       date: new Date().toISOString()
     };
 
@@ -845,23 +927,27 @@
     tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(notif)}`);
   });
 
-  // Fonctions produits (simplifiées pour le rendu)
+  // Fonctions produits
   function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
-    let filtered = Object.values(products);
 
-    if (currentCategoryFilter) filtered = filtered.filter(p => p.category === currentCategoryFilter);
-    if (currentFarmFilter) filtered = filtered.filter(p => p.farm === currentFarmFilter);
+    let filteredProducts = Object.values(products);
 
-    filtered.forEach(p => {
+    if (currentCategoryFilter) filteredProducts = filteredProducts.filter(p => p.category === currentCategoryFilter);
+    if (currentFarmFilter) filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
+
+    filteredProducts.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
-      const thumb = p.videos[0].poster || 'chat.PNG';
+      let thumbSrc = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
+
+      let promoHTML = p.promo ? `<div class="promo-badge">PROMO</div>` : '';
+
       card.innerHTML = `
         <div class="card-img">
-          ${p.promo ? '<div class="promo-badge">PROMO</div>' : ''}
-          <img src="${thumb}" alt="${p.title}">
+          ${promoHTML}
+          <img src="${thumbSrc}" alt="${p.title}">
           <div class="card-overlay">
             <div class="card-title">${p.title}</div>
             <div class="card-farm">${p.farm}</div>
@@ -872,49 +958,133 @@
       grid.appendChild(card);
     });
 
-    document.getElementById('products-count-modern').textContent = `${filtered.length} produit${filtered.length > 1 ? 's' : ''}`;
+    document.getElementById('products-count-modern').textContent = `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`;
   }
 
   function openProductDetail(key) {
     const p = products[key];
+
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm-badge').textContent = p.farm;
-    document.getElementById('detail-strain-desc').innerHTML = p.description || '';
 
-    // Ajout au panier simplifié (tu peux étendre)
+    let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
+    if (p.description) content += (content ? '<br>' : '') + '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
+    document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888; font-style:italic;">Aucune description disponible</p>';
+
+    const qtyGrid = document.getElementById('qty-grid');
+    qtyGrid.innerHTML = '';
+    p.quantities.forEach((item, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qty-btn';
+      if (p.promo && p.originalPrices && p.originalPrices[idx]) {
+        btn.innerHTML = `${item.qty}<br><span class="price-old">${p.originalPrices[idx]}</span><br><span class="price-new">${item.price}</span>`;
+      } else {
+        btn.innerHTML = `${item.qty}<br>${item.price}`;
+      }
+      btn.dataset.idx = idx;
+      btn.onclick = () => {
+        qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      };
+      qtyGrid.appendChild(btn);
+    });
+
     document.getElementById('add-to-cart-btn').onclick = () => {
-      alert('Fonctionnalité panier simplifiée - sélectionne une quantité dans une version complète');
+      const selected = document.querySelector('.qty-btn.selected');
+      if (!selected) return alert('Sélectionnez une quantité !');
+      const item = p.quantities[parseInt(selected.dataset.idx)];
+      cart.push({ title: p.title, qty: item.qty, price: item.price });
+      saveCart();
+      alert('Ajouté au panier !');
     };
 
     hideAllPages();
-    document.getElementById('product-detail').style.display = 'flex';
+    document.getElementById('product-detail').style.display = 'block';
     tg.BackButton.show();
+    scrollToTop();
   }
 
   // Navigation
   document.getElementById('nav-home').onclick = goToHome;
-  document.getElementById('nav-avis').onclick = goToAvis;
-  document.getElementById('nav-infos').onclick = () => {
-    hideAllPages();
-    document.getElementById('infos-page').style.display = 'block';
-    document.getElementById('nav-infos').classList.add('active');
-    tg.BackButton.hide();
-  };
-  document.getElementById('nav-reseaux').onclick = () => {
-    hideAllPages();
-    document.getElementById('reseaux-page').style.display = 'block';
-    document.getElementById('nav-reseaux').classList.add('active');
-    tg.BackButton.hide();
-  };
+
   document.getElementById('nav-cart').onclick = () => {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
     document.getElementById('nav-cart').classList.add('active');
     tg.BackButton.hide();
-    // Render cart simplifié
+    renderCart();
+    scrollToTop();
   };
 
-  tg.BackButton.onClick(() => goToHome());
+  document.getElementById('nav-avis').onclick = goToAvis;
+
+  document.getElementById('nav-infos').onclick = () => {
+    hideAllPages();
+    document.getElementById('infos-page').style.display = 'block';
+    document.getElementById('nav-infos').classList.add('active');
+    tg.BackButton.hide();
+    scrollToTop();
+  };
+
+  document.getElementById('nav-reseaux').onclick = () => {
+    hideAllPages();
+    document.getElementById('reseaux-page').style.display = 'block';
+    document.getElementById('nav-reseaux').classList.add('active');
+    tg.BackButton.hide();
+    scrollToTop();
+  };
+
+  tg.BackButton.onClick(() => {
+    goToHome();
+  });
+
+  // Render Cart
+  function renderCart() {
+    const container = document.getElementById('cart-items');
+    container.innerHTML = '';
+
+    if (cart.length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Votre panier est vide</p>';
+      document.getElementById('cart-total').textContent = '';
+      return;
+    }
+
+    let total = 0;
+    cart.forEach((item, index) => {
+      const priceNum = parseInt(item.price) || 0;
+      total += priceNum;
+
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div class="cart-item-info">
+          <div class="cart-item-title">${item.title}</div>
+          <div class="cart-item-qty">${item.qty} — ${item.price}</div>
+        </div>
+        <button class="delete-btn" data-index="${index}">×</button>
+      `;
+      container.appendChild(div);
+    });
+
+    document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
+  }
+
+  // Event delegation pour suppression dans le panier
+  document.getElementById('cart-page').addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+      const index = parseInt(e.target.dataset.index);
+      cart.splice(index, 1);
+      saveCart();
+      renderCart();
+    }
+  });
+
+  // Submit order (simplifié)
+  document.getElementById('submit-order-btn').onclick = () => {
+    if (cart.length === 0) return;
+    alert("Commande envoyée au secrétaire @sav_Bart76 (simulation)");
+    // Tu peux remettre ton code d'envoi Telegram ici
+  };
 
   // Init
   document.addEventListener('DOMContentLoaded', () => {
