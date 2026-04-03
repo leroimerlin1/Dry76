@@ -1,3 +1,5 @@
+Est ce que tu peux creer une page avis pour ce qui veulent ajouter un avis sur la commande qu ils on reçu 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -55,7 +57,8 @@
       z-index:2; 
       height: 100dvh; 
       min-height: -webkit-fill-available;
-      padding-bottom: 100px; 
+      padding-bottom:220px; 
+      padding-top: 0; 
       overflow-y: auto;
     }  
 
@@ -146,6 +149,12 @@
       display: flex; align-items: center;
     }
 
+    .dropdown-item .icon { margin-right: 8px; font-size: 1.2rem; }
+
+    .dropdown-item .name { flex: 1; }
+
+    .dropdown-item:last-child { border-bottom: none; }
+
     .dropdown-item:hover { background: rgba(60,60,70,0.6); color: #fff; }
 
     .dropdown-item.active { background: rgba(74,222,128,0.15); color: #a7f3d0; font-weight: 600; }
@@ -231,8 +240,11 @@
       display: none;
       flex-direction: column;
       height: 100dvh;
+      min-height: -webkit-fill-available;
       background: #000;
       position: relative;
+      padding-top: 0 !important;
+      margin-top: 0 !important;
     }
     .product-hero { 
       width: 100%;
@@ -269,6 +281,17 @@
     .quantity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
     .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
     .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
+
+    .price-old {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 0.9rem;
+    }
+    .price-new {
+      color: #4ade80;
+      font-weight: 900;
+      font-size: 1.15rem;
+    }
 
     .add-to-cart { 
       margin:16px 16px 40px 16px; background:#ffeb3b; color:#111; border:none; 
@@ -321,20 +344,18 @@
       width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; 
       border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; 
       cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; 
+      transition: all 0.3s;
+    }
+    #submit-order-btn:disabled {
+      background: #555;
+      color: #999;
+      cursor: not-allowed;
+      box-shadow: none;
     }
 
     #infos-page, #reseaux-page { display: none; padding: 16px 16px 80px 16px; }
 
-    .section-title { 
-      font-family: 'Orbitron', sans-serif; 
-      font-size:1.45rem; 
-      color:#ffeb3b; 
-      margin:28px 0 12px; 
-      font-weight:bold; 
-      text-align:center; 
-      text-shadow:0 0 6px rgba(255,235,59,.4); 
-      letter-spacing:1.5px; 
-    }
+    .section-title { font-family: 'Orbitron', sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 12px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
 
     .reseaux-list { display:flex; flex-direction:column; gap:16px; margin-top:20px; }
     .reseau-item {
@@ -369,7 +390,7 @@
       justify-content: space-around;
       align-items: center;
       z-index: 100;
-      padding: 0 8px;
+      padding: 0 16px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.6);
     }
 
@@ -433,21 +454,6 @@
       z-index: 10;
       display: none;
     }
-
-    /* Styles Avis */
-    .avis-card {
-      background:rgba(30,30,30,0.85); 
-      border:1px solid #555; 
-      border-radius:14px; 
-      padding:18px; 
-      margin-bottom:14px;
-    }
-
-    .star {
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 2.4rem;
-    }
   </style>
 </head>
 <body>
@@ -464,7 +470,6 @@
     <div class="overlay"></div>
     <div class="content">
 
-      <!-- HOME PAGE -->
       <div id="home-page">
         <img id="top-logo" src="chat.PNG" alt="Logo" style="width:100%; height:auto; display:block;">
         <div id="products-header">
@@ -488,7 +493,6 @@
         <div id="products-grid"></div>
       </div>
 
-      <!-- PRODUCT DETAIL -->
       <div id="product-detail">
         <div class="product-hero" id="product-hero"></div>
         <div id="video-switcher" class="video-switcher"></div>
@@ -507,7 +511,6 @@
         </div>
       </div>
 
-      <!-- CART PAGE -->
       <div id="cart-page">
         <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
         <div id="cart-items"></div>
@@ -546,7 +549,6 @@
         </div>
       </div>
 
-      <!-- INFOS PAGE -->
       <div id="infos-page">
         <div style="padding:16px;">
           <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
@@ -593,7 +595,6 @@
         </div>
       </div>
 
-      <!-- RESEAUX PAGE -->
       <div id="reseaux-page">
         <h2 style="text-align:center;color:#ffeb3b;margin:30px 0 40px;font-size:1.8rem;font-family:'Orbitron',sans-serif;letter-spacing:2px;">Nos réseaux</h2>
         <div class="reseaux-list">
@@ -612,57 +613,6 @@
         </div>
       </div>
 
-      <!-- PAGE AVIS (publique) -->
-      <div id="avis-page" style="display:none; padding:16px 16px 100px 16px;">
-        
-        <div class="section-title" style="margin:20px 0 16px;">
-          ⭐ Avis Clients
-        </div>
-
-        <div id="avis-list" style="margin-bottom:40px; max-height:420px; overflow-y:auto; padding-right:8px;">
-          <!-- Avis injectés par JS -->
-        </div>
-
-        <div class="section-title" style="margin:30px 0 16px; font-size:1.35rem;">
-          ⭐ Laisser un Avis
-        </div>
-
-        <div style="background:rgba(30,30,30,0.92); border:1px solid #444; border-radius:16px; padding:24px; box-shadow:0 4px 16px rgba(0,0,0,0.6);">
-          
-          <div class="question">
-            <span class="question-label">Produit / Commande</span>
-            <input type="text" id="avis-produit" placeholder="Ex: Blanche 5G, Cali Weed 10G, Cap’n Crunch..." style="margin-bottom:16px;">
-          </div>
-
-          <div class="question">
-            <span class="question-label">Note globale</span>
-            <div id="star-rating" style="font-size:2.4rem; margin:12px 0; display:flex; gap:10px; justify-content:center;">
-              <span data-star="1" class="star">☆</span>
-              <span data-star="2" class="star">☆</span>
-              <span data-star="3" class="star">☆</span>
-              <span data-star="4" class="star">☆</span>
-              <span data-star="5" class="star">☆</span>
-            </div>
-          </div>
-
-          <div class="question">
-            <span class="question-label">Ton commentaire</span>
-            <textarea id="avis-commentaire" placeholder="Qualité, odeur, effet, livraison, service client... Dis-nous tout !" rows="4"></textarea>
-          </div>
-
-          <button id="submit-avis-btn" class="add-to-cart" style="margin-top:20px; background:#4ade80; color:#111; font-size:1.15rem;">
-            📤 Publier mon avis
-          </button>
-        </div>
-
-        <div id="avis-success" style="display:none; margin-top:30px; text-align:center; padding:30px; background:rgba(74,222,128,0.15); border:2px solid #4ade80; border-radius:16px; color:#4ade80;">
-          <div style="font-size:3rem;">✅</div>
-          <h3 style="margin:12px 0 8px;">Merci ! Ton avis est publié.</h3>
-          <p style="color:#ddd;">Il est maintenant visible par tous les utilisateurs.</p>
-        </div>
-      </div>
-
-      <!-- NAVIGATION -->
       <nav>
         <div class="nav-item active" id="nav-home">
           <div class="nav-icon-wrapper">
@@ -683,14 +633,6 @@
             <span id="cart-badge"></span>
           </div>
           <span>Panier</span>
-        </div>
-        <div class="nav-item" id="nav-avis">
-          <div class="nav-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-            </svg>
-          </div>
-          <span>Avis</span>
         </div>
         <div class="nav-item" id="nav-infos">
           <div class="nav-icon-wrapper">
@@ -722,9 +664,20 @@
   tg.expand();
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
-  tg.enableClosingConfirmation();
 
-  // Données produits
+  function enableCloseConfirmation() {
+    tg.enableClosingConfirmation();
+  }
+
+  enableCloseConfirmation();
+
+  if (tg.requestFullscreen && typeof tg.requestFullscreen === 'function') {
+    tg.requestFullscreen();
+  }
+
+  let currentCategoryFilter = null;
+  let currentFarmFilter = null;
+
   const products = {
     blanche: {
       key: 'blanche',
@@ -732,6 +685,7 @@
       category: 'Blanche❄️',
       farm: 'R8🏎️',
       videos: [{ src: '', poster: 'blanche.jpg' }, { src: 'blanche.mp4', poster: 'blanche.jpg' }],
+      strain: '',
       description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
       quantities: [
         { qty: '1G', price: '50€' },
@@ -750,7 +704,7 @@
       farm: '🏆 Top Shelf',
       videos: [{ src: 'caliweed.mp4', poster: '' }],
       strain: '- Runtz🌈',
-      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium.",
+      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l’euphorie et la motivation. Parfaite pour profiter pleinement de votre journée ou soirée.",
       quantities: [
         { qty: '5G', price: '70€' },
         { qty: '10G', price: '130€' },
@@ -766,8 +720,12 @@
       title: 'Cap’n Crunch🥣🌾',
       category: 'Cap’n Crunch🥣🌾',
       farm: 'Total farm🧑‍🌾🌝',
-      videos: [{ src: '', poster: 'dry90u.jpg' }, { src: 'dry90u.mp4', poster: 'dry90u.jpg' }],
-      description: "Hash artisanal full melt, pressé à la main. Texture parfaite.",
+      videos: [
+        { src: '', poster: 'dry90u.jpg' },
+        { src: 'dry90u.mp4', poster: 'dry90u.jpg' }
+      ],
+      strain: '',
+      description: "Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés. Effet puissant, relaxant et cérébral à la fois.",
       quantities: [
         { qty: '10g', price: '90€' },
         { qty: '25g', price: '190€' },
@@ -778,14 +736,11 @@
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let allAvis = JSON.parse(localStorage.getItem('drycoffee_avis')) || [];
-  let currentCategoryFilter = null;
-  let currentFarmFilter = null;
-  let selectedRating = 0;
 
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateBadge();
+    updateSubmitButton();
   }
 
   function updateBadge() {
@@ -794,251 +749,11 @@
     badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
   }
 
-  function hideAllPages() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('product-detail').style.display = 'none';
-    document.getElementById('cart-page').style.display = 'none';
-    document.getElementById('infos-page').style.display = 'none';
-    document.getElementById('reseaux-page').style.display = 'none';
-    document.getElementById('avis-page').style.display = 'none';
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  function updateSubmitButton() {
+    const btn = document.getElementById('submit-order-btn');
+    btn.disabled = cart.length === 0;
   }
 
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }
-
-  function goToHome() {
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-    tg.BackButton.hide();
-    scrollToTop();
-  }
-
-  function goToAvis() {
-    hideAllPages();
-    document.getElementById('avis-page').style.display = 'block';
-    document.getElementById('nav-avis').classList.add('active');
-    tg.BackButton.show();
-    scrollToTop();
-    renderAvisList();
-    document.getElementById('avis-success').style.display = 'none';
-    document.getElementById('submit-avis-btn').style.display = 'block';
-    document.getElementById('avis-produit').value = '';
-    document.getElementById('avis-commentaire').value = '';
-    resetStars();
-    selectedRating = 0;
-  }
-
-  // === GESTION AVIS PUBLICS ===
-  function saveAvis() {
-    localStorage.setItem('drycoffee_avis', JSON.stringify(allAvis));
-  }
-
-  function renderAvisList() {
-    const container = document.getElementById('avis-list');
-    container.innerHTML = '';
-
-    if (allAvis.length === 0) {
-      container.innerHTML = `
-        <div style="text-align:center; padding:60px 20px; color:#777; background:rgba(30,30,30,0.6); border-radius:16px;">
-          <p>Aucun avis pour le moment...</p>
-          <p style="font-size:0.95rem; margin-top:12px;">Sois le premier à partager ton expérience ! ⭐</p>
-        </div>`;
-      return;
-    }
-
-    allAvis.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    allAvis.forEach(avis => {
-      const date = new Date(avis.date).toLocaleDateString('fr-FR', { day:'numeric', month:'short', year:'numeric' });
-      const div = document.createElement('div');
-      div.className = 'avis-card';
-      div.innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <div style="color:#ffeb3b; font-weight:bold;">${avis.produit}</div>
-          <div style="color:#aaa; font-size:0.9rem;">${date}</div>
-        </div>
-        <div style="font-size:1.6rem; margin-bottom:10px; color:#ffeb3b;">
-          ${'★'.repeat(avis.note)}${'☆'.repeat(5 - avis.note)}
-        </div>
-        ${avis.commentaire ? `<p style="color:#ddd; line-height:1.5; margin:0;">${avis.commentaire.replace(/\n/g, '<br>')}</p>` : ''}
-        <div style="margin-top:12px; font-size:0.85rem; color:#888;">
-          Par ${avis.username || 'Utilisateur'}
-        </div>
-      `;
-      container.appendChild(div);
-    });
-  }
-
-  function resetStars() {
-    document.querySelectorAll('#star-rating .star').forEach(s => {
-      s.textContent = '☆';
-      s.style.color = '#888';
-    });
-  }
-
-  // Clic sur les étoiles
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('star') && e.target.closest('#star-rating')) {
-      selectedRating = parseInt(e.target.dataset.star);
-      const stars = document.querySelectorAll('#star-rating .star');
-      stars.forEach((star, i) => {
-        if (i + 1 <= selectedRating) {
-          star.textContent = '★';
-          star.style.color = '#ffeb3b';
-        } else {
-          star.textContent = '☆';
-          star.style.color = '#888';
-        }
-      });
-    }
-  });
-
-  // Soumission de l'avis
-  document.getElementById('submit-avis-btn').addEventListener('click', () => {
-    const produit = document.getElementById('avis-produit').value.trim();
-    const commentaire = document.getElementById('avis-commentaire').value.trim();
-
-    if (!produit) return alert("Indique le produit ou la commande concernée.");
-    if (selectedRating === 0) return alert("Donne une note sur 5 étoiles.");
-
-    const newAvis = {
-      id: Date.now(),
-      produit: produit,
-      note: selectedRating,
-      commentaire: commentaire,
-      username: tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : 
-                 (tg.initDataUnsafe?.user?.first_name || 'Utilisateur'),
-      date: new Date().toISOString()
-    };
-
-    allAvis.unshift(newAvis);
-    saveAvis();
-    renderAvisList();
-
-    document.getElementById('avis-success').style.display = 'block';
-    document.getElementById('submit-avis-btn').style.display = 'none';
-
-    // Notification au secrétaire
-    let notif = `⭐ Nouvel avis public ⭐\nProduit: ${produit}\nNote: ${selectedRating}/5\nPar: ${newAvis.username}`;
-    if (commentaire) notif += `\n\nCommentaire: ${commentaire}`;
-    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(notif)}`);
-  });
-
-  // Fonctions produits
-  function renderProducts() {
-    const grid = document.getElementById('products-grid');
-    grid.innerHTML = '';
-
-    let filteredProducts = Object.values(products);
-
-    if (currentCategoryFilter) filteredProducts = filteredProducts.filter(p => p.category === currentCategoryFilter);
-    if (currentFarmFilter) filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
-
-    filteredProducts.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      let thumbSrc = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
-
-      let promoHTML = p.promo ? `<div class="promo-badge">PROMO</div>` : '';
-
-      card.innerHTML = `
-        <div class="card-img">
-          ${promoHTML}
-          <img src="${thumbSrc}" alt="${p.title}">
-          <div class="card-overlay">
-            <div class="card-title">${p.title}</div>
-            <div class="card-farm">${p.farm}</div>
-          </div>
-        </div>
-      `;
-      card.onclick = () => openProductDetail(p.key);
-      grid.appendChild(card);
-    });
-
-    document.getElementById('products-count-modern').textContent = `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`;
-  }
-
-  function openProductDetail(key) {
-    const p = products[key];
-
-    document.getElementById('detail-title').textContent = p.title;
-    document.getElementById('detail-farm-badge').textContent = p.farm;
-
-    let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
-    if (p.description) content += (content ? '<br>' : '') + '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
-    document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888; font-style:italic;">Aucune description disponible</p>';
-
-    const qtyGrid = document.getElementById('qty-grid');
-    qtyGrid.innerHTML = '';
-    p.quantities.forEach((item, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'qty-btn';
-      if (p.promo && p.originalPrices && p.originalPrices[idx]) {
-        btn.innerHTML = `${item.qty}<br><span class="price-old">${p.originalPrices[idx]}</span><br><span class="price-new">${item.price}</span>`;
-      } else {
-        btn.innerHTML = `${item.qty}<br>${item.price}`;
-      }
-      btn.dataset.idx = idx;
-      btn.onclick = () => {
-        qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      };
-      qtyGrid.appendChild(btn);
-    });
-
-    document.getElementById('add-to-cart-btn').onclick = () => {
-      const selected = document.querySelector('.qty-btn.selected');
-      if (!selected) return alert('Sélectionnez une quantité !');
-      const item = p.quantities[parseInt(selected.dataset.idx)];
-      cart.push({ title: p.title, qty: item.qty, price: item.price });
-      saveCart();
-      alert('Ajouté au panier !');
-    };
-
-    hideAllPages();
-    document.getElementById('product-detail').style.display = 'block';
-    tg.BackButton.show();
-    scrollToTop();
-  }
-
-  // Navigation
-  document.getElementById('nav-home').onclick = goToHome;
-
-  document.getElementById('nav-cart').onclick = () => {
-    hideAllPages();
-    document.getElementById('cart-page').style.display = 'block';
-    document.getElementById('nav-cart').classList.add('active');
-    tg.BackButton.hide();
-    renderCart();
-    scrollToTop();
-  };
-
-  document.getElementById('nav-avis').onclick = goToAvis;
-
-  document.getElementById('nav-infos').onclick = () => {
-    hideAllPages();
-    document.getElementById('infos-page').style.display = 'block';
-    document.getElementById('nav-infos').classList.add('active');
-    tg.BackButton.hide();
-    scrollToTop();
-  };
-
-  document.getElementById('nav-reseaux').onclick = () => {
-    hideAllPages();
-    document.getElementById('reseaux-page').style.display = 'block';
-    document.getElementById('nav-reseaux').classList.add('active');
-    tg.BackButton.hide();
-    scrollToTop();
-  };
-
-  tg.BackButton.onClick(() => {
-    goToHome();
-  });
-
-  // Render Cart
   function renderCart() {
     const container = document.getElementById('cart-items');
     container.innerHTML = '';
@@ -1046,6 +761,7 @@
     if (cart.length === 0) {
       container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Votre panier est vide</p>';
       document.getElementById('cart-total').textContent = '';
+      updateSubmitButton();
       return;
     }
 
@@ -1067,26 +783,385 @@
     });
 
     document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
+    updateSubmitButton();
   }
 
-  // Event delegation pour suppression dans le panier
-  document.getElementById('cart-page').addEventListener('click', (e) => {
-    if (e.target.classList.contains('delete-btn')) {
-      const index = parseInt(e.target.dataset.index);
-      cart.splice(index, 1);
-      saveCart();
-      renderCart();
-    }
-  });
+  function hideAllPages() {
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('product-detail').style.display = 'none';
+    document.getElementById('cart-page').style.display = 'none';
+    document.getElementById('infos-page').style.display = 'none';
+    document.getElementById('reseaux-page').style.display = 'none';
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  }
 
-  // Submit order (simplifié)
-  document.getElementById('submit-order-btn').onclick = () => {
-    if (cart.length === 0) return;
-    alert("Commande envoyée au secrétaire @sav_Bart76 (simulation)");
-    // Tu peux remettre ton code d'envoi Telegram ici
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function goToHome() {
+    hideAllPages();
+    document.getElementById('home-page').style.display = 'block';
+    document.getElementById('nav-home').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();
+    scrollToTop();
+  }
+
+  function loadMedia(src, poster) {
+    const hero = document.getElementById('product-hero');
+    hero.innerHTML = '';
+    if (src) {
+      const v = document.createElement('video');
+      v.autoplay = v.loop = v.muted = v.playsinline = true;
+      v.controls = true;
+      if (poster) v.poster = poster;
+      v.innerHTML = `<source src="${src}" type="video/mp4">`;
+      hero.appendChild(v);
+    } else if (poster) {
+      const i = document.createElement('img'); 
+      i.src = poster;
+      hero.appendChild(i);
+    } else {
+      const i = document.createElement('img'); 
+      i.src = 'chat.PNG';
+      hero.appendChild(i);
+    }
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = '';
+
+    let filteredProducts = Object.values(products);
+
+    if (currentCategoryFilter) filteredProducts = filteredProducts.filter(p => p.category === currentCategoryFilter);
+    if (currentFarmFilter) filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
+
+    filteredProducts.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      let thumbSrc = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
+
+      let promoHTML = '';
+      if (p.promo) {
+        promoHTML = `<div class="promo-badge">PROMO</div>`;
+      }
+
+      card.innerHTML = `
+        <div class="card-img">
+          ${promoHTML}
+          <img src="${thumbSrc}" alt="${p.title}">
+          <div class="card-overlay">
+            <div class="card-title">${p.title}</div>
+            <div class="card-farm">${p.farm}</div>
+          </div>
+        </div>
+      `;
+      card.onclick = () => openProductDetail(p.key);
+      grid.appendChild(card);
+    });
+
+    document.getElementById('products-count-modern').textContent = `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`;
+    updateFilterUI();
+    renderActiveFilters();
+  }
+
+  function updateFilterUI() {
+    document.getElementById('filter-categories-btn').dataset.active = currentCategoryFilter ? "true" : "false";
+    document.getElementById('filter-farms-btn').dataset.active = currentFarmFilter ? "true" : "false";
+  }
+
+  function renderActiveFilters() {
+    const container = document.getElementById('active-filters');
+    container.innerHTML = '';
+
+    if (currentCategoryFilter) {
+      const chip = document.createElement('div');
+      chip.className = 'active-chip';
+      chip.innerHTML = `Catégorie : ${currentCategoryFilter} <span class="remove">×</span>`;
+      chip.onclick = () => { currentCategoryFilter = null; renderProducts(); };
+      container.appendChild(chip);
+    }
+
+    if (currentFarmFilter) {
+      const chip = document.createElement('div');
+      chip.className = 'active-chip';
+      chip.innerHTML = `Farm : ${currentFarmFilter} <span class="remove">×</span>`;
+      chip.onclick = () => { currentFarmFilter = null; renderProducts(); };
+      container.appendChild(chip);
+    }
+  }
+
+  function initFilters() {
+    const catBtn = document.getElementById('filter-categories-btn');
+    const farmBtn = document.getElementById('filter-farms-btn');
+    const catDropdown = document.getElementById('categories-dropdown');
+    const farmDropdown = document.getElementById('farms-dropdown');
+
+    function populateCategories() {
+      catDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Catégories</div>`;
+      const allCat = document.createElement('div');
+      allCat.className = 'dropdown-item';
+      allCat.innerHTML = `<span class="name">Tout afficher</span>`;
+      allCat.onclick = () => { currentCategoryFilter = null; renderProducts(); catDropdown.style.display = 'none'; };
+      catDropdown.appendChild(allCat);
+
+      const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
+      uniqueTitles.forEach(title => {
+        const item = document.createElement('div');
+        item.className = `dropdown-item ${title === currentCategoryFilter ? 'active' : ''}`;
+        item.innerHTML = `<span class="name">${title}</span>`;
+        if (title === currentCategoryFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
+        item.onclick = () => {
+          currentCategoryFilter = currentCategoryFilter === title ? null : title;
+          renderProducts();
+          catDropdown.style.display = 'none';
+        };
+        catDropdown.appendChild(item);
+      });
+    }
+
+    function populateFarms() {
+      farmDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Farms</div>`;
+      const allFarm = document.createElement('div');
+      allFarm.className = 'dropdown-item';
+      allFarm.innerHTML = `<span class="name">Tout afficher</span>`;
+      allFarm.onclick = () => { currentFarmFilter = null; renderProducts(); farmDropdown.style.display = 'none'; };
+      farmDropdown.appendChild(allFarm);
+
+      const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
+      uniqueFarms.forEach(farm => {
+        const item = document.createElement('div');
+        item.className = `dropdown-item ${farm === currentFarmFilter ? 'active' : ''}`;
+        let icon = '';
+        if (farm === 'R8🏎️') icon = '🏎️ ';
+        else if (farm === '🏆 Top Shelf') icon = '🏆 ';
+        else if (farm === 'Total farm🧑‍🌾🌝') icon = '🧑‍🌾 ';
+        item.innerHTML = `<span class="icon">${icon}</span><span class="name">${farm}</span>`;
+        if (farm === currentFarmFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
+        item.onclick = () => {
+          currentFarmFilter = currentFarmFilter === farm ? null : farm;
+          renderProducts();
+          farmDropdown.style.display = 'none';
+        };
+        farmDropdown.appendChild(item);
+      });
+    }
+
+    catBtn.onclick = (e) => {
+      e.stopPropagation();
+      populateCategories();
+      catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block';
+      farmDropdown.style.display = 'none';
+    };
+
+    farmBtn.onclick = (e) => {
+      e.stopPropagation();
+      populateFarms();
+      farmDropdown.style.display = farmDropdown.style.display === 'block' ? 'none' : 'block';
+      catDropdown.style.display = 'none';
+    };
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#filters-wrapper')) {
+        catDropdown.style.display = 'none';
+        farmDropdown.style.display = 'none';
+      }
+    });
+  }
+
+  function openProductDetail(key) {
+    const p = products[key];
+
+    document.getElementById('detail-title').textContent = p.title;
+    document.getElementById('detail-farm-badge').textContent = p.farm;
+
+    let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
+    if (p.description) {
+      if (content) content += '<br>';
+      content += '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
+    }
+    document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888; font-style:italic;">Aucune description disponible</p>';
+
+    const qtyGrid = document.getElementById('qty-grid');
+    qtyGrid.innerHTML = '';
+    p.quantities.forEach((item, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'qty-btn';
+
+      if (p.promo && p.originalPrices && p.originalPrices[idx]) {
+        btn.innerHTML = `${item.qty}<br><span class="price-old">${p.originalPrices[idx]}</span><br><span class="price-new">${item.price}</span>`;
+      } else {
+        btn.innerHTML = `${item.qty}<br>${item.price}`;
+      }
+
+      btn.dataset.idx = idx;
+      btn.onclick = () => {
+        qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      };
+      qtyGrid.appendChild(btn);
+    });
+
+    const switcher = document.getElementById('video-switcher');
+    switcher.innerHTML = '';
+    if (p.videos.length > 0) {
+      switcher.style.display = 'flex';
+      p.videos.forEach((vid, idx) => {
+        const preview = document.createElement('div');
+        preview.className = `video-preview ${idx === 0 ? 'active' : ''}`;
+        preview.style.backgroundImage = `url('${vid.poster || vid.src || 'chat.PNG'}')`;
+
+        if (vid.src) {
+          const play = document.createElement('div');
+          play.innerHTML = '▶';
+          play.style.position = 'absolute';
+          play.style.top = '50%';
+          play.style.left = '50%';
+          play.style.transform = 'translate(-50%, -50%)';
+          play.style.fontSize = '20px';
+          play.style.color = '#ffeb3b';
+          preview.appendChild(play);
+        }
+
+        preview.onclick = () => {
+          switcher.querySelectorAll('.video-preview').forEach(b => b.classList.remove('active'));
+          preview.classList.add('active');
+          loadMedia(vid.src, vid.poster);
+        };
+        switcher.appendChild(preview);
+      });
+    } else {
+      switcher.style.display = 'none';
+    }
+
+    loadMedia(p.videos[0].src, p.videos[0].poster);
+
+    hideAllPages();
+    document.getElementById('product-detail').style.display = 'block';
+    tg.BackButton.show();
+    scrollToTop();
+  }
+
+  document.getElementById('add-to-cart-btn').onclick = () => {
+    const selected = document.querySelector('.qty-btn.selected');
+    if (!selected) return alert('Sélectionnez une quantité !');
+    const title = document.getElementById('detail-title').textContent;
+    const key = Object.keys(products).find(k => products[k].title === title);
+    const item = products[key].quantities[parseInt(selected.dataset.idx)];
+    cart.push({ title, qty: item.qty, price: item.price });
+    saveCart();
+    alert('Ajouté au panier !');
   };
 
-  // Init
+  // Navigation
+  document.getElementById('nav-home').onclick = goToHome;
+
+  document.getElementById('nav-cart').onclick = () => {
+    hideAllPages();
+    document.getElementById('cart-page').style.display = 'block';
+    document.getElementById('nav-cart').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();
+    renderCart();
+    scrollToTop();
+
+    const pickupBtn = document.querySelector('.option-btn[data-type="pickup"]');
+    const deliveryBtn = document.querySelector('.option-btn[data-type="delivery"]');
+
+    pickupBtn.onclick = () => {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      pickupBtn.classList.add('active');
+      document.getElementById('pickup-questions').style.display = 'block';
+      document.getElementById('delivery-questions').style.display = 'none';
+    };
+
+    deliveryBtn.onclick = () => {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      deliveryBtn.classList.add('active');
+      document.getElementById('pickup-questions').style.display = 'none';
+      document.getElementById('delivery-questions').style.display = 'block';
+    };
+
+    document.getElementById('cart-items').addEventListener('click', (e) => {
+      if (e.target.classList.contains('delete-btn')) {
+        const index = parseInt(e.target.dataset.index);
+        cart.splice(index, 1);
+        saveCart();
+        renderCart();
+      }
+    });
+  };
+
+  document.getElementById('nav-infos').onclick = () => {
+    hideAllPages();
+    document.getElementById('infos-page').style.display = 'block';
+    document.getElementById('nav-infos').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();
+    scrollToTop();
+  };
+
+  document.getElementById('nav-reseaux').onclick = () => {
+    hideAllPages();
+    document.getElementById('reseaux-page').style.display = 'block';
+    document.getElementById('nav-reseaux').classList.add('active');
+    tg.BackButton.hide();
+    enableCloseConfirmation();
+    scrollToTop();
+  };
+
+  tg.BackButton.onClick(() => {
+    goToHome();
+  });
+
+  // ====================== ENVOI VERS TELEGRAM ======================
+  document.getElementById('submit-order-btn').onclick = () => {
+    if (cart.length === 0) return;
+
+    const modeBtn = document.querySelector('.option-btn.active');
+    if (!modeBtn) return alert("Veuillez choisir un mode de récupération.");
+
+    const mode = modeBtn.dataset.type === 'pickup' ? 'Venir sur place' : 'Livraison';
+    let heure = '', adresse = '', precisions = '';
+
+    if (modeBtn.dataset.type === 'pickup') {
+      heure = document.getElementById('pickup-time').value || 'Non précisée';
+    } else {
+      heure = document.getElementById('delivery-time').value || 'Non précisée';
+      adresse = document.getElementById('delivery-address').value || 'Non précisée';
+      precisions = document.getElementById('delivery-details').value || 'Aucune';
+    }
+
+    let message = `🛒 *NOUVELLE COMMANDE* 🛒\n\n`;
+    message += `👤 Utilisateur : ${tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : tg.initDataUnsafe?.user?.first_name || 'Inconnu'}\n`;
+    message += `📅 ${new Date().toLocaleString('fr-FR')}\n\n`;
+    message += `🛍️ *Articles :*\n`;
+
+    let total = 0;
+    cart.forEach(item => {
+      const priceNum = parseInt(item.price) || 0;
+      total += priceNum;
+      message += `• ${item.title} — ${item.qty} (${item.price})\n`;
+    });
+
+    message += `\n💰 *Total : ${total}€*\n\n`;
+    message += `📦 *Mode :* ${mode}\n`;
+
+    if (modeBtn.dataset.type === 'pickup') {
+      message += `⏰ Heure : ${heure}\n`;
+    } else {
+      message += `⏰ Heure : ${heure}\n`;
+      message += `📍 Adresse : ${adresse}\n`;
+      message += `📝 Précisions : ${precisions}\n`;
+    }
+
+    message += `\nMerci de traiter cette commande rapidement !`;
+
+    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
     setTimeout(() => {
@@ -1094,8 +1169,20 @@
       setTimeout(() => {
         splash.style.display = 'none';
         goToHome();
+
+        currentCategoryFilter = null;
+        currentFarmFilter = null;
         renderProducts();
+        initFilters();
         updateBadge();
+        updateSubmitButton();
+
+        document.querySelectorAll('.reseau-item').forEach(item => {
+          item.addEventListener('click', function() {
+            const link = this.dataset.link;
+            if (link) tg.openLink(link);
+          });
+        });
       }, 600);
     }, 2500);
   });
