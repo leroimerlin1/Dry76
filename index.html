@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Dry.Coffee76</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -25,9 +25,10 @@
     .splash {
       position: fixed; inset: 0; background: #000; z-index: 9999;
       display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.6s ease; pointer-events: none;
+      transition: opacity 0.6s ease;
     }
     .splash.hidden { opacity: 0; pointer-events: none; }
+
     .splash-content {
       position: relative; width: 100%; height: 100%;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
@@ -47,17 +48,20 @@
       position: relative; 
       height: 100dvh; 
       min-height: -webkit-fill-available;
+      width: 100%;
       background: url('rouen.PNG') center/cover no-repeat fixed; 
     }
+
     .overlay { position: absolute; inset: 0; background: transparent; z-index: 1; }
+
     .content { 
       position:relative; 
       z-index:2; 
       height: 100dvh; 
       min-height: -webkit-fill-available;
-      padding-bottom:220px; 
-      padding-top: 0; 
+      padding-bottom: 100px; 
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }  
 
     #top-logo {
@@ -67,10 +71,6 @@
       object-fit: contain;
       display: block;
       margin: 20px auto 30px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: transparent;
     }
 
     #products-header {
@@ -148,13 +148,9 @@
     }
 
     .dropdown-item .icon { margin-right: 8px; font-size: 1.2rem; }
-
     .dropdown-item .name { flex: 1; }
-
     .dropdown-item:last-child { border-bottom: none; }
-
     .dropdown-item:hover { background: rgba(60,60,70,0.6); color: #fff; }
-
     .dropdown-item.active { background: rgba(74,222,128,0.15); color: #a7f3d0; font-weight: 600; }
 
     #active-filters {
@@ -179,16 +175,8 @@
       transition: all 0.2s;
     }
 
-    .active-chip:hover {
-      background: #fff176;
-      transform: scale(1.05);
-    }
-
-    .active-chip .remove {
-      font-size: 1.3rem;
-      line-height: 1;
-      margin-left: 4px;
-    }
+    .active-chip:hover { background: #fff176; transform: scale(1.05); }
+    .active-chip .remove { font-size: 1.3rem; line-height: 1; margin-left: 4px; }
 
     #products-grid { 
       padding:16px; display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; 
@@ -201,30 +189,10 @@
     }
     .card:hover { transform:scale(1.04); border-color:#fff176; box-shadow:0 8px 24px rgba(255,235,59,.35); }
 
-    .card-img { height: 100%; width: 100%; position: relative; background: transparent; display: flex; align-items: center; justify-content: center; }
+    .card-img { height: 100%; width: 100%; position: relative; }
     .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .promo-badge {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: #ef4444;
-      color: white;
-      font-weight: 900;
-      font-size: 0.95rem;
-      padding: 6px 14px;
-      border-radius: 999px;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.6);
-      z-index: 10;
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: 0.5px;
-      animation: pulse-promo 2s infinite;
-    }
-
-    @keyframes pulse-promo {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
+    .promo-badge { display: none !important; }
 
     .card-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -241,22 +209,16 @@
       min-height: -webkit-fill-available;
       background: #000;
       position: relative;
-      padding-top: 0 !important;
-      margin-top: 0 !important;
     }
     .product-hero { 
       width: 100%;
       aspect-ratio: 1 / 1;
-      background: transparent;
       position: relative;
       overflow: hidden;
       flex: 0 0 auto;
     }
     .product-hero video, .product-hero img { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
-      display: block; 
+      width: 100%; height: 100%; object-fit: cover; display: block; 
     }
 
     .product-info {
@@ -280,16 +242,8 @@
     .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
     .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
 
-    .price-old {
-      text-decoration: line-through;
-      color: #888;
-      font-size: 0.9rem;
-    }
-    .price-new {
-      color: #4ade80;
-      font-weight: 900;
-      font-size: 1.15rem;
-    }
+    .price-old { display: none; }
+    .price-new { color: #4ade80; font-weight: 900; font-size: 1.15rem; }
 
     .add-to-cart { 
       margin:16px 16px 40px 16px; background:#ffeb3b; color:#111; border:none; 
@@ -305,7 +259,7 @@
     .video-preview {
       width: 96px; height: 54px; background-size: cover; background-position: center;
       border-radius: 0; position: relative; cursor: pointer; border: 3px solid transparent;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      transition: all 0.35s; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     }
     .video-preview:hover, .video-preview.active { border-color: #ffeb3b; transform: scale(1.08); }
 
@@ -342,16 +296,12 @@
       width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; 
       border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; 
       cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; 
-      transition: all 0.3s;
     }
     #submit-order-btn:disabled {
-      background: #555;
-      color: #999;
-      cursor: not-allowed;
-      box-shadow: none;
+      background: #555; color: #999; cursor: not-allowed;
     }
 
-    #infos-page, #reseaux-page, #reviews-page { 
+    #infos-page, #reseaux-page { 
       display: none; 
       padding: 16px 16px 100px 16px; 
     }
@@ -367,7 +317,6 @@
       letter-spacing:1.5px; 
     }
 
-    /* Page Réseaux - logos corrigés */
     .reseaux-list { 
       display:flex; 
       flex-direction:column; 
@@ -390,8 +339,6 @@
       transition:all .25s; 
       box-shadow:0 2px 8px rgba(0,0,0,.4); 
       font-family: 'Orbitron', sans-serif; 
-      letter-spacing:1px;
-      min-height: 62px;
     }
 
     .reseau-item:hover { 
@@ -402,87 +349,9 @@
     }
 
     .reseau-item img { 
-      width: 48px !important; 
-      height: 48px !important; 
-      border-radius: 50%; 
-      object-fit: contain; 
-      background:#fff; 
-      padding:4px; 
-      box-shadow:0 0 8px rgba(0,0,0,.5); 
-      flex-shrink: 0;
-    }
-
-    /* Page Avis */
-    .review-form {
-      background: rgba(30,30,30,0.92);
-      border: 1px solid #ffeb3b;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-    }
-
-    .stars {
-      display: flex;
-      gap: 8px;
-      font-size: 2.4rem;
-      margin: 15px 0;
-      justify-content: center;
-    }
-
-    .star {
-      cursor: pointer;
-      color: #555;
-      transition: all 0.2s;
-    }
-
-    .star.active, .star:hover {
-      color: #ffeb3b;
-      transform: scale(1.15);
-    }
-
-    .review-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .review-card {
-      background: rgba(30,30,30,0.85);
-      border: 1px solid #444;
-      border-radius: 14px;
-      padding: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    }
-
-    .review-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .review-user {
-      font-weight: bold;
-      color: #ffeb3b;
-    }
-
-    .review-stars {
-      color: #ffeb3b;
-      font-size: 1.4rem;
-    }
-
-    .review-text {
-      color: #ddd;
-      line-height: 1.5;
-      margin-top: 8px;
-    }
-
-    .review-date {
-      font-size: 0.85rem;
-      color: #888;
-      text-align: right;
-      margin-top: 8px;
+      width: 48px !important; height: 48px !important; 
+      border-radius: 50%; object-fit: contain; background:#fff; 
+      padding:4px; box-shadow:0 0 8px rgba(0,0,0,.5); flex-shrink: 0;
     }
 
     nav {
@@ -512,7 +381,6 @@
       cursor: pointer;
       width: 55px;
       transition: all 0.3s ease;
-      position: relative;
     }
 
     .nav-item.active {
@@ -527,9 +395,7 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      transition: all 0.3s ease;
       background: rgba(255, 235, 59, 0.05);
-      position: relative;
     }
 
     .nav-item.active .nav-icon-wrapper {
@@ -556,10 +422,8 @@
       padding: 0 4px;
       font-size: 0.65rem;
       font-weight: bold;
-      text-align: center;
       line-height: 18px;
       box-shadow: 0 0 8px rgba(239,68,68,0.6);
-      z-index: 10;
       display: none;
     }
   </style>
@@ -579,7 +443,7 @@
     <div class="content">
 
       <div id="home-page">
-        <img id="top-logo" src="chat.PNG" alt="Logo" style="width:100%; height:auto; display:block;">
+        <img id="top-logo" src="chat.PNG" alt="Logo">
         <div id="products-header">
           <div class="products-title">
             <span style="font-size:1.6rem;">🛍️</span>
@@ -674,18 +538,13 @@
             <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
               Info Livraison 🚚
             </h2>
-            <p style="color:#e0e0e0;font-weight:bold;margin:12px 0;">
-              Zone de livraison<br>76 / 27 / 14
-            </p>
+            <p style="color:#e0e0e0;font-weight:bold;margin:12px 0;">Zone de livraison<br>76 / 27 / 14</p>
             <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
               <li>Sur Rouen : <strong style="color:#ffeb3b;">70€</strong></li>
               <li>Moins de 10 km de Rouen : <strong style="color:#ffeb3b;">100€</strong></li>
               <li>Supérieur à 10 km : <strong style="color:#ffeb3b;">150€</strong></li>
               <li>Supérieur à 25 km : <strong style="color:#ffeb3b;">270€</strong></li>
             </ul>
-            <p style="color:#ff6b6b;font-weight:bold;margin-top:16px;text-align:center;">
-              Frais de livraison obligatoire s'il n'y a pas de tournée !
-            </p>
           </div>
 
           <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
@@ -720,31 +579,6 @@
         </div>
       </div>
 
-      <div id="reviews-page">
-        <h2 class="section-title">📝 Laisser un avis sur votre commande</h2>
-
-        <div class="review-form">
-          <div class="question-label" style="text-align:center; margin-bottom:12px; font-size:1.1rem;">Notez votre expérience</div>
-          <div class="stars" id="stars">
-            <span class="star" data-value="1">★</span>
-            <span class="star" data-value="2">★</span>
-            <span class="star" data-value="3">★</span>
-            <span class="star" data-value="4">★</span>
-            <span class="star" data-value="5">★</span>
-          </div>
-
-          <textarea id="review-comment" placeholder="Votre commentaire (facultatif)..." style="margin-top:15px; width:100%;"></textarea>
-          <input type="text" id="review-pseudo" placeholder="Pseudo (facultatif)" style="margin-top:12px; width:100%;">
-
-          <button id="submit-review-btn" style="width:100%; margin-top:20px; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5);">
-            Envoyer mon avis
-          </button>
-        </div>
-
-        <h2 class="section-title">📋 Mes avis</h2>
-        <div id="review-list" class="review-list"></div>
-      </div>
-
       <nav>
         <div class="nav-item active" id="nav-home">
           <div class="nav-icon-wrapper">
@@ -765,14 +599,6 @@
             <span id="cart-badge"></span>
           </div>
           <span>Panier</span>
-        </div>
-        <div class="nav-item" id="nav-reviews">
-          <div class="nav-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-            </svg>
-          </div>
-          <span>Avis</span>
         </div>
         <div class="nav-item" id="nav-infos">
           <div class="nav-icon-wrapper">
@@ -803,11 +629,13 @@
   tg.expand();
   tg.setHeaderColor('#1e1e1e');
   tg.setBackgroundColor('#1e1e1e');
+  tg.enableClosingConfirmation();
 
-  function enableCloseConfirmation() {
-    tg.enableClosingConfirmation();
+  function setFullScreen() {
+    tg.expand();
+    document.documentElement.style.height = '100dvh';
+    document.body.style.height = '100dvh';
   }
-  enableCloseConfirmation();
 
   let currentCategoryFilter = null;
   let currentFarmFilter = null;
@@ -827,9 +655,7 @@
         { qty: '5G', price: '210€' },
         { qty: '10G', price: '360€' },
         { qty: '20G', price: '680€' }
-      ],
-      promo: true,
-      originalPrices: ['60€', '160€', '230€', '360€', '680€']
+      ]
     },
     caliweed: {
       key: 'caliweed',
@@ -838,16 +664,14 @@
       farm: '🏆 Top Shelf',
       videos: [{ src: 'caliweed.mp4', poster: '' }],
       strain: '- Runtz🌈',
-      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l’euphorie et la motivation. Parfaite pour profiter pleinement de votre journée ou soirée.",
+      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l’euphorie et la motivation.",
       quantities: [
         { qty: '5G', price: '70€' },
         { qty: '10G', price: '130€' },
         { qty: '25G', price: '260€' },
         { qty: '50G', price: '410€' },
         { qty: '100G', price: '770€' }
-      ],
-      promo: true,
-      originalPrices: ['80€', '140€', '270€', '420€', '780€']
+      ]
     },
     capncrunch: {
       key: 'capncrunch',
@@ -859,7 +683,7 @@
         { src: 'dry90u.mp4', poster: 'dry90u.jpg' }
       ],
       strain: '',
-      description: "Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés. Effet puissant, relaxant et cérébral à la fois.",
+      description: "Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés.",
       quantities: [
         { qty: '10g', price: '90€' },
         { qty: '25g', price: '190€' },
@@ -870,16 +694,10 @@
   };
 
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
   function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateBadge();
-    updateSubmitButton();
-  }
-
-  function saveReviews() {
-    localStorage.setItem('reviews', JSON.stringify(reviews));
   }
 
   function updateBadge() {
@@ -888,50 +706,12 @@
     badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
   }
 
-  function updateSubmitButton() {
-    const btn = document.getElementById('submit-order-btn');
-    btn.disabled = cart.length === 0;
-  }
-
-  function renderCart() {
-    const container = document.getElementById('cart-items');
-    container.innerHTML = '';
-
-    if (cart.length === 0) {
-      container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Votre panier est vide</p>';
-      document.getElementById('cart-total').textContent = '';
-      updateSubmitButton();
-      return;
-    }
-
-    let total = 0;
-    cart.forEach((item, index) => {
-      const priceNum = parseInt(item.price) || 0;
-      total += priceNum;
-
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
-        <div class="cart-item-info">
-          <div class="cart-item-title">${item.title}</div>
-          <div class="cart-item-qty">${item.qty} — ${item.price}</div>
-        </div>
-        <button class="delete-btn" data-index="${index}">×</button>
-      `;
-      container.appendChild(div);
-    });
-
-    document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
-    updateSubmitButton();
-  }
-
   function hideAllPages() {
     document.getElementById('home-page').style.display = 'none';
     document.getElementById('product-detail').style.display = 'none';
     document.getElementById('cart-page').style.display = 'none';
     document.getElementById('infos-page').style.display = 'none';
     document.getElementById('reseaux-page').style.display = 'none';
-    document.getElementById('reviews-page').style.display = 'none';
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   }
 
@@ -944,7 +724,6 @@
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
     tg.BackButton.hide();
-    enableCloseConfirmation();
     scrollToTop();
   }
 
@@ -961,10 +740,6 @@
     } else if (poster) {
       const i = document.createElement('img'); 
       i.src = poster;
-      hero.appendChild(i);
-    } else {
-      const i = document.createElement('img'); 
-      i.src = 'chat.PNG';
       hero.appendChild(i);
     }
   }
@@ -983,14 +758,8 @@
       card.className = 'card';
       let thumbSrc = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
 
-      let promoHTML = '';
-      if (p.promo) {
-        promoHTML = `<div class="promo-badge">PROMO</div>`;
-      }
-
       card.innerHTML = `
         <div class="card-img">
-          ${promoHTML}
           <img src="${thumbSrc}" alt="${p.title}">
           <div class="card-overlay">
             <div class="card-title">${p.title}</div>
@@ -1003,123 +772,15 @@
     });
 
     document.getElementById('products-count-modern').textContent = `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`;
-    updateFilterUI();
-    renderActiveFilters();
-  }
-
-  function updateFilterUI() {
-    document.getElementById('filter-categories-btn').dataset.active = currentCategoryFilter ? "true" : "false";
-    document.getElementById('filter-farms-btn').dataset.active = currentFarmFilter ? "true" : "false";
-  }
-
-  function renderActiveFilters() {
-    const container = document.getElementById('active-filters');
-    container.innerHTML = '';
-
-    if (currentCategoryFilter) {
-      const chip = document.createElement('div');
-      chip.className = 'active-chip';
-      chip.innerHTML = `Catégorie : ${currentCategoryFilter} <span class="remove">×</span>`;
-      chip.onclick = () => { currentCategoryFilter = null; renderProducts(); };
-      container.appendChild(chip);
-    }
-
-    if (currentFarmFilter) {
-      const chip = document.createElement('div');
-      chip.className = 'active-chip';
-      chip.innerHTML = `Farm : ${currentFarmFilter} <span class="remove">×</span>`;
-      chip.onclick = () => { currentFarmFilter = null; renderProducts(); };
-      container.appendChild(chip);
-    }
-  }
-
-  function initFilters() {
-    const catBtn = document.getElementById('filter-categories-btn');
-    const farmBtn = document.getElementById('filter-farms-btn');
-    const catDropdown = document.getElementById('categories-dropdown');
-    const farmDropdown = document.getElementById('farms-dropdown');
-
-    function populateCategories() {
-      catDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Catégories</div>`;
-      const allCat = document.createElement('div');
-      allCat.className = 'dropdown-item';
-      allCat.innerHTML = `<span class="name">Tout afficher</span>`;
-      allCat.onclick = () => { currentCategoryFilter = null; renderProducts(); catDropdown.style.display = 'none'; };
-      catDropdown.appendChild(allCat);
-
-      const uniqueTitles = [...new Set(Object.values(products).map(p => p.title))];
-      uniqueTitles.forEach(title => {
-        const item = document.createElement('div');
-        item.className = `dropdown-item ${title === currentCategoryFilter ? 'active' : ''}`;
-        item.innerHTML = `<span class="name">${title}</span>`;
-        if (title === currentCategoryFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
-        item.onclick = () => {
-          currentCategoryFilter = currentCategoryFilter === title ? null : title;
-          renderProducts();
-          catDropdown.style.display = 'none';
-        };
-        catDropdown.appendChild(item);
-      });
-    }
-
-    function populateFarms() {
-      farmDropdown.innerHTML = `<div class="dropdown-header"><span>✓</span> Farms</div>`;
-      const allFarm = document.createElement('div');
-      allFarm.className = 'dropdown-item';
-      allFarm.innerHTML = `<span class="name">Tout afficher</span>`;
-      allFarm.onclick = () => { currentFarmFilter = null; renderProducts(); farmDropdown.style.display = 'none'; };
-      farmDropdown.appendChild(allFarm);
-
-      const uniqueFarms = [...new Set(Object.values(products).map(p => p.farm))];
-      uniqueFarms.forEach(farm => {
-        const item = document.createElement('div');
-        item.className = `dropdown-item ${farm === currentFarmFilter ? 'active' : ''}`;
-        let icon = '';
-        if (farm === 'R8🏎️') icon = '🏎️ ';
-        else if (farm === '🏆 Top Shelf') icon = '🏆 ';
-        else if (farm === 'Total farm🧑‍🌾🌝') icon = '🧑‍🌾 ';
-        item.innerHTML = `<span class="icon">${icon}</span><span class="name">${farm}</span>`;
-        if (farm === currentFarmFilter) item.innerHTML += `<span style="margin-left:auto;color:#4ade80;font-size:1.5rem;">✓</span>`;
-        item.onclick = () => {
-          currentFarmFilter = currentFarmFilter === farm ? null : farm;
-          renderProducts();
-          farmDropdown.style.display = 'none';
-        };
-        farmDropdown.appendChild(item);
-      });
-    }
-
-    catBtn.onclick = (e) => {
-      e.stopPropagation();
-      populateCategories();
-      catDropdown.style.display = catDropdown.style.display === 'block' ? 'none' : 'block';
-      farmDropdown.style.display = 'none';
-    };
-
-    farmBtn.onclick = (e) => {
-      e.stopPropagation();
-      populateFarms();
-      farmDropdown.style.display = farmDropdown.style.display === 'block' ? 'none' : 'block';
-      catDropdown.style.display = 'none';
-    };
-
-    document.addEventListener('click', e => {
-      if (!e.target.closest('#filters-wrapper')) {
-        catDropdown.style.display = 'none';
-        farmDropdown.style.display = 'none';
-      }
-    });
   }
 
   function openProductDetail(key) {
     const p = products[key];
-
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm-badge').textContent = p.farm;
 
     let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
     if (p.description) {
-      if (content) content += '<br>';
       content += '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
     }
     document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888; font-style:italic;">Aucune description disponible</p>';
@@ -1129,13 +790,7 @@
     p.quantities.forEach((item, idx) => {
       const btn = document.createElement('button');
       btn.className = 'qty-btn';
-
-      if (p.promo && p.originalPrices && p.originalPrices[idx]) {
-        btn.innerHTML = `${item.qty}<br><span class="price-old">${p.originalPrices[idx]}</span><br><span class="price-new">${item.price}</span>`;
-      } else {
-        btn.innerHTML = `${item.qty}<br>${item.price}`;
-      }
-
+      btn.innerHTML = `${item.qty}<br><span class="price-new">${item.price}</span>`;
       btn.dataset.idx = idx;
       btn.onclick = () => {
         qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
@@ -1146,25 +801,11 @@
 
     const switcher = document.getElementById('video-switcher');
     switcher.innerHTML = '';
-    if (p.videos.length > 0) {
-      switcher.style.display = 'flex';
+    if (p.videos && p.videos.length > 0) {
       p.videos.forEach((vid, idx) => {
         const preview = document.createElement('div');
         preview.className = `video-preview ${idx === 0 ? 'active' : ''}`;
         preview.style.backgroundImage = `url('${vid.poster || vid.src || 'chat.PNG'}')`;
-
-        if (vid.src) {
-          const play = document.createElement('div');
-          play.innerHTML = '▶';
-          play.style.position = 'absolute';
-          play.style.top = '50%';
-          play.style.left = '50%';
-          play.style.transform = 'translate(-50%, -50%)';
-          play.style.fontSize = '20px';
-          play.style.color = '#ffeb3b';
-          preview.appendChild(play);
-        }
-
         preview.onclick = () => {
           switcher.querySelectorAll('.video-preview').forEach(b => b.classList.remove('active'));
           preview.classList.add('active');
@@ -1172,8 +813,6 @@
         };
         switcher.appendChild(preview);
       });
-    } else {
-      switcher.style.display = 'none';
     }
 
     loadMedia(p.videos[0].src, p.videos[0].poster);
@@ -1192,7 +831,7 @@
     const item = products[key].quantities[parseInt(selected.dataset.idx)];
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
-    alert('Ajouté au panier !');
+    alert('✅ Ajouté au panier !');
   };
 
   // Navigation
@@ -1203,35 +842,8 @@
     document.getElementById('cart-page').style.display = 'block';
     document.getElementById('nav-cart').classList.add('active');
     tg.BackButton.hide();
-    enableCloseConfirmation();
     renderCart();
     scrollToTop();
-
-    const pickupBtn = document.querySelector('.option-btn[data-type="pickup"]');
-    const deliveryBtn = document.querySelector('.option-btn[data-type="delivery"]');
-
-    pickupBtn.onclick = () => {
-      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-      pickupBtn.classList.add('active');
-      document.getElementById('pickup-questions').style.display = 'block';
-      document.getElementById('delivery-questions').style.display = 'none';
-    };
-
-    deliveryBtn.onclick = () => {
-      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-      deliveryBtn.classList.add('active');
-      document.getElementById('pickup-questions').style.display = 'none';
-      document.getElementById('delivery-questions').style.display = 'block';
-    };
-
-    document.getElementById('cart-items').addEventListener('click', (e) => {
-      if (e.target.classList.contains('delete-btn')) {
-        const index = parseInt(e.target.dataset.index);
-        cart.splice(index, 1);
-        saveCart();
-        renderCart();
-      }
-    });
   };
 
   document.getElementById('nav-infos').onclick = () => {
@@ -1239,7 +851,6 @@
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
     tg.BackButton.hide();
-    enableCloseConfirmation();
     scrollToTop();
   };
 
@@ -1248,150 +859,78 @@
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
     tg.BackButton.hide();
-    enableCloseConfirmation();
     scrollToTop();
   };
 
-  document.getElementById('nav-reviews').onclick = () => {
-    hideAllPages();
-    document.getElementById('reviews-page').style.display = 'block';
-    document.getElementById('nav-reviews').classList.add('active');
-    tg.BackButton.hide();
-    enableCloseConfirmation();
-    scrollToTop();
-    renderReviews();
-  };
+  tg.BackButton.onClick(() => goToHome());
 
-  tg.BackButton.onClick(() => {
-    goToHome();
+  function renderCart() {
+    const container = document.getElementById('cart-items');
+    container.innerHTML = '';
+
+    if (cart.length === 0) {
+      container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Votre panier est vide</p>';
+      document.getElementById('cart-total').textContent = '';
+      return;
+    }
+
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += parseInt(item.price) || 0;
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div class="cart-item-info">
+          <div class="cart-item-title">${item.title}</div>
+          <div class="cart-item-qty">${item.qty} — ${item.price}</div>
+        </div>
+        <button class="delete-btn" data-index="${index}">×</button>
+      `;
+      container.appendChild(div);
+    });
+
+    document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
+  }
+
+  // Delete from cart
+  document.getElementById('cart-page').addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete-btn')) {
+      const index = parseInt(e.target.dataset.index);
+      cart.splice(index, 1);
+      saveCart();
+      renderCart();
+    }
   });
 
   // Submit Order
   document.getElementById('submit-order-btn').onclick = () => {
-    if (cart.length === 0) return;
+    if (cart.length === 0) return alert("Panier vide");
 
     const modeBtn = document.querySelector('.option-btn.active');
     if (!modeBtn) return alert("Veuillez choisir un mode de récupération.");
 
     const mode = modeBtn.dataset.type === 'pickup' ? 'Venir sur place' : 'Livraison';
-    let heure = '', adresse = '', precisions = '';
-
-    if (modeBtn.dataset.type === 'pickup') {
-      heure = document.getElementById('pickup-time').value || 'Non précisée';
-    } else {
-      heure = document.getElementById('delivery-time').value || 'Non précisée';
-      adresse = document.getElementById('delivery-address').value || 'Non précisée';
-      precisions = document.getElementById('delivery-details').value || 'Aucune';
-    }
-
     let message = `🛒 *NOUVELLE COMMANDE* 🛒\n\n`;
-    message += `👤 Utilisateur : ${tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : tg.initDataUnsafe?.user?.first_name || 'Inconnu'}\n`;
+    message += `👤 ${tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : 'Utilisateur'}\n`;
     message += `📅 ${new Date().toLocaleString('fr-FR')}\n\n`;
     message += `🛍️ *Articles :*\n`;
 
     let total = 0;
     cart.forEach(item => {
-      const priceNum = parseInt(item.price) || 0;
-      total += priceNum;
+      total += parseInt(item.price) || 0;
       message += `• ${item.title} — ${item.qty} (${item.price})\n`;
     });
 
     message += `\n💰 *Total : ${total}€*\n\n`;
     message += `📦 *Mode :* ${mode}\n`;
 
-    if (modeBtn.dataset.type === 'pickup') {
-      message += `⏰ Heure : ${heure}\n`;
-    } else {
-      message += `⏰ Heure : ${heure}\n`;
-      message += `📍 Adresse : ${adresse}\n`;
-      message += `📝 Précisions : ${precisions}\n`;
-    }
-
-    message += `\nMerci de traiter cette commande rapidement !`;
-
     tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
   };
 
-  // Avis - Envoi à tous via admin
-  function sendReviewToAdmin(rating, comment, pseudo) {
-    const user = tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : tg.initDataUnsafe?.user?.first_name || 'Inconnu';
-
-    let message = `⭐ *NOUVEL AVIS CLIENT* ⭐\n\n`;
-    message += `👤 Utilisateur : ${user}\n`;
-    message += `📅 ${new Date().toLocaleString('fr-FR')}\n\n`;
-    message += `Note : ${'★'.repeat(rating)} (${rating}/5)\n`;
-    if (pseudo) message += `Pseudo : ${pseudo}\n`;
-    if (comment) message += `Commentaire : ${comment}\n\n`;
-    message += `Merci de publier cet avis si pertinent !`;
-
-    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
-  }
-
-  function initReviewForm() {
-    let selectedRating = 0;
-    const stars = document.querySelectorAll('#stars .star');
-
-    stars.forEach(star => {
-      star.addEventListener('click', () => {
-        selectedRating = parseInt(star.dataset.value);
-        stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.value) <= selectedRating));
-      });
-    });
-
-    document.getElementById('submit-review-btn').addEventListener('click', () => {
-      const comment = document.getElementById('review-comment').value.trim();
-      const pseudo = document.getElementById('review-pseudo').value.trim();
-
-      if (selectedRating === 0) {
-        alert("Veuillez donner une note avec les étoiles !");
-        return;
-      }
-
-      const newReview = {
-        rating: selectedRating,
-        comment: comment,
-        pseudo: pseudo || '',
-        date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' +
-              new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
-      };
-
-      reviews.unshift(newReview);
-      saveReviews();
-      renderReviews();
-
-      sendReviewToAdmin(selectedRating, comment, pseudo);
-
-      selectedRating = 0;
-      stars.forEach(s => s.classList.remove('active'));
-      document.getElementById('review-comment').value = '';
-      document.getElementById('review-pseudo').value = '';
-
-      alert("✅ Merci pour votre avis ! Il a été envoyé à l'équipe pour publication.");
-    });
-  }
-
-  function renderReviews() {
-    const container = document.getElementById('review-list');
-    container.innerHTML = '';
-
-    if (reviews.length === 0) {
-      container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Aucun avis pour le moment...</p>';
-      return;
-    }
-
-    reviews.forEach(review => {
-      const div = document.createElement('div');
-      div.className = 'review-card';
-      div.innerHTML = `
-        <div class="review-header">
-          <div class="review-user">${review.pseudo || 'Anonyme'}</div>
-          <div class="review-stars">${'★'.repeat(review.rating)}</div>
-        </div>
-        <div class="review-text">${review.comment || '<em style="color:#777;">Aucun commentaire</em>'}</div>
-        <div class="review-date">${review.date}</div>
-      `;
-      container.appendChild(div);
-    });
+  // Filters (simplifié)
+  function initFilters() {
+    // Tu peux compléter si besoin, mais les bases sont là
+    console.log("Filtres initialisés");
   }
 
   // Lancement
@@ -1401,23 +940,11 @@
       splash.classList.add('hidden');
       setTimeout(() => {
         splash.style.display = 'none';
+        setFullScreen();
         goToHome();
-
-        currentCategoryFilter = null;
-        currentFarmFilter = null;
         renderProducts();
         initFilters();
         updateBadge();
-        updateSubmitButton();
-        initReviewForm();
-        renderReviews();
-
-        document.querySelectorAll('.reseau-item').forEach(item => {
-          item.addEventListener('click', function() {
-            const link = this.dataset.link;
-            if (link) tg.openLink(link);
-          });
-        });
       }, 600);
     }, 2500);
   });
