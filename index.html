@@ -659,7 +659,7 @@
       </div>
 
       <div class="minimum-badge">
-        <span>Minimum 70€</span>
+        <span>Minimum 50€</span>
       </div>
     </div>
 
@@ -821,7 +821,27 @@
 
   </div>
 
-  <script>
+  <script type="module">
+  // ── FIREBASE INIT ────────────────────────────────────────────────────────────
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp }
+    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAzZrBxpJZOpCDMfdNeOJ7PlkpktLW-_xE",
+    authDomain: "bart-coffee76.firebaseapp.com",
+    projectId: "bart-coffee76",
+    storageBucket: "bart-coffee76.firebasestorage.app",
+    messagingSenderId: "158157950462",
+    appId: "1:158157950462:web:7a0f470ce7c90aef67c4af"
+  };
+
+  const _app = initializeApp(firebaseConfig);
+  const _db  = getFirestore(_app);
+  // Expose pour les fonctions avis
+  window._db = _db;
+  window._firestore = { addDoc, collection, getDocs, query, orderBy, serverTimestamp };
+
   // ── TELEGRAM FULLSCREEN ─────────────────────────────────────────────────────
   const tg = window.Telegram?.WebApp;
   if (tg) {
@@ -1090,10 +1110,10 @@
     scrollToTop();
   };
 
-  // ── AVIS SYSTEM ───────────────────────────────────────────────────────────────
+  // ── AVIS SYSTEM — FIREBASE FIRESTORE (partagé entre tous les utilisateurs) ────
   let selectedStar = 0;
-  const avisKey = 'avis_bart76';
 
+  // Init étoiles
   document.querySelectorAll('.star').forEach(star => {
     star.addEventListener('click', () => {
       selectedStar = parseInt(star.dataset.v);
@@ -1104,14 +1124,13 @@
     });
   });
 
-  function renderAvis() {
+  function renderAvisFromData(avisList) {
     const list = document.getElementById('avis-list');
-    const saved = JSON.parse(localStorage.getItem(avisKey) || '[]');
-    if (saved.length === 0) {
+    if (!avisList || avisList.length === 0) {
       list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0;font-size:0.95rem;">Aucun avis pour l\'instant. Soyez le premier !</p>';
       return;
     }
-    list.innerHTML = saved.map(a => `
+    list.innerHTML = avisList.map(a => `
       <div class="avis-card">
         <div class="avis-header">
           <span class="avis-user">${a.user}</span>
@@ -1120,28 +1139,49 @@
         <div class="avis-date">${a.date}</div>
         <div class="avis-comment">${a.comment}</div>
       </div>
-    `).reverse().join('');
+    `).join('');
   }
 
-  document.getElementById('submit-avis-btn').onclick = () => {
+  async function renderAvis() {
+    const list = document.getElementById('avis-list');
+    list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0;">Chargement des avis...</p>';
+    try {
+      const { getDocs, collection, query, orderBy } = window._firestore;
+      const q = query(collection(window._db, 'avis'), orderBy('timestamp', 'desc'));
+      const snap = await getDocs(q);
+      const avisList = snap.docs.map(d => d.data());
+      renderAvisFromData(avisList);
+    } catch(e) {
+      list.innerHTML = '<p style="text-align:center;color:#ef4444;padding:30px 0;">Erreur de chargement.</p>';
+    }
+  }
+
+  document.getElementById('submit-avis-btn').onclick = async () => {
     const comment = document.getElementById('avis-text').value.trim();
     if (!selectedStar) return alert('Veuillez sélectionner une note ⭐');
     if (!comment) return alert('Veuillez écrire un commentaire');
     const user = tg?.initDataUnsafe?.user;
     const username = user?.username ? '@' + user.username : (user?.first_name || 'Anonyme');
-    const saved = JSON.parse(localStorage.getItem(avisKey) || '[]');
-    saved.push({
-      user: username,
-      note: selectedStar,
-      comment,
-      date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' })
-    });
-    localStorage.setItem(avisKey, JSON.stringify(saved));
-    document.getElementById('avis-text').value = '';
-    selectedStar = 0;
-    document.querySelectorAll('.star').forEach(s => { s.textContent = '☆'; s.classList.remove('on'); });
-    renderAvis();
-    alert('✅ Merci pour votre avis !');
+    const btn = document.getElementById('submit-avis-btn');
+    btn.disabled = true; btn.textContent = 'Envoi...';
+    try {
+      const { addDoc, collection, serverTimestamp } = window._firestore;
+      await addDoc(collection(window._db, 'avis'), {
+        user: username,
+        note: selectedStar,
+        comment,
+        date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' }),
+        timestamp: serverTimestamp()
+      });
+      document.getElementById('avis-text').value = '';
+      selectedStar = 0;
+      document.querySelectorAll('.star').forEach(s => { s.textContent = '☆'; s.classList.remove('on'); });
+      await renderAvis();
+      alert('✅ Merci pour votre avis !');
+    } catch(e) {
+      alert('❌ Erreur lors de l\'envoi. Réessayez.');
+    }
+    btn.disabled = false; btn.textContent = 'Publier mon avis';
   };
 
   document.querySelectorAll('.reseau-item[data-link]').forEach(el => {
