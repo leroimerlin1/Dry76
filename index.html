@@ -39,21 +39,18 @@
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
     }
 
-    /* Image de fond avec overlay sombre */
     .splash-bg {
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover; opacity: 0.25;
       filter: blur(4px);
     }
 
-    /* Vignette gradient par dessus */
     .splash-vignette {
       position: absolute; inset: 0;
       background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%);
       z-index: 1;
     }
 
-    /* Cercle glow derrière le logo */
     .splash-glow {
       position: absolute;
       width: 240px; height: 240px;
@@ -67,7 +64,6 @@
       50% { transform: scale(1.3); opacity: 1; }
     }
 
-    /* Logo */
     .splash-logo {
       width: 130px; height: 130px; border-radius: 50%; object-fit: cover;
       border: 3px solid rgba(255,235,59,0.8);
@@ -81,7 +77,6 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* Nom */
     .splash-name {
       font-family: 'Orbitron', sans-serif;
       font-size: 1.5rem; font-weight: 900;
@@ -94,7 +89,6 @@
     }
     .splash-name span { color: #ffeb3b; }
 
-    /* Sous-titre */
     .splash-sub {
       font-size: 0.78rem; font-weight: 600;
       color: rgba(255,235,59,0.55);
@@ -110,7 +104,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Barre de progression */
     .splash-progress-wrap {
       width: 180px; height: 3px;
       background: rgba(255,235,59,0.12);
@@ -132,7 +125,6 @@
       100% { width: 100%; }
     }
 
-    /* Texte sous la barre */
     .splash-text {
       color: rgba(255,255,255,0.35);
       font-size: 0.72rem; font-weight: 600;
@@ -141,7 +133,6 @@
       animation: fadeUp 0.6s 0.7s ease both;
     }
 
-    /* Particules dorées */
     .splash-particles {
       position: absolute; inset: 0; z-index: 2; pointer-events: none;
     }
@@ -179,7 +170,6 @@
       padding-bottom: 110px;
     }
 
-    /* Logo fixe en haut de l'accueil */
     #home-logo-wrapper {
       position: sticky;
       top: 0;
@@ -194,7 +184,7 @@
       object-fit: contain; display: block; margin: 0 auto;
     }
 
-    /* ── HEADER PRODUITS — nouveau style ── */
+    /* ── HEADER PRODUITS ── */
     #products-header {
       margin: 0 16px 14px 16px;
       background: rgba(15, 15, 22, 0.88);
@@ -337,9 +327,7 @@
     #submit-order-btn { width: 100%; padding: 18px; background: #ffeb3b; color: #111; border: none; border-radius: 14px; font-size: 1.25rem; font-weight: bold; margin-top: 24px; cursor: pointer; box-shadow: 0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
     #submit-order-btn:disabled { background: #555; color: #999; cursor: not-allowed; }
 
-    /* ══════════════════════════════════════════
-       ── PAGE INFOS — NOUVEAU STYLE ──
-    ══════════════════════════════════════════ */
+    /* ── PAGE INFOS ── */
     #infos-page {
       display: none;
       padding: 16px 16px 110px 16px;
@@ -381,7 +369,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* Row département badges */
     .info-row {
       display: flex;
       align-items: flex-start;
@@ -420,7 +407,6 @@
       font-weight: 700;
     }
 
-    /* Horaires block */
     .horaires-block {
       background: rgba(255,255,255,0.04);
       border-radius: 14px;
@@ -451,7 +437,6 @@
       margin-bottom: 10px;
     }
 
-    /* Minimum badge */
     .minimum-badge {
       text-align: right;
       margin-top: 6px;
@@ -464,7 +449,6 @@
       font-weight: 800;
     }
 
-    /* Meetup location row */
     .meetup-location-row {
       display: flex;
       align-items: center;
@@ -512,7 +496,6 @@
       font-weight: 500;
     }
 
-    /* Contact card */
     .contact-card {
       background: rgba(15, 15, 22, 0.88);
       border: 1.5px solid rgba(255, 235, 59, 0.18);
@@ -549,7 +532,7 @@
       margin-top: 3px;
     }
 
-    /* ── RÉSEAUX — nouveau style ── */
+    /* ── RÉSEAUX ── */
     #reseaux-page { display: none; padding: 16px 16px 110px 16px; }
     .section-title { font-family: 'Orbitron', sans-serif; font-size: 1.45rem; color: #ffeb3b; margin: 28px 0 16px; font-weight: bold; text-align: center; text-shadow: 0 0 6px rgba(255,235,59,.4); letter-spacing: 1.5px; }
     .reseaux-list { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
@@ -618,20 +601,63 @@
     .avis-date { font-size: 0.75rem; color: #555; margin-bottom: 8px; }
     .avis-comment { color: #ccc; font-size: 0.95rem; line-height: 1.5; }
 
-    /* ── NAV ── */
+    /* ══════════════════════════════════════
+       NAV — EMOJIS ONLY, NO TEXT, SMALLER
+    ══════════════════════════════════════ */
     nav {
-      position: fixed; bottom: 18px; left: 12px; right: 12px; height: 78px;
+      position: fixed; bottom: 18px; left: 12px; right: 12px; height: 68px;
       background: rgba(15,15,20,0.96); border-radius: 26px;
       border: 1px solid rgba(255,235,59,0.2);
       display: flex; justify-content: space-around; align-items: center;
       z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.7);
     }
-    .nav-item { display: flex; flex-direction: column; align-items: center; color: #aaa; font-size: 0.7rem; font-weight: 600; cursor: pointer; width: 55px; transition: all 0.3s ease; }
-    .nav-item.active { color: #ffeb3b; transform: translateY(-10px); }
-    .nav-icon-wrapper { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,235,59,0.05); position: relative; }
-    .nav-item.active .nav-icon-wrapper { background: rgba(255,235,59,0.35); box-shadow: 0 8px 24px rgba(255,235,59,0.5); transform: scale(1.15); }
-    .nav-item svg { width: 28px; height: 28px; stroke: currentColor; }
-    #cart-badge { position: absolute; top: -4px; right: -4px; background: #ef4444; color: white; border-radius: 50%; min-width: 18px; height: 18px; padding: 0 4px; font-size: 0.65rem; font-weight: bold; line-height: 18px; box-shadow: 0 0 8px rgba(239,68,68,0.6); display: none; }
+
+    /* Each nav item: just an emoji, no label */
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #aaa;
+      cursor: pointer;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      position: relative;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .nav-item.active {
+      color: #ffeb3b;
+      background: rgba(255,235,59,0.2);
+      box-shadow: 0 4px 16px rgba(255,235,59,0.35);
+      transform: translateY(-4px) scale(1.1);
+    }
+
+    /* Emoji inside nav */
+    .nav-emoji {
+      font-size: 1.35rem;
+      line-height: 1;
+      display: block;
+      filter: grayscale(0.3);
+      transition: filter 0.2s, transform 0.2s;
+    }
+
+    .nav-item.active .nav-emoji {
+      filter: none;
+      transform: scale(1.1);
+    }
+
+    /* Cart badge */
+    #cart-badge {
+      position: absolute; top: -3px; right: -3px;
+      background: #ef4444; color: white;
+      border-radius: 50%; min-width: 16px; height: 16px;
+      padding: 0 3px; font-size: 0.6rem; font-weight: bold;
+      line-height: 16px; box-shadow: 0 0 8px rgba(239,68,68,0.6);
+      display: none; z-index: 2;
+    }
 
     /* ══════════════════════════════════════
        AUTH MODAL
@@ -776,6 +802,48 @@
       color: #ffeb3b; letter-spacing: 1px;
       text-transform: uppercase;
       margin: 20px 0 12px;
+    }
+
+    /* Bloc stats commandes */
+    .profil-stats-block {
+      background: rgba(15,15,22,0.9);
+      border: 1.5px solid rgba(255,235,59,0.2);
+      border-radius: 20px;
+      padding: 20px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+    }
+
+    .profil-stats-icon {
+      width: 56px; height: 56px;
+      background: rgba(255,235,59,0.1);
+      border: 1.5px solid rgba(255,235,59,0.3);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .profil-stats-info { flex: 1; }
+
+    .profil-stats-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #ffeb3b;
+      line-height: 1;
+      text-shadow: 0 0 14px rgba(255,235,59,0.4);
+    }
+
+    .profil-stats-label {
+      font-size: 0.8rem;
+      color: #666;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
     }
 
     .commande-card {
@@ -934,383 +1002,305 @@
     <div class="splash-content">
       <img src="rouen.PNG" alt="" class="splash-bg" />
       <div class="splash-vignette"></div>
-
-
-  <!-- Particules -->
-  <div class="splash-particles" id="splash-particles"></div>
-
-  <!-- Glow -->
-  <div class="splash-glow"></div>
-
-  <!-- Logo -->
-  <img src="chat.PNG" alt="Logo Bart.Coffee76" class="splash-logo" />
-
-  <!-- Nom -->
-  <div class="splash-name">Bart<span>.</span>Coffee<span>76</span></div>
-  <div class="splash-sub">Qualité Premium</div>
-
-  <!-- Barre -->
-  <div class="splash-progress-wrap">
-    <div class="splash-progress-bar"></div>
-  </div>
-  <div class="splash-text">Chargement...</div>
-</div>
-
+      <div class="splash-particles" id="splash-particles"></div>
+      <div class="splash-glow"></div>
+      <img src="chat.PNG" alt="Logo Bart.Coffee76" class="splash-logo" />
+      <div class="splash-name">Bart<span>.</span>Coffee<span>76</span></div>
+      <div class="splash-sub">Qualité Premium</div>
+      <div class="splash-progress-wrap">
+        <div class="splash-progress-bar"></div>
+      </div>
+      <div class="splash-text">Chargement...</div>
+    </div>
   </div>
 
   <div class="container">
     <div class="overlay"></div>
     <div class="content">
 
+      <!-- PAGE ACCUEIL -->
+      <div id="home-page">
+        <div id="home-logo-wrapper">
+          <img id="top-logo" src="chat.PNG" alt="Logo">
+        </div>
 
-  <!-- PAGE ACCUEIL -->
-  <div id="home-page">
-    <div id="home-logo-wrapper">
-      <img id="top-logo" src="chat.PNG" alt="Logo">
-    </div>
+        <div id="products-header">
+          <div class="products-title">
+            <span style="font-size:1.4rem;">🛍️</span>
+            Catalogue
+          </div>
+          <div id="products-count-modern" class="products-count">
+            <div class="products-count-number">3</div>
+            <div class="products-count-label">Produits</div>
+          </div>
+        </div>
 
-    <div id="products-header">
-      <div class="products-title">
-        <span style="font-size:1.4rem;">🛍️</span>
-        Catalogue
-      </div>
-      <div id="products-count-modern" class="products-count">
-        <div class="products-count-number">3</div>
-        <div class="products-count-label">Produits</div>
-      </div>
-    </div>
+        <div id="filters-bar">
+          <div class="filters-inner">
+            <select id="category-filter" class="compact-select" onchange="filterProducts()">
+              <option value="">Toutes catégories</option>
+            </select>
+            <select id="farm-filter" class="compact-select" onchange="filterProducts()">
+              <option value="">Toutes farms</option>
+            </select>
+          </div>
+        </div>
 
-    <div id="filters-bar">
-      <div class="filters-inner">
-        <select id="category-filter" class="compact-select" onchange="filterProducts()">
-          <option value="">Toutes catégories</option>
-        </select>
-        <select id="farm-filter" class="compact-select" onchange="filterProducts()">
-          <option value="">Toutes farms</option>
-        </select>
+        <div id="products-grid"></div>
       </div>
-    </div>
 
-    <div id="products-grid"></div>
-  </div>
-
-  <!-- DÉTAIL PRODUIT -->
-  <div id="product-detail">
-    <div class="swiper-wrap">
-      <div class="swiper-track" id="swiper-track"></div>
-      <button class="swiper-btn swiper-btn-prev" onclick="swiperPrev()">&#8249;</button>
-      <button class="swiper-btn swiper-btn-next" onclick="swiperNext()">&#8250;</button>
-      <div class="swiper-counter" id="swiper-counter">1 / 1</div>
-    </div>
-    <div class="product-info">
-      <div class="product-title" id="detail-title"></div>
-      <div class="badges">
-        <div class="badge badge-farm" id="detail-farm-badge"></div>
-      </div>
-      <div class="strain-section" id="detail-strain-desc"></div>
-      <div class="quantity-section">
-        <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
-        <div class="quantity-grid" id="qty-grid"></div>
-      </div>
-      <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
-    </div>
-  </div>
-
-  <!-- PANIER -->
-  <div id="cart-page">
-    <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
-    <div id="cart-items"></div>
-    <div id="cart-total" class="cart-total"></div>
-    <div class="questionnaire">
-      <div class="question">
-        <span class="question-label">Mode de récupération :</span>
-        <button class="option-btn" data-type="pickup">Venir sur place</button>
-        <button class="option-btn" data-type="delivery">Livraison</button>
-      </div>
-      <div id="pickup-questions" style="display:none;">
-        <div class="question">
-          <span class="question-label">Pour quelle heure ?</span>
-          <input type="time" id="pickup-time">
+      <!-- DÉTAIL PRODUIT -->
+      <div id="product-detail">
+        <div class="swiper-wrap">
+          <div class="swiper-track" id="swiper-track"></div>
+          <button class="swiper-btn swiper-btn-prev" onclick="swiperPrev()">&#8249;</button>
+          <button class="swiper-btn swiper-btn-next" onclick="swiperNext()">&#8250;</button>
+          <div class="swiper-counter" id="swiper-counter">1 / 1</div>
+        </div>
+        <div class="product-info">
+          <div class="product-title" id="detail-title"></div>
+          <div class="badges">
+            <div class="badge badge-farm" id="detail-farm-badge"></div>
+          </div>
+          <div class="strain-section" id="detail-strain-desc"></div>
+          <div class="quantity-section">
+            <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
+            <div class="quantity-grid" id="qty-grid"></div>
+          </div>
+          <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
         </div>
       </div>
-      <div id="delivery-questions" style="display:none;">
-        <div class="question">
-          <span class="question-label">Heure souhaitée</span>
-          <input type="time" id="delivery-time">
+
+      <!-- PANIER -->
+      <div id="cart-page">
+        <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
+        <div id="cart-items"></div>
+        <div id="cart-total" class="cart-total"></div>
+        <div class="questionnaire">
+          <div class="question">
+            <span class="question-label">Mode de récupération :</span>
+            <button class="option-btn" data-type="pickup">Venir sur place</button>
+            <button class="option-btn" data-type="delivery">Livraison</button>
+          </div>
+          <div id="pickup-questions" style="display:none;">
+            <div class="question">
+              <span class="question-label">Pour quelle heure ?</span>
+              <input type="time" id="pickup-time">
+            </div>
+          </div>
+          <div id="delivery-questions" style="display:none;">
+            <div class="question">
+              <span class="question-label">Heure souhaitée</span>
+              <input type="time" id="delivery-time">
+            </div>
+            <div class="question">
+              <span class="question-label">Adresse complète</span>
+              <input type="text" id="delivery-address" placeholder="Rue, numéro, ville...">
+            </div>
+            <div class="question">
+              <span class="question-label">Précisions (étage, code, etc.)</span>
+              <textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea>
+            </div>
+          </div>
+          <button id="submit-order-btn">Commander</button>
         </div>
-        <div class="question">
-          <span class="question-label">Adresse complète</span>
-          <input type="text" id="delivery-address" placeholder="Rue, numéro, ville...">
+      </div>
+
+      <!-- INFOS -->
+      <div id="infos-page">
+        <div class="info-card" style="margin-top:8px;">
+          <div class="info-card-header">
+            <div class="info-card-icon">🪪</div>
+            <div class="info-card-title">Information de Bart.Coffee76</div>
+          </div>
+          <div class="info-row">
+            <span class="info-row-icon">ℹ️</span>
+            <span class="info-row-label">Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.</span>
+          </div>
+          <div style="margin-top:14px; background:rgba(255,235,59,0.07); border:1px solid rgba(255,235,59,0.25); border-radius:14px; padding:12px 16px; text-align:center;">
+            <span style="color:#aaa; font-size:0.88rem;">Contact secrétaire</span><br>
+            <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:800;">@sav_Bart76</span>
+          </div>
         </div>
-        <div class="question">
-          <span class="question-label">Précisions (étage, code, etc.)</span>
-          <textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-icon">🚚</div>
+            <div class="info-card-title">Livraison</div>
+          </div>
+          <div class="info-row" style="margin-bottom:10px;">
+            <span class="info-row-icon">📍</span>
+            <div>
+              <div class="info-row-label">Départements desservis</div>
+              <div class="dept-badges">
+                <span class="dept-badge">76</span>
+                <span class="dept-badge">27</span>
+                <span class="dept-badge">14</span>
+              </div>
+            </div>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:14px 16px; margin-bottom:12px;">
+            <div style="color:#888; font-size:0.85rem; margin-bottom:10px; font-weight:600;">TARIFS</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#ccc; font-size:0.95rem;">Sur Rouen</span>
+                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">70€</span>
+              </div>
+              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#ccc; font-size:0.95rem;">Moins de 10 km</span>
+                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">100€</span>
+              </div>
+              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#ccc; font-size:0.95rem;">Supérieur à 10 km</span>
+                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">150€</span>
+              </div>
+              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:#ccc; font-size:0.95rem;">Supérieur à 25 km</span>
+                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">270€</span>
+              </div>
+            </div>
+          </div>
+          <div class="minimum-badge"><span>Minimum 50€</span></div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-icon">📍</div>
+            <div class="info-card-title">Meet-up</div>
+          </div>
+          <div class="meetup-location-row">
+            <div class="meetup-location-left">
+              <span style="color:#ffeb3b; font-size:1.1rem;">📍</span>
+              <span class="meetup-location-name">Rouen Rive Gauche</span>
+            </div>
+            <div class="disponible-badge">Disponible</div>
+          </div>
+          <div class="meetup-horaires-row">
+            <span style="color:#ffeb3b; font-size:1.1rem;">🕐</span>
+            <span class="meetup-horaires-text">Horaires : 14h – 23h</span>
+          </div>
+          <div class="minimum-badge"><span>Minimum 50€</span></div>
         </div>
       </div>
-      <button id="submit-order-btn">Commander</button>
-    </div>
-  </div>
 
-  <!-- ══════════════════════════════════════
-       INFOS — NOUVEAU STYLE (textes inchangés)
-  ══════════════════════════════════════ -->
-  <div id="infos-page">
+      <!-- RÉSEAUX -->
+      <div id="reseaux-page">
+        <h2 class="section-title">Nos réseaux</h2>
+        <div class="reseaux-list">
+          <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
+            <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35);">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
+            </div>
+            <div class="reseau-text">
+              <div class="reseau-name">Telegram VIP</div>
+              <div class="reseau-sub">Canal privé ⭐️</div>
+            </div>
+            <div class="reseau-arrow">›</div>
+          </div>
 
-    <!-- Carte Identité info -->
-    <div class="info-card" style="margin-top:8px;">
-      <div class="info-card-header">
-        <div class="info-card-icon">🪪</div>
-        <div class="info-card-title">Information de Bart.Coffee76</div>
-      </div>
-      <div class="info-row">
-        <span class="info-row-icon">ℹ️</span>
-        <span class="info-row-label">Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.</span>
-      </div>
-      <div style="margin-top:14px; background:rgba(255,235,59,0.07); border:1px solid rgba(255,235,59,0.25); border-radius:14px; padding:12px 16px; text-align:center;">
-        <span style="color:#aaa; font-size:0.88rem;">Contact secrétaire</span><br>
-        <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:800;">@sav_Bart76</span>
-      </div>
-    </div>
+          <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
+            <div class="reseau-icon-wrap" style="background:rgba(255,193,7,0.12);border-color:rgba(255,193,7,0.35);">
+              <img src="potato.jpg" alt="Canal Potato">
+            </div>
+            <div class="reseau-text">
+              <div class="reseau-name">Canal Potato</div>
+              <div class="reseau-sub">Rejoindre 🥔</div>
+            </div>
+            <div class="reseau-arrow">›</div>
+          </div>
 
-    <!-- Carte Livraison -->
-    <div class="info-card">
-      <div class="info-card-header">
-        <div class="info-card-icon">🚚</div>
-        <div class="info-card-title">Livraison</div>
-      </div>
-
-      <div class="info-row" style="margin-bottom:10px;">
-        <span class="info-row-icon">📍</span>
-        <div>
-          <div class="info-row-label">Départements desservis</div>
-          <div class="dept-badges">
-            <span class="dept-badge">76</span>
-            <span class="dept-badge">27</span>
-            <span class="dept-badge">14</span>
+          <div class="reseau-item" data-link="http://t.me/sav_Bart76">
+            <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35);">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
+            </div>
+            <div class="reseau-text">
+              <div class="reseau-name">Secrétaire</div>
+              <div class="reseau-sub">@sav_Bart76 👨‍💼</div>
+            </div>
+            <div class="reseau-arrow">›</div>
           </div>
         </div>
       </div>
 
-      <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:14px 16px; margin-bottom:12px;">
-        <div style="color:#888; font-size:0.85rem; margin-bottom:10px; font-weight:600;">TARIFS</div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:#ccc; font-size:0.95rem;">Sur Rouen</span>
-            <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">70€</span>
+      <!-- AVIS -->
+      <div id="avis-page" style="display:none; padding:16px 16px 110px 16px;">
+        <h2 class="section-title">⭐ Avis clients</h2>
+        <div class="info-card" style="margin-bottom:20px;">
+          <div class="info-card-header">
+            <div class="info-card-icon">✍️</div>
+            <div class="info-card-title">Laisser un avis</div>
           </div>
-          <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:#ccc; font-size:0.95rem;">Moins de 10 km</span>
-            <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">100€</span>
+          <div style="margin-bottom:14px;">
+            <div style="color:#aaa; font-size:0.9rem; margin-bottom:10px; font-weight:600;">Votre note</div>
+            <div id="star-rating" style="display:flex; gap:8px; font-size:2rem; cursor:pointer;">
+              <span class="star" data-v="1">☆</span>
+              <span class="star" data-v="2">☆</span>
+              <span class="star" data-v="3">☆</span>
+              <span class="star" data-v="4">☆</span>
+              <span class="star" data-v="5">☆</span>
+            </div>
           </div>
-          <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:#ccc; font-size:0.95rem;">Supérieur à 10 km</span>
-            <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">150€</span>
+          <div style="margin-bottom:14px;">
+            <div style="color:#aaa; font-size:0.9rem; margin-bottom:8px; font-weight:600;">Votre commentaire</div>
+            <textarea id="avis-text" placeholder="Partagez votre expérience..." style="width:100%;padding:14px;border-radius:12px;border:1.5px solid rgba(255,235,59,0.3);background:rgba(20,20,30,0.9);color:#e0e0e0;font-size:1rem;min-height:90px;resize:vertical;font-family:'M PLUS Rounded 1c',sans-serif;outline:none;"></textarea>
           </div>
-          <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:#ccc; font-size:0.95rem;">Supérieur à 25 km</span>
-            <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">270€</span>
+          <button id="submit-avis-btn" style="width:100%;padding:15px;background:#ffeb3b;color:#111;border:none;border-radius:14px;font-size:1.05rem;font-weight:800;cursor:pointer;font-family:'Orbitron',sans-serif;box-shadow:0 0 12px rgba(255,235,59,0.4);">
+            Publier mon avis
+          </button>
+        </div>
+        <div id="avis-list"></div>
+      </div>
+
+      <!-- PROFIL PAGE -->
+      <div id="profil-page"></div>
+
+      <!-- CHAT PAGE -->
+      <div id="chat-page">
+        <div class="chat-header">
+          <div class="chat-header-icon">💬</div>
+          <div>
+            <div class="chat-header-title">Support Client</div>
+            <div class="chat-header-sub">● En ligne</div>
           </div>
         </div>
+        <div id="chat-body"></div>
       </div>
 
-      <div class="minimum-badge">
-        <span>Minimum 50€</span>
-      </div>
-    </div>
-
-    <!-- Carte Meet-up -->
-    <div class="info-card">
-      <div class="info-card-header">
-        <div class="info-card-icon">📍</div>
-        <div class="info-card-title">Meet-up</div>
-      </div>
-
-      <div class="meetup-location-row">
-        <div class="meetup-location-left">
-          <span style="color:#ffeb3b; font-size:1.1rem;">📍</span>
-          <span class="meetup-location-name">Rouen Rive Gauche</span>
+      <!-- ══════════════════════════════════
+           NAV — EMOJI ONLY, NO TEXT
+      ══════════════════════════════════ -->
+      <nav>
+        <div class="nav-item active" id="nav-home">
+          <span class="nav-emoji">🏠</span>
         </div>
-        <div class="disponible-badge">Disponible</div>
-      </div>
-
-      <div class="meetup-horaires-row">
-        <span style="color:#ffeb3b; font-size:1.1rem;">🕐</span>
-        <span class="meetup-horaires-text">Horaires : 14h – 23h</span>
-      </div>
-
-      <div class="minimum-badge">
-        <span>Minimum 50€</span>
-      </div>
-    </div>
-
-    <!-- Contact 24h SUPPRIMÉ -->
-
-  </div>
-
-  <!-- RÉSEAUX -->
-  <div id="reseaux-page">
-    <h2 class="section-title">Nos réseaux</h2>
-    <div class="reseaux-list">
-
-      <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
-        <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35);">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
+        <div class="nav-item" id="nav-cart">
+          <span class="nav-emoji">🛒</span>
+          <span id="cart-badge"></span>
         </div>
-        <div class="reseau-text">
-          <div class="reseau-name">Telegram VIP</div>
-          <div class="reseau-sub">Canal privé ⭐️</div>
+        <div class="nav-item" id="nav-avis">
+          <span class="nav-emoji">⭐</span>
         </div>
-        <div class="reseau-arrow">›</div>
-      </div>
-
-      <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
-        <div class="reseau-icon-wrap" style="background:rgba(255,193,7,0.12);border-color:rgba(255,193,7,0.35);">
-          <img src="potato.jpg" alt="Canal Potato">
+        <div class="nav-item" id="nav-chat">
+          <span class="nav-emoji">💬</span>
         </div>
-        <div class="reseau-text">
-          <div class="reseau-name">Canal Potato</div>
-          <div class="reseau-sub">Rejoindre 🥔</div>
+        <div class="nav-item" id="nav-infos">
+          <span class="nav-emoji">ℹ️</span>
         </div>
-        <div class="reseau-arrow">›</div>
-      </div>
-
-      <div class="reseau-item" data-link="http://t.me/sav_Bart76">
-        <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35);">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
+        <div class="nav-item" id="nav-reseaux">
+          <span class="nav-emoji">📡</span>
         </div>
-        <div class="reseau-text">
-          <div class="reseau-name">Secrétaire</div>
-          <div class="reseau-sub">@sav_Bart76 👨‍💼</div>
+        <div class="nav-item" id="nav-profil">
+          <span class="nav-emoji">👤</span>
         </div>
-        <div class="reseau-arrow">›</div>
-      </div>
+      </nav>
 
     </div>
   </div>
 
-  <!-- AVIS -->
-  <div id="avis-page" style="display:none; padding:16px 16px 110px 16px;">
-    <h2 class="section-title">⭐ Avis clients</h2>
-    <div class="info-card" style="margin-bottom:20px;">
-      <div class="info-card-header">
-        <div class="info-card-icon">✍️</div>
-        <div class="info-card-title">Laisser un avis</div>
-      </div>
-      <div style="margin-bottom:14px;">
-        <div style="color:#aaa; font-size:0.9rem; margin-bottom:10px; font-weight:600;">Votre note</div>
-        <div id="star-rating" style="display:flex; gap:8px; font-size:2rem; cursor:pointer;">
-          <span class="star" data-v="1">☆</span>
-          <span class="star" data-v="2">☆</span>
-          <span class="star" data-v="3">☆</span>
-          <span class="star" data-v="4">☆</span>
-          <span class="star" data-v="5">☆</span>
-        </div>
-      </div>
-      <div style="margin-bottom:14px;">
-        <div style="color:#aaa; font-size:0.9rem; margin-bottom:8px; font-weight:600;">Votre commentaire</div>
-        <textarea id="avis-text" placeholder="Partagez votre expérience..." style="width:100%;padding:14px;border-radius:12px;border:1.5px solid rgba(255,235,59,0.3);background:rgba(20,20,30,0.9);color:#e0e0e0;font-size:1rem;min-height:90px;resize:vertical;font-family:'M PLUS Rounded 1c',sans-serif;outline:none;"></textarea>
-      </div>
-      <button id="submit-avis-btn" style="width:100%;padding:15px;background:#ffeb3b;color:#111;border:none;border-radius:14px;font-size:1.05rem;font-weight:800;cursor:pointer;font-family:'Orbitron',sans-serif;box-shadow:0 0 12px rgba(255,235,59,0.4);">
-        Publier mon avis
-      </button>
-    </div>
-    <div id="avis-list"></div>
-  </div>
-
-  <!-- PROFIL PAGE -->
-  <div id="profil-page">
-    <!-- Contenu généré par JS -->
-  </div>
-
-  <!-- CHAT PAGE -->
-  <div id="chat-page">
-    <div class="chat-header">
-      <div class="chat-header-icon">💬</div>
-      <div>
-        <div class="chat-header-title">Support Client</div>
-        <div class="chat-header-sub">● En ligne</div>
-      </div>
-    </div>
-    <div id="chat-body">
-      <!-- Soit messages soit locked, généré par JS -->
-    </div>
-  </div>
-
-  <!-- NAV -->
-  <nav>
-    <div class="nav-item active" id="nav-home">
-      <div class="nav-icon-wrapper">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-      </div>
-      <span>Accueil</span>
-    </div>
-    <div class="nav-item" id="nav-cart">
-      <div class="nav-icon-wrapper">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-        </svg>
-        <span id="cart-badge"></span>
-      </div>
-      <span>Panier</span>
-    </div>
-    <div class="nav-item" id="nav-avis">
-      <div class="nav-icon-wrapper">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-        </svg>
-      </div>
-      <span>Avis</span>
-    </div>
-    <div class="nav-item" id="nav-chat">
-      <div class="nav-icon-wrapper">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        </svg>
-      </div>
-      <span>Chat</span>
-    </div>
-    <div class="nav-item" id="nav-infos">
-      <div class="nav-icon-wrapper">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="16" x2="12" y2="12"/>
-          <line x1="12" y1="8" x2="12.01" y2="8"/>
-        </svg>
-      </div>
-      <span>Infos</span>
-    </div>
-    <div class="nav-item" id="nav-reseaux">
-      <div class="nav-icon-wrapper">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        </svg>
-      </div>
-      <span>Réseaux</span>
-    </div>
-    <div class="nav-item" id="nav-profil">
-      <div class="nav-icon-wrapper">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-      </div>
-      <span id="nav-profil-label">Profil</span>
-    </div>
-  </nav>
-
-    </div>
-
-  </div>
-
-  <!-- AUTH MODAL -->
-
+  <!-- AUTH MODAL — identifiant + mot de passe uniquement -->
   <div id="auth-modal">
     <div class="auth-sheet">
       <div class="auth-handle"></div>
@@ -1318,17 +1308,37 @@
         <div class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Connexion</div>
         <div class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Inscription</div>
       </div>
+
+      <!-- LOGIN : identifiant + mot de passe -->
       <div id="auth-login-form">
-        <div class="auth-field"><label>Email</label><input type="email" id="login-email" placeholder="votre@email.com"></div>
-        <div class="auth-field"><label>Mot de passe</label><input type="password" id="login-password" placeholder="••••••••"></div>
+        <div class="auth-field">
+          <label>Identifiant</label>
+          <input type="text" id="login-username" placeholder="Votre identifiant">
+        </div>
+        <div class="auth-field">
+          <label>Mot de passe</label>
+          <input type="password" id="login-password" placeholder="••••••••">
+        </div>
         <button class="auth-submit" id="login-btn" onclick="doLogin()">Se connecter</button>
       </div>
+
+      <!-- REGISTER : prénom + identifiant + mot de passe -->
       <div id="auth-register-form" style="display:none;">
-        <div class="auth-field"><label>Prénom</label><input type="text" id="reg-name" placeholder="Votre prénom"></div>
-        <div class="auth-field"><label>Email</label><input type="email" id="reg-email" placeholder="votre@email.com"></div>
-        <div class="auth-field"><label>Mot de passe</label><input type="password" id="reg-password" placeholder="Min. 6 caractères"></div>
+        <div class="auth-field">
+          <label>Prénom</label>
+          <input type="text" id="reg-name" placeholder="Votre prénom">
+        </div>
+        <div class="auth-field">
+          <label>Identifiant</label>
+          <input type="text" id="reg-username" placeholder="Choisissez un identifiant">
+        </div>
+        <div class="auth-field">
+          <label>Mot de passe</label>
+          <input type="password" id="reg-password" placeholder="Min. 6 caractères">
+        </div>
         <button class="auth-submit" id="register-btn" onclick="doRegister()">Créer mon compte</button>
       </div>
+
       <div class="auth-error" id="auth-error"></div>
     </div>
   </div>
@@ -1336,7 +1346,7 @@
   <script type="module">
   // ── FIREBASE INIT ────────────────────────────────────────────────────────────
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-  import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, where, onSnapshot }
+  import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, where, onSnapshot, doc, setDoc, getDoc }
     from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
     onAuthStateChanged, signOut, updateProfile }
@@ -1357,7 +1367,7 @@
 
   window._db        = _db;
   window._auth      = _auth;
-  window._firestore = { addDoc, collection, getDocs, query, orderBy, serverTimestamp, where, onSnapshot };
+  window._firestore = { addDoc, collection, getDocs, query, orderBy, serverTimestamp, where, onSnapshot, doc, setDoc, getDoc };
   window._authFns   = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile };
 
   // ── AUTH STATE ───────────────────────────────────────────────────────────────
@@ -1366,12 +1376,6 @@
 
   onAuthStateChanged(_auth, user => {
     currentUser = user;
-    const label = document.getElementById('nav-profil-label');
-    if (user) {
-      label.textContent = user.displayName?.split(' ')[0] || 'Profil';
-    } else {
-      label.textContent = 'Profil';
-    }
   });
 
   // ── AUTH MODAL ───────────────────────────────────────────────────────────────
@@ -1394,42 +1398,53 @@
     if (e.target === document.getElementById('auth-modal')) closeAuthModal();
   });
 
+  // ─────────────────────────────────────────────────────────────────────────────
+  // LOGIN : on cherche l'utilisateur par identifiant dans la collection "users"
+  // puis on connecte avec son email interne (uid@bart.internal)
+  // ─────────────────────────────────────────────────────────────────────────────
   window.doLogin = async () => {
-    const email = document.getElementById('login-email').value.trim();
-    const pass  = document.getElementById('login-password').value;
-    const errEl = document.getElementById('auth-error');
-    const btn   = document.getElementById('login-btn');
-    if (!email || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
+    const username = document.getElementById('login-username').value.trim().toLowerCase();
+    const pass     = document.getElementById('login-password').value;
+    const errEl    = document.getElementById('auth-error');
+    const btn      = document.getElementById('login-btn');
+    if (!username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
     btn.disabled = true; btn.textContent = 'Connexion...';
     try {
-      await signInWithEmailAndPassword(_auth, email, pass);
+      // Email synthétique dérivé de l'identifiant
+      const syntheticEmail = username + '@bart76.internal';
+      await signInWithEmailAndPassword(_auth, syntheticEmail, pass);
       closeAuthModal();
       renderProfilPage();
     } catch(e) {
-      errEl.textContent = e.code === 'auth/invalid-credential'
-        ? 'Email ou mot de passe incorrect.'
-        : 'Erreur : ' + e.message;
+      errEl.textContent = 'Identifiant ou mot de passe incorrect.';
     }
     btn.disabled = false; btn.textContent = 'Se connecter';
   };
 
+  // ─────────────────────────────────────────────────────────────────────────────
+  // REGISTER : crée un compte avec email synthétique identifiant@bart76.internal
+  // ─────────────────────────────────────────────────────────────────────────────
   window.doRegister = async () => {
-    const name  = document.getElementById('reg-name').value.trim();
-    const email = document.getElementById('reg-email').value.trim();
-    const pass  = document.getElementById('reg-password').value;
-    const errEl = document.getElementById('auth-error');
-    const btn   = document.getElementById('register-btn');
-    if (!name || !email || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
+    const name     = document.getElementById('reg-name').value.trim();
+    const username = document.getElementById('reg-username').value.trim().toLowerCase();
+    const pass     = document.getElementById('reg-password').value;
+    const errEl    = document.getElementById('auth-error');
+    const btn      = document.getElementById('register-btn');
+    if (!name || !username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
     if (pass.length < 6) { errEl.textContent = 'Mot de passe trop court (min. 6 caractères).'; return; }
+    if (!/^[a-z0-9_]+$/.test(username)) { errEl.textContent = "L'identifiant ne peut contenir que des lettres, chiffres et _"; return; }
     btn.disabled = true; btn.textContent = 'Création...';
     try {
-      const cred = await createUserWithEmailAndPassword(_auth, email, pass);
+      const syntheticEmail = username + '@bart76.internal';
+      const cred = await createUserWithEmailAndPassword(_auth, syntheticEmail, pass);
       await updateProfile(cred.user, { displayName: name });
+      // Stocker le mapping identifiant → uid dans Firestore
+      await setDoc(doc(_db, 'users', username), { uid: cred.user.uid, name, username });
       closeAuthModal();
       renderProfilPage();
     } catch(e) {
       errEl.textContent = e.code === 'auth/email-already-in-use'
-        ? 'Cet email est déjà utilisé.'
+        ? 'Cet identifiant est déjà utilisé.'
         : 'Erreur : ' + e.message;
     }
     btn.disabled = false; btn.textContent = 'Créer mon compte';
@@ -1459,14 +1474,27 @@
       return;
     }
 
-    // Charger commandes
+    // Récupère l'identifiant (username) depuis l'email synthétique
+    const displayUsername = user.email ? user.email.replace('@bart76.internal', '') : 'utilisateur';
+
+    // Squelette de la page avec le bloc stats
     page.innerHTML = `
       <div class="profil-header">
         <button class="profil-logout" onclick="doLogout()">Déconnexion</button>
         <div class="profil-avatar">👤</div>
-        <div class="profil-name">${user.displayName || 'Utilisateur'}</div>
-        <div class="profil-email">${user.email}</div>
+        <div class="profil-name">${user.displayName || displayUsername}</div>
+        <div class="profil-email" style="color:#555;font-size:0.8rem;">@${displayUsername}</div>
       </div>
+
+      <!-- Bloc nombre de commandes -->
+      <div class="profil-stats-block" id="profil-stats-block">
+        <div class="profil-stats-icon">📦</div>
+        <div class="profil-stats-info">
+          <div class="profil-stats-number" id="profil-cmd-count">—</div>
+          <div class="profil-stats-label">commande(s) passée(s)</div>
+        </div>
+      </div>
+
       <div class="profil-section-title">📦 Mes commandes</div>
       <div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px;">Chargement...</p></div>`;
 
@@ -1477,7 +1505,12 @@
         orderBy('timestamp', 'desc')
       );
       const snap = await getDocs(q);
-      const cmdEl = document.getElementById('profil-commandes');
+      const cmdEl   = document.getElementById('profil-commandes');
+      const countEl = document.getElementById('profil-cmd-count');
+
+      // Mise à jour du compteur
+      countEl.textContent = snap.size;
+
       if (snap.empty) {
         cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem;">Aucune commande pour l\'instant.</p>';
         return;
@@ -1494,8 +1527,11 @@
         </div>`;
       }).join('');
     } catch(e) {
-      document.getElementById('profil-commandes').innerHTML =
-        '<p style="color:#ef4444;text-align:center;padding:20px;">Erreur de chargement.</p>';
+      // En cas d'erreur Firestore, on affiche juste 0 commandes sans message d'erreur rouge
+      const countEl = document.getElementById('profil-cmd-count');
+      if (countEl) countEl.textContent = '0';
+      const cmdEl = document.getElementById('profil-commandes');
+      if (cmdEl) cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem;">Aucune commande pour l\'instant.</p>';
     }
   }
 
@@ -1524,7 +1560,6 @@
         <button id="chat-send-btn" onclick="sendChatMsg()">➤</button>
       </div>`;
 
-    // Écoute temps réel
     if (chatUnsub) chatUnsub();
     const q = query(collection(_db, 'chat'), orderBy('timestamp', 'asc'));
     chatUnsub = onSnapshot(q, snap => {
@@ -1569,11 +1604,7 @@
   if (tg) {
     tg.ready();
     tg.expand();
-    // Fullscreen API (Telegram Bot API 8.0+)
-    if (typeof tg.requestFullscreen === 'function') {
-      tg.requestFullscreen();
-    }
-    // Couleurs header/fond
+    if (typeof tg.requestFullscreen === 'function') tg.requestFullscreen();
     if (typeof tg.setHeaderColor === 'function') tg.setHeaderColor('#000000');
     if (typeof tg.setBackgroundColor === 'function') tg.setBackgroundColor('#000000');
     if (typeof tg.setBottomBarColor === 'function') tg.setBottomBarColor('#000000');
@@ -1756,6 +1787,8 @@
 
   function swiperPrev() { swiperIndex = (swiperIndex - 1 + swiperItems.length) % swiperItems.length; updateSwiper(); }
   function swiperNext() { swiperIndex = (swiperIndex + 1) % swiperItems.length; updateSwiper(); }
+  window.swiperPrev = swiperPrev;
+  window.swiperNext = swiperNext;
 
   // ── DÉTAIL PRODUIT ────────────────────────────────────────────────────────────
   function openProductDetail(key) {
@@ -1853,18 +1886,9 @@
     renderChatPage();
   };
 
-  document.getElementById('nav-infos').onclick = () => {
-    hideAllPages();
-    document.getElementById('infos-page').style.display = 'block';
-    document.getElementById('nav-infos').classList.add('active');
-    if (tg) tg.BackButton.hide();
-    scrollToTop();
-  };
-
-  // ── AVIS SYSTEM — FIREBASE FIRESTORE (partagé entre tous les utilisateurs) ────
+  // ── AVIS SYSTEM ──────────────────────────────────────────────────────────────
   let selectedStar = 0;
 
-  // Init étoiles
   document.querySelectorAll('.star').forEach(star => {
     star.addEventListener('click', () => {
       selectedStar = parseInt(star.dataset.v);
@@ -1875,24 +1899,6 @@
     });
   });
 
-  function renderAvisFromData(avisList) {
-    const list = document.getElementById('avis-list');
-    if (!avisList || avisList.length === 0) {
-      list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0;font-size:0.95rem;">Aucun avis pour l\'instant. Soyez le premier !</p>';
-      return;
-    }
-    list.innerHTML = avisList.map(a => `
-      <div class="avis-card">
-        <div class="avis-header">
-          <span class="avis-user">${a.user}</span>
-          <span class="avis-stars">${'★'.repeat(a.note)}${'☆'.repeat(5 - a.note)}</span>
-        </div>
-        <div class="avis-date">${a.date}</div>
-        <div class="avis-comment">${a.comment}</div>
-      </div>
-    `).join('');
-  }
-
   async function renderAvis() {
     const list = document.getElementById('avis-list');
     list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0;">Chargement des avis...</p>';
@@ -1901,7 +1907,20 @@
       const q = query(collection(window._db, 'avis'), orderBy('timestamp', 'desc'));
       const snap = await getDocs(q);
       const avisList = snap.docs.map(d => d.data());
-      renderAvisFromData(avisList);
+      if (!avisList || avisList.length === 0) {
+        list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0;">Aucun avis pour l\'instant. Soyez le premier !</p>';
+        return;
+      }
+      list.innerHTML = avisList.map(a => `
+        <div class="avis-card">
+          <div class="avis-header">
+            <span class="avis-user">${a.user}</span>
+            <span class="avis-stars">${'★'.repeat(a.note)}${'☆'.repeat(5 - a.note)}</span>
+          </div>
+          <div class="avis-date">${a.date}</div>
+          <div class="avis-comment">${a.comment}</div>
+        </div>
+      `).join('');
     } catch(e) {
       list.innerHTML = '<p style="text-align:center;color:#ef4444;padding:30px 0;">Erreur de chargement.</p>';
     }
@@ -1911,8 +1930,11 @@
     const comment = document.getElementById('avis-text').value.trim();
     if (!selectedStar) return alert('Veuillez sélectionner une note ⭐');
     if (!comment) return alert('Veuillez écrire un commentaire');
-    const user = tg?.initDataUnsafe?.user;
-    const username = user?.username ? '@' + user.username : (user?.first_name || 'Anonyme');
+
+    // ── Utilise uniquement le prénom Telegram (first_name), sans @
+    const tgUser    = tg?.initDataUnsafe?.user;
+    const username  = tgUser?.first_name || 'Anonyme';
+
     const btn = document.getElementById('submit-avis-btn');
     btn.disabled = true; btn.textContent = 'Envoi...';
     try {
@@ -2006,7 +2028,6 @@
     message += `\n💰 *Total : ${total}€*\n\n`;
     message += `📦 *Mode :* ${mode}\n`;
 
-    // Sauvegarder dans Firestore si connecté
     const user = _auth.currentUser;
     if (user) {
       try {
@@ -2027,7 +2048,6 @@
 
   // ── INIT ──────────────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
-    // Génère les particules dorées
     const container = document.getElementById('splash-particles');
     for (let i = 0; i < 22; i++) {
       const s = document.createElement('div');
