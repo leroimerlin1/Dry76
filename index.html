@@ -77,30 +77,55 @@
       object-fit: contain; display: block; margin: 0 auto;
     }
 
-    /* ── HEADER PRODUITS ── */
+    /* ── HEADER PRODUITS — nouveau style ── */
     #products-header {
-      margin: 0 16px 10px 16px;
-      background: rgba(20, 20, 30, 0.92);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 235, 59, 0.15);
-      box-shadow: 0 6px 28px rgba(0,0,0,0.4);
-      padding: 14px 18px;
+      margin: 0 16px 14px 16px;
+      background: rgba(15, 15, 22, 0.88);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 235, 59, 0.12);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      padding: 18px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .products-title {
-      display: flex; align-items: center; gap: 12px;
-      font-family: 'Orbitron', sans-serif; font-size: 1.35rem;
-      font-weight: 700; color: #ffeb3b;
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Orbitron', sans-serif; font-size: 1.1rem;
+      font-weight: 700; color: #aaa; letter-spacing: 0.5px;
     }
 
     .products-count {
-      background: rgba(255,235,59,0.15); border: 1px solid #ffeb3b;
-      color: #ffeb3b; padding: 7px 18px; border-radius: 999px;
-      font-weight: 800; font-size: 1rem; white-space: nowrap;
-      box-shadow: 0 0 10px rgba(255,235,59,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255,235,59,0.08);
+      border: 1.5px solid rgba(255,235,59,0.3);
+      border-radius: 16px;
+      padding: 8px 20px;
+      box-shadow: 0 0 18px rgba(255,235,59,0.1);
+      min-width: 80px;
+    }
+
+    .products-count-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #ffeb3b;
+      line-height: 1;
+      text-shadow: 0 0 12px rgba(255,235,59,0.5);
+    }
+
+    .products-count-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: rgba(255,235,59,0.6);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 3px;
     }
 
     /* ── FILTRES ── */
@@ -516,10 +541,13 @@
 
     <div id="products-header">
       <div class="products-title">
-        <span style="font-size:1.6rem;">🛍️</span>
-        Produits
+        <span style="font-size:1.4rem;">🛍️</span>
+        Catalogue
       </div>
-      <div id="products-count-modern" class="products-count">3 produits</div>
+      <div id="products-count-modern" class="products-count">
+        <div class="products-count-number">3</div>
+        <div class="products-count-label">Produits</div>
+      </div>
     </div>
 
     <div id="filters-bar">
@@ -949,8 +977,9 @@
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
     const count = list.length;
-    document.getElementById('products-count-modern').textContent =
-      `${count} produit${count > 1 ? 's' : ''}`;
+    const countEl = document.getElementById('products-count-modern');
+    countEl.querySelector('.products-count-number').textContent = count;
+    countEl.querySelector('.products-count-label').textContent = count > 1 ? 'Produits' : 'Produit';
     if (count === 0) {
       grid.innerHTML = `<div class="no-results">Aucun produit 🔍</div>`;
       return;
