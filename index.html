@@ -61,12 +61,24 @@
       padding-bottom: 110px;
     }
 
+    /* Logo fixe en haut */
     #top-logo {
-      width: 100%; height: auto; max-height: 210px;
-      object-fit: contain; display: block; margin: 15px auto 25px;
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      max-height: 210px;
+      object-fit: contain;
+      display: block;
+      margin: 15px auto 15px;
+      z-index: 10;
+      background: rgba(30,30,30,0.95);
+      padding: 10px 0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
     }
 
-    /* ── HEADER PRODUITS ── */
+    /* Header Produits */
     #products-header {
       margin: 0 16px 10px 16px;
       background: rgba(20, 20, 30, 0.92);
@@ -92,7 +104,7 @@
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
-    /* ── FILTRES ── */
+    /* Filtres */
     #filters-bar { margin: 0 16px 14px 16px; }
     .filters-inner { display: flex; gap: 10px; align-items: center; }
 
@@ -100,24 +112,13 @@
       flex: 1; height: 44px; font-size: 14px; padding: 0 32px 0 14px;
       font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 600;
       background: rgba(20, 20, 30, 0.92); border: 1.5px solid rgba(255, 235, 59, 0.4);
-      border-radius: 14px; color: #e0e0e0; appearance: none; -webkit-appearance: none;
-      cursor: pointer; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      border-radius: 14px; color: #e0e0e0; appearance: none; cursor: pointer;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffeb3b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: right 12px center;
-      background-color: rgba(20, 20, 30, 0.92);
     }
     .compact-select:focus { border-color: #ffeb3b; box-shadow: 0 0 10px rgba(255,235,59,0.25); }
-    .compact-select option { background: #1a1a24; color: #e0e0e0; }
 
-    .reset-btn {
-      width: 44px; height: 44px; flex-shrink: 0;
-      background: rgba(20, 20, 30, 0.92); border: 1.5px solid rgba(255, 235, 59, 0.4);
-      border-radius: 14px; color: #ffeb3b; font-size: 20px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-    }
-    .reset-btn:active { background: rgba(255, 235, 59, 0.15); border-color: #ffeb3b; transform: rotate(180deg) scale(0.93); }
-
-    /* ── GRILLE PRODUITS ── */
+    /* Grille produits */
     #products-grid {
       padding: 0 16px 16px;
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
@@ -140,7 +141,7 @@
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    /* ── DÉTAIL PRODUIT ── */
+    /* Détail produit */
     #product-detail { display: none; flex-direction: column; height: 100dvh; background: #000; position: relative; }
     .product-info { flex: 1; background: #333; overflow-y: auto; padding-bottom: 90px; }
     .product-title { padding: 24px 16px 8px; font-family: 'Orbitron', sans-serif; font-size: 2.1rem; font-weight: 900; color: #ffeb3b; text-shadow: 0 0 10px rgba(255,235,59,.5); letter-spacing: 1.5px; }
@@ -157,40 +158,24 @@
     .price-new { color: #4ade80; font-weight: 900; font-size: 1.15rem; }
     .add-to-cart { margin: 16px 16px 40px 16px; background: #ffeb3b; color: #111; border: none; padding: 18px; font-size: 1.2rem; font-weight: bold; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; box-shadow: 0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
 
-    /* ── SWIPER ── */
     .swiper-wrap { position: relative; width: 100%; overflow: hidden; background: #111; aspect-ratio: 1 / 1; flex: 0 0 auto; }
     .swiper-track { display: flex; transition: transform 0.35s ease; will-change: transform; height: 100%; }
-    .swiper-track > * { flex-shrink: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; user-select: none; background: #111; }
-    .swiper-track video { pointer-events: auto; object-fit: cover; }
+    .swiper-track > * { flex-shrink: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .swiper-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.65); border: 1.5px solid rgba(255,255,255,0.2); color: white; width: 46px; height: 46px; border-radius: 50%; font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
     .swiper-btn-prev { left: 12px; }
     .swiper-btn-next { right: 12px; }
-    .swiper-counter { position: absolute; bottom: 10px; right: 14px; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,235,59,0.4); border-radius: 20px; padding: 4px 12px; font-size: 13px; font-weight: 700; color: #ffeb3b; letter-spacing: 0.5px; }
+    .swiper-counter { position: absolute; bottom: 10px; right: 14px; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,235,59,0.4); border-radius: 20px; padding: 4px 12px; font-size: 13px; font-weight: 700; color: #ffeb3b; }
 
-    /* ── PANIER ── */
+    /* Panier */
     #cart-page { padding: 16px; display: none; }
     .cart-item { background: rgba(30,30,30,.82); border: 1px solid #444; border-radius: 12px; padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
     .cart-item-title { font-weight: bold; color: #ffeb3b; }
     .cart-item-qty { color: #ccc; font-size: 0.95rem; }
     .delete-btn { background: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
     .cart-total { text-align: center; font-size: 1.3rem; color: #ffeb3b; margin: 20px 0; font-family: 'Orbitron', sans-serif; }
-    .questionnaire { background: rgba(30,30,30,.78); border: 1px solid #444; border-radius: 14px; padding: 20px; margin-top: 24px; }
-    .question { margin-bottom: 20px; }
-    .question-label { display: block; font-size: 1.1rem; color: #aaa; margin-bottom: 10px; font-weight: 500; }
-    .option-btn { width: 100%; padding: 14px; margin: 6px 0; background: rgba(30,30,30,.8); border: 1px solid #444; color: #e0e0e0; border-radius: 12px; font-size: 1.05rem; cursor: pointer; }
-    .option-btn.active { background: #ffeb3b; color: #111; font-weight: bold; }
-    input[type="time"], input[type="text"], textarea { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #444; background: rgba(40,40,40,.8); color: #e0e0e0; font-size: 1.05rem; }
-    textarea { min-height: 90px; resize: vertical; }
-    #submit-order-btn { width: 100%; padding: 18px; background: #ffeb3b; color: #111; border: none; border-radius: 14px; font-size: 1.25rem; font-weight: bold; margin-top: 24px; cursor: pointer; box-shadow: 0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
-    #submit-order-btn:disabled { background: #555; color: #999; cursor: not-allowed; }
 
-    /* ══════════════════════════════════════════
-       ── PAGE INFOS — NOUVEAU STYLE ──
-    ══════════════════════════════════════════ */
-    #infos-page {
-      display: none;
-      padding: 16px 16px 110px 16px;
-    }
+    /* Page Infos */
+    #infos-page { display: none; padding: 16px 16px 110px 16px; }
 
     .info-card {
       background: rgba(15, 15, 22, 0.88);
@@ -199,15 +184,10 @@
       padding: 20px 18px;
       margin-bottom: 16px;
       box-shadow: 0 6px 32px rgba(0,0,0,0.55);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
 
     .info-card-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
     }
 
     .info-card-icon {
@@ -225,37 +205,32 @@
       font-size: 1.3rem;
       font-weight: 800;
       color: #fff;
-      letter-spacing: 0.5px;
     }
 
-    /* Row département badges */
-    .info-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .info-row-icon {
-      font-size: 1.1rem;
-      margin-top: 2px;
-      flex-shrink: 0;
+    .contact-secretary-btn {
+      width: 100%;
+      background: rgba(255,235,59,0.15);
+      border: 2px solid #ffeb3b;
       color: #ffeb3b;
+      padding: 18px 20px;
+      border-radius: 16px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      cursor: pointer;
+      margin: 12px 0;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(255,235,59,0.3);
+    }
+    .contact-secretary-btn:active {
+      background: #ffeb3b;
+      color: #111;
+      transform: scale(0.97);
     }
 
-    .info-row-label {
-      color: #aaa;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .dept-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
+    .info-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
+    .dept-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
     .dept-badge {
       background: rgba(255,235,59,0.12);
       border: 1.5px solid rgba(255,235,59,0.45);
@@ -267,144 +242,18 @@
       font-weight: 700;
     }
 
-    /* Horaires block */
-    .horaires-block {
-      background: rgba(255,255,255,0.04);
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    /* Réseaux */
+    #reseaux-page { display: none; padding: 16px 16px 110px 16px; }
+    .section-title { font-family: 'Orbitron', sans-serif; font-size: 1.45rem; color: #ffeb3b; margin: 28px 0 16px; font-weight: bold; text-align: center; }
 
-    .horaires-days {
-      font-size: 0.9rem;
-      color: #888;
-      font-weight: 600;
+    .reseau-item {
+      background: rgba(30,30,30,.85); border: 2px solid #ffeb3b; border-radius: 16px;
+      padding: 14px 16px; font-size: 1.25rem; font-weight: bold; color: #e0e0e0;
+      display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all .25s;
     }
-
-    .horaires-time {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 1px;
-    }
-
-    .horaires-note {
-      font-size: 0.88rem;
-      color: #888;
-      margin-bottom: 10px;
-    }
-
-    /* Minimum badge */
-    .minimum-badge {
-      text-align: right;
-      margin-top: 6px;
-    }
-
-    .minimum-badge span {
-      color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      font-weight: 800;
-    }
-
-    /* Meetup location row */
-    .meetup-location-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(255,255,255,0.04);
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-    }
-
-    .meetup-location-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .meetup-location-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .disponible-badge {
-      background: rgba(255,235,59,0.18);
-      border: 1.5px solid #ffeb3b;
-      color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 5px 13px;
-      border-radius: 999px;
-      letter-spacing: 0.5px;
-    }
-
-    .meetup-horaires-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .meetup-horaires-text {
-      color: #aaa;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    /* Contact card */
-    .contact-card {
-      background: rgba(15, 15, 22, 0.88);
-      border: 1.5px solid rgba(255, 235, 59, 0.18);
-      border-radius: 22px;
-      padding: 18px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      box-shadow: 0 6px 32px rgba(0,0,0,0.55);
-    }
-
-    .contact-icon {
-      width: 48px; height: 48px;
-      background: rgba(59, 130, 246, 0.15);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      border: 1.5px solid rgba(59, 130, 246, 0.35);
-    }
-
-    .contact-card-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .contact-card-sub {
-      color: #3b82f6;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-top: 3px;
-    }
-
-    /* ── RÉSEAUX ── */
-    #reseaux-page { display: none; padding: 16px 16px 100px 16px; }
-    .section-title { font-family: 'Orbitron', sans-serif; font-size: 1.45rem; color: #ffeb3b; margin: 28px 0 16px; font-weight: bold; text-align: center; text-shadow: 0 0 6px rgba(255,235,59,.4); letter-spacing: 1.5px; }
-    .reseaux-list { display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
-    .reseau-item { background: rgba(30,30,30,.85); border: 2px solid #ffeb3b; border-radius: 16px; padding: 14px 16px; font-size: 1.25rem; font-weight: bold; color: #e0e0e0; display: flex; align-items: center; gap: 14px; cursor: pointer; transition: all .25s; box-shadow: 0 2px 8px rgba(0,0,0,.4); font-family: 'Orbitron', sans-serif; }
     .reseau-item:active { background: #ffeb3b; color: #111; }
-    .reseau-item img { width: 48px !important; height: 48px !important; border-radius: 50%; object-fit: contain; background: #fff; padding: 4px; flex-shrink: 0; }
 
-    /* ── NAV ── */
+    /* Navigation */
     nav {
       position: fixed; bottom: 18px; left: 12px; right: 12px; height: 78px;
       background: rgba(15,15,20,0.96); border-radius: 26px;
@@ -419,7 +268,6 @@
     .nav-item svg { width: 28px; height: 28px; stroke: currentColor; }
     #cart-badge { position: absolute; top: -4px; right: -4px; background: #ef4444; color: white; border-radius: 50%; min-width: 18px; height: 18px; padding: 0 4px; font-size: 0.65rem; font-weight: bold; line-height: 18px; box-shadow: 0 0 8px rgba(239,68,68,0.6); display: none; }
   </style>
-
 </head>
 <body>
 
@@ -437,7 +285,7 @@
 
       <!-- PAGE ACCUEIL -->
       <div id="home-page">
-        <img id="top-logo" src="chat.PNG" alt="Logo">
+        <img id="top-logo" src="chat.PNG" alt="Logo Bart.Coffee76">
 
         <div id="products-header">
           <div class="products-title">
@@ -455,7 +303,6 @@
             <select id="farm-filter" class="compact-select" onchange="filterProducts()">
               <option value="">Toutes farms</option>
             </select>
-            <button class="reset-btn" onclick="resetFilters()" title="Réinitialiser">↺</button>
           </div>
         </div>
 
@@ -519,12 +366,9 @@
         </div>
       </div>
 
-      <!-- ══════════════════════════════════════
-           INFOS — NOUVEAU STYLE (textes inchangés)
-      ══════════════════════════════════════ -->
+      <!-- PAGE INFOS -->
       <div id="infos-page">
-
-        <!-- Carte Identité info -->
+        <!-- Information générale -->
         <div class="info-card" style="margin-top:8px;">
           <div class="info-card-header">
             <div class="info-card-icon">🪪</div>
@@ -532,22 +376,31 @@
           </div>
           <div class="info-row">
             <span class="info-row-icon">ℹ️</span>
-            <span class="info-row-label">Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.</span>
-          </div>
-          <div style="margin-top:14px; background:rgba(255,235,59,0.07); border:1px solid rgba(255,235,59,0.25); border-radius:14px; padding:12px 16px; text-align:center;">
-            <span style="color:#aaa; font-size:0.88rem;">Contact secrétaire</span><br>
-            <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:800;">@sav_Bart76</span>
+            <span class="info-row-label">Pour toute commande, une carte d'identité 🪪 est nécessaire ainsi qu'une photo 📸 de vous.</span>
           </div>
         </div>
 
-        <!-- Carte Livraison -->
+        <!-- Bouton Contact Secrétaire -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="info-card-icon">💬</div>
+            <div class="info-card-title">Contact Secrétaire</div>
+          </div>
+          <button onclick="contactSecretary()" class="contact-secretary-btn">
+            @sav_Bart76
+          </button>
+          <p style="text-align:center; color:#aaa; font-size:0.95rem; margin-top:8px;">
+            Prise de commande • SAV • Infos 24h/24
+          </p>
+        </div>
+
+        <!-- Livraison -->
         <div class="info-card">
           <div class="info-card-header">
             <div class="info-card-icon">🚚</div>
             <div class="info-card-title">Livraison</div>
           </div>
-
-          <div class="info-row" style="margin-bottom:10px;">
+          <div class="info-row">
             <span class="info-row-icon">📍</span>
             <div>
               <div class="info-row-label">Départements desservis</div>
@@ -562,67 +415,34 @@
           <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:14px 16px; margin-bottom:12px;">
             <div style="color:#888; font-size:0.85rem; margin-bottom:10px; font-weight:600;">TARIFS</div>
             <div style="display:flex; flex-direction:column; gap:8px;">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#ccc; font-size:0.95rem;">Sur Rouen</span>
-                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">70€</span>
-              </div>
-              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#ccc; font-size:0.95rem;">Moins de 10 km</span>
-                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">100€</span>
-              </div>
-              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#ccc; font-size:0.95rem;">Supérieur à 10 km</span>
-                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">150€</span>
-              </div>
-              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#ccc; font-size:0.95rem;">Supérieur à 25 km</span>
-                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">270€</span>
-              </div>
+              <div style="display:flex; justify-content:space-between;"><span>Sur Rouen</span><span style="color:#ffeb3b;font-weight:800;">70€</span></div>
+              <div style="display:flex; justify-content:space-between;"><span>Moins de 10 km</span><span style="color:#ffeb3b;font-weight:800;">100€</span></div>
+              <div style="display:flex; justify-content:space-between;"><span>Supérieur à 10 km</span><span style="color:#ffeb3b;font-weight:800;">150€</span></div>
+              <div style="display:flex; justify-content:space-between;"><span>Supérieur à 25 km</span><span style="color:#ffeb3b;font-weight:800;">270€</span></div>
             </div>
           </div>
-
-          <div class="minimum-badge">
-            <span>Minimum 50€</span>
-          </div>
+          <div style="text-align:right; color:#ffeb3b; font-weight:800;">Minimum 70€</div>
         </div>
 
-        <!-- Carte Meet-up -->
+        <!-- Meet-up -->
         <div class="info-card">
           <div class="info-card-header">
             <div class="info-card-icon">📍</div>
             <div class="info-card-title">Meet-up</div>
           </div>
-
-          <div class="meetup-location-row">
-            <div class="meetup-location-left">
-              <span style="color:#ffeb3b; font-size:1.1rem;">📍</span>
-              <span class="meetup-location-name">Rouen Rive Gauche</span>
+          <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:14px 16px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <span style="color:#ffeb3b; font-size:1.2rem;">📍</span>
+              <span style="font-weight:700; font-size:1.15rem;">Rouen Rive Gauche</span>
+              <div style="background:rgba(255,235,59,0.18); color:#ffeb3b; padding:5px 14px; border-radius:999px; font-size:0.85rem; font-weight:800;">Disponible</div>
             </div>
-            <div class="disponible-badge">Disponible</div>
+            <div style="display:flex; align-items:center; gap:10px; margin-top:12px;">
+              <span style="color:#ffeb3b; font-size:1.2rem;">🕐</span>
+              <span>Horaires : 12h – 22h</span>
+            </div>
           </div>
-
-          <div class="meetup-horaires-row">
-            <span style="color:#ffeb3b; font-size:1.1rem;">🕐</span>
-            <span class="meetup-horaires-text">Horaires : 14h – 23h</span>
-          </div>
-
-          <div class="minimum-badge">
-            <span>Minimum 50€</span>
-          </div>
+          <div style="text-align:right; color:#ffeb3b; font-weight:800;">Minimum 50€</div>
         </div>
-
-        <!-- Contact 24h -->
-        <div class="contact-card">
-          <div class="contact-icon">💬</div>
-          <div>
-            <div class="contact-card-title">Prise de commande, SAV, Infos</div>
-            <div class="contact-card-sub">24h/24h</div>
-          </div>
-        </div>
-
       </div>
 
       <!-- RÉSEAUX -->
@@ -636,10 +456,6 @@
           <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
             <img src="potato.jpg" alt="Canal Potato">
             Canal Potato🥔
-          </div>
-          <div class="reseau-item" data-link="http://t.me/sav_Bart76">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
-            Secrétaire👨‍💼
           </div>
         </div>
       </div>
@@ -690,23 +506,19 @@
   </div>
 
   <script>
-  // ── TELEGRAM FULLSCREEN ─────────────────────────────────────────────────────
+  // Telegram WebApp
   const tg = window.Telegram?.WebApp;
   if (tg) {
     tg.ready();
     tg.expand();
-    // Fullscreen API (Telegram Bot API 8.0+)
-    if (typeof tg.requestFullscreen === 'function') {
-      tg.requestFullscreen();
-    }
-    // Couleurs header/fond
+    if (typeof tg.requestFullscreen === 'function') tg.requestFullscreen();
     if (typeof tg.setHeaderColor === 'function') tg.setHeaderColor('#000000');
     if (typeof tg.setBackgroundColor === 'function') tg.setBackgroundColor('#000000');
     if (typeof tg.setBottomBarColor === 'function') tg.setBottomBarColor('#000000');
     tg.enableClosingConfirmation();
   }
 
-  // ── PRODUITS ─────────────────────────────────────────────────────────────────
+  // Produits
   const products = {
     blanche: {
       key: 'blanche', title: 'Blanche❄️',
@@ -741,7 +553,6 @@
     }
   };
 
-  // ── PANIER ───────────────────────────────────────────────────────────────────
   let cart = JSON.parse(localStorage.getItem('cart_bart76')) || [];
 
   function saveCart() {
@@ -755,13 +566,13 @@
     badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
   }
 
-  // ── FILTRES ───────────────────────────────────────────────────────────────────
   function populateFilters() {
     const allProducts = Object.values(products);
-    const categories  = [...new Set(allProducts.map(p => p.category))].sort();
-    const farms       = [...new Set(allProducts.map(p => p.farm))].sort();
-    const catSelect  = document.getElementById('category-filter');
+    const categories = [...new Set(allProducts.map(p => p.category))].sort();
+    const farms = [...new Set(allProducts.map(p => p.farm))].sort();
+    const catSelect = document.getElementById('category-filter');
     const farmSelect = document.getElementById('farm-filter');
+
     categories.forEach(cat => {
       const opt = document.createElement('option');
       opt.value = cat; opt.textContent = cat;
@@ -775,34 +586,28 @@
   }
 
   function filterProducts() {
-    const catFilter  = document.getElementById('category-filter').value;
+    const catFilter = document.getElementById('category-filter').value;
     const farmFilter = document.getElementById('farm-filter').value;
     const filtered = Object.values(products).filter(p => {
-      const catMatch  = !catFilter  || p.category === catFilter;
+      const catMatch = !catFilter || p.category === catFilter;
       const farmMatch = !farmFilter || p.farm === farmFilter;
       return catMatch && farmMatch;
     });
     renderProducts(filtered);
   }
 
-  function resetFilters() {
-    document.getElementById('category-filter').value = '';
-    document.getElementById('farm-filter').value = '';
-    renderProducts(Object.values(products));
-  }
-
-  // ── RENDU PRODUITS ────────────────────────────────────────────────────────────
   function renderProducts(list) {
     if (!list) list = Object.values(products);
     const grid = document.getElementById('products-grid');
     grid.innerHTML = '';
     const count = list.length;
-    document.getElementById('products-count-modern').textContent =
-      `${count} produit${count > 1 ? 's' : ''}`;
+    document.getElementById('products-count-modern').textContent = `${count} produit${count > 1 ? 's' : ''}`;
+
     if (count === 0) {
       grid.innerHTML = `<div class="no-results">Aucun produit 🔍</div>`;
       return;
     }
+
     list.forEach(p => {
       const card = document.createElement('div');
       card.className = 'card';
@@ -820,7 +625,6 @@
     });
   }
 
-  // ── NAVIGATION ────────────────────────────────────────────────────────────────
   function hideAllPages() {
     ['home-page','product-detail','cart-page','infos-page','reseaux-page'].forEach(id => {
       document.getElementById(id).style.display = 'none';
@@ -828,17 +632,21 @@
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   }
 
-  function scrollToTop() { document.querySelector('.content').scrollTo({ top: 0, behavior: 'instant' }); }
-
   function goToHome() {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
     if (tg) tg.BackButton.hide();
-    scrollToTop();
   }
 
-  // ── SWIPER ────────────────────────────────────────────────────────────────────
+  // Contact Secrétaire
+  function contactSecretary() {
+    const url = "https://t.me/sav_Bart76";
+    if (tg) tg.openLink(url);
+    else window.open(url, '_blank');
+  }
+
+  // Swiper
   let swiperIndex = 0;
   let swiperItems = [];
 
@@ -875,21 +683,21 @@
     const showArrows = total > 1;
     document.querySelector('.swiper-btn-prev').style.display = showArrows ? 'flex' : 'none';
     document.querySelector('.swiper-btn-next').style.display = showArrows ? 'flex' : 'none';
-    document.getElementById('swiper-counter').style.display  = showArrows ? 'block' : 'none';
+    document.getElementById('swiper-counter').style.display = showArrows ? 'block' : 'none';
   }
 
   function swiperPrev() { swiperIndex = (swiperIndex - 1 + swiperItems.length) % swiperItems.length; updateSwiper(); }
   function swiperNext() { swiperIndex = (swiperIndex + 1) % swiperItems.length; updateSwiper(); }
 
-  // ── DÉTAIL PRODUIT ────────────────────────────────────────────────────────────
   function openProductDetail(key) {
     const p = products[key];
     document.getElementById('detail-title').textContent = p.title;
     document.getElementById('detail-farm-badge').textContent = p.farm;
+
     let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
     if (p.description) content += '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
-    document.getElementById('detail-strain-desc').innerHTML =
-      content || '<p style="color:#888;font-style:italic;">Aucune description disponible</p>';
+    document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888;font-style:italic;">Aucune description disponible</p>';
+
     const qtyGrid = document.getElementById('qty-grid');
     qtyGrid.innerHTML = '';
     p.quantities.forEach((item, idx) => {
@@ -903,25 +711,25 @@
       };
       qtyGrid.appendChild(btn);
     });
+
     buildSwiper(p.videos);
     hideAllPages();
     document.getElementById('product-detail').style.display = 'flex';
     if (tg) tg.BackButton.show();
-    scrollToTop();
   }
 
   document.getElementById('add-to-cart-btn').onclick = () => {
     const selected = document.querySelector('.qty-btn.selected');
     if (!selected) return alert('Sélectionnez une quantité !');
     const title = document.getElementById('detail-title').textContent;
-    const key   = Object.keys(products).find(k => products[k].title === title);
-    const item  = products[key].quantities[parseInt(selected.dataset.idx)];
+    const key = Object.keys(products).find(k => products[k].title === title);
+    const item = products[key].quantities[parseInt(selected.dataset.idx)];
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
     alert('✅ Ajouté au panier !');
   };
 
-  // ── NAVIGATION TABS ───────────────────────────────────────────────────────────
+  // Navigation
   document.getElementById('nav-home').onclick = goToHome;
 
   document.getElementById('nav-cart').onclick = () => {
@@ -930,7 +738,6 @@
     document.getElementById('nav-cart').classList.add('active');
     if (tg) tg.BackButton.hide();
     renderCart();
-    scrollToTop();
   };
 
   document.getElementById('nav-infos').onclick = () => {
@@ -938,7 +745,6 @@
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
     if (tg) tg.BackButton.hide();
-    scrollToTop();
   };
 
   document.getElementById('nav-reseaux').onclick = () => {
@@ -946,7 +752,6 @@
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
     if (tg) tg.BackButton.hide();
-    scrollToTop();
   };
 
   document.querySelectorAll('.reseau-item[data-link]').forEach(el => {
@@ -958,7 +763,6 @@
 
   if (tg) tg.BackButton.onClick(() => goToHome());
 
-  // ── PANIER RENDU ──────────────────────────────────────────────────────────────
   function renderCart() {
     const container = document.getElementById('cart-items');
     container.innerHTML = '';
@@ -973,7 +777,7 @@
       const div = document.createElement('div');
       div.className = 'cart-item';
       div.innerHTML = `
-        <div class="cart-item-info">
+        <div>
           <div class="cart-item-title">${item.title}</div>
           <div class="cart-item-qty">${item.qty} — ${item.price}</div>
         </div>
@@ -991,11 +795,12 @@
     }
   });
 
+  // Option buttons pour le mode de récupération
   document.querySelectorAll('.option-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.getElementById('pickup-questions').style.display   = btn.dataset.type === 'pickup'   ? 'block' : 'none';
+      document.getElementById('pickup-questions').style.display = btn.dataset.type === 'pickup' ? 'block' : 'none';
       document.getElementById('delivery-questions').style.display = btn.dataset.type === 'delivery' ? 'block' : 'none';
     });
   });
@@ -1021,7 +826,7 @@
     if (tg) tg.openTelegramLink(url); else window.open(url, '_blank');
   };
 
-  // ── INIT ──────────────────────────────────────────────────────────────────────
+  // Initialisation
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
     setTimeout(() => {
