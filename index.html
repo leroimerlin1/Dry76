@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Dry.Coffee76</title>
+  <title>Bart.Coffee76</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
@@ -14,8 +15,6 @@
     html, body {
       height: 100dvh;
       width: 100%;
-      margin: 0;
-      padding: 0;
       overflow: hidden;
       font-family:'M PLUS Rounded 1c', Orbitron, sans-serif;
       background:#1e1e1e;
@@ -34,49 +33,42 @@
       position: relative; width: 100%; height: 100%;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
     }
-    .splash-bg { 
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; 
-    }
+    .splash-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
     .splash-logo {
       width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
       border: 5px solid #ffeb3b; box-shadow: 0 0 30px rgba(255,235,59,0.6);
       z-index: 2; animation: pulse 2s infinite;
     }
     .splash-text { color: #ffeb3b; font-size: 1.6rem; font-weight: bold; text-shadow: 0 0 10px rgba(255,235,59,0.6); z-index: 2; }
-    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-    .container { 
-      position: relative; 
-      height: 100dvh; 
-      min-height: -webkit-fill-available;
+    .container {
+      position: relative;
+      height: 100dvh;
       width: 100%;
-      background: url('rouen.PNG') center/cover no-repeat fixed; 
+      background: url('rouen.PNG') center/cover no-repeat fixed;
     }
 
-    .overlay { position: absolute; inset: 0; background: transparent; z-index: 1; }
+    .overlay { position: absolute; inset: 0; z-index: 1; }
 
-    .content { 
-      position:relative; 
-      z-index:2; 
-      height: 100dvh; 
-      min-height: -webkit-fill-available;
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100dvh;
       width: 100%;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 90px;
-    }  
-
-    #top-logo {
-      width: 100%;
-      height: auto;
-      max-height: 210px;
-      object-fit: contain;
-      display: block;
-      margin: 15px auto 25px;
+      padding-bottom: 110px;
     }
 
+    #top-logo {
+      width: 100%; height: auto; max-height: 210px;
+      object-fit: contain; display: block; margin: 15px auto 25px;
+    }
+
+    /* ── HEADER PRODUITS ── */
     #products-header {
-      margin: 0 16px 16px 16px;
+      margin: 0 16px 10px 16px;
       background: rgba(20, 20, 30, 0.92);
       border-radius: 20px;
       border: 1px solid rgba(255, 235, 59, 0.15);
@@ -88,353 +80,291 @@
     }
 
     .products-title {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #ffeb3b;
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'Orbitron', sans-serif; font-size: 1.35rem;
+      font-weight: 700; color: #ffeb3b;
     }
 
     .products-count {
-      background: rgba(255,235,59,0.15);
-      border: 1px solid #ffeb3b;
-      color: #ffeb3b;
-      padding: 7px 18px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 1rem;
-      white-space: nowrap;
+      background: rgba(255,235,59,0.15); border: 1px solid #ffeb3b;
+      color: #ffeb3b; padding: 7px 18px; border-radius: 999px;
+      font-weight: 800; font-size: 1rem; white-space: nowrap;
       box-shadow: 0 0 10px rgba(255,235,59,0.15);
     }
 
-    #filters-wrapper { position: relative; padding: 0 16px 16px; z-index: 10; }
-
-    #filters-container {
-      display: flex; gap: 10px; margin-bottom: 8px;
+    /* ── FILTRES STYLE MAISON2LASAPP ── */
+    #filters-bar {
+      margin: 0 16px 14px 16px;
     }
 
-    .filter-tab {
-      flex: 1; padding: 10px 0; background: rgba(30,30,30,0.8);
-      border: 1px solid #ffeb3b; border-radius: 10px; color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700;
-      cursor: pointer; text-align: center; transition: all 0.2s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4); min-height: 42px;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    .filter-tab:hover { background: rgba(50,50,50,0.8); border-color: #fff176; }
-
-    .filter-tab[data-active="true"] {
-      background: #ffeb3b; color: #111; border-color: #fff176;
-      box-shadow: 0 0 12px rgba(255,235,59,0.6);
-    }
-
-    .dropdown-menu {
-      position: absolute; top: 100%; left: 10%; right: 10%;
-      width: 80%; max-width: 360px; margin: 6px auto 0;
-      background: rgba(15,15,20,0.96); border: 1px solid #555;
-      border-radius: 12px; z-index: 99; max-height: 320px;
-      overflow-y: auto; box-shadow: 0 8px 28px rgba(0,0,0,0.7);
-    }
-
-    .dropdown-header {
-      font-weight: bold; text-align: center; padding: 10px; border-bottom: 1px solid #444; color: #ffeb3b;
-    }
-
-    .dropdown-item {
-      padding: 12px 16px; color: #ddd; border-bottom: 1px solid #333;
-      cursor: pointer; font-size: 1.05rem; transition: all 0.15s;
-      display: flex; align-items: center;
-    }
-
-    .dropdown-item .icon { margin-right: 8px; font-size: 1.2rem; }
-    .dropdown-item .name { flex: 1; }
-    .dropdown-item:last-child { border-bottom: none; }
-    .dropdown-item:hover { background: rgba(60,60,70,0.6); color: #fff; }
-    .dropdown-item.active { background: rgba(74,222,128,0.15); color: #a7f3d0; font-weight: 600; }
-
-    #active-filters {
-      padding: 0 16px 12px;
+    .filters-inner {
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .active-chip {
-      background: #ffeb3b;
-      color: #111;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      display: flex;
+      gap: 10px;
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 2px 10px rgba(255,235,59,0.4);
+    }
+
+    .compact-select {
+      flex: 1;
+      height: 44px;
+      font-size: 14px;
+      padding: 0 32px 0 14px;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 600;
+      background: rgba(20, 20, 30, 0.92);
+      border: 1.5px solid rgba(255, 235, 59, 0.4);
+      border-radius: 14px;
+      color: #e0e0e0;
+      appearance: none;
+      -webkit-appearance: none;
       cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffeb3b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-color: rgba(20, 20, 30, 0.92);
+    }
+
+    .compact-select:focus {
+      border-color: #ffeb3b;
+      box-shadow: 0 0 10px rgba(255,235,59,0.25);
+    }
+
+    .compact-select option {
+      background: #1a1a24;
+      color: #e0e0e0;
+    }
+
+    .reset-btn {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: rgba(20, 20, 30, 0.92);
+      border: 1.5px solid rgba(255, 235, 59, 0.4);
+      border-radius: 14px;
+      color: #ffeb3b; font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
       transition: all 0.2s;
     }
 
-    .active-chip:hover { background: #fff176; transform: scale(1.05); }
-    .active-chip .remove { font-size: 1.3rem; line-height: 1; margin-left: 4px; }
-
-    #products-grid { 
-      padding:16px; display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; 
+    .reset-btn:active {
+      background: rgba(255, 235, 59, 0.15);
+      border-color: #ffeb3b;
+      transform: rotate(180deg) scale(0.93);
     }
 
-    .card { 
-      background:transparent; border:2px solid #ffeb3b; border-radius:14px; 
-      overflow:hidden; transition:all .25s; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,.5); 
+    /* ── GRILLE PRODUITS ── */
+    #products-grid {
+      padding: 0 16px 16px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    }
+
+    .no-results {
+      grid-column: 1 / -1; text-align: center; padding: 48px 20px;
+      color: rgba(255,235,59,0.5);
+      font-family: 'Orbitron', sans-serif; font-size: 1rem;
+    }
+
+    .card {
+      background: transparent; border: 2px solid #ffeb3b; border-radius: 14px;
+      overflow: hidden; transition: all .25s; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,.5);
       position: relative; height: 240px;
     }
-    .card:hover { transform:scale(1.04); border-color:#fff176; box-shadow:0 8px 24px rgba(255,235,59,.35); }
+    .card:active { transform: scale(0.97); border-color: #fff176; }
 
     .card-img { height: 100%; width: 100%; position: relative; }
     .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .promo-badge { display: none !important; }
-
     .card-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
-      padding: 16px 12px 12px; color: white; z-index: 2;
+      padding: 16px 12px 12px; z-index: 2;
     }
     .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
     .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
 
-    #product-detail { 
-      display: none;
-      flex-direction: column;
-      height: 100dvh;
-      min-height: -webkit-fill-available;
-      background: #000;
-      position: relative;
-    }
-    .product-hero { 
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      position: relative;
-      overflow: hidden;
-      flex: 0 0 auto;
-    }
-    .product-hero video, .product-hero img { 
-      width: 100%; height: 100%; object-fit: cover; display: block; 
+    /* ── DÉTAIL PRODUIT ── */
+    #product-detail {
+      display: none; flex-direction: column;
+      height: 100dvh; background: #000; position: relative;
     }
 
-    .product-info {
-      flex: 1; background: #333; overflow-y: auto; padding-bottom: 90px;
-    }
+    .product-info { flex: 1; background: #333; overflow-y: auto; padding-bottom: 90px; }
 
-    .product-title { 
-      padding:24px 16px 8px; font-family: 'Orbitron', sans-serif; font-size:2.1rem; 
-      font-weight:900; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); letter-spacing:1.5px; 
+    .product-title {
+      padding: 24px 16px 8px; font-family: 'Orbitron', sans-serif; font-size: 2.1rem;
+      font-weight: 900; color: #ffeb3b; text-shadow: 0 0 10px rgba(255,235,59,.5); letter-spacing: 1.5px;
     }
-    .badges { padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:10px; }
-    .badge { padding:8px 16px; border-radius:999px; font-size:.95rem; font-weight:bold; }
-    .badge-farm { background:rgba(255,235,59,.25); color:#ffeb3b; border:1px solid #ffeb3b; }
+    .badges { padding: 0 16px 16px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .badge { padding: 8px 16px; border-radius: 999px; font-size: .95rem; font-weight: bold; }
+    .badge-farm { background: rgba(255,235,59,.25); color: #ffeb3b; border: 1px solid #ffeb3b; }
 
-    .strain-section { padding:0 16px 24px; color:#ccc; font-size:1.1rem; line-height:1.6; white-space:pre-line; }
+    .strain-section { padding: 0 16px 24px; color: #ccc; font-size: 1.1rem; line-height: 1.6; white-space: pre-line; }
     .strain-section .description { color: #ddd; font-style: italic; }
 
-    .quantity-section { padding:16px; background: transparent; margin:12px 16px; border-radius:16px; border:1px solid #444; }
-    .quantity-title { font-family: 'Orbitron', sans-serif; font-size:1.25rem; color:#ffeb3b; margin-bottom:16px; display:flex; align-items:center; gap:12px; font-weight:700; }
-    .quantity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
-    .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
-    .qty-btn:hover, .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
-
-    .price-old { display: none; }
+    .quantity-section { padding: 16px; margin: 12px 16px; border-radius: 16px; border: 1px solid #444; }
+    .quantity-title { font-family: 'Orbitron', sans-serif; font-size: 1.25rem; color: #ffeb3b; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; font-weight: 700; }
+    .quantity-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    .qty-btn { background: rgba(30,30,30,.8); border: 1px solid #444; color: #e0e0e0; padding: 16px 10px; border-radius: 14px; text-align: center; cursor: pointer; font-weight: bold; transition: .25s; }
+    .qty-btn.selected { background: #ffeb3b; color: #111; border-color: #ffeb3b; }
     .price-new { color: #4ade80; font-weight: 900; font-size: 1.15rem; }
 
-    .add-to-cart { 
-      margin:16px 16px 40px 16px; background:#ffeb3b; color:#111; border:none; 
-      padding:18px; font-size:1.2rem; font-weight:bold; border-radius:16px; 
-      display:flex; align-items:center; justify-content:center; gap:12px; cursor:pointer; 
-      box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; 
+    .add-to-cart {
+      margin: 16px 16px 40px 16px; background: #ffeb3b; color: #111; border: none;
+      padding: 18px; font-size: 1.2rem; font-weight: bold; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
+      box-shadow: 0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif;
     }
 
-    .video-switcher {
-      padding: 12px 16px 24px; display: flex; gap: 14px; justify-content: center;
-      overflow-x: auto; background: #333;
+    /* ── SWIPER STYLE MAISON2LASAPP ── */
+    .swiper-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #111;
+      aspect-ratio: 1 / 1;
+      flex: 0 0 auto;
     }
-    .video-preview {
-      width: 96px; height: 54px; background-size: cover; background-position: center;
-      border-radius: 0; position: relative; cursor: pointer; border: 3px solid transparent;
-      transition: all 0.35s; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-    }
-    .video-preview:hover, .video-preview.active { border-color: #ffeb3b; transform: scale(1.08); }
 
-    #cart-page { padding:16px; display:none; }
-    .cart-item { 
-      background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; 
-      padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; 
+    .swiper-track {
+      display: flex;
+      transition: transform 0.35s ease;
+      will-change: transform;
+      height: 100%;
     }
-    .cart-item-info { flex: 1; }
+
+    .swiper-track > * {
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      background: #111;
+    }
+
+    .swiper-track video {
+      pointer-events: auto;
+      object-fit: cover;
+    }
+
+    .swiper-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(0,0,0,0.65);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      color: white; width: 46px; height: 46px; border-radius: 50%;
+      font-size: 18px; cursor: pointer; z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .swiper-btn-prev { left: 12px; }
+    .swiper-btn-next { right: 12px; }
+
+    .swiper-counter {
+      position: absolute; bottom: 10px; right: 14px;
+      background: rgba(0,0,0,0.65);
+      border: 1px solid rgba(255,235,59,0.4);
+      border-radius: 20px;
+      padding: 4px 12px; font-size: 13px; font-weight: 700;
+      color: #ffeb3b;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── PANIER ── */
+    #cart-page { padding: 16px; display: none; }
+
+    .cart-item {
+      background: rgba(30,30,30,.82); border: 1px solid #444; border-radius: 12px;
+      padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+    }
     .cart-item-title { font-weight: bold; color: #ffeb3b; }
     .cart-item-qty { color: #ccc; font-size: 0.95rem; }
-    .delete-btn { 
-      background:#ef4444; color:white; border:none; width:32px; height:32px; 
-      border-radius:50%; font-weight:bold; cursor:pointer; 
+    .delete-btn { background: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
+    .cart-total { text-align: center; font-size: 1.3rem; color: #ffeb3b; margin: 20px 0; font-family: 'Orbitron', sans-serif; }
+
+    .questionnaire { background: rgba(30,30,30,.78); border: 1px solid #444; border-radius: 14px; padding: 20px; margin-top: 24px; }
+    .question { margin-bottom: 20px; }
+    .question-label { display: block; font-size: 1.1rem; color: #aaa; margin-bottom: 10px; font-weight: 500; }
+    .option-btn { width: 100%; padding: 14px; margin: 6px 0; background: rgba(30,30,30,.8); border: 1px solid #444; color: #e0e0e0; border-radius: 12px; font-size: 1.05rem; cursor: pointer; }
+    .option-btn.active { background: #ffeb3b; color: #111; font-weight: bold; }
+
+    input[type="time"], input[type="text"], textarea {
+      width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #444;
+      background: rgba(40,40,40,.8); color: #e0e0e0; font-size: 1.05rem;
     }
-    .cart-total { 
-      text-align:center; font-size:1.3rem; color:#ffeb3b; margin:20px 0; 
-      font-family: 'Orbitron', sans-serif; 
+    textarea { min-height: 90px; resize: vertical; }
+
+    #submit-order-btn {
+      width: 100%; padding: 18px; background: #ffeb3b; color: #111; border: none;
+      border-radius: 14px; font-size: 1.25rem; font-weight: bold; margin-top: 24px;
+      cursor: pointer; box-shadow: 0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif;
+    }
+    #submit-order-btn:disabled { background: #555; color: #999; cursor: not-allowed; }
+
+    /* ── PAGES INFOS / RÉSEAUX ── */
+    #infos-page, #reseaux-page { display: none; padding: 16px 16px 100px 16px; }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif; font-size: 1.45rem; color: #ffeb3b;
+      margin: 28px 0 16px; font-weight: bold; text-align: center;
+      text-shadow: 0 0 6px rgba(255,235,59,.4); letter-spacing: 1.5px;
     }
 
-    .questionnaire { background:rgba(30,30,30,.78); border:1px solid #444; border-radius:14px; padding:20px; margin-top:24px; }
-    .question { margin-bottom:20px; }
-    .question-label { display:block; font-size:1.1rem; color:#aaa; margin-bottom:10px; font-weight:500; }
-    .option-btn { width:100%; padding:14px; margin:6px 0; background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; border-radius:12px; font-size:1.05rem; cursor:pointer; }
-    .option-btn.active { background:#ffeb3b; color:#111; font-weight:bold; }
-
-    input[type="time"], input[type="text"], textarea { 
-      width:100%; padding:14px; border-radius:10px; border:1px solid #444; 
-      background:rgba(40,40,40,.8); color:#e0e0e0; font-size:1.05rem; 
-    }
-    textarea { min-height:90px; resize:vertical; }
-
-    #submit-order-btn { 
-      width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; 
-      border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; 
-      cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; 
-    }
-    #submit-order-btn:disabled {
-      background: #555; color: #999; cursor: not-allowed;
-    }
-
-    #infos-page, #reseaux-page { 
-      display: none; 
-      padding: 16px 16px 100px 16px; 
-    }
-
-    .section-title { 
-      font-family: 'Orbitron', sans-serif; 
-      font-size:1.45rem; 
-      color:#ffeb3b; 
-      margin:28px 0 16px; 
-      font-weight:bold; 
-      text-align:center; 
-      text-shadow:0 0 6px rgba(255,235,59,.4); 
-      letter-spacing:1.5px; 
-    }
-
-    .reseaux-list { 
-      display:flex; 
-      flex-direction:column; 
-      gap:16px; 
-      margin-top:10px;
-    }
+    .reseaux-list { display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
 
     .reseau-item {
-      background:rgba(30,30,30,.85); 
-      border:2px solid #ffeb3b; 
-      border-radius:16px;
-      padding:14px 16px;
-      font-size:1.25rem; 
-      font-weight:bold; 
-      color:#e0e0e0; 
-      display:flex; 
-      align-items:center; 
-      gap:14px;
-      cursor:pointer; 
-      transition:all .25s; 
-      box-shadow:0 2px 8px rgba(0,0,0,.4); 
-      font-family: 'Orbitron', sans-serif; 
+      background: rgba(30,30,30,.85); border: 2px solid #ffeb3b; border-radius: 16px;
+      padding: 14px 16px; font-size: 1.25rem; font-weight: bold; color: #e0e0e0;
+      display: flex; align-items: center; gap: 14px;
+      cursor: pointer; transition: all .25s;
+      box-shadow: 0 2px 8px rgba(0,0,0,.4); font-family: 'Orbitron', sans-serif;
     }
+    .reseau-item:active { background: #ffeb3b; color: #111; }
+    .reseau-item img { width: 48px !important; height: 48px !important; border-radius: 50%; object-fit: contain; background: #fff; padding: 4px; flex-shrink: 0; }
 
-    .reseau-item:hover { 
-      background:#ffeb3b; 
-      color:#111; 
-      border-color:#fff176; 
-      transform:scale(1.02); 
-    }
-
-    .reseau-item img { 
-      width: 48px !important; height: 48px !important; 
-      border-radius: 50%; object-fit: contain; background:#fff; 
-      padding:4px; box-shadow:0 0 8px rgba(0,0,0,.5); flex-shrink: 0;
-    }
-
+    /* ── NAV ── */
     nav {
-      position: fixed;
-      bottom: 18px;
-      left: 12px;
-      right: 12px;
-      height: 78px;
-      background: rgba(15, 15, 20, 0.96);
-      border-radius: 26px;
-      border: 1px solid rgba(255, 235, 59, 0.2);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 1000;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+      position: fixed; bottom: 18px; left: 12px; right: 12px; height: 78px;
+      background: rgba(15,15,20,0.96); border-radius: 26px;
+      border: 1px solid rgba(255,235,59,0.2);
+      display: flex; justify-content: space-around; align-items: center;
+      z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.7);
     }
 
     .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #aaa;
-      font-size: 0.7rem;
-      font-weight: 600;
-      cursor: pointer;
-      width: 55px;
-      transition: all 0.3s ease;
+      display: flex; flex-direction: column; align-items: center;
+      color: #aaa; font-size: 0.7rem; font-weight: 600;
+      cursor: pointer; width: 55px; transition: all 0.3s ease;
     }
-
-    .nav-item.active {
-      color: #ffeb3b;
-      transform: translateY(-10px);
-    }
+    .nav-item.active { color: #ffeb3b; transform: translateY(-10px); }
 
     .nav-icon-wrapper {
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: rgba(255, 235, 59, 0.05);
+      width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: rgba(255,235,59,0.05); position: relative;
     }
-
     .nav-item.active .nav-icon-wrapper {
-      background: rgba(255, 235, 59, 0.35);
-      box-shadow: 0 8px 24px rgba(255, 235, 59, 0.5);
+      background: rgba(255,235,59,0.35);
+      box-shadow: 0 8px 24px rgba(255,235,59,0.5);
       transform: scale(1.15);
     }
-
-    .nav-item svg {
-      width: 28px;
-      height: 28px;
-      stroke: currentColor;
-    }
+    .nav-item svg { width: 28px; height: 28px; stroke: currentColor; }
 
     #cart-badge {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      background: #ef4444;
-      color: white;
-      border-radius: 50%;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 4px;
-      font-size: 0.65rem;
-      font-weight: bold;
-      line-height: 18px;
-      box-shadow: 0 0 8px rgba(239,68,68,0.6);
-      display: none;
+      position: absolute; top: -4px; right: -4px;
+      background: #ef4444; color: white; border-radius: 50%;
+      min-width: 18px; height: 18px; padding: 0 4px;
+      font-size: 0.65rem; font-weight: bold; line-height: 18px;
+      box-shadow: 0 0 8px rgba(239,68,68,0.6); display: none;
     }
   </style>
+
 </head>
 <body>
 
   <div id="splash-screen" class="splash">
     <div class="splash-content">
-      <img src="rouen.PNG" alt="Fond Rouen" class="splash-bg" />
-      <img src="chat.PNG" alt="Logo Dry.Coffee76" class="splash-logo" />
+      <img src="rouen.PNG" alt="" class="splash-bg" />
+      <img src="chat.PNG" alt="Logo Bart.Coffee76" class="splash-logo" />
       <div class="splash-text">Chargement...</div>
     </div>
   </div>
@@ -443,261 +373,249 @@
     <div class="overlay"></div>
     <div class="content">
 
-      <div id="home-page">
-        <img id="top-logo" src="chat.PNG" alt="Logo">
-        <div id="products-header">
-          <div class="products-title">
-            <span style="font-size:1.6rem;">🛍️</span>
-            Produits
-          </div>
-          <div id="products-count-modern" class="products-count">3 produits</div>
-        </div>
+```
+  <!-- PAGE ACCUEIL -->
+  <div id="home-page">
+    <img id="top-logo" src="chat.PNG" alt="Logo">
 
-        <div id="filters-wrapper">
-          <div id="filters-container">
-            <button id="filter-categories-btn" class="filter-tab" data-active="false">Catégories <span class="arrow">↓</span></button>
-            <button id="filter-farms-btn" class="filter-tab" data-active="false">Farms <span class="arrow">↓</span></button>
-          </div>
-          <div id="active-filters"></div>
-          <div id="categories-dropdown" class="dropdown-menu" style="display:none;"></div>
-          <div id="farms-dropdown" class="dropdown-menu" style="display:none;"></div>
-        </div>
-
-        <div id="products-grid"></div>
+    <div id="products-header">
+      <div class="products-title">
+        <span style="font-size:1.6rem;">🛍️</span>
+        Produits
       </div>
+      <div id="products-count-modern" class="products-count">3 produits</div>
+    </div>
 
-      <div id="product-detail">
-        <div class="product-hero" id="product-hero"></div>
-        <div id="video-switcher" class="video-switcher"></div>
-        <div class="product-info">
-          <div class="product-title" id="detail-title"></div>
-          <div class="badges">
-            <div class="badge badge-farm" id="detail-farm-badge"></div>
-          </div>
-          <div class="strain-section" id="detail-strain-desc"></div>
-          <div class="quantity-section">
-            <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
-            <div class="quantity-grid" id="qty-grid"></div>
-          </div>
-          <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
-        </div>
+    <!-- FILTRES MAISON2LASAPP STYLE -->
+    <div id="filters-bar">
+      <div class="filters-inner">
+        <select id="category-filter" class="compact-select" onchange="filterProducts()">
+          <option value="">Toutes catégories</option>
+        </select>
+        <select id="farm-filter" class="compact-select" onchange="filterProducts()">
+          <option value="">Toutes farms</option>
+        </select>
+        <button class="reset-btn" onclick="resetFilters()" title="Réinitialiser">↺</button>
       </div>
+    </div>
 
-      <div id="cart-page">
-        <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
-        <div id="cart-items"></div>
-        <div id="cart-total" class="cart-total"></div>
+    <div id="products-grid"></div>
+  </div>
 
-        <div class="questionnaire" id="questionnaire">
-          <div class="question">
-            <span class="question-label">Mode de récupération :</span>
-            <button class="option-btn" data-type="pickup">Venir sur place</button>
-            <button class="option-btn" data-type="delivery">Livraison</button>
-          </div>
-
-          <div id="pickup-questions" style="display:none;">
-            <div class="question">
-              <span class="question-label">Pour quelle heure ?</span>
-              <input type="time" id="pickup-time">
-            </div>
-          </div>
-
-          <div id="delivery-questions" style="display:none;">
-            <div class="question">
-              <span class="question-label">Heure souhaitée</span>
-              <input type="time" id="delivery-time">
-            </div>
-            <div class="question">
-              <span class="question-label">Adresse complète</span>
-              <input type="text" id="delivery-address" placeholder="Rue, numéro, ville...">
-            </div>
-            <div class="question">
-              <span class="question-label">Précisions (étage, code, etc.)</span>
-              <textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea>
-            </div>
-          </div>
-
-          <button id="submit-order-btn">Commander</button>
-        </div>
+  <!-- DÉTAIL PRODUIT -->
+  <div id="product-detail">
+    <div class="swiper-wrap">
+      <div class="swiper-track" id="swiper-track"></div>
+      <button class="swiper-btn swiper-btn-prev" onclick="swiperPrev()">&#8249;</button>
+      <button class="swiper-btn swiper-btn-next" onclick="swiperNext()">&#8250;</button>
+      <div class="swiper-counter" id="swiper-counter">1 / 1</div>
+    </div>
+    <div class="product-info">
+      <div class="product-title" id="detail-title"></div>
+      <div class="badges">
+        <div class="badge badge-farm" id="detail-farm-badge"></div>
       </div>
-
-      <div id="infos-page">
-        <div style="padding:16px;">
-          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
-            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
-              Information de Bart.Coffee76
-            </h2>
-            <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
-              Pour toutes commande, une carte d’identité 🪪 est nécessaire et une photo 📸 de vous.
-            </p>
-            <p style="color:#ffeb3b;font-weight:bold;text-align:center;margin-top:16px;">
-              Contact secrétaire : @sav_Bart76
-            </p>
-          </div>
-
-          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
-            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
-              Info Livraison 🚚
-            </h2>
-            <p style="color:#e0e0e0;font-weight:bold;margin:12px 0;">Zone de livraison<br>76 / 27 / 14</p>
-            <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
-              <li>Sur Rouen : <strong style="color:#ffeb3b;">70€</strong></li>
-              <li>Moins de 10 km de Rouen : <strong style="color:#ffeb3b;">100€</strong></li>
-              <li>Supérieur à 10 km : <strong style="color:#ffeb3b;">150€</strong></li>
-              <li>Supérieur à 25 km : <strong style="color:#ffeb3b;">270€</strong></li>
-            </ul>
-          </div>
-
-          <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;box-shadow:0 4px 16px rgba(0,0,0,.6);">
-            <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;text-shadow:0 0 8px rgba(255,235,59,.4);font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
-              Info Meet-up 📍
-            </h2>
-            <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
-              Nous sommes situé sur <strong style="color:#ffeb3b;">Rouen Rive Gauche</strong> 📍
-            </p>
-            <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.1rem;margin-top:16px;">
-              50€ de commande minimum pour venir sur place
-            </p>
-          </div>
-        </div>
+      <div class="strain-section" id="detail-strain-desc"></div>
+      <div class="quantity-section">
+        <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
+        <div class="quantity-grid" id="qty-grid"></div>
       </div>
-
-      <div id="reseaux-page">
-        <h2 class="section-title">Nos réseaux</h2>
-        <div class="reseaux-list">
-          <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
-            Telegram VIP⭐️
-          </div>
-          <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
-            <img src="potato.jpg" alt="Canal Potato">
-            Canal Potato🥔
-          </div>
-          <div class="reseau-item" data-link="http://t.me/sav_Bart76">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
-            Secrétaire👨‍💼
-          </div>
-        </div>
-      </div>
-
-      <nav>
-        <div class="nav-item active" id="nav-home">
-          <div class="nav-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-          </div>
-          <span>Accueil</span>
-        </div>
-        <div class="nav-item" id="nav-cart">
-          <div class="nav-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="9" cy="21" r="1"/>
-              <circle cx="20" cy="21" r="1"/>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-            </svg>
-            <span id="cart-badge"></span>
-          </div>
-          <span>Panier</span>
-        </div>
-        <div class="nav-item" id="nav-infos">
-          <div class="nav-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="12" y1="16" x2="12" y2="12"/>
-              <line x1="12" y1="8" x2="12.01" y2="8"/>
-            </svg>
-          </div>
-          <span>Infos</span>
-        </div>
-        <div class="nav-item" id="nav-reseaux">
-          <div class="nav-icon-wrapper">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
-          </div>
-          <span>Réseaux</span>
-        </div>
-      </nav>
-
+      <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
     </div>
   </div>
 
-  <script>
-  const tg = window.Telegram.WebApp;
-  tg.ready();
-  tg.expand();
-  tg.setHeaderColor('#000000');
-  tg.setBackgroundColor('#1e1e1e');
-  tg.enableClosingConfirmation();
+  <!-- PANIER -->
+  <div id="cart-page">
+    <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
+    <div id="cart-items"></div>
+    <div id="cart-total" class="cart-total"></div>
+    <div class="questionnaire">
+      <div class="question">
+        <span class="question-label">Mode de récupération :</span>
+        <button class="option-btn" data-type="pickup">Venir sur place</button>
+        <button class="option-btn" data-type="delivery">Livraison</button>
+      </div>
+      <div id="pickup-questions" style="display:none;">
+        <div class="question">
+          <span class="question-label">Pour quelle heure ?</span>
+          <input type="time" id="pickup-time">
+        </div>
+      </div>
+      <div id="delivery-questions" style="display:none;">
+        <div class="question">
+          <span class="question-label">Heure souhaitée</span>
+          <input type="time" id="delivery-time">
+        </div>
+        <div class="question">
+          <span class="question-label">Adresse complète</span>
+          <input type="text" id="delivery-address" placeholder="Rue, numéro, ville...">
+        </div>
+        <div class="question">
+          <span class="question-label">Précisions (étage, code, etc.)</span>
+          <textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea>
+        </div>
+      </div>
+      <button id="submit-order-btn">Commander</button>
+    </div>
+  </div>
 
-  function setFullScreen() {
+  <!-- INFOS -->
+  <div id="infos-page">
+    <div style="padding:16px;">
+      <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;">
+        <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+          Information de Bart.Coffee76
+        </h2>
+        <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
+          Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.
+        </p>
+        <p style="color:#ffeb3b;font-weight:bold;text-align:center;margin-top:16px;">
+          Contact secrétaire : @sav_Bart76
+        </p>
+      </div>
+      <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;margin-bottom:24px;">
+        <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+          Info Livraison 🚚
+        </h2>
+        <p style="color:#e0e0e0;font-weight:bold;margin:12px 0;">Zone de livraison : 76 / 27 / 14</p>
+        <ul style="color:#ccc;line-height:1.6;padding-left:0;list-style:none;">
+          <li>Sur Rouen : <strong style="color:#ffeb3b;">70€</strong></li>
+          <li>Moins de 10 km : <strong style="color:#ffeb3b;">100€</strong></li>
+          <li>Supérieur à 10 km : <strong style="color:#ffeb3b;">150€</strong></li>
+          <li>Supérieur à 25 km : <strong style="color:#ffeb3b;">270€</strong></li>
+        </ul>
+      </div>
+      <div style="background:rgba(30,30,30,.92);border:1px solid #444;border-radius:16px;padding:20px;">
+        <h2 style="color:#ffeb3b;font-size:1.6rem;margin-bottom:16px;text-align:center;font-family:'Orbitron',sans-serif;letter-spacing:1.5px;">
+          Info Meet-up 📍
+        </h2>
+        <p style="color:#e0e0e0;line-height:1.6;margin-bottom:12px;">
+          Nous sommes situé sur <strong style="color:#ffeb3b;">Rouen Rive Gauche</strong> 📍
+        </p>
+        <p style="color:#ffeb3b;font-weight:bold;text-align:center;font-size:1.1rem;margin-top:16px;">
+          50€ de commande minimum pour venir sur place
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RÉSEAUX -->
+  <div id="reseaux-page">
+    <h2 class="section-title">Nos réseaux</h2>
+    <div class="reseaux-list">
+      <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
+        Telegram VIP⭐️
+      </div>
+      <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
+        <img src="potato.jpg" alt="Canal Potato">
+        Canal Potato🥔
+      </div>
+      <div class="reseau-item" data-link="http://t.me/sav_Bart76">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
+        Secrétaire👨‍💼
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-item active" id="nav-home">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <span>Accueil</span>
+    </div>
+    <div class="nav-item" id="nav-cart">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span id="cart-badge"></span>
+      </div>
+      <span>Panier</span>
+    </div>
+    <div class="nav-item" id="nav-infos">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+      </div>
+      <span>Infos</span>
+    </div>
+    <div class="nav-item" id="nav-reseaux">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <span>Réseaux</span>
+    </div>
+  </nav>
+
+</div>
+```
+
+  </div>
+
+  <script>
+  const tg = window.Telegram?.WebApp;
+  if (tg) {
+    tg.ready();
     tg.expand();
-    document.documentElement.style.height = '100dvh';
-    document.body.style.height = '100dvh';
+    if (typeof tg.requestFullscreen === 'function') tg.requestFullscreen();
+    tg.setHeaderColor('#000000');
+    tg.setBackgroundColor('#000000');
+    tg.enableClosingConfirmation();
   }
 
-  let currentCategoryFilter = null;
-  let currentFarmFilter = null;
-
+  // ── PRODUITS ────────────────────────────────────────────────────────────────
   const products = {
     blanche: {
-      key: 'blanche',
-      title: 'Blanche❄️',
-      category: 'Blanche❄️',
-      farm: 'R8🏎️',
+      key: 'blanche', title: 'Blanche❄️',
+      category: 'Blanche❄️', farm: 'R8🏎️',
       videos: [{ src: '', poster: 'blanche.jpg' }, { src: 'blanche.mp4', poster: 'blanche.jpg' }],
-      strain: '',
-      description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
+      strain: '', description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
       quantities: [
-        { qty: '1G', price: '60€' },
-        { qty: '3G', price: '160€' },
-        { qty: '5G', price: '210€' },
-        { qty: '10G', price: '360€' },
-        { qty: '20G', price: '680€' }
+        { qty: '1G', price: '60€' }, { qty: '3G', price: '160€' },
+        { qty: '5G', price: '210€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }
       ]
     },
     caliweed: {
-      key: 'caliweed',
-      title: '🍀Cali Weed🍀',
-      category: '🍀Cali Weed🍀',
-      farm: '🏆 Top Shelf',
+      key: 'caliweed', title: '🍀Cali Weed🍀',
+      category: '🍀Cali Weed🍀', farm: '🏆 Top Shelf',
       videos: [{ src: 'caliweed.mp4', poster: '' }],
       strain: '- Runtz🌈',
-      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l’euphorie et la motivation.",
+      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l'euphorie et la motivation.",
       quantities: [
-        { qty: '5G', price: '70€' },
-        { qty: '10G', price: '130€' },
-        { qty: '25G', price: '260€' },
-        { qty: '50G', price: '410€' },
-        { qty: '100G', price: '770€' }
+        { qty: '5G', price: '70€' }, { qty: '10G', price: '130€' },
+        { qty: '25G', price: '260€' }, { qty: '50G', price: '410€' }, { qty: '100G', price: '770€' }
       ]
     },
     capncrunch: {
-      key: 'capncrunch',
-      title: 'Cap’n Crunch🥣🌾',
-      category: 'Cap’n Crunch🥣🌾',
-      farm: 'Total farm🧑‍🌾🌝',
-      videos: [
-        { src: '', poster: 'dry90u.jpg' },
-        { src: 'dry90u.mp4', poster: 'dry90u.jpg' }
-      ],
-      strain: '',
-      description: "Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés.",
+      key: 'capncrunch', title: "Cap'n Crunch🥣🌾",
+      category: "Cap'n Crunch🥣🌾", farm: 'Total farm🧑‍🌾🌝',
+      videos: [{ src: '', poster: 'dry90u.jpg' }, { src: 'dry90u.mp4', poster: 'dry90u.jpg' }],
+      strain: '', description: "Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés.",
       quantities: [
-        { qty: '10g', price: '90€' },
-        { qty: '25g', price: '190€' },
-        { qty: '50g', price: '300€' },
-        { qty: '100g', price: '550€' }
+        { qty: '10g', price: '90€' }, { qty: '25g', price: '190€' },
+        { qty: '50g', price: '300€' }, { qty: '100g', price: '550€' }
       ]
     }
   };
 
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  // ── PANIER ──────────────────────────────────────────────────────────────────
+  let cart = JSON.parse(localStorage.getItem('cart_bart76')) || [];
 
   function saveCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('cart_bart76', JSON.stringify(cart));
     updateBadge();
   }
 
@@ -707,73 +625,170 @@
     badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
   }
 
+  // ── FILTRES MAISON2LASAPP ───────────────────────────────────────────────────
+
+  function populateFilters() {
+    const allProducts = Object.values(products);
+    const categories  = [...new Set(allProducts.map(p => p.category))].sort();
+    const farms       = [...new Set(allProducts.map(p => p.farm))].sort();
+
+    const catSelect  = document.getElementById('category-filter');
+    const farmSelect = document.getElementById('farm-filter');
+
+    categories.forEach(cat => {
+      const opt = document.createElement('option');
+      opt.value = cat; opt.textContent = cat;
+      catSelect.appendChild(opt);
+    });
+
+    farms.forEach(farm => {
+      const opt = document.createElement('option');
+      opt.value = farm; opt.textContent = farm;
+      farmSelect.appendChild(opt);
+    });
+  }
+
+  function filterProducts() {
+    const catFilter  = document.getElementById('category-filter').value;
+    const farmFilter = document.getElementById('farm-filter').value;
+
+    const filtered = Object.values(products).filter(p => {
+      const catMatch  = !catFilter  || p.category === catFilter;
+      const farmMatch = !farmFilter || p.farm === farmFilter;
+      return catMatch && farmMatch;
+    });
+
+    renderProducts(filtered);
+  }
+
+  function resetFilters() {
+    document.getElementById('category-filter').value = '';
+    document.getElementById('farm-filter').value = '';
+    renderProducts(Object.values(products));
+  }
+
+  // ── RENDU PRODUITS ──────────────────────────────────────────────────────────
+
+  function renderProducts(list) {
+    if (!list) list = Object.values(products);
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = '';
+
+    const count = list.length;
+    document.getElementById('products-count-modern').textContent =
+      `${count} produit${count > 1 ? 's' : ''}`;
+
+    if (count === 0) {
+      grid.innerHTML = `<div class="no-results">Aucun produit 🔍</div>`;
+      return;
+    }
+
+    list.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const thumb = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
+      card.innerHTML = `
+        <div class="card-img">
+          <img src="${thumb}" alt="${p.title}">
+          <div class="card-overlay">
+            <div class="card-title">${p.title}</div>
+            <div class="card-farm">${p.farm}</div>
+          </div>
+        </div>`;
+      card.onclick = () => openProductDetail(p.key);
+      grid.appendChild(card);
+    });
+  }
+
+  // ── NAVIGATION PAGES ────────────────────────────────────────────────────────
+
   function hideAllPages() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('product-detail').style.display = 'none';
-    document.getElementById('cart-page').style.display = 'none';
-    document.getElementById('infos-page').style.display = 'none';
-    document.getElementById('reseaux-page').style.display = 'none';
+    ['home-page','product-detail','cart-page','infos-page','reseaux-page'].forEach(id => {
+      const el = document.getElementById(id);
+      el.style.display = 'none';
+    });
     document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
   }
 
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }
+  function scrollToTop() { document.querySelector('.content').scrollTo({ top: 0, behavior: 'instant' }); }
 
   function goToHome() {
     hideAllPages();
     document.getElementById('home-page').style.display = 'block';
     document.getElementById('nav-home').classList.add('active');
-    tg.BackButton.hide();
+    if (tg) tg.BackButton.hide();
     scrollToTop();
   }
 
-  function loadMedia(src, poster) {
-    const hero = document.getElementById('product-hero');
-    hero.innerHTML = '';
-    if (src) {
-      const v = document.createElement('video');
-      v.autoplay = v.loop = v.muted = v.playsinline = true;
-      v.controls = true;
-      if (poster) v.poster = poster;
-      v.innerHTML = `<source src="${src}" type="video/mp4">`;
-      hero.appendChild(v);
-    } else if (poster) {
-      const i = document.createElement('img'); 
-      i.src = poster;
-      hero.appendChild(i);
-    }
-  }
+  // ── SWIPER ───────────────────────────────────────────────────────────────────
 
-  function renderProducts() {
-    const grid = document.getElementById('products-grid');
-    grid.innerHTML = '';
+  let swiperIndex = 0;
+  let swiperItems = []; // tableau de { src, poster } (vidéo si src, image si poster seul)
 
-    let filteredProducts = Object.values(products);
+  function buildSwiper(videos) {
+    swiperIndex = 0;
+    swiperItems = videos;
+    const track = document.getElementById('swiper-track');
+    track.innerHTML = '';
 
-    if (currentCategoryFilter) filteredProducts = filteredProducts.filter(p => p.category === currentCategoryFilter);
-    if (currentFarmFilter) filteredProducts = filteredProducts.filter(p => p.farm === currentFarmFilter);
-
-    filteredProducts.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      let thumbSrc = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
-
-      card.innerHTML = `
-        <div class="card-img">
-          <img src="${thumbSrc}" alt="${p.title}">
-          <div class="card-overlay">
-            <div class="card-title">${p.title}</div>
-            <div class="card-farm">${p.farm}</div>
-          </div>
-        </div>
-      `;
-      card.onclick = () => openProductDetail(p.key);
-      grid.appendChild(card);
+    videos.forEach(vid => {
+      if (vid.src) {
+        // Slide vidéo
+        const v = document.createElement('video');
+        v.autoplay = false;
+        v.loop = true;
+        v.muted = true;
+        v.playsinline = true;
+        v.controls = true;
+        v.style.cssText = 'flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#111;';
+        if (vid.poster) v.poster = vid.poster;
+        v.innerHTML = `<source src="${vid.src}" type="video/mp4">`;
+        track.appendChild(v);
+      } else if (vid.poster) {
+        // Slide image
+        const img = document.createElement('img');
+        img.src = vid.poster;
+        img.style.cssText = 'flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#111;pointer-events:none;user-select:none;';
+        track.appendChild(img);
+      }
     });
 
-    document.getElementById('products-count-modern').textContent = `${filteredProducts.length} produit${filteredProducts.length > 1 ? 's' : ''}`;
+    updateSwiper();
   }
+
+  function updateSwiper() {
+    const total = swiperItems.length;
+    document.getElementById('swiper-track').style.transform = `translateX(-${swiperIndex * 100}%)`;
+    document.getElementById('swiper-counter').textContent = `${swiperIndex + 1} / ${total}`;
+
+    // Pause toutes les vidéos sauf celle active
+    const track = document.getElementById('swiper-track');
+    track.querySelectorAll('video').forEach((v, i) => {
+      if (i === swiperIndex) {
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+
+    // Cacher les flèches s'il n'y a qu'un seul média
+    const showArrows = total > 1;
+    document.querySelector('.swiper-btn-prev').style.display = showArrows ? 'flex' : 'none';
+    document.querySelector('.swiper-btn-next').style.display = showArrows ? 'flex' : 'none';
+    document.getElementById('swiper-counter').style.display  = showArrows ? 'block' : 'none';
+  }
+
+  function swiperPrev() {
+    swiperIndex = (swiperIndex - 1 + swiperItems.length) % swiperItems.length;
+    updateSwiper();
+  }
+
+  function swiperNext() {
+    swiperIndex = (swiperIndex + 1) % swiperItems.length;
+    updateSwiper();
+  }
+
+  // ── DÉTAIL PRODUIT ──────────────────────────────────────────────────────────
 
   function openProductDetail(key) {
     const p = products[key];
@@ -781,10 +796,9 @@
     document.getElementById('detail-farm-badge').textContent = p.farm;
 
     let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
-    if (p.description) {
-      content += '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
-    }
-    document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888; font-style:italic;">Aucune description disponible</p>';
+    if (p.description) content += '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
+    document.getElementById('detail-strain-desc').innerHTML =
+      content || '<p style="color:#888;font-style:italic;">Aucune description disponible</p>';
 
     const qtyGrid = document.getElementById('qty-grid');
     qtyGrid.innerHTML = '';
@@ -800,27 +814,10 @@
       qtyGrid.appendChild(btn);
     });
 
-    const switcher = document.getElementById('video-switcher');
-    switcher.innerHTML = '';
-    if (p.videos && p.videos.length > 0) {
-      p.videos.forEach((vid, idx) => {
-        const preview = document.createElement('div');
-        preview.className = `video-preview ${idx === 0 ? 'active' : ''}`;
-        preview.style.backgroundImage = `url('${vid.poster || vid.src || 'chat.PNG'}')`;
-        preview.onclick = () => {
-          switcher.querySelectorAll('.video-preview').forEach(b => b.classList.remove('active'));
-          preview.classList.add('active');
-          loadMedia(vid.src, vid.poster);
-        };
-        switcher.appendChild(preview);
-      });
-    }
-
-    loadMedia(p.videos[0].src, p.videos[0].poster);
-
+    buildSwiper(p.videos);
     hideAllPages();
-    document.getElementById('product-detail').style.display = 'block';
-    tg.BackButton.show();
+    document.getElementById('product-detail').style.display = 'flex';
+    if (tg) tg.BackButton.show();
     scrollToTop();
   }
 
@@ -828,21 +825,21 @@
     const selected = document.querySelector('.qty-btn.selected');
     if (!selected) return alert('Sélectionnez une quantité !');
     const title = document.getElementById('detail-title').textContent;
-    const key = Object.keys(products).find(k => products[k].title === title);
-    const item = products[key].quantities[parseInt(selected.dataset.idx)];
+    const key   = Object.keys(products).find(k => products[k].title === title);
+    const item  = products[key].quantities[parseInt(selected.dataset.idx)];
     cart.push({ title, qty: item.qty, price: item.price });
     saveCart();
     alert('✅ Ajouté au panier !');
   };
 
-  // Navigation
+  // ── NAVIGATION ───────────────────────────────────────────────────────────────
   document.getElementById('nav-home').onclick = goToHome;
 
   document.getElementById('nav-cart').onclick = () => {
     hideAllPages();
     document.getElementById('cart-page').style.display = 'block';
     document.getElementById('nav-cart').classList.add('active');
-    tg.BackButton.hide();
+    if (tg) tg.BackButton.hide();
     renderCart();
     scrollToTop();
   };
@@ -851,7 +848,7 @@
     hideAllPages();
     document.getElementById('infos-page').style.display = 'block';
     document.getElementById('nav-infos').classList.add('active');
-    tg.BackButton.hide();
+    if (tg) tg.BackButton.hide();
     scrollToTop();
   };
 
@@ -859,12 +856,21 @@
     hideAllPages();
     document.getElementById('reseaux-page').style.display = 'block';
     document.getElementById('nav-reseaux').classList.add('active');
-    tg.BackButton.hide();
+    if (tg) tg.BackButton.hide();
     scrollToTop();
   };
 
-  tg.BackButton.onClick(() => goToHome());
+  document.querySelectorAll('.reseau-item[data-link]').forEach(el => {
+    el.onclick = () => {
+      const link = el.getAttribute('data-link');
+      if (tg) tg.openLink(link);
+      else window.open(link, '_blank');
+    };
+  });
 
+  if (tg) tg.BackButton.onClick(() => goToHome());
+
+  // ── PANIER ───────────────────────────────────────────────────────────────────
   function renderCart() {
     const container = document.getElementById('cart-items');
     container.innerHTML = '';
@@ -885,34 +891,39 @@
           <div class="cart-item-title">${item.title}</div>
           <div class="cart-item-qty">${item.qty} — ${item.price}</div>
         </div>
-        <button class="delete-btn" data-index="${index}">×</button>
-      `;
+        <button class="delete-btn" data-index="${index}">×</button>`;
       container.appendChild(div);
     });
 
     document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
   }
 
-  // Delete item from cart
-  document.getElementById('cart-page').addEventListener('click', (e) => {
+  document.getElementById('cart-page').addEventListener('click', e => {
     if (e.target.classList.contains('delete-btn')) {
-      const index = parseInt(e.target.dataset.index);
-      cart.splice(index, 1);
+      cart.splice(parseInt(e.target.dataset.index), 1);
       saveCart();
       renderCart();
     }
   });
 
-  // Submit Order
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('pickup-questions').style.display   = btn.dataset.type === 'pickup'   ? 'block' : 'none';
+      document.getElementById('delivery-questions').style.display = btn.dataset.type === 'delivery' ? 'block' : 'none';
+    });
+  });
+
   document.getElementById('submit-order-btn').onclick = () => {
     if (cart.length === 0) return alert("Votre panier est vide");
-
     const modeBtn = document.querySelector('.option-btn.active');
     if (!modeBtn) return alert("Veuillez choisir un mode de récupération.");
 
     const mode = modeBtn.dataset.type === 'pickup' ? 'Venir sur place' : 'Livraison';
+    const user = tg?.initDataUnsafe?.user;
     let message = `🛒 *NOUVELLE COMMANDE* 🛒\n\n`;
-    message += `👤 ${tg.initDataUnsafe?.user?.username ? '@' + tg.initDataUnsafe.user.username : tg.initDataUnsafe?.user?.first_name || 'Utilisateur'}\n`;
+    message += `👤 ${user?.username ? '@' + user.username : user?.first_name || 'Utilisateur'}\n`;
     message += `📅 ${new Date().toLocaleString('fr-FR')}\n\n`;
     message += `🛍️ *Articles :*\n`;
 
@@ -925,23 +936,26 @@
     message += `\n💰 *Total : ${total}€*\n\n`;
     message += `📦 *Mode :* ${mode}\n`;
 
-    tg.openTelegramLink(`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`);
+    const url = `https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
+    if (tg) tg.openTelegramLink(url);
+    else window.open(url, '_blank');
   };
 
-  // Lancement
+  // ── INIT ─────────────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     const splash = document.getElementById('splash-screen');
     setTimeout(() => {
       splash.classList.add('hidden');
       setTimeout(() => {
         splash.style.display = 'none';
-        setFullScreen();
-        goToHome();
+        populateFilters();
         renderProducts();
         updateBadge();
+        goToHome();
       }, 600);
     }, 2500);
   });
   </script>
+
 </body>
 </html>
