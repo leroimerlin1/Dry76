@@ -6,2077 +6,1257 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Bart.Coffee76</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
-
     * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; min-height:100dvh; width:100%; overflow:hidden; font-family:'M PLUS Rounded 1c',Orbitron,sans-serif; background:#1e1e1e; color:#e0e0e0; touch-action:manipulation; }
+    .splash { position:fixed; inset:0; background:#000; z-index:9999; display:flex; align-items:center; justify-content:center; transition:opacity 0.8s ease; overflow:hidden; }
+    .splash.hidden { opacity:0; pointer-events:none; }
+    .splash-content { position:relative; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; }
+    .splash-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.25; filter:blur(4px); }
+    .splash-vignette { position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.75) 100%); z-index:1; }
+    .splash-glow { position:absolute; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle,rgba(255,235,59,0.18) 0%,transparent 70%); z-index:2; animation:glowPulse 2.5s ease-in-out infinite; }
+    @keyframes glowPulse { 0%,100%{transform:scale(1);opacity:0.7;}50%{transform:scale(1.3);opacity:1;} }
+    .splash-logo { width:130px; height:130px; border-radius:50%; object-fit:cover; border:3px solid rgba(255,235,59,0.8); box-shadow:0 0 0 8px rgba(255,235,59,0.08),0 0 40px rgba(255,235,59,0.4); z-index:3; animation:logoEntrance 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards; margin-bottom:28px; }
+    @keyframes logoEntrance { 0%{transform:scale(0.5);opacity:0;}100%{transform:scale(1);opacity:1;} }
+    .splash-name { font-family:'Orbitron',sans-serif; font-size:1.5rem; font-weight:900; color:#fff; letter-spacing:3px; text-transform:uppercase; z-index:3; margin-bottom:6px; animation:fadeUp 0.6s 0.3s ease both; }
+    .splash-name span { color:#ffeb3b; }
+    .splash-sub { font-size:0.78rem; font-weight:600; color:rgba(255,235,59,0.55); letter-spacing:4px; text-transform:uppercase; z-index:3; margin-bottom:48px; animation:fadeUp 0.6s 0.45s ease both; }
+    @keyframes fadeUp { 0%{opacity:0;transform:translateY(14px);}100%{opacity:1;transform:translateY(0);} }
+    .splash-progress-wrap { width:180px; height:3px; background:rgba(255,235,59,0.12); border-radius:999px; z-index:3; overflow:hidden; animation:fadeUp 0.6s 0.6s ease both; }
+    .splash-progress-bar { height:100%; width:0%; background:linear-gradient(90deg,#ffeb3b,#fff176); border-radius:999px; box-shadow:0 0 8px rgba(255,235,59,0.8); animation:loadBar 2.2s 0.5s ease forwards; }
+    @keyframes loadBar { 0%{width:0%;}60%{width:75%;}100%{width:100%;} }
+    .splash-text { color:rgba(255,255,255,0.35); font-size:0.72rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; z-index:3; margin-top:14px; animation:fadeUp 0.6s 0.7s ease both; }
+    .splash-particles { position:absolute; inset:0; z-index:2; pointer-events:none; }
+    .spark { position:absolute; width:3px; height:3px; border-radius:50%; background:#ffeb3b; opacity:0; animation:sparkFloat var(--dur) var(--delay) ease-in-out infinite; }
+    @keyframes sparkFloat { 0%{opacity:0;transform:translateY(0) scale(0.5);}20%{opacity:0.8;}80%{opacity:0.4;}100%{opacity:0;transform:translateY(-120px) scale(1.2);} }
+    .container { position:relative; height:100dvh; width:100%; background:url('rouen.PNG') center/cover no-repeat fixed; }
+    .overlay { position:absolute; inset:0; z-index:1; }
+    .content { position:relative; z-index:2; height:100dvh; width:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:100px; }
+    #home-logo-wrapper { position:sticky; top:0; z-index:100; background:transparent; padding:10px 0 8px; pointer-events:none; }
+    #top-logo { width:100%; height:auto; max-height:160px; object-fit:contain; display:block; margin:0 auto; }
+    #products-header { margin:0 16px 14px 16px; background:rgba(15,15,22,0.88); border-radius:22px; border:1px solid rgba(255,235,59,0.12); box-shadow:0 8px 32px rgba(0,0,0,0.5); padding:18px 20px; display:flex; align-items:center; justify-content:space-between; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+    .products-title { display:flex; align-items:center; gap:10px; font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:700; color:#aaa; letter-spacing:0.5px; }
+    .products-count { display:flex; flex-direction:column; align-items:center; background:rgba(255,235,59,0.08); border:1.5px solid rgba(255,235,59,0.3); border-radius:16px; padding:8px 20px; box-shadow:0 0 18px rgba(255,235,59,0.1); min-width:80px; }
+    .products-count-number { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:#ffeb3b; line-height:1; text-shadow:0 0 12px rgba(255,235,59,0.5); }
+    .products-count-label { font-size:0.65rem; font-weight:700; color:rgba(255,235,59,0.6); letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; }
+    #filters-bar { margin:0 16px 14px 16px; }
+    .filters-inner { display:flex; gap:10px; align-items:center; }
+    .compact-select { flex:1; height:44px; font-size:14px; padding:0 32px 0 14px; font-family:'M PLUS Rounded 1c',sans-serif; font-weight:600; background:rgba(20,20,30,0.92); border:1.5px solid rgba(255,235,59,0.4); border-radius:14px; color:#e0e0e0; appearance:none; -webkit-appearance:none; cursor:pointer; outline:none; transition:border-color 0.2s,box-shadow 0.2s; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffeb3b' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-color:rgba(20,20,30,0.92); }
+    .compact-select:focus { border-color:#ffeb3b; box-shadow:0 0 10px rgba(255,235,59,0.25); }
+    .compact-select option { background:#1a1a24; color:#e0e0e0; }
+    .reset-btn { width:44px; height:44px; flex-shrink:0; background:rgba(20,20,30,0.92); border:1.5px solid rgba(255,235,59,0.4); border-radius:14px; color:#ffeb3b; font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+    .reset-btn:active { background:rgba(255,235,59,0.15); border-color:#ffeb3b; transform:rotate(180deg) scale(0.93); }
+    #products-grid { padding:0 16px 16px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .no-results { grid-column:1/-1; text-align:center; padding:48px 20px; color:rgba(255,235,59,0.5); font-family:'Orbitron',sans-serif; font-size:1rem; }
+    .card { background:transparent; border:2px solid #ffeb3b; border-radius:14px; overflow:hidden; transition:all .25s; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,.5); position:relative; height:240px; }
+    .card:active { transform:scale(0.97); border-color:#fff176; }
+    .card-img { height:100%; width:100%; position:relative; }
+    .card-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    .card-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%); padding:16px 12px 12px; z-index:2; }
+    .card-title { font-family:'Orbitron',sans-serif; font-size:1.2rem; color:#ffeb3b; font-weight:900; letter-spacing:1px; margin-bottom:4px; text-shadow:0 1px 3px black; }
+    .card-farm { font-size:0.9rem; color:#ddd; font-weight:bold; text-shadow:0 1px 3px black; }
+    #product-detail { display:none; flex-direction:column; height:100dvh; background:#000; position:relative; }
+    .product-info { flex:1; background:#333; overflow-y:auto; padding-bottom:90px; }
+    .product-title { padding:24px 16px 8px; font-family:'Orbitron',sans-serif; font-size:2.1rem; font-weight:900; color:#ffeb3b; text-shadow:0 0 10px rgba(255,235,59,.5); letter-spacing:1.5px; }
+    .badges { padding:0 16px 16px; display:flex; flex-wrap:wrap; gap:10px; }
+    .badge { padding:8px 16px; border-radius:999px; font-size:.95rem; font-weight:bold; }
+    .badge-farm { background:rgba(255,235,59,.25); color:#ffeb3b; border:1px solid #ffeb3b; }
+    .strain-section { padding:0 16px 24px; color:#ccc; font-size:1.1rem; line-height:1.6; white-space:pre-line; }
+    .strain-section .description { color:#ddd; font-style:italic; }
+    .quantity-section { padding:16px; margin:12px 16px; border-radius:16px; border:1px solid #444; }
+    .quantity-title { font-family:'Orbitron',sans-serif; font-size:1.25rem; color:#ffeb3b; margin-bottom:16px; display:flex; align-items:center; gap:12px; font-weight:700; }
+    .quantity-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+    .qty-btn { background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; padding:16px 10px; border-radius:14px; text-align:center; cursor:pointer; font-weight:bold; transition:.25s; }
+    .qty-btn.selected { background:#ffeb3b; color:#111; border-color:#ffeb3b; }
+    .price-new { color:#4ade80; font-weight:900; font-size:1.15rem; }
+    .add-to-cart { margin:16px 16px 40px 16px; background:#ffeb3b; color:#111; border:none; padding:18px; font-size:1.2rem; font-weight:bold; border-radius:16px; display:flex; align-items:center; justify-content:center; gap:12px; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family:'Orbitron',sans-serif; }
+    .swiper-wrap { position:relative; width:100%; overflow:hidden; background:#111; aspect-ratio:1/1; flex:0 0 auto; }
+    .swiper-track { display:flex; transition:transform 0.35s ease; will-change:transform; height:100%; }
+    .swiper-track>* { flex-shrink:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; background:#111; }
+    .swiper-track video { pointer-events:auto; object-fit:cover; }
+    .swiper-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.65); border:1.5px solid rgba(255,255,255,0.2); color:white; width:46px; height:46px; border-radius:50%; font-size:18px; cursor:pointer; z-index:10; display:flex; align-items:center; justify-content:center; }
+    .swiper-btn-prev { left:12px; }
+    .swiper-btn-next { right:12px; }
+    .swiper-counter { position:absolute; bottom:10px; right:14px; background:rgba(0,0,0,0.65); border:1px solid rgba(255,235,59,0.4); border-radius:20px; padding:4px 12px; font-size:13px; font-weight:700; color:#ffeb3b; letter-spacing:0.5px; }
+    #cart-page { padding:16px; display:none; }
+    .cart-item { background:rgba(30,30,30,.82); border:1px solid #444; border-radius:12px; padding:14px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; }
+    .cart-item-title { font-weight:bold; color:#ffeb3b; }
+    .cart-item-qty { color:#ccc; font-size:0.95rem; }
+    .delete-btn { background:#ef4444; color:white; border:none; width:32px; height:32px; border-radius:50%; font-weight:bold; cursor:pointer; font-size:1.1rem; }
+    .cart-total { text-align:center; font-size:1.3rem; color:#ffeb3b; margin:20px 0; font-family:'Orbitron',sans-serif; }
+    .questionnaire { background:rgba(30,30,30,.78); border:1px solid #444; border-radius:14px; padding:20px; margin-top:24px; }
+    .question { margin-bottom:20px; }
+    .question-label { display:block; font-size:1.1rem; color:#aaa; margin-bottom:10px; font-weight:500; }
+    .option-btn { width:100%; padding:14px; margin:6px 0; background:rgba(30,30,30,.8); border:1px solid #444; color:#e0e0e0; border-radius:12px; font-size:1.05rem; cursor:pointer; }
+    .option-btn.active { background:#ffeb3b; color:#111; font-weight:bold; }
+    input[type="time"],input[type="text"],textarea { width:100%; padding:14px; border-radius:10px; border:1px solid #444; background:rgba(40,40,40,.8); color:#e0e0e0; font-size:1.05rem; }
+    textarea { min-height:90px; resize:vertical; }
+    #submit-order-btn { width:100%; padding:18px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-size:1.25rem; font-weight:bold; margin-top:24px; cursor:pointer; box-shadow:0 0 12px rgba(255,235,59,.5); font-family:'Orbitron',sans-serif; }
+    #submit-order-btn:disabled { background:#555; color:#999; cursor:not-allowed; }
+    #infos-page { display:none; padding:16px 16px 110px 16px; }
+    .info-card { background:rgba(15,15,22,0.88); border:1.5px solid rgba(255,235,59,0.18); border-radius:22px; padding:20px 18px; margin-bottom:16px; box-shadow:0 6px 32px rgba(0,0,0,0.55); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+    .info-card-header { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+    .info-card-icon { width:48px; height:48px; background:rgba(255,235,59,0.13); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; border:1px solid rgba(255,235,59,0.25); }
+    .info-card-title { font-family:'Orbitron',sans-serif; font-size:1.3rem; font-weight:800; color:#fff; letter-spacing:0.5px; }
+    .info-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:14px; }
+    .info-row-icon { font-size:1.1rem; margin-top:2px; flex-shrink:0; color:#ffeb3b; }
+    .info-row-label { color:#aaa; font-size:1rem; font-weight:500; }
+    .dept-badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .dept-badge { background:rgba(255,235,59,0.12); border:1.5px solid rgba(255,235,59,0.45); color:#ffeb3b; padding:6px 16px; border-radius:10px; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:700; }
+    .minimum-badge { text-align:right; margin-top:6px; }
+    .minimum-badge span { color:#ffeb3b; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:800; }
+    .meetup-location-row { display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.04); border-radius:14px; padding:14px 16px; margin-bottom:12px; }
+    .meetup-location-left { display:flex; align-items:center; gap:10px; }
+    .meetup-location-name { font-size:1.15rem; font-weight:700; color:#fff; }
+    .disponible-badge { background:rgba(255,235,59,0.18); border:1.5px solid #ffeb3b; color:#ffeb3b; font-family:'Orbitron',sans-serif; font-size:0.78rem; font-weight:800; padding:5px 13px; border-radius:999px; letter-spacing:0.5px; }
+    .meetup-horaires-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+    .meetup-horaires-text { color:#aaa; font-size:0.95rem; font-weight:500; }
+    #reseaux-page { display:none; padding:16px 16px 110px 16px; }
+    .section-title { font-family:'Orbitron',sans-serif; font-size:1.45rem; color:#ffeb3b; margin:28px 0 16px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
+    .reseaux-list { display:flex; flex-direction:column; gap:14px; margin-top:4px; }
+    .reseau-item { background:rgba(15,15,22,0.88); border:1.5px solid rgba(255,235,59,0.18); border-radius:20px; padding:16px 18px; display:flex; align-items:center; gap:16px; cursor:pointer; transition:all .22s; box-shadow:0 4px 18px rgba(0,0,0,0.45); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .reseau-item:active { transform:scale(0.97); border-color:#ffeb3b; background:rgba(255,235,59,0.08); }
+    .reseau-icon-wrap { width:52px; height:52px; flex-shrink:0; border-radius:16px; border:1.5px solid rgba(255,235,59,0.25); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .reseau-icon-wrap img { width:36px!important; height:36px!important; object-fit:contain; border-radius:0; background:transparent; padding:0; }
+    .reseau-text { flex:1; }
+    .reseau-name { font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:800; color:#fff; letter-spacing:0.3px; }
+    .reseau-sub { font-size:0.82rem; color:#888; font-weight:500; margin-top:3px; }
+    .reseau-arrow { font-size:1.6rem; color:#ffeb3b; font-weight:300; line-height:1; }
+    .star { transition:color 0.15s; user-select:none; }
+    .star.on { color:#ffeb3b; }
+    .star.off { color:#444; }
+    .avis-card { background:rgba(15,15,22,0.88); border:1.5px solid rgba(255,235,59,0.13); border-radius:18px; padding:16px 18px; margin-bottom:14px; box-shadow:0 4px 16px rgba(0,0,0,0.4); }
+    .avis-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+    .avis-user { font-family:'Orbitron',sans-serif; font-size:0.85rem; color:#ffeb3b; font-weight:700; }
+    .avis-stars { font-size:1rem; letter-spacing:2px; }
+    .avis-date { font-size:0.75rem; color:#555; margin-bottom:8px; }
+    .avis-comment { color:#ccc; font-size:0.95rem; line-height:1.5; }
+
+
+/* ═══════════════════════════════════
+   NAV — EMOJIS UNIQUEMENT, PAS DE TEXTE
+═══════════════════════════════════ */
+nav {
+  position:fixed; bottom:18px; left:12px; right:12px; height:64px;
+  background:rgba(15,15,20,0.96); border-radius:26px;
+  border:1px solid rgba(255,235,59,0.2);
+  display:flex; justify-content:space-around; align-items:center;
+  z-index:1000; box-shadow:0 10px 40px rgba(0,0,0,0.7);
+  padding:0 4px;
+}
+.nav-item {
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  width:44px; height:44px;
+  border-radius:50%;
+  background:transparent;
+  transition:all 0.25s ease;
+  position:relative;
+}
+.nav-item.active {
+  background:rgba(255,235,59,0.22);
+  box-shadow:0 3px 14px rgba(255,235,59,0.3);
+  transform:translateY(-4px) scale(1.08);
+}
+.nav-emoji {
+  font-size:1.25rem;
+  line-height:1;
+  display:block;
+  transition:transform 0.2s;
+}
+.nav-item.active .nav-emoji { transform:scale(1.1); }
+#cart-badge {
+  position:absolute; top:-2px; right:-2px;
+  background:#ef4444; color:white;
+  border-radius:50%; min-width:15px; height:15px;
+  padding:0 3px; font-size:0.58rem; font-weight:bold;
+  line-height:15px; box-shadow:0 0 6px rgba(239,68,68,0.6);
+  display:none; z-index:2; text-align:center;
+}
+
+/* AUTH MODAL */
+#auth-modal { display:none; position:fixed; inset:0; z-index:8000; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
+#auth-modal.open { display:flex; }
+.auth-sheet { width:100%; background:#0f0f16; border-radius:28px 28px 0 0; border-top:1.5px solid rgba(255,235,59,0.2); padding:24px 20px 40px; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1); }
+@keyframes slideUp { from{transform:translateY(100%);}to{transform:translateY(0);} }
+.auth-handle { width:40px; height:4px; background:rgba(255,255,255,0.15); border-radius:999px; margin:0 auto 24px; }
+.auth-tabs { display:flex; gap:0; background:rgba(255,255,255,0.05); border-radius:14px; padding:4px; margin-bottom:24px; }
+.auth-tab { flex:1; padding:10px; text-align:center; font-family:'Orbitron',sans-serif; font-size:0.82rem; font-weight:700; color:#666; border-radius:10px; cursor:pointer; transition:all 0.2s; letter-spacing:0.5px; }
+.auth-tab.active { background:#ffeb3b; color:#111; box-shadow:0 4px 12px rgba(255,235,59,0.3); }
+.auth-field { margin-bottom:14px; }
+.auth-field label { display:block; font-size:0.78rem; color:#666; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:7px; }
+.auth-field input { width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:14px; color:#fff; font-size:1rem; font-family:'M PLUS Rounded 1c',sans-serif; outline:none; transition:border-color 0.2s; }
+.auth-field input:focus { border-color:rgba(255,235,59,0.5); }
+.auth-submit { width:100%; padding:16px; background:#ffeb3b; color:#111; border:none; border-radius:16px; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:900; cursor:pointer; margin-top:8px; box-shadow:0 0 20px rgba(255,235,59,0.35); transition:opacity 0.2s; }
+.auth-submit:disabled { opacity:0.5; cursor:not-allowed; }
+.auth-error { color:#ef4444; font-size:0.85rem; text-align:center; margin-top:10px; min-height:20px; }
+
+/* PROFIL */
+#profil-page { display:none; padding:16px 16px 110px 16px; }
+.profil-header { background:rgba(15,15,22,0.9); border:1.5px solid rgba(255,235,59,0.15); border-radius:24px; padding:28px 20px 22px; text-align:center; margin-bottom:18px; position:relative; }
+.profil-avatar { width:80px; height:80px; background:rgba(255,235,59,0.12); border:2.5px solid rgba(255,235,59,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.2rem; margin:0 auto 14px; box-shadow:0 0 24px rgba(255,235,59,0.15); }
+.profil-name { font-family:'Orbitron',sans-serif; font-size:1.2rem; font-weight:900; color:#fff; margin-bottom:4px; }
+.profil-logout { position:absolute; top:16px; right:16px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); color:#ef4444; font-size:0.72rem; font-family:'Orbitron',sans-serif; font-weight:700; padding:6px 12px; border-radius:10px; cursor:pointer; letter-spacing:0.5px; }
+.profil-section-title { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:800; color:#ffeb3b; letter-spacing:1px; text-transform:uppercase; margin:20px 0 12px; }
+/* Bloc stats commandes */
+.profil-stats-block { background:rgba(15,15,22,0.9); border:1.5px solid rgba(255,235,59,0.2); border-radius:20px; padding:20px 18px; margin-bottom:18px; display:flex; align-items:center; gap:18px; box-shadow:0 6px 24px rgba(0,0,0,0.45); }
+.profil-stats-icon { width:56px; height:56px; background:rgba(255,235,59,0.1); border:1.5px solid rgba(255,235,59,0.3); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; flex-shrink:0; }
+.profil-stats-info { flex:1; }
+.profil-stats-number { font-family:'Orbitron',sans-serif; font-size:2.2rem; font-weight:900; color:#ffeb3b; line-height:1; text-shadow:0 0 14px rgba(255,235,59,0.4); }
+.profil-stats-label { font-size:0.8rem; color:#666; font-weight:600; letter-spacing:0.5px; margin-top:4px; }
+.commande-card { background:rgba(15,15,22,0.88); border:1.5px solid rgba(255,255,255,0.07); border-radius:18px; padding:16px 18px; margin-bottom:12px; }
+.commande-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.commande-date { font-size:0.78rem; color:#555; font-weight:600; }
+.commande-total { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:900; color:#ffeb3b; }
+.commande-items { font-size:0.88rem; color:#888; line-height:1.6; }
+.commande-mode { display:inline-block; margin-top:8px; background:rgba(255,235,59,0.08); border:1px solid rgba(255,235,59,0.2); color:rgba(255,235,59,0.7); font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:999px; letter-spacing:0.5px; }
+
+/* ═══════════════════════════════════════
+   CHAT — NOUVEAU STYLE PREMIUM
+═══════════════════════════════════════ */
+#chat-page {
+  display:none;
+  flex-direction:column;
+  position:fixed;
+  inset:0;
+  bottom:86px; /* au dessus de la nav */
+  background: linear-gradient(160deg, #0a0a12 0%, #0f0f1e 50%, #080810 100%);
+  z-index:500;
+}
+
+/* Header chat */
+.chat-header {
+  flex-shrink:0;
+  padding:14px 18px 12px;
+  background:rgba(10,10,20,0.98);
+  border-bottom:1px solid rgba(255,235,59,0.08);
+  display:flex; align-items:center; gap:14px;
+  position:relative;
+}
+.chat-header::after {
+  content:'';
+  position:absolute; bottom:0; left:18px; right:18px; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,235,59,0.25),transparent);
+}
+.chat-header-avatar {
+  width:44px; height:44px; border-radius:50%; flex-shrink:0;
+  background:linear-gradient(135deg,rgba(255,235,59,0.15),rgba(255,235,59,0.05));
+  border:2px solid rgba(255,235,59,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem;
+  box-shadow:0 0 16px rgba(255,235,59,0.12);
+}
+.chat-header-info { flex:1; }
+.chat-header-title {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.9rem; font-weight:800; color:#fff;
+  letter-spacing:0.3px;
+}
+.chat-header-status {
+  display:flex; align-items:center; gap:5px;
+  margin-top:2px;
+}
+.chat-status-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:#4ade80;
+  box-shadow:0 0 6px #4ade80;
+  animation:blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;}50%{opacity:0.4;} }
+.chat-status-text { font-size:0.7rem; color:#4ade80; font-weight:600; }
+.chat-header-timer {
+  font-size:0.65rem; color:rgba(255,235,59,0.45);
+  font-weight:600; letter-spacing:0.5px;
+  background:rgba(255,235,59,0.06);
+  border:1px solid rgba(255,235,59,0.12);
+  border-radius:8px; padding:3px 8px;
+  white-space:nowrap;
+}
+
+/* Zone messages */
+.chat-messages {
+  flex:1;
+  overflow-y:auto;
+  padding:14px 14px 8px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
+}
+.chat-messages::-webkit-scrollbar { width:3px; }
+.chat-messages::-webkit-scrollbar-track { background:transparent; }
+.chat-messages::-webkit-scrollbar-thumb { background:rgba(255,235,59,0.2); border-radius:999px; }
+
+/* Séparateur de date */
+.chat-date-sep {
+  text-align:center; margin:8px 0 4px;
+  font-size:0.65rem; color:#444; font-weight:600;
+  letter-spacing:1px; text-transform:uppercase;
+  position:relative;
+}
+.chat-date-sep::before,.chat-date-sep::after {
+  content:''; position:absolute; top:50%;
+  width:30%; height:1px; background:rgba(255,255,255,0.06);
+}
+.chat-date-sep::before { left:0; }
+.chat-date-sep::after  { right:0; }
+
+/* Groupe message */
+.chat-msg-group { display:flex; flex-direction:column; gap:2px; margin-bottom:6px; }
+.chat-msg-group.me    { align-items:flex-end; }
+.chat-msg-group.other { align-items:flex-start; }
+
+.chat-sender-name {
+  font-size:0.68rem; font-weight:700;
+  color:#ffeb3b; margin-bottom:3px; padding:0 4px;
+  opacity:0.8;
+}
+
+/* Bulles */
+.chat-bubble {
+  max-width:80%;
+  padding:9px 13px;
+  font-size:0.9rem;
+  line-height:1.45;
+  word-break:break-word;
+  position:relative;
+  animation:bubblePop 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes bubblePop { from{transform:scale(0.88);opacity:0;} to{transform:scale(1);opacity:1;} }
+
+.chat-bubble.me {
+  background:linear-gradient(135deg,#ffeb3b,#ffd600);
+  color:#111; font-weight:600;
+  border-radius:18px 18px 4px 18px;
+  box-shadow:0 3px 14px rgba(255,235,59,0.25);
+}
+.chat-bubble.other {
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.08);
+  color:#e8e8e8;
+  border-radius:18px 18px 18px 4px;
+  backdrop-filter:blur(8px);
+}
+.chat-bubble-time {
+  display:block;
+  font-size:0.6rem;
+  margin-top:4px;
+  opacity:0.55;
+  text-align:right;
+}
+.chat-bubble.other .chat-bubble-time { text-align:left; }
+
+/* Message expirant bientôt */
+.chat-bubble.expiring-soon {
+  border-left:2px solid rgba(255,100,100,0.5);
+  opacity:0.75;
+}
+
+/* Barre d'input — FIXÉE EN BAS */
+.chat-input-bar {
+  flex-shrink:0;
+  display:flex; gap:10px; align-items:flex-end;
+  padding:10px 14px;
+  padding-bottom:max(10px, env(safe-area-inset-bottom));
+  background:rgba(8,8,16,0.98);
+  border-top:1px solid rgba(255,235,59,0.07);
+}
+#chat-input {
+  flex:1;
+  padding:11px 16px;
+  background:rgba(255,255,255,0.05);
+  border:1.5px solid rgba(255,255,255,0.09);
+  border-radius:22px;
+  color:#fff; font-size:0.9rem;
+  font-family:'M PLUS Rounded 1c',sans-serif;
+  outline:none; resize:none;
+  transition:border-color 0.2s, box-shadow 0.2s;
+  max-height:100px;
+}
+#chat-input:focus {
+  border-color:rgba(255,235,59,0.35);
+  box-shadow:0 0 12px rgba(255,235,59,0.08);
+}
+#chat-input::placeholder { color:#333; }
+#chat-send-btn {
+  width:42px; height:42px; flex-shrink:0;
+  background:linear-gradient(135deg,#ffeb3b,#ffd600);
+  border:none; border-radius:50%; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem;
+  box-shadow:0 0 16px rgba(255,235,59,0.35);
+  transition:transform 0.15s, box-shadow 0.15s;
+}
+#chat-send-btn:active { transform:scale(0.88); box-shadow:none; }
+
+/* Locked */
+.chat-locked {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:18px; padding:40px 24px;
+  background:linear-gradient(160deg,#0a0a12,#0f0f1e);
+}
+.chat-locked-icon { font-size:3.5rem; filter:grayscale(0.3); }
+.chat-locked-title {
+  font-family:'Orbitron',sans-serif;
+  font-size:1.05rem; font-weight:900; color:#fff;
+  text-align:center;
+}
+.chat-locked-text { font-size:0.85rem; color:#444; text-align:center; line-height:1.6; }
+.chat-locked-btn {
+  background:linear-gradient(135deg,#ffeb3b,#ffd600);
+  color:#111; border:none; padding:14px 32px;
+  border-radius:16px;
+  font-family:'Orbitron',sans-serif;
+  font-size:0.88rem; font-weight:900;
+  cursor:pointer; letter-spacing:0.3px;
+  box-shadow:0 0 20px rgba(255,235,59,0.3);
+}
+
+/* Message vide */
+.chat-empty {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:10px; opacity:0.35; padding:20px;
+}
+.chat-empty-icon { font-size:2.5rem; }
+.chat-empty-text { font-size:0.82rem; color:#666; text-align:center; }
 
-    html, body {
-      height: 100%;
-      min-height: 100dvh;
-      width: 100%;
-      overflow: hidden;
-      font-family:'M PLUS Rounded 1c', Orbitron, sans-serif;
-      background:#1e1e1e;
-      color:#e0e0e0;
-      touch-action: manipulation;
-    }
 
-    /* ══════════════════════════════════════
-       SPLASH SCREEN — STYLE PREMIUM
-    ══════════════════════════════════════ */
-    .splash {
-      position: fixed; inset: 0; background: #000; z-index: 9999;
-      display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.8s ease;
-      overflow: hidden;
-    }
-    .splash.hidden { opacity: 0; pointer-events: none; }
-
-    .splash-content {
-      position: relative; width: 100%; height: 100%;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
-    }
-
-    .splash-bg {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0.25;
-      filter: blur(4px);
-    }
-
-    .splash-vignette {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%);
-      z-index: 1;
-    }
-
-    .splash-glow {
-      position: absolute;
-      width: 240px; height: 240px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,235,59,0.18) 0%, transparent 70%);
-      z-index: 2;
-      animation: glowPulse 2.5s ease-in-out infinite;
-    }
-    @keyframes glowPulse {
-      0%,100% { transform: scale(1); opacity: 0.7; }
-      50% { transform: scale(1.3); opacity: 1; }
-    }
-
-    .splash-logo {
-      width: 130px; height: 130px; border-radius: 50%; object-fit: cover;
-      border: 3px solid rgba(255,235,59,0.8);
-      box-shadow: 0 0 0 8px rgba(255,235,59,0.08), 0 0 40px rgba(255,235,59,0.4);
-      z-index: 3;
-      animation: logoEntrance 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards;
-      margin-bottom: 28px;
-    }
-    @keyframes logoEntrance {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .splash-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem; font-weight: 900;
-      color: #fff;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      z-index: 3;
-      margin-bottom: 6px;
-      animation: fadeUp 0.6s 0.3s ease both;
-    }
-    .splash-name span { color: #ffeb3b; }
-
-    .splash-sub {
-      font-size: 0.78rem; font-weight: 600;
-      color: rgba(255,235,59,0.55);
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      z-index: 3;
-      margin-bottom: 48px;
-      animation: fadeUp 0.6s 0.45s ease both;
-    }
-
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(14px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .splash-progress-wrap {
-      width: 180px; height: 3px;
-      background: rgba(255,235,59,0.12);
-      border-radius: 999px;
-      z-index: 3;
-      overflow: hidden;
-      animation: fadeUp 0.6s 0.6s ease both;
-    }
-    .splash-progress-bar {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, #ffeb3b, #fff176);
-      border-radius: 999px;
-      box-shadow: 0 0 8px rgba(255,235,59,0.8);
-      animation: loadBar 2.2s 0.5s ease forwards;
-    }
-    @keyframes loadBar {
-      0% { width: 0%; }
-      60% { width: 75%; }
-      100% { width: 100%; }
-    }
-
-    .splash-text {
-      color: rgba(255,255,255,0.35);
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase;
-      z-index: 3; margin-top: 14px;
-      animation: fadeUp 0.6s 0.7s ease both;
-    }
-
-    .splash-particles {
-      position: absolute; inset: 0; z-index: 2; pointer-events: none;
-    }
-    .spark {
-      position: absolute;
-      width: 3px; height: 3px;
-      border-radius: 50%;
-      background: #ffeb3b;
-      opacity: 0;
-      animation: sparkFloat var(--dur) var(--delay) ease-in-out infinite;
-    }
-    @keyframes sparkFloat {
-      0% { opacity: 0; transform: translateY(0) scale(0.5); }
-      20% { opacity: 0.8; }
-      80% { opacity: 0.4; }
-      100% { opacity: 0; transform: translateY(-120px) scale(1.2); }
-    }
-
-    .container {
-      position: relative;
-      height: 100dvh;
-      width: 100%;
-      background: url('rouen.PNG') center/cover no-repeat fixed;
-    }
-
-    .overlay { position: absolute; inset: 0; z-index: 1; }
-
-    .content {
-      position: relative;
-      z-index: 2;
-      height: 100dvh;
-      width: 100%;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 110px;
-    }
-
-    #home-logo-wrapper {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: transparent;
-      padding: 10px 0 8px;
-      pointer-events: none;
-    }
-
-    #top-logo {
-      width: 100%; height: auto; max-height: 160px;
-      object-fit: contain; display: block; margin: 0 auto;
-    }
-
-    /* ── HEADER PRODUITS ── */
-    #products-header {
-      margin: 0 16px 14px 16px;
-      background: rgba(15, 15, 22, 0.88);
-      border-radius: 22px;
-      border: 1px solid rgba(255, 235, 59, 0.12);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .products-title {
-      display: flex; align-items: center; gap: 10px;
-      font-family: 'Orbitron', sans-serif; font-size: 1.1rem;
-      font-weight: 700; color: #aaa; letter-spacing: 0.5px;
-    }
-
-    .products-count {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: rgba(255,235,59,0.08);
-      border: 1.5px solid rgba(255,235,59,0.3);
-      border-radius: 16px;
-      padding: 8px 20px;
-      box-shadow: 0 0 18px rgba(255,235,59,0.1);
-      min-width: 80px;
-    }
-
-    .products-count-number {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: #ffeb3b;
-      line-height: 1;
-      text-shadow: 0 0 12px rgba(255,235,59,0.5);
-    }
-
-    .products-count-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: rgba(255,235,59,0.6);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-top: 3px;
-    }
-
-    /* ── FILTRES ── */
-    #filters-bar { margin: 0 16px 14px 16px; }
-    .filters-inner { display: flex; gap: 10px; align-items: center; }
-
-    .compact-select {
-      flex: 1; height: 44px; font-size: 14px; padding: 0 32px 0 14px;
-      font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 600;
-      background: rgba(20, 20, 30, 0.92); border: 1.5px solid rgba(255, 235, 59, 0.4);
-      border-radius: 14px; color: #e0e0e0; appearance: none; -webkit-appearance: none;
-      cursor: pointer; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffeb3b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 12px center;
-      background-color: rgba(20, 20, 30, 0.92);
-    }
-    .compact-select:focus { border-color: #ffeb3b; box-shadow: 0 0 10px rgba(255,235,59,0.25); }
-    .compact-select option { background: #1a1a24; color: #e0e0e0; }
-
-    .reset-btn {
-      width: 44px; height: 44px; flex-shrink: 0;
-      background: rgba(20, 20, 30, 0.92); border: 1.5px solid rgba(255, 235, 59, 0.4);
-      border-radius: 14px; color: #ffeb3b; font-size: 20px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-    }
-    .reset-btn:active { background: rgba(255, 235, 59, 0.15); border-color: #ffeb3b; transform: rotate(180deg) scale(0.93); }
-
-    /* ── GRILLE PRODUITS ── */
-    #products-grid {
-      padding: 0 16px 16px;
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
-    }
-    .no-results { grid-column: 1 / -1; text-align: center; padding: 48px 20px; color: rgba(255,235,59,0.5); font-family: 'Orbitron', sans-serif; font-size: 1rem; }
-
-    .card {
-      background: transparent; border: 2px solid #ffeb3b; border-radius: 14px;
-      overflow: hidden; transition: all .25s; cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,.5); position: relative; height: 240px;
-    }
-    .card:active { transform: scale(0.97); border-color: #fff176; }
-    .card-img { height: 100%; width: 100%; position: relative; }
-    .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .card-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
-      padding: 16px 12px 12px; z-index: 2;
-    }
-    .card-title { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #ffeb3b; font-weight: 900; letter-spacing: 1px; margin-bottom: 4px; text-shadow: 0 1px 3px black; }
-    .card-farm { font-size: 0.9rem; color: #ddd; font-weight: bold; text-shadow: 0 1px 3px black; }
-
-    /* ── DÉTAIL PRODUIT ── */
-    #product-detail { display: none; flex-direction: column; height: 100dvh; background: #000; position: relative; }
-    .product-info { flex: 1; background: #333; overflow-y: auto; padding-bottom: 90px; }
-    .product-title { padding: 24px 16px 8px; font-family: 'Orbitron', sans-serif; font-size: 2.1rem; font-weight: 900; color: #ffeb3b; text-shadow: 0 0 10px rgba(255,235,59,.5); letter-spacing: 1.5px; }
-    .badges { padding: 0 16px 16px; display: flex; flex-wrap: wrap; gap: 10px; }
-    .badge { padding: 8px 16px; border-radius: 999px; font-size: .95rem; font-weight: bold; }
-    .badge-farm { background: rgba(255,235,59,.25); color: #ffeb3b; border: 1px solid #ffeb3b; }
-    .strain-section { padding: 0 16px 24px; color: #ccc; font-size: 1.1rem; line-height: 1.6; white-space: pre-line; }
-    .strain-section .description { color: #ddd; font-style: italic; }
-    .quantity-section { padding: 16px; margin: 12px 16px; border-radius: 16px; border: 1px solid #444; }
-    .quantity-title { font-family: 'Orbitron', sans-serif; font-size: 1.25rem; color: #ffeb3b; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; font-weight: 700; }
-    .quantity-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
-    .qty-btn { background: rgba(30,30,30,.8); border: 1px solid #444; color: #e0e0e0; padding: 16px 10px; border-radius: 14px; text-align: center; cursor: pointer; font-weight: bold; transition: .25s; }
-    .qty-btn.selected { background: #ffeb3b; color: #111; border-color: #ffeb3b; }
-    .price-new { color: #4ade80; font-weight: 900; font-size: 1.15rem; }
-    .add-to-cart { margin: 16px 16px 40px 16px; background: #ffeb3b; color: #111; border: none; padding: 18px; font-size: 1.2rem; font-weight: bold; border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; box-shadow: 0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
-
-    /* ── SWIPER ── */
-    .swiper-wrap { position: relative; width: 100%; overflow: hidden; background: #111; aspect-ratio: 1 / 1; flex: 0 0 auto; }
-    .swiper-track { display: flex; transition: transform 0.35s ease; will-change: transform; height: 100%; }
-    .swiper-track > * { flex-shrink: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; user-select: none; background: #111; }
-    .swiper-track video { pointer-events: auto; object-fit: cover; }
-    .swiper-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.65); border: 1.5px solid rgba(255,255,255,0.2); color: white; width: 46px; height: 46px; border-radius: 50%; font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; }
-    .swiper-btn-prev { left: 12px; }
-    .swiper-btn-next { right: 12px; }
-    .swiper-counter { position: absolute; bottom: 10px; right: 14px; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,235,59,0.4); border-radius: 20px; padding: 4px 12px; font-size: 13px; font-weight: 700; color: #ffeb3b; letter-spacing: 0.5px; }
-
-    /* ── PANIER ── */
-    #cart-page { padding: 16px; display: none; }
-    .cart-item { background: rgba(30,30,30,.82); border: 1px solid #444; border-radius: 12px; padding: 14px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-    .cart-item-title { font-weight: bold; color: #ffeb3b; }
-    .cart-item-qty { color: #ccc; font-size: 0.95rem; }
-    .delete-btn { background: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
-    .cart-total { text-align: center; font-size: 1.3rem; color: #ffeb3b; margin: 20px 0; font-family: 'Orbitron', sans-serif; }
-    .questionnaire { background: rgba(30,30,30,.78); border: 1px solid #444; border-radius: 14px; padding: 20px; margin-top: 24px; }
-    .question { margin-bottom: 20px; }
-    .question-label { display: block; font-size: 1.1rem; color: #aaa; margin-bottom: 10px; font-weight: 500; }
-    .option-btn { width: 100%; padding: 14px; margin: 6px 0; background: rgba(30,30,30,.8); border: 1px solid #444; color: #e0e0e0; border-radius: 12px; font-size: 1.05rem; cursor: pointer; }
-    .option-btn.active { background: #ffeb3b; color: #111; font-weight: bold; }
-    input[type="time"], input[type="text"], textarea { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #444; background: rgba(40,40,40,.8); color: #e0e0e0; font-size: 1.05rem; }
-    textarea { min-height: 90px; resize: vertical; }
-    #submit-order-btn { width: 100%; padding: 18px; background: #ffeb3b; color: #111; border: none; border-radius: 14px; font-size: 1.25rem; font-weight: bold; margin-top: 24px; cursor: pointer; box-shadow: 0 0 12px rgba(255,235,59,.5); font-family: 'Orbitron', sans-serif; }
-    #submit-order-btn:disabled { background: #555; color: #999; cursor: not-allowed; }
-
-    /* ── PAGE INFOS ── */
-    #infos-page {
-      display: none;
-      padding: 16px 16px 110px 16px;
-    }
-
-    .info-card {
-      background: rgba(15, 15, 22, 0.88);
-      border: 1.5px solid rgba(255, 235, 59, 0.18);
-      border-radius: 22px;
-      padding: 20px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 6px 32px rgba(0,0,0,0.55);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .info-card-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .info-card-icon {
-      width: 48px; height: 48px;
-      background: rgba(255,235,59,0.13);
-      border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
-      flex-shrink: 0;
-      border: 1px solid rgba(255,235,59,0.25);
-    }
-
-    .info-card-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: 0.5px;
-    }
-
-    .info-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .info-row-icon {
-      font-size: 1.1rem;
-      margin-top: 2px;
-      flex-shrink: 0;
-      color: #ffeb3b;
-    }
-
-    .info-row-label {
-      color: #aaa;
-      font-size: 1rem;
-      font-weight: 500;
-    }
-
-    .dept-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .dept-badge {
-      background: rgba(255,235,59,0.12);
-      border: 1.5px solid rgba(255,235,59,0.45);
-      color: #ffeb3b;
-      padding: 6px 16px;
-      border-radius: 10px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .horaires-block {
-      background: rgba(255,255,255,0.04);
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .horaires-days {
-      font-size: 0.9rem;
-      color: #888;
-      font-weight: 600;
-    }
-
-    .horaires-time {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: 1px;
-    }
-
-    .horaires-note {
-      font-size: 0.88rem;
-      color: #888;
-      margin-bottom: 10px;
-    }
-
-    .minimum-badge {
-      text-align: right;
-      margin-top: 6px;
-    }
-
-    .minimum-badge span {
-      color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      font-weight: 800;
-    }
-
-    .meetup-location-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(255,255,255,0.04);
-      border-radius: 14px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-    }
-
-    .meetup-location-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .meetup-location-name {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .disponible-badge {
-      background: rgba(255,235,59,0.18);
-      border: 1.5px solid #ffeb3b;
-      color: #ffeb3b;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 800;
-      padding: 5px 13px;
-      border-radius: 999px;
-      letter-spacing: 0.5px;
-    }
-
-    .meetup-horaires-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .meetup-horaires-text {
-      color: #aaa;
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .contact-card {
-      background: rgba(15, 15, 22, 0.88);
-      border: 1.5px solid rgba(255, 235, 59, 0.18);
-      border-radius: 22px;
-      padding: 18px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      box-shadow: 0 6px 32px rgba(0,0,0,0.55);
-    }
-
-    .contact-icon {
-      width: 48px; height: 48px;
-      background: rgba(59, 130, 246, 0.15);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      border: 1.5px solid rgba(59, 130, 246, 0.35);
-    }
-
-    .contact-card-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .contact-card-sub {
-      color: #3b82f6;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-top: 3px;
-    }
-
-    /* ── RÉSEAUX ── */
-    #reseaux-page { display: none; padding: 16px 16px 110px 16px; }
-    .section-title { font-family: 'Orbitron', sans-serif; font-size: 1.45rem; color: #ffeb3b; margin: 28px 0 16px; font-weight: bold; text-align: center; text-shadow: 0 0 6px rgba(255,235,59,.4); letter-spacing: 1.5px; }
-    .reseaux-list { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
-
-    .reseau-item {
-      background: rgba(15,15,22,0.88);
-      border: 1.5px solid rgba(255,235,59,0.18);
-      border-radius: 20px;
-      padding: 16px 18px;
-      display: flex; align-items: center; gap: 16px;
-      cursor: pointer;
-      transition: all .22s;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.45);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
-    .reseau-item:active {
-      transform: scale(0.97);
-      border-color: #ffeb3b;
-      background: rgba(255,235,59,0.08);
-    }
-
-    .reseau-icon-wrap {
-      width: 52px; height: 52px; flex-shrink: 0;
-      border-radius: 16px;
-      border: 1.5px solid rgba(255,235,59,0.25);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .reseau-icon-wrap img {
-      width: 36px !important; height: 36px !important;
-      object-fit: contain; border-radius: 0; background: transparent; padding: 0;
-    }
-
-    .reseau-text { flex: 1; }
-    .reseau-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem; font-weight: 800;
-      color: #fff; letter-spacing: 0.3px;
-    }
-    .reseau-sub {
-      font-size: 0.82rem; color: #888;
-      font-weight: 500; margin-top: 3px;
-    }
-    .reseau-arrow {
-      font-size: 1.6rem; color: #ffeb3b;
-      font-weight: 300; line-height: 1;
-    }
-
-    /* ── AVIS ── */
-    .star { transition: color 0.15s; user-select: none; }
-    .star.on { color: #ffeb3b; }
-    .star.off { color: #444; }
-
-    .avis-card {
-      background: rgba(15,15,22,0.88);
-      border: 1.5px solid rgba(255,235,59,0.13);
-      border-radius: 18px;
-      padding: 16px 18px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-    }
-    .avis-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .avis-user { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: #ffeb3b; font-weight: 700; }
-    .avis-stars { font-size: 1rem; letter-spacing: 2px; }
-    .avis-date { font-size: 0.75rem; color: #555; margin-bottom: 8px; }
-    .avis-comment { color: #ccc; font-size: 0.95rem; line-height: 1.5; }
-
-    /* ══════════════════════════════════════
-       NAV — EMOJIS ONLY, NO TEXT, SMALLER
-    ══════════════════════════════════════ */
-    nav {
-      position: fixed; bottom: 18px; left: 12px; right: 12px; height: 68px;
-      background: rgba(15,15,20,0.96); border-radius: 26px;
-      border: 1px solid rgba(255,235,59,0.2);
-      display: flex; justify-content: space-around; align-items: center;
-      z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-    }
-
-    /* Each nav item: just an emoji, no label */
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #aaa;
-      cursor: pointer;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      position: relative;
-      background: rgba(255,255,255,0.03);
-    }
-
-    .nav-item.active {
-      color: #ffeb3b;
-      background: rgba(255,235,59,0.2);
-      box-shadow: 0 4px 16px rgba(255,235,59,0.35);
-      transform: translateY(-4px) scale(1.1);
-    }
-
-    /* Emoji inside nav */
-    .nav-emoji {
-      font-size: 1.35rem;
-      line-height: 1;
-      display: block;
-      filter: grayscale(0.3);
-      transition: filter 0.2s, transform 0.2s;
-    }
-
-    .nav-item.active .nav-emoji {
-      filter: none;
-      transform: scale(1.1);
-    }
-
-    /* Cart badge */
-    #cart-badge {
-      position: absolute; top: -3px; right: -3px;
-      background: #ef4444; color: white;
-      border-radius: 50%; min-width: 16px; height: 16px;
-      padding: 0 3px; font-size: 0.6rem; font-weight: bold;
-      line-height: 16px; box-shadow: 0 0 8px rgba(239,68,68,0.6);
-      display: none; z-index: 2;
-    }
-
-    /* ══════════════════════════════════════
-       AUTH MODAL
-    ══════════════════════════════════════ */
-    #auth-modal {
-      display: none;
-      position: fixed; inset: 0; z-index: 8000;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(6px);
-      align-items: flex-end;
-      justify-content: center;
-    }
-    #auth-modal.open { display: flex; }
-
-    .auth-sheet {
-      width: 100%;
-      background: #0f0f16;
-      border-radius: 28px 28px 0 0;
-      border-top: 1.5px solid rgba(255,235,59,0.2);
-      padding: 24px 20px 40px;
-      animation: slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1);
-    }
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to   { transform: translateY(0); }
-    }
-
-    .auth-handle {
-      width: 40px; height: 4px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 999px;
-      margin: 0 auto 24px;
-    }
-
-    .auth-tabs {
-      display: flex; gap: 0;
-      background: rgba(255,255,255,0.05);
-      border-radius: 14px;
-      padding: 4px;
-      margin-bottom: 24px;
-    }
-    .auth-tab {
-      flex: 1; padding: 10px;
-      text-align: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.82rem; font-weight: 700;
-      color: #666; border-radius: 10px;
-      cursor: pointer; transition: all 0.2s;
-      letter-spacing: 0.5px;
-    }
-    .auth-tab.active {
-      background: #ffeb3b; color: #111;
-      box-shadow: 0 4px 12px rgba(255,235,59,0.3);
-    }
-
-    .auth-field {
-      margin-bottom: 14px;
-    }
-    .auth-field label {
-      display: block; font-size: 0.78rem;
-      color: #666; font-weight: 700;
-      letter-spacing: 1px; text-transform: uppercase;
-      margin-bottom: 7px;
-    }
-    .auth-field input {
-      width: 100%; padding: 14px 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1.5px solid rgba(255,255,255,0.1);
-      border-radius: 14px;
-      color: #fff; font-size: 1rem;
-      font-family: 'M PLUS Rounded 1c', sans-serif;
-      outline: none; transition: border-color 0.2s;
-    }
-    .auth-field input:focus {
-      border-color: rgba(255,235,59,0.5);
-    }
-
-    .auth-submit {
-      width: 100%; padding: 16px;
-      background: #ffeb3b; color: #111;
-      border: none; border-radius: 16px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem; font-weight: 900;
-      cursor: pointer; margin-top: 8px;
-      box-shadow: 0 0 20px rgba(255,235,59,0.35);
-      transition: opacity 0.2s;
-    }
-    .auth-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .auth-error {
-      color: #ef4444; font-size: 0.85rem;
-      text-align: center; margin-top: 10px;
-      min-height: 20px;
-    }
-
-    /* ══════════════════════════════════════
-       PROFIL PAGE
-    ══════════════════════════════════════ */
-    #profil-page { display: none; padding: 16px 16px 110px 16px; }
-
-    .profil-header {
-      background: rgba(15,15,22,0.9);
-      border: 1.5px solid rgba(255,235,59,0.15);
-      border-radius: 24px;
-      padding: 28px 20px 22px;
-      text-align: center;
-      margin-bottom: 18px;
-      position: relative;
-    }
-    .profil-avatar {
-      width: 80px; height: 80px;
-      background: rgba(255,235,59,0.12);
-      border: 2.5px solid rgba(255,235,59,0.4);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.2rem;
-      margin: 0 auto 14px;
-      box-shadow: 0 0 24px rgba(255,235,59,0.15);
-    }
-    .profil-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.2rem; font-weight: 900;
-      color: #fff; margin-bottom: 4px;
-    }
-    .profil-email {
-      font-size: 0.82rem; color: #666;
-    }
-    .profil-logout {
-      position: absolute; top: 16px; right: 16px;
-      background: rgba(239,68,68,0.12);
-      border: 1px solid rgba(239,68,68,0.3);
-      color: #ef4444; font-size: 0.72rem;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700; padding: 6px 12px;
-      border-radius: 10px; cursor: pointer;
-      letter-spacing: 0.5px;
-    }
-
-    .profil-section-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.9rem; font-weight: 800;
-      color: #ffeb3b; letter-spacing: 1px;
-      text-transform: uppercase;
-      margin: 20px 0 12px;
-    }
-
-    /* Bloc stats commandes */
-    .profil-stats-block {
-      background: rgba(15,15,22,0.9);
-      border: 1.5px solid rgba(255,235,59,0.2);
-      border-radius: 20px;
-      padding: 20px 18px;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.45);
-    }
-
-    .profil-stats-icon {
-      width: 56px; height: 56px;
-      background: rgba(255,235,59,0.1);
-      border: 1.5px solid rgba(255,235,59,0.3);
-      border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem;
-      flex-shrink: 0;
-    }
-
-    .profil-stats-info { flex: 1; }
-
-    .profil-stats-number {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
-      font-weight: 900;
-      color: #ffeb3b;
-      line-height: 1;
-      text-shadow: 0 0 14px rgba(255,235,59,0.4);
-    }
-
-    .profil-stats-label {
-      font-size: 0.8rem;
-      color: #666;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-top: 4px;
-    }
-
-    .commande-card {
-      background: rgba(15,15,22,0.88);
-      border: 1.5px solid rgba(255,255,255,0.07);
-      border-radius: 18px;
-      padding: 16px 18px;
-      margin-bottom: 12px;
-    }
-    .commande-header {
-      display: flex; justify-content: space-between;
-      align-items: center; margin-bottom: 10px;
-    }
-    .commande-date { font-size: 0.78rem; color: #555; font-weight: 600; }
-    .commande-total {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.9rem; font-weight: 900; color: #ffeb3b;
-    }
-    .commande-items { font-size: 0.88rem; color: #888; line-height: 1.6; }
-    .commande-mode {
-      display: inline-block; margin-top: 8px;
-      background: rgba(255,235,59,0.08);
-      border: 1px solid rgba(255,235,59,0.2);
-      color: rgba(255,235,59,0.7);
-      font-size: 0.72rem; font-weight: 700;
-      padding: 3px 10px; border-radius: 999px;
-      letter-spacing: 0.5px;
-    }
-
-    /* ══════════════════════════════════════
-       CHAT PAGE
-    ══════════════════════════════════════ */
-    #chat-page {
-      display: none;
-      flex-direction: column;
-      height: 100dvh;
-      padding-bottom: 0;
-    }
-
-    .chat-header {
-      padding: 16px 18px 14px;
-      background: rgba(15,15,22,0.95);
-      border-bottom: 1px solid rgba(255,235,59,0.1);
-      display: flex; align-items: center; gap: 12px;
-      flex-shrink: 0;
-    }
-    .chat-header-icon {
-      width: 42px; height: 42px;
-      background: rgba(255,235,59,0.1);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
-      border: 1.5px solid rgba(255,235,59,0.25);
-    }
-    .chat-header-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.95rem; font-weight: 800; color: #fff;
-    }
-    .chat-header-sub { font-size: 0.75rem; color: #4ade80; font-weight: 600; }
-
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .chat-bubble {
-      max-width: 78%;
-      padding: 10px 14px;
-      border-radius: 18px;
-      font-size: 0.92rem;
-      line-height: 1.45;
-      word-break: break-word;
-    }
-    .chat-bubble.me {
-      align-self: flex-end;
-      background: #ffeb3b;
-      color: #111;
-      border-bottom-right-radius: 5px;
-      font-weight: 600;
-    }
-    .chat-bubble.other {
-      align-self: flex-start;
-      background: rgba(255,255,255,0.07);
-      color: #e0e0e0;
-      border-bottom-left-radius: 5px;
-    }
-    .chat-bubble-meta {
-      font-size: 0.65rem;
-      color: rgba(0,0,0,0.4);
-      margin-top: 4px;
-      text-align: right;
-    }
-    .chat-bubble.other .chat-bubble-meta { color: #555; text-align: left; }
-    .chat-bubble-sender { font-size: 0.7rem; font-weight: 700; color: #ffeb3b; margin-bottom: 3px; }
-
-    .chat-input-bar {
-      display: flex; gap: 10px; align-items: center;
-      padding: 12px 16px;
-      background: rgba(15,15,22,0.97);
-      border-top: 1px solid rgba(255,235,59,0.1);
-      flex-shrink: 0;
-      padding-bottom: max(12px, env(safe-area-inset-bottom));
-      margin-bottom: 88px;
-    }
-    #chat-input {
-      flex: 1; padding: 12px 16px;
-      background: rgba(255,255,255,0.06);
-      border: 1.5px solid rgba(255,255,255,0.1);
-      border-radius: 24px; color: #fff;
-      font-size: 0.95rem;
-      font-family: 'M PLUS Rounded 1c', sans-serif;
-      outline: none; transition: border-color 0.2s;
-    }
-    #chat-input:focus { border-color: rgba(255,235,59,0.4); }
-    #chat-send-btn {
-      width: 44px; height: 44px; flex-shrink: 0;
-      background: #ffeb3b; border: none;
-      border-radius: 50%; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      box-shadow: 0 0 12px rgba(255,235,59,0.3);
-      transition: transform 0.15s;
-    }
-    #chat-send-btn:active { transform: scale(0.9); }
-
-    .chat-locked {
-      flex: 1; display: flex;
-      flex-direction: column; align-items: center; justify-content: center;
-      gap: 16px; padding: 40px 20px;
-    }
-    .chat-locked-icon { font-size: 3rem; }
-    .chat-locked-text {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.95rem; color: #555;
-      text-align: center; line-height: 1.5;
-    }
-    .chat-locked-btn {
-      background: #ffeb3b; color: #111;
-      border: none; padding: 14px 28px;
-      border-radius: 14px;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 0.9rem; font-weight: 900;
-      cursor: pointer;
-    }
   </style>
-
 </head>
 <body>
 
-  <div id="splash-screen" class="splash">
-    <div class="splash-content">
-      <img src="rouen.PNG" alt="" class="splash-bg" />
-      <div class="splash-vignette"></div>
-      <div class="splash-particles" id="splash-particles"></div>
-      <div class="splash-glow"></div>
-      <img src="chat.PNG" alt="Logo Bart.Coffee76" class="splash-logo" />
-      <div class="splash-name">Bart<span>.</span>Coffee<span>76</span></div>
-      <div class="splash-sub">Qualité Premium</div>
-      <div class="splash-progress-wrap">
-        <div class="splash-progress-bar"></div>
-      </div>
-      <div class="splash-text">Chargement...</div>
+<div id="splash-screen" class="splash">
+  <div class="splash-content">
+    <img src="rouen.PNG" alt="" class="splash-bg"/>
+    <div class="splash-vignette"></div>
+    <div class="splash-particles" id="splash-particles"></div>
+    <div class="splash-glow"></div>
+    <img src="chat.PNG" alt="Logo Bart.Coffee76" class="splash-logo"/>
+    <div class="splash-name">Bart<span>.</span>Coffee<span>76</span></div>
+    <div class="splash-sub">Qualité Premium</div>
+    <div class="splash-progress-wrap"><div class="splash-progress-bar"></div></div>
+    <div class="splash-text">Chargement...</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="overlay"></div>
+  <div class="content">
+
+
+<!-- ACCUEIL -->
+<div id="home-page">
+  <div id="home-logo-wrapper"><img id="top-logo" src="chat.PNG" alt="Logo"></div>
+  <div id="products-header">
+    <div class="products-title"><span style="font-size:1.4rem">🛍️</span>Catalogue</div>
+    <div id="products-count-modern" class="products-count">
+      <div class="products-count-number">3</div>
+      <div class="products-count-label">Produits</div>
     </div>
   </div>
-
-  <div class="container">
-    <div class="overlay"></div>
-    <div class="content">
-
-      <!-- PAGE ACCUEIL -->
-      <div id="home-page">
-        <div id="home-logo-wrapper">
-          <img id="top-logo" src="chat.PNG" alt="Logo">
-        </div>
-
-        <div id="products-header">
-          <div class="products-title">
-            <span style="font-size:1.4rem;">🛍️</span>
-            Catalogue
-          </div>
-          <div id="products-count-modern" class="products-count">
-            <div class="products-count-number">3</div>
-            <div class="products-count-label">Produits</div>
-          </div>
-        </div>
-
-        <div id="filters-bar">
-          <div class="filters-inner">
-            <select id="category-filter" class="compact-select" onchange="filterProducts()">
-              <option value="">Toutes catégories</option>
-            </select>
-            <select id="farm-filter" class="compact-select" onchange="filterProducts()">
-              <option value="">Toutes farms</option>
-            </select>
-          </div>
-        </div>
-
-        <div id="products-grid"></div>
-      </div>
-
-      <!-- DÉTAIL PRODUIT -->
-      <div id="product-detail">
-        <div class="swiper-wrap">
-          <div class="swiper-track" id="swiper-track"></div>
-          <button class="swiper-btn swiper-btn-prev" onclick="swiperPrev()">&#8249;</button>
-          <button class="swiper-btn swiper-btn-next" onclick="swiperNext()">&#8250;</button>
-          <div class="swiper-counter" id="swiper-counter">1 / 1</div>
-        </div>
-        <div class="product-info">
-          <div class="product-title" id="detail-title"></div>
-          <div class="badges">
-            <div class="badge badge-farm" id="detail-farm-badge"></div>
-          </div>
-          <div class="strain-section" id="detail-strain-desc"></div>
-          <div class="quantity-section">
-            <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
-            <div class="quantity-grid" id="qty-grid"></div>
-          </div>
-          <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
-        </div>
-      </div>
-
-      <!-- PANIER -->
-      <div id="cart-page">
-        <h2 style="color:#ffeb3b;text-align:center;margin:20px 0;">Votre Panier</h2>
-        <div id="cart-items"></div>
-        <div id="cart-total" class="cart-total"></div>
-        <div class="questionnaire">
-          <div class="question">
-            <span class="question-label">Mode de récupération :</span>
-            <button class="option-btn" data-type="pickup">Venir sur place</button>
-            <button class="option-btn" data-type="delivery">Livraison</button>
-          </div>
-          <div id="pickup-questions" style="display:none;">
-            <div class="question">
-              <span class="question-label">Pour quelle heure ?</span>
-              <input type="time" id="pickup-time">
-            </div>
-          </div>
-          <div id="delivery-questions" style="display:none;">
-            <div class="question">
-              <span class="question-label">Heure souhaitée</span>
-              <input type="time" id="delivery-time">
-            </div>
-            <div class="question">
-              <span class="question-label">Adresse complète</span>
-              <input type="text" id="delivery-address" placeholder="Rue, numéro, ville...">
-            </div>
-            <div class="question">
-              <span class="question-label">Précisions (étage, code, etc.)</span>
-              <textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea>
-            </div>
-          </div>
-          <button id="submit-order-btn">Commander</button>
-        </div>
-      </div>
-
-      <!-- INFOS -->
-      <div id="infos-page">
-        <div class="info-card" style="margin-top:8px;">
-          <div class="info-card-header">
-            <div class="info-card-icon">🪪</div>
-            <div class="info-card-title">Information de Bart.Coffee76</div>
-          </div>
-          <div class="info-row">
-            <span class="info-row-icon">ℹ️</span>
-            <span class="info-row-label">Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.</span>
-          </div>
-          <div style="margin-top:14px; background:rgba(255,235,59,0.07); border:1px solid rgba(255,235,59,0.25); border-radius:14px; padding:12px 16px; text-align:center;">
-            <span style="color:#aaa; font-size:0.88rem;">Contact secrétaire</span><br>
-            <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:800;">@sav_Bart76</span>
-          </div>
-        </div>
-
-        <div class="info-card">
-          <div class="info-card-header">
-            <div class="info-card-icon">🚚</div>
-            <div class="info-card-title">Livraison</div>
-          </div>
-          <div class="info-row" style="margin-bottom:10px;">
-            <span class="info-row-icon">📍</span>
-            <div>
-              <div class="info-row-label">Départements desservis</div>
-              <div class="dept-badges">
-                <span class="dept-badge">76</span>
-                <span class="dept-badge">27</span>
-                <span class="dept-badge">14</span>
-              </div>
-            </div>
-          </div>
-          <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:14px 16px; margin-bottom:12px;">
-            <div style="color:#888; font-size:0.85rem; margin-bottom:10px; font-weight:600;">TARIFS</div>
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#ccc; font-size:0.95rem;">Sur Rouen</span>
-                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">70€</span>
-              </div>
-              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#ccc; font-size:0.95rem;">Moins de 10 km</span>
-                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">100€</span>
-              </div>
-              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#ccc; font-size:0.95rem;">Supérieur à 10 km</span>
-                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">150€</span>
-              </div>
-              <div style="height:1px; background:rgba(255,255,255,0.06);"></div>
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="color:#ccc; font-size:0.95rem;">Supérieur à 25 km</span>
-                <span style="color:#ffeb3b; font-family:'Orbitron',sans-serif; font-weight:800; font-size:1rem;">270€</span>
-              </div>
-            </div>
-          </div>
-          <div class="minimum-badge"><span>Minimum 50€</span></div>
-        </div>
-
-        <div class="info-card">
-          <div class="info-card-header">
-            <div class="info-card-icon">📍</div>
-            <div class="info-card-title">Meet-up</div>
-          </div>
-          <div class="meetup-location-row">
-            <div class="meetup-location-left">
-              <span style="color:#ffeb3b; font-size:1.1rem;">📍</span>
-              <span class="meetup-location-name">Rouen Rive Gauche</span>
-            </div>
-            <div class="disponible-badge">Disponible</div>
-          </div>
-          <div class="meetup-horaires-row">
-            <span style="color:#ffeb3b; font-size:1.1rem;">🕐</span>
-            <span class="meetup-horaires-text">Horaires : 14h – 23h</span>
-          </div>
-          <div class="minimum-badge"><span>Minimum 50€</span></div>
-        </div>
-      </div>
-
-      <!-- RÉSEAUX -->
-      <div id="reseaux-page">
-        <h2 class="section-title">Nos réseaux</h2>
-        <div class="reseaux-list">
-          <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
-            <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35);">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram">
-            </div>
-            <div class="reseau-text">
-              <div class="reseau-name">Telegram VIP</div>
-              <div class="reseau-sub">Canal privé ⭐️</div>
-            </div>
-            <div class="reseau-arrow">›</div>
-          </div>
-
-          <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
-            <div class="reseau-icon-wrap" style="background:rgba(255,193,7,0.12);border-color:rgba(255,193,7,0.35);">
-              <img src="potato.jpg" alt="Canal Potato">
-            </div>
-            <div class="reseau-text">
-              <div class="reseau-name">Canal Potato</div>
-              <div class="reseau-sub">Rejoindre 🥔</div>
-            </div>
-            <div class="reseau-arrow">›</div>
-          </div>
-
-          <div class="reseau-item" data-link="http://t.me/sav_Bart76">
-            <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35);">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire">
-            </div>
-            <div class="reseau-text">
-              <div class="reseau-name">Secrétaire</div>
-              <div class="reseau-sub">@sav_Bart76 👨‍💼</div>
-            </div>
-            <div class="reseau-arrow">›</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AVIS -->
-      <div id="avis-page" style="display:none; padding:16px 16px 110px 16px;">
-        <h2 class="section-title">⭐ Avis clients</h2>
-        <div class="info-card" style="margin-bottom:20px;">
-          <div class="info-card-header">
-            <div class="info-card-icon">✍️</div>
-            <div class="info-card-title">Laisser un avis</div>
-          </div>
-          <div style="margin-bottom:14px;">
-            <div style="color:#aaa; font-size:0.9rem; margin-bottom:10px; font-weight:600;">Votre note</div>
-            <div id="star-rating" style="display:flex; gap:8px; font-size:2rem; cursor:pointer;">
-              <span class="star" data-v="1">☆</span>
-              <span class="star" data-v="2">☆</span>
-              <span class="star" data-v="3">☆</span>
-              <span class="star" data-v="4">☆</span>
-              <span class="star" data-v="5">☆</span>
-            </div>
-          </div>
-          <div style="margin-bottom:14px;">
-            <div style="color:#aaa; font-size:0.9rem; margin-bottom:8px; font-weight:600;">Votre commentaire</div>
-            <textarea id="avis-text" placeholder="Partagez votre expérience..." style="width:100%;padding:14px;border-radius:12px;border:1.5px solid rgba(255,235,59,0.3);background:rgba(20,20,30,0.9);color:#e0e0e0;font-size:1rem;min-height:90px;resize:vertical;font-family:'M PLUS Rounded 1c',sans-serif;outline:none;"></textarea>
-          </div>
-          <button id="submit-avis-btn" style="width:100%;padding:15px;background:#ffeb3b;color:#111;border:none;border-radius:14px;font-size:1.05rem;font-weight:800;cursor:pointer;font-family:'Orbitron',sans-serif;box-shadow:0 0 12px rgba(255,235,59,0.4);">
-            Publier mon avis
-          </button>
-        </div>
-        <div id="avis-list"></div>
-      </div>
-
-      <!-- PROFIL PAGE -->
-      <div id="profil-page"></div>
-
-      <!-- CHAT PAGE -->
-      <div id="chat-page">
-        <div class="chat-header">
-          <div class="chat-header-icon">💬</div>
-          <div>
-            <div class="chat-header-title">Support Client</div>
-            <div class="chat-header-sub">● En ligne</div>
-          </div>
-        </div>
-        <div id="chat-body"></div>
-      </div>
-
-      <!-- ══════════════════════════════════
-           NAV — EMOJI ONLY, NO TEXT
-      ══════════════════════════════════ -->
-      <nav>
-        <div class="nav-item active" id="nav-home">
-          <span class="nav-emoji">🏠</span>
-        </div>
-        <div class="nav-item" id="nav-cart">
-          <span class="nav-emoji">🛒</span>
-          <span id="cart-badge"></span>
-        </div>
-        <div class="nav-item" id="nav-avis">
-          <span class="nav-emoji">⭐</span>
-        </div>
-        <div class="nav-item" id="nav-chat">
-          <span class="nav-emoji">💬</span>
-        </div>
-        <div class="nav-item" id="nav-infos">
-          <span class="nav-emoji">ℹ️</span>
-        </div>
-        <div class="nav-item" id="nav-reseaux">
-          <span class="nav-emoji">📡</span>
-        </div>
-        <div class="nav-item" id="nav-profil">
-          <span class="nav-emoji">👤</span>
-        </div>
-      </nav>
-
+  <div id="filters-bar">
+    <div class="filters-inner">
+      <select id="category-filter" class="compact-select" onchange="filterProducts()"><option value="">Toutes catégories</option></select>
+      <select id="farm-filter" class="compact-select" onchange="filterProducts()"><option value="">Toutes farms</option></select>
     </div>
   </div>
+  <div id="products-grid"></div>
+</div>
 
-  <!-- AUTH MODAL — identifiant + mot de passe uniquement -->
-  <div id="auth-modal">
-    <div class="auth-sheet">
-      <div class="auth-handle"></div>
-      <div class="auth-tabs">
-        <div class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Connexion</div>
-        <div class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Inscription</div>
-      </div>
+<!-- DÉTAIL PRODUIT -->
+<div id="product-detail">
+  <div class="swiper-wrap">
+    <div class="swiper-track" id="swiper-track"></div>
+    <button class="swiper-btn swiper-btn-prev" onclick="swiperPrev()">&#8249;</button>
+    <button class="swiper-btn swiper-btn-next" onclick="swiperNext()">&#8250;</button>
+    <div class="swiper-counter" id="swiper-counter">1 / 1</div>
+  </div>
+  <div class="product-info">
+    <div class="product-title" id="detail-title"></div>
+    <div class="badges"><div class="badge badge-farm" id="detail-farm-badge"></div></div>
+    <div class="strain-section" id="detail-strain-desc"></div>
+    <div class="quantity-section">
+      <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
+      <div class="quantity-grid" id="qty-grid"></div>
+    </div>
+    <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
+  </div>
+</div>
 
-      <!-- LOGIN : identifiant + mot de passe -->
-      <div id="auth-login-form">
-        <div class="auth-field">
-          <label>Identifiant</label>
-          <input type="text" id="login-username" placeholder="Votre identifiant">
-        </div>
-        <div class="auth-field">
-          <label>Mot de passe</label>
-          <input type="password" id="login-password" placeholder="••••••••">
-        </div>
-        <button class="auth-submit" id="login-btn" onclick="doLogin()">Se connecter</button>
-      </div>
+<!-- PANIER -->
+<div id="cart-page">
+  <h2 style="color:#ffeb3b;text-align:center;margin:20px 0">Votre Panier</h2>
+  <div id="cart-items"></div>
+  <div id="cart-total" class="cart-total"></div>
+  <div class="questionnaire">
+    <div class="question">
+      <span class="question-label">Mode de récupération :</span>
+      <button class="option-btn" data-type="pickup">Venir sur place</button>
+      <button class="option-btn" data-type="delivery">Livraison</button>
+    </div>
+    <div id="pickup-questions" style="display:none">
+      <div class="question"><span class="question-label">Pour quelle heure ?</span><input type="time" id="pickup-time"></div>
+    </div>
+    <div id="delivery-questions" style="display:none">
+      <div class="question"><span class="question-label">Heure souhaitée</span><input type="time" id="delivery-time"></div>
+      <div class="question"><span class="question-label">Adresse complète</span><input type="text" id="delivery-address" placeholder="Rue, numéro, ville..."></div>
+      <div class="question"><span class="question-label">Précisions (étage, code, etc.)</span><textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea></div>
+    </div>
+    <button id="submit-order-btn">Commander</button>
+  </div>
+</div>
 
-      <!-- REGISTER : prénom + identifiant + mot de passe -->
-      <div id="auth-register-form" style="display:none;">
-        <div class="auth-field">
-          <label>Prénom</label>
-          <input type="text" id="reg-name" placeholder="Votre prénom">
-        </div>
-        <div class="auth-field">
-          <label>Identifiant</label>
-          <input type="text" id="reg-username" placeholder="Choisissez un identifiant">
-        </div>
-        <div class="auth-field">
-          <label>Mot de passe</label>
-          <input type="password" id="reg-password" placeholder="Min. 6 caractères">
-        </div>
-        <button class="auth-submit" id="register-btn" onclick="doRegister()">Créer mon compte</button>
-      </div>
-
-      <div class="auth-error" id="auth-error"></div>
+<!-- INFOS -->
+<div id="infos-page">
+  <div class="info-card" style="margin-top:8px">
+    <div class="info-card-header"><div class="info-card-icon">🪪</div><div class="info-card-title">Information de Bart.Coffee76</div></div>
+    <div class="info-row"><span class="info-row-icon">ℹ️</span><span class="info-row-label">Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.</span></div>
+    <div style="margin-top:14px;background:rgba(255,235,59,0.07);border:1px solid rgba(255,235,59,0.25);border-radius:14px;padding:12px 16px;text-align:center">
+      <span style="color:#aaa;font-size:0.88rem">Contact secrétaire</span><br>
+      <span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:800">@sav_Bart76</span>
     </div>
   </div>
+  <div class="info-card">
+    <div class="info-card-header"><div class="info-card-icon">🚚</div><div class="info-card-title">Livraison</div></div>
+    <div class="info-row" style="margin-bottom:10px">
+      <span class="info-row-icon">📍</span>
+      <div><div class="info-row-label">Départements desservis</div>
+      <div class="dept-badges"><span class="dept-badge">76</span><span class="dept-badge">27</span><span class="dept-badge">14</span></div></div>
+    </div>
+    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px 16px;margin-bottom:12px">
+      <div style="color:#888;font-size:0.85rem;margin-bottom:10px;font-weight:600">TARIFS</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Sur Rouen</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">70€</span></div>
+        <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Moins de 10 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">100€</span></div>
+        <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Supérieur à 10 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">150€</span></div>
+        <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Supérieur à 25 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">270€</span></div>
+      </div>
+    </div>
+    <div class="minimum-badge"><span>Minimum 50€</span></div>
+  </div>
+  <div class="info-card">
+    <div class="info-card-header"><div class="info-card-icon">📍</div><div class="info-card-title">Meet-up</div></div>
+    <div class="meetup-location-row">
+      <div class="meetup-location-left"><span style="color:#ffeb3b;font-size:1.1rem">📍</span><span class="meetup-location-name">Rouen Rive Gauche</span></div>
+      <div class="disponible-badge">Disponible</div>
+    </div>
+    <div class="meetup-horaires-row"><span style="color:#ffeb3b;font-size:1.1rem">🕐</span><span class="meetup-horaires-text">Horaires : 14h – 23h</span></div>
+    <div class="minimum-badge"><span>Minimum 50€</span></div>
+  </div>
+</div>
 
-  <script type="module">
-  // ── FIREBASE INIT ────────────────────────────────────────────────────────────
-  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-  import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, where, onSnapshot, doc, setDoc, getDoc }
-    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-    onAuthStateChanged, signOut, updateProfile }
-    from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+<!-- RÉSEAUX -->
+<div id="reseaux-page">
+  <h2 class="section-title">Nos réseaux</h2>
+  <div class="reseaux-list">
+    <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
+      <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram"></div>
+      <div class="reseau-text"><div class="reseau-name">Telegram VIP</div><div class="reseau-sub">Canal privé ⭐️</div></div>
+      <div class="reseau-arrow">›</div>
+    </div>
+    <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
+      <div class="reseau-icon-wrap" style="background:rgba(255,193,7,0.12);border-color:rgba(255,193,7,0.35)"><img src="potato.jpg" alt="Canal Potato"></div>
+      <div class="reseau-text"><div class="reseau-name">Canal Potato</div><div class="reseau-sub">Rejoindre 🥔</div></div>
+      <div class="reseau-arrow">›</div>
+    </div>
+    <div class="reseau-item" data-link="http://t.me/sav_Bart76">
+      <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire"></div>
+      <div class="reseau-text"><div class="reseau-name">Secrétaire</div><div class="reseau-sub">@sav_Bart76 👨‍💼</div></div>
+      <div class="reseau-arrow">›</div>
+    </div>
+  </div>
+</div>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAzZrBxpJZOpCDMfdNeOJ7PlkpktLW-_xE",
-    authDomain: "bart-coffee76.firebaseapp.com",
-    projectId: "bart-coffee76",
-    storageBucket: "bart-coffee76.firebasestorage.app",
-    messagingSenderId: "158157950462",
-    appId: "1:158157950462:web:7a0f470ce7c90aef67c4af"
-  };
+<!-- AVIS -->
+<div id="avis-page" style="display:none;padding:16px 16px 110px 16px">
+  <h2 class="section-title">⭐ Avis clients</h2>
+  <div class="info-card" style="margin-bottom:20px">
+    <div class="info-card-header"><div class="info-card-icon">✍️</div><div class="info-card-title">Laisser un avis</div></div>
+    <div style="margin-bottom:14px">
+      <div style="color:#aaa;font-size:0.9rem;margin-bottom:10px;font-weight:600">Votre note</div>
+      <div id="star-rating" style="display:flex;gap:8px;font-size:2rem;cursor:pointer">
+        <span class="star" data-v="1">☆</span><span class="star" data-v="2">☆</span><span class="star" data-v="3">☆</span><span class="star" data-v="4">☆</span><span class="star" data-v="5">☆</span>
+      </div>
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="color:#aaa;font-size:0.9rem;margin-bottom:8px;font-weight:600">Votre commentaire</div>
+      <textarea id="avis-text" placeholder="Partagez votre expérience..." style="width:100%;padding:14px;border-radius:12px;border:1.5px solid rgba(255,235,59,0.3);background:rgba(20,20,30,0.9);color:#e0e0e0;font-size:1rem;min-height:90px;resize:vertical;font-family:'M PLUS Rounded 1c',sans-serif;outline:none"></textarea>
+    </div>
+    <button id="submit-avis-btn" style="width:100%;padding:15px;background:#ffeb3b;color:#111;border:none;border-radius:14px;font-size:1.05rem;font-weight:800;cursor:pointer;font-family:'Orbitron',sans-serif;box-shadow:0 0 12px rgba(255,235,59,0.4)">Publier mon avis</button>
+  </div>
+  <div id="avis-list"></div>
+</div>
 
-  const _app  = initializeApp(firebaseConfig);
-  const _db   = getFirestore(_app);
-  const _auth = getAuth(_app);
+<!-- PROFIL -->
+<div id="profil-page"></div>
 
-  window._db        = _db;
-  window._auth      = _auth;
-  window._firestore = { addDoc, collection, getDocs, query, orderBy, serverTimestamp, where, onSnapshot, doc, setDoc, getDoc };
-  window._authFns   = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile };
+<!-- CHAT — nouveau style, input en bas -->
+<div id="chat-page">
+  <div class="chat-header">
+    <div class="chat-header-avatar">💬</div>
+    <div class="chat-header-info">
+      <div class="chat-header-title">Support Client</div>
+      <div class="chat-header-status">
+        <div class="chat-status-dot"></div>
+        <span class="chat-status-text">En ligne</span>
+      </div>
+    </div>
+    <div class="chat-header-timer">⏱ Messages 24h</div>
+  </div>
+  <div id="chat-body" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;"></div>
+</div>
 
-  // ── AUTH STATE ───────────────────────────────────────────────────────────────
-  let currentUser = null;
-  let chatUnsub   = null;
+<!-- ═══════════════════════════
+     NAV — EMOJIS UNIQUEMENT
+═══════════════════════════ -->
+<nav>
+  <div class="nav-item active" id="nav-home"><span class="nav-emoji">🏠</span></div>
+  <div class="nav-item" id="nav-cart"><span class="nav-emoji">🛒</span><span id="cart-badge"></span></div>
+  <div class="nav-item" id="nav-avis"><span class="nav-emoji">⭐</span></div>
+  <div class="nav-item" id="nav-chat"><span class="nav-emoji">💬</span></div>
+  <div class="nav-item" id="nav-infos"><span class="nav-emoji">ℹ️</span></div>
+  <div class="nav-item" id="nav-reseaux"><span class="nav-emoji">📡</span></div>
+  <div class="nav-item" id="nav-profil"><span class="nav-emoji">👤</span></div>
+</nav>
 
-  onAuthStateChanged(_auth, user => {
-    currentUser = user;
-  });
 
-  // ── AUTH MODAL ───────────────────────────────────────────────────────────────
-  window.switchAuthTab = (tab) => {
-    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
-    document.getElementById('tab-register').classList.toggle('active', tab === 'register');
-    document.getElementById('auth-login-form').style.display    = tab === 'login'    ? 'block' : 'none';
-    document.getElementById('auth-register-form').style.display = tab === 'register' ? 'block' : 'none';
-    document.getElementById('auth-error').textContent = '';
-  };
+  </div>
+</div>
 
-  function openAuthModal() {
-    document.getElementById('auth-modal').classList.add('open');
-  }
-  function closeAuthModal() {
-    document.getElementById('auth-modal').classList.remove('open');
-  }
+<!-- AUTH MODAL — IDENTIFIANT + MOT DE PASSE (pas d'email) -->
 
-  document.getElementById('auth-modal').addEventListener('click', e => {
-    if (e.target === document.getElementById('auth-modal')) closeAuthModal();
-  });
+<div id="auth-modal">
+  <div class="auth-sheet">
+    <div class="auth-handle"></div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Connexion</div>
+      <div class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Inscription</div>
+    </div>
+    <div id="auth-login-form">
+      <div class="auth-field"><label>Identifiant</label><input type="text" id="login-username" placeholder="Votre identifiant" autocomplete="username"></div>
+      <div class="auth-field"><label>Mot de passe</label><input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="auth-submit" id="login-btn" onclick="doLogin()">Se connecter</button>
+    </div>
+    <div id="auth-register-form" style="display:none">
+      <div class="auth-field"><label>Prénom</label><input type="text" id="reg-name" placeholder="Votre prénom"></div>
+      <div class="auth-field"><label>Identifiant</label><input type="text" id="reg-username" placeholder="Choisissez un identifiant" autocomplete="username"></div>
+      <div class="auth-field"><label>Mot de passe</label><input type="password" id="reg-password" placeholder="Min. 6 caractères" autocomplete="new-password"></div>
+      <button class="auth-submit" id="register-btn" onclick="doRegister()">Créer mon compte</button>
+    </div>
+    <div class="auth-error" id="auth-error"></div>
+  </div>
+</div>
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // LOGIN : on cherche l'utilisateur par identifiant dans la collection "users"
-  // puis on connecte avec son email interne (uid@bart.internal)
-  // ─────────────────────────────────────────────────────────────────────────────
-  window.doLogin = async () => {
-    const username = document.getElementById('login-username').value.trim().toLowerCase();
-    const pass     = document.getElementById('login-password').value;
-    const errEl    = document.getElementById('auth-error');
-    const btn      = document.getElementById('login-btn');
-    if (!username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
-    btn.disabled = true; btn.textContent = 'Connexion...';
-    try {
-      // Email synthétique dérivé de l'identifiant
-      const syntheticEmail = username + '@bart76.internal';
-      await signInWithEmailAndPassword(_auth, syntheticEmail, pass);
-      closeAuthModal();
-      renderProfilPage();
-    } catch(e) {
-      errEl.textContent = 'Identifiant ou mot de passe incorrect.';
-    }
-    btn.disabled = false; btn.textContent = 'Se connecter';
-  };
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, where, onSnapshot, doc, setDoc, deleteDoc, Timestamp }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile }
+  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 
-  // ─────────────────────────────────────────────────────────────────────────────
-  // REGISTER : crée un compte avec email synthétique identifiant@bart76.internal
-  // ─────────────────────────────────────────────────────────────────────────────
-  window.doRegister = async () => {
-    const name     = document.getElementById('reg-name').value.trim();
-    const username = document.getElementById('reg-username').value.trim().toLowerCase();
-    const pass     = document.getElementById('reg-password').value;
-    const errEl    = document.getElementById('auth-error');
-    const btn      = document.getElementById('register-btn');
-    if (!name || !username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
-    if (pass.length < 6) { errEl.textContent = 'Mot de passe trop court (min. 6 caractères).'; return; }
-    if (!/^[a-z0-9_]+$/.test(username)) { errEl.textContent = "L'identifiant ne peut contenir que des lettres, chiffres et _"; return; }
-    btn.disabled = true; btn.textContent = 'Création...';
-    try {
-      const syntheticEmail = username + '@bart76.internal';
-      const cred = await createUserWithEmailAndPassword(_auth, syntheticEmail, pass);
-      await updateProfile(cred.user, { displayName: name });
-      // Stocker le mapping identifiant → uid dans Firestore
-      await setDoc(doc(_db, 'users', username), { uid: cred.user.uid, name, username });
-      closeAuthModal();
-      renderProfilPage();
-    } catch(e) {
-      errEl.textContent = e.code === 'auth/email-already-in-use'
-        ? 'Cet identifiant est déjà utilisé.'
-        : 'Erreur : ' + e.message;
-    }
-    btn.disabled = false; btn.textContent = 'Créer mon compte';
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAzZrBxpJZOpCDMfdNeOJ7PlkpktLW-_xE",
+  authDomain: "bart-coffee76.firebaseapp.com",
+  projectId: "bart-coffee76",
+  storageBucket: "bart-coffee76.firebasestorage.app",
+  messagingSenderId: "158157950462",
+  appId: "1:158157950462:web:7a0f470ce7c90aef67c4af"
+};
 
-  window.doLogout = async () => {
-    if (!confirm('Se déconnecter ?')) return;
-    await signOut(_auth);
+const _app  = initializeApp(firebaseConfig);
+const _db   = getFirestore(_app);
+const _auth = getAuth(_app);
+
+window._db        = _db;
+window._auth      = _auth;
+window._firestore = { addDoc, collection, getDocs, query, orderBy, serverTimestamp, where, onSnapshot };
+window._firestoreExtra = { getDocs, collection, query, where, deleteDoc, doc, Timestamp };
+
+let chatUnsub = null;
+
+onAuthStateChanged(_auth, () => {});
+
+// ── AUTH ─────────────────────────────────────────────────────────────────────
+window.switchAuthTab = (tab) => {
+  document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+  document.getElementById('tab-register').classList.toggle('active', tab === 'register');
+  document.getElementById('auth-login-form').style.display    = tab === 'login'    ? 'block' : 'none';
+  document.getElementById('auth-register-form').style.display = tab === 'register' ? 'block' : 'none';
+  document.getElementById('auth-error').textContent = '';
+};
+
+function openAuthModal()  { document.getElementById('auth-modal').classList.add('open'); }
+function closeAuthModal() { document.getElementById('auth-modal').classList.remove('open'); }
+document.getElementById('auth-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('auth-modal')) closeAuthModal();
+});
+
+// LOGIN via identifiant → email synthétique identifiant@bart76.app
+window.doLogin = async () => {
+  const username = document.getElementById('login-username').value.trim().toLowerCase();
+  const pass     = document.getElementById('login-password').value;
+  const errEl    = document.getElementById('auth-error');
+  const btn      = document.getElementById('login-btn');
+  if (!username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
+  btn.disabled = true; btn.textContent = 'Connexion...';
+  try {
+    await signInWithEmailAndPassword(_auth, username + '@bart76.app', pass);
+    closeAuthModal();
     renderProfilPage();
-  };
+  } catch(e) {
+    errEl.textContent = 'Identifiant ou mot de passe incorrect.';
+  }
+  btn.disabled = false; btn.textContent = 'Se connecter';
+};
 
-  // ── PROFIL PAGE ───────────────────────────────────────────────────────────────
-  async function renderProfilPage() {
-    const page = document.getElementById('profil-page');
-    const user = _auth.currentUser;
+// REGISTER via identifiant → email synthétique
+window.doRegister = async () => {
+  const name     = document.getElementById('reg-name').value.trim();
+  const username = document.getElementById('reg-username').value.trim().toLowerCase();
+  const pass     = document.getElementById('reg-password').value;
+  const errEl    = document.getElementById('auth-error');
+  const btn      = document.getElementById('register-btn');
+  if (!name || !username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
+  if (pass.length < 6) { errEl.textContent = 'Mot de passe trop court (min. 6 caract.).'; return; }
+  if (!/^[a-z0-9_]+$/.test(username)) { errEl.textContent = "Identifiant : lettres, chiffres et _ uniquement."; return; }
+  btn.disabled = true; btn.textContent = 'Création...';
+  try {
+    const cred = await createUserWithEmailAndPassword(_auth, username + '@bart76.app', pass);
+    await updateProfile(cred.user, { displayName: name });
+    await setDoc(doc(_db, 'users', username), { uid: cred.user.uid, name, username });
+    closeAuthModal();
+    renderProfilPage();
+  } catch(e) {
+    errEl.textContent = e.code === 'auth/email-already-in-use'
+      ? 'Cet identifiant est déjà utilisé.'
+      : 'Erreur : ' + e.message;
+  }
+  btn.disabled = false; btn.textContent = 'Créer mon compte';
+};
 
-    if (!user) {
-      page.innerHTML = `
-        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:20px;padding:20px;">
-          <div style="font-size:3.5rem;">👤</div>
-          <div style="font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#fff;text-align:center;">Mon Compte</div>
-          <div style="color:#666;font-size:0.9rem;text-align:center;line-height:1.6;">Connecte-toi pour accéder à ton profil et voir l'historique de tes commandes.</div>
-          <button onclick="openAuthModal()" style="background:#ffeb3b;color:#111;border:none;padding:15px 32px;border-radius:16px;font-family:'Orbitron',sans-serif;font-size:0.95rem;font-weight:900;cursor:pointer;box-shadow:0 0 20px rgba(255,235,59,0.3);">
-            Se connecter / S'inscrire
-          </button>
-        </div>`;
-      return;
-    }
+window.doLogout = async () => {
+  if (!confirm('Se déconnecter ?')) return;
+  await signOut(_auth);
+  renderProfilPage();
+};
 
-    // Récupère l'identifiant (username) depuis l'email synthétique
-    const displayUsername = user.email ? user.email.replace('@bart76.internal', '') : 'utilisateur';
+// ── PROFIL ────────────────────────────────────────────────────────────────────
+async function renderProfilPage() {
+  const page = document.getElementById('profil-page');
+  const user = _auth.currentUser;
 
-    // Squelette de la page avec le bloc stats
+  if (!user) {
     page.innerHTML = `
-      <div class="profil-header">
-        <button class="profil-logout" onclick="doLogout()">Déconnexion</button>
-        <div class="profil-avatar">👤</div>
-        <div class="profil-name">${user.displayName || displayUsername}</div>
-        <div class="profil-email" style="color:#555;font-size:0.8rem;">@${displayUsername}</div>
-      </div>
-
-      <!-- Bloc nombre de commandes -->
-      <div class="profil-stats-block" id="profil-stats-block">
-        <div class="profil-stats-icon">📦</div>
-        <div class="profil-stats-info">
-          <div class="profil-stats-number" id="profil-cmd-count">—</div>
-          <div class="profil-stats-label">commande(s) passée(s)</div>
-        </div>
-      </div>
-
-      <div class="profil-section-title">📦 Mes commandes</div>
-      <div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px;">Chargement...</p></div>`;
-
-    try {
-      const q = query(
-        collection(_db, 'commandes'),
-        where('uid', '==', user.uid),
-        orderBy('timestamp', 'desc')
-      );
-      const snap = await getDocs(q);
-      const cmdEl   = document.getElementById('profil-commandes');
-      const countEl = document.getElementById('profil-cmd-count');
-
-      // Mise à jour du compteur
-      countEl.textContent = snap.size;
-
-      if (snap.empty) {
-        cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem;">Aucune commande pour l\'instant.</p>';
-        return;
-      }
-      cmdEl.innerHTML = snap.docs.map(d => {
-        const c = d.data();
-        return `<div class="commande-card">
-          <div class="commande-header">
-            <span class="commande-date">${c.date}</span>
-            <span class="commande-total">${c.total}€</span>
-          </div>
-          <div class="commande-items">${c.items}</div>
-          <span class="commande-mode">${c.mode}</span>
-        </div>`;
-      }).join('');
-    } catch(e) {
-      // En cas d'erreur Firestore, on affiche juste 0 commandes sans message d'erreur rouge
-      const countEl = document.getElementById('profil-cmd-count');
-      if (countEl) countEl.textContent = '0';
-      const cmdEl = document.getElementById('profil-commandes');
-      if (cmdEl) cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem;">Aucune commande pour l\'instant.</p>';
-    }
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:20px;padding:20px">
+        <div style="font-size:3.5rem">👤</div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#fff;text-align:center">Mon Compte</div>
+        <div style="color:#666;font-size:0.9rem;text-align:center;line-height:1.6">Connecte-toi pour accéder à ton profil et voir l'historique de tes commandes.</div>
+        <button onclick="openAuthModal()" style="background:#ffeb3b;color:#111;border:none;padding:15px 32px;border-radius:16px;font-family:'Orbitron',sans-serif;font-size:0.95rem;font-weight:900;cursor:pointer;box-shadow:0 0 20px rgba(255,235,59,0.3)">
+          Se connecter / S'inscrire
+        </button>
+      </div>`;
+    return;
   }
 
-  window.openAuthModal = openAuthModal;
+  const displayUsername = user.email ? user.email.replace('@bart76.app', '') : 'utilisateur';
 
-  // ── CHAT ─────────────────────────────────────────────────────────────────────
-  function renderChatPage() {
-    const body = document.getElementById('chat-body');
-    const user = _auth.currentUser;
+  page.innerHTML = `
+    <div class="profil-header">
+      <button class="profil-logout" onclick="doLogout()">Déconnexion</button>
+      <div class="profil-avatar">👤</div>
+      <div class="profil-name">${user.displayName || displayUsername}</div>
+      <div style="color:#555;font-size:0.8rem;margin-top:2px">@${displayUsername}</div>
+    </div>
 
-    if (!user) {
-      body.className = '';
-      body.innerHTML = `
-        <div class="chat-locked">
-          <div class="chat-locked-icon">🔒</div>
-          <div class="chat-locked-text">Connecte-toi pour accéder au chat support.</div>
-          <button class="chat-locked-btn" onclick="openAuthModal()">Se connecter</button>
-        </div>`;
+    <!-- Bloc nombre de commandes -->
+    <div class="profil-stats-block">
+      <div class="profil-stats-icon">📦</div>
+      <div class="profil-stats-info">
+        <div class="profil-stats-number" id="profil-cmd-count">—</div>
+        <div class="profil-stats-label">commande(s) passée(s)</div>
+      </div>
+    </div>
+
+    <div class="profil-section-title">📦 Mes commandes</div>
+    <div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px">Chargement...</p></div>`;
+
+  try {
+    const q    = query(collection(_db,'commandes'), where('uid','==',user.uid), orderBy('timestamp','desc'));
+    const snap = await getDocs(q);
+    const cmdEl   = document.getElementById('profil-commandes');
+    const countEl = document.getElementById('profil-cmd-count');
+    countEl.textContent = snap.size;
+    if (snap.empty) {
+      cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>';
       return;
     }
-
-    body.innerHTML = `
-      <div class="chat-messages" id="chat-messages"></div>
-      <div class="chat-input-bar">
-        <input id="chat-input" type="text" placeholder="Votre message..." maxlength="500">
-        <button id="chat-send-btn" onclick="sendChatMsg()">➤</button>
+    cmdEl.innerHTML = snap.docs.map(d => {
+      const c = d.data();
+      return `<div class="commande-card">
+        <div class="commande-header">
+          <span class="commande-date">${c.date}</span>
+          <span class="commande-total">${c.total}€</span>
+        </div>
+        <div class="commande-items">${c.items}</div>
+        <span class="commande-mode">${c.mode}</span>
       </div>`;
+    }).join('');
+  } catch(e) {
+    // Pas de message d'erreur rouge — juste 0 commandes
+    const countEl = document.getElementById('profil-cmd-count');
+    if (countEl) countEl.textContent = '0';
+    const cmdEl = document.getElementById('profil-commandes');
+    if (cmdEl) cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>';
+  }
+}
+window.openAuthModal = openAuthModal;
 
-    if (chatUnsub) chatUnsub();
-    const q = query(collection(_db, 'chat'), orderBy('timestamp', 'asc'));
-    chatUnsub = onSnapshot(q, snap => {
-      const msgs = document.getElementById('chat-messages');
-      if (!msgs) return;
-      msgs.innerHTML = snap.docs.map(d => {
-        const m = d.data();
-        const isMe = m.uid === user.uid;
-        return `<div>
-          ${!isMe ? `<div class="chat-bubble-sender">${m.name}</div>` : ''}
-          <div class="chat-bubble ${isMe ? 'me' : 'other'}">
-            ${m.text}
-            <div class="chat-bubble-meta">${m.time || ''}</div>
-          </div>
-        </div>`;
-      }).join('');
-      msgs.scrollTop = msgs.scrollHeight;
-    });
+// ── CHAT — nouveau style + suppression automatique après 24h ─────────────────
 
-    document.getElementById('chat-input').addEventListener('keydown', e => {
-      if (e.key === 'Enter') sendChatMsg();
-    });
+// Purge les messages Firestore dont le timestamp > 24h (côté client au chargement)
+async function purgeOldMessages() {
+  try {
+    const { getDocs, collection, query, where, deleteDoc, doc, Timestamp } = window._firestoreExtra;
+    const cutoff = Date.now() - 24 * 60 * 60 * 1000; // 24h en ms
+    const q = query(collection(_db,'chat'), where('timestampMs','<', cutoff));
+    const snap = await getDocs(q);
+    snap.docs.forEach(d => deleteDoc(doc(_db,'chat',d.id)));
+  } catch(e) { /* silencieux */ }
+}
+
+function renderChatPage() {
+  const body = document.getElementById('chat-body');
+  const user = _auth.currentUser;
+
+  if (!user) {
+    body.style.cssText = 'flex:1;display:flex;flex-direction:column;';
+    body.innerHTML = `
+      <div class="chat-locked">
+        <div class="chat-locked-icon">🔒</div>
+        <div class="chat-locked-title">Accès réservé</div>
+        <div class="chat-locked-text">Connecte-toi pour accéder au chat support en direct.</div>
+        <button class="chat-locked-btn" onclick="openAuthModal()">Se connecter</button>
+      </div>`;
+    return;
   }
 
-  window.sendChatMsg = async () => {
-    const input = document.getElementById('chat-input');
-    const text  = input?.value.trim();
-    const user  = _auth.currentUser;
-    if (!text || !user) return;
-    input.value = '';
-    await addDoc(collection(_db, 'chat'), {
-      uid: user.uid,
-      name: user.displayName || 'Utilisateur',
-      text,
-      time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+  // Structure : messages en haut, input en bas
+  body.style.cssText = 'flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;';
+  body.innerHTML = `
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-empty" id="chat-empty">
+        <div class="chat-empty-icon">💬</div>
+        <div class="chat-empty-text">Aucun message pour l'instant.<br>Commencez la conversation !</div>
+      </div>
+    </div>
+    <div class="chat-input-bar">
+      <input id="chat-input" type="text" placeholder="Votre message..." maxlength="500" autocomplete="off">
+      <button id="chat-send-btn" onclick="sendChatMsg()">➤</button>
+    </div>`;
+
+  // Purge silencieuse des vieux messages
+  purgeOldMessages();
+
+  if (chatUnsub) chatUnsub();
+
+  // Écoute temps réel — filtre en JS les messages > 24h
+  const q = query(collection(_db,'chat'), orderBy('timestampMs','asc'));
+  chatUnsub = onSnapshot(q, snap => {
+    const msgs    = document.getElementById('chat-messages');
+    const empty   = document.getElementById('chat-empty');
+    if (!msgs) return;
+
+    const now    = Date.now();
+    const cutoff = now - 24 * 60 * 60 * 1000;
+    // Filtrer les messages valides (< 24h)
+    const validDocs = snap.docs.filter(d => {
+      const ms = d.data().timestampMs;
+      return ms && ms > cutoff;
+    });
+
+    if (validDocs.length === 0) {
+      if (empty) empty.style.display = 'flex';
+      // Supprimer les bulles existantes sauf empty
+      msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el=>el.remove());
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+
+    // Regrouper par jour
+    let lastDate = '';
+    let html = '';
+    validDocs.forEach(d => {
+      const m   = d.data();
+      const isMe= m.uid === user.uid;
+      const ts  = m.timestampMs ? new Date(m.timestampMs) : null;
+      const day = ts ? ts.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}) : '';
+      const timeLeft = m.timestampMs ? Math.max(0, 24*60*60*1000 - (now - m.timestampMs)) : 0;
+      const soonClass= timeLeft < 2*60*60*1000 ? ' expiring-soon' : ''; // rouge si <2h
+
+      if (day && day !== lastDate) {
+        html += `<div class="chat-date-sep">${day}</div>`;
+        lastDate = day;
+      }
+      html += `<div class="chat-msg-group ${isMe?'me':'other'}">
+        ${!isMe ? `<div class="chat-sender-name">${m.name||'?'}</div>` : ''}
+        <div class="chat-bubble ${isMe?'me':'other'}${soonClass}">
+          ${m.text}
+          <span class="chat-bubble-time">${m.time||''}</span>
+        </div>
+      </div>`;
+    });
+
+    // Remplacer uniquement les bulles (garder #chat-empty)
+    msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el=>el.remove());
+    msgs.insertAdjacentHTML('beforeend', html);
+    msgs.scrollTop = msgs.scrollHeight;
+  });
+
+  document.getElementById('chat-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMsg(); }
+  });
+}
+
+window.sendChatMsg = async () => {
+  const input = document.getElementById('chat-input');
+  const text  = input?.value.trim();
+  const user  = _auth.currentUser;
+  if (!text || !user) return;
+  input.value = '';
+  const now = Date.now();
+  await addDoc(collection(_db,'chat'), {
+    uid: user.uid,
+    name: user.displayName || 'Utilisateur',
+    text,
+    time: new Date(now).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+    timestampMs: now,           // timestamp numérique pour filtrage 24h
+    timestamp: serverTimestamp() // pour compatibilité
+  });
+};
+
+// ── TELEGRAM ─────────────────────────────────────────────────────────────────
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.ready(); tg.expand();
+  if (typeof tg.requestFullscreen==='function') tg.requestFullscreen();
+  if (typeof tg.setHeaderColor==='function') tg.setHeaderColor('#000000');
+  if (typeof tg.setBackgroundColor==='function') tg.setBackgroundColor('#000000');
+  if (typeof tg.setBottomBarColor==='function') tg.setBottomBarColor('#000000');
+  tg.enableClosingConfirmation();
+}
+
+// ── PRODUITS ─────────────────────────────────────────────────────────────────
+const products = {
+  blanche: {
+    key:'blanche', title:'Blanche❄️', category:'Blanche❄️', farm:'R8🏎️',
+    videos:[{src:'',poster:'blanche.jpg'},{src:'blanche.mp4',poster:'blanche.jpg'}],
+    strain:'', description:"Blanche comme la neige fraîche, texture bien grasse et cristalline.",
+    quantities:[{qty:'1G',price:'60€'},{qty:'3G',price:'160€'},{qty:'5G',price:'210€'},{qty:'10G',price:'360€'},{qty:'20G',price:'680€'}]
+  },
+  caliweed: {
+    key:'caliweed', title:'🍀Cali Weed🍀', category:'🍀Cali Weed🍀', farm:'🏆 Top Shelf',
+    videos:[{src:'caliweed.mp4',poster:''}],
+    strain:'- Runtz🌈',
+    description:"🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l'euphorie et la motivation.",
+    quantities:[{qty:'5G',price:'70€'},{qty:'10G',price:'130€'},{qty:'25G',price:'260€'},{qty:'50G',price:'410€'},{qty:'100G',price:'770€'}]
+  },
+  capncrunch: {
+    key:'capncrunch', title:"Cap'n Crunch🥣🌾", category:"Cap'n Crunch🥣🌾", farm:'Total farm🧑‍🌾🌝',
+    videos:[{src:'',poster:'dry90u.jpg'},{src:'dry90u.mp4',poster:'dry90u.jpg'}],
+    strain:'', description:"Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés.",
+    quantities:[{qty:'10g',price:'90€'},{qty:'25g',price:'190€'},{qty:'50g',price:'300€'},{qty:'100g',price:'550€'}]
+  }
+};
+
+// ── PANIER ───────────────────────────────────────────────────────────────────
+let cart = JSON.parse(localStorage.getItem('cart_bart76')) || [];
+function saveCart() { localStorage.setItem('cart_bart76', JSON.stringify(cart)); updateBadge(); }
+function updateBadge() {
+  const b = document.getElementById('cart-badge');
+  b.textContent = cart.length||'';
+  b.style.display = cart.length>0 ? 'inline-block' : 'none';
+}
+
+// ── FILTRES ───────────────────────────────────────────────────────────────────
+function populateFilters() {
+  const all = Object.values(products);
+  const cats  = [...new Set(all.map(p=>p.category))].sort();
+  const farms = [...new Set(all.map(p=>p.farm))].sort();
+  const cs = document.getElementById('category-filter');
+  const fs = document.getElementById('farm-filter');
+  cats.forEach(c  => { const o=document.createElement('option'); o.value=c;  o.textContent=c;  cs.appendChild(o); });
+  farms.forEach(f => { const o=document.createElement('option'); o.value=f;  o.textContent=f;  fs.appendChild(o); });
+}
+function filterProducts() {
+  const cf = document.getElementById('category-filter').value;
+  const ff = document.getElementById('farm-filter').value;
+  renderProducts(Object.values(products).filter(p => (!cf||p.category===cf) && (!ff||p.farm===ff)));
+}
+window.filterProducts = filterProducts;
+
+// ── RENDU PRODUITS ────────────────────────────────────────────────────────────
+function renderProducts(list) {
+  if (!list) list = Object.values(products);
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = '';
+  const n = list.length;
+  const ce = document.getElementById('products-count-modern');
+  ce.querySelector('.products-count-number').textContent = n;
+  ce.querySelector('.products-count-label').textContent  = n>1 ? 'Produits' : 'Produit';
+  if (n===0) { grid.innerHTML='<div class="no-results">Aucun produit 🔍</div>'; return; }
+  list.forEach(p => {
+    const card = document.createElement('div'); card.className='card';
+    const thumb = p.videos[0].poster||p.videos[0].src||'chat.PNG';
+    card.innerHTML = `<div class="card-img"><img src="${thumb}" alt="${p.title}">
+      <div class="card-overlay"><div class="card-title">${p.title}</div><div class="card-farm">${p.farm}</div></div></div>`;
+    card.onclick = () => openProductDetail(p.key);
+    grid.appendChild(card);
+  });
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function hideAllPages() {
+  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.style.display='none';
+  });
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+}
+function scrollToTop() { document.querySelector('.content').scrollTo({top:0,behavior:'instant'}); }
+function goToHome() {
+  hideAllPages();
+  document.getElementById('home-page').style.display='block';
+  document.getElementById('nav-home').classList.add('active');
+  if (tg) tg.BackButton.hide();
+  scrollToTop();
+}
+
+// ── SWIPER ────────────────────────────────────────────────────────────────────
+let swiperIndex=0, swiperItems=[];
+function buildSwiper(videos) {
+  swiperIndex=0; swiperItems=videos;
+  const track=document.getElementById('swiper-track'); track.innerHTML='';
+  videos.forEach(vid => {
+    if (vid.src) {
+      const v=document.createElement('video'); v.autoplay=false; v.loop=true; v.muted=true; v.playsinline=true; v.controls=true;
+      v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#111;';
+      if(vid.poster) v.poster=vid.poster; v.innerHTML=`<source src="${vid.src}" type="video/mp4">`; track.appendChild(v);
+    } else if (vid.poster) {
+      const img=document.createElement('img'); img.src=vid.poster;
+      img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#111;pointer-events:none;user-select:none;'; track.appendChild(img);
+    }
+  });
+  updateSwiper();
+}
+function updateSwiper() {
+  const total=swiperItems.length;
+  document.getElementById('swiper-track').style.transform=`translateX(-${swiperIndex*100}%)`;
+  document.getElementById('swiper-counter').textContent=`${swiperIndex+1} / ${total}`;
+  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{ if(i===swiperIndex) v.play().catch(()=>{}); else v.pause(); });
+  const show=total>1;
+  document.querySelector('.swiper-btn-prev').style.display=show?'flex':'none';
+  document.querySelector('.swiper-btn-next').style.display=show?'flex':'none';
+  document.getElementById('swiper-counter').style.display=show?'block':'none';
+}
+window.swiperPrev=()=>{ swiperIndex=(swiperIndex-1+swiperItems.length)%swiperItems.length; updateSwiper(); };
+window.swiperNext=()=>{ swiperIndex=(swiperIndex+1)%swiperItems.length; updateSwiper(); };
+
+// ── DÉTAIL PRODUIT ────────────────────────────────────────────────────────────
+function openProductDetail(key) {
+  const p=products[key];
+  document.getElementById('detail-title').textContent=p.title;
+  document.getElementById('detail-farm-badge').textContent=p.farm;
+  let content=p.strain?p.strain.replace(/\n/g,'<br>'):'';
+  if(p.description) content+='<div class="description">'+p.description.replace(/\n/g,'<br>')+'</div>';
+  document.getElementById('detail-strain-desc').innerHTML=content||'<p style="color:#888;font-style:italic">Aucune description disponible</p>';
+  const qtyGrid=document.getElementById('qty-grid'); qtyGrid.innerHTML='';
+  p.quantities.forEach((item,idx) => {
+    const btn=document.createElement('button'); btn.className='qty-btn';
+    btn.innerHTML=`${item.qty}<br><span class="price-new">${item.price}</span>`; btn.dataset.idx=idx;
+    btn.onclick=()=>{ qtyGrid.querySelectorAll('.qty-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); };
+    qtyGrid.appendChild(btn);
+  });
+  buildSwiper(p.videos); hideAllPages();
+  document.getElementById('product-detail').style.display='flex';
+  if(tg) tg.BackButton.show(); scrollToTop();
+}
+document.getElementById('add-to-cart-btn').onclick=()=>{
+  const sel=document.querySelector('.qty-btn.selected'); if(!sel) return alert('Sélectionnez une quantité !');
+  const title=document.getElementById('detail-title').textContent;
+  const key=Object.keys(products).find(k=>products[k].title===title);
+  const item=products[key].quantities[parseInt(sel.dataset.idx)];
+  cart.push({title,qty:item.qty,price:item.price}); saveCart(); alert('✅ Ajouté au panier !');
+};
+
+// ── NAV TABS ─────────────────────────────────────────────────────────────────
+document.getElementById('nav-home').onclick = goToHome;
+document.getElementById('nav-cart').onclick = () => {
+  hideAllPages(); document.getElementById('cart-page').style.display='block';
+  document.getElementById('nav-cart').classList.add('active');
+  if(tg) tg.BackButton.hide(); renderCart(); scrollToTop();
+};
+document.getElementById('nav-infos').onclick = () => {
+  hideAllPages(); document.getElementById('infos-page').style.display='block';
+  document.getElementById('nav-infos').classList.add('active');
+  if(tg) tg.BackButton.hide(); scrollToTop();
+};
+document.getElementById('nav-reseaux').onclick = () => {
+  hideAllPages(); document.getElementById('reseaux-page').style.display='block';
+  document.getElementById('nav-reseaux').classList.add('active');
+  if(tg) tg.BackButton.hide(); scrollToTop();
+};
+document.getElementById('nav-avis').onclick = () => {
+  hideAllPages(); document.getElementById('avis-page').style.display='block';
+  document.getElementById('nav-avis').classList.add('active');
+  if(tg) tg.BackButton.hide(); renderAvis(); scrollToTop();
+};
+document.getElementById('nav-profil').onclick = () => {
+  hideAllPages(); document.getElementById('profil-page').style.display='block';
+  document.getElementById('nav-profil').classList.add('active');
+  if(tg) tg.BackButton.hide(); renderProfilPage(); scrollToTop();
+};
+document.getElementById('nav-chat').onclick = () => {
+  hideAllPages();
+  const cp = document.getElementById('chat-page');
+  cp.style.display = 'flex';
+  cp.style.flexDirection = 'column';
+  document.getElementById('nav-chat').classList.add('active');
+  if(tg) tg.BackButton.hide();
+  renderChatPage();
+};
+
+// ── AVIS ─────────────────────────────────────────────────────────────────────
+let selectedStar=0;
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', () => {
+    selectedStar=parseInt(star.dataset.v);
+    document.querySelectorAll('.star').forEach(s => {
+      s.textContent=parseInt(s.dataset.v)<=selectedStar?'★':'☆';
+      s.classList.toggle('on',parseInt(s.dataset.v)<=selectedStar);
+    });
+  });
+});
+
+async function renderAvis() {
+  const list=document.getElementById('avis-list');
+  list.innerHTML='<p style="text-align:center;color:#555;padding:30px 0">Chargement des avis...</p>';
+  try {
+    const q=query(collection(_db,'avis'),orderBy('timestamp','desc'));
+    const snap=await getDocs(q);
+    const avisList=snap.docs.map(d=>d.data());
+    if(!avisList||!avisList.length) { list.innerHTML='<p style="text-align:center;color:#555;padding:30px 0">Aucun avis pour l\'instant.</p>'; return; }
+    list.innerHTML=avisList.map(a=>`
+      <div class="avis-card">
+        <div class="avis-header"><span class="avis-user">${a.user}</span><span class="avis-stars">${'★'.repeat(a.note)}${'☆'.repeat(5-a.note)}</span></div>
+        <div class="avis-date">${a.date}</div>
+        <div class="avis-comment">${a.comment}</div>
+      </div>`).join('');
+  } catch(e) {
+    list.innerHTML='<p style="text-align:center;color:#ef4444;padding:30px 0">Erreur de chargement.</p>';
+  }
+}
+
+document.getElementById('submit-avis-btn').onclick = async () => {
+  const comment=document.getElementById('avis-text').value.trim();
+  if(!selectedStar) return alert('Veuillez sélectionner une note ⭐');
+  if(!comment) return alert('Veuillez écrire un commentaire');
+  // ── Prénom Telegram SANS @ — uniquement first_name
+  const tgUser   = tg?.initDataUnsafe?.user;
+  const username = tgUser?.first_name || 'Anonyme';
+  const btn=document.getElementById('submit-avis-btn');
+  btn.disabled=true; btn.textContent='Envoi...';
+  try {
+    await addDoc(collection(_db,'avis'), {
+      user: username, note: selectedStar, comment,
+      date: new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),
       timestamp: serverTimestamp()
     });
-  };
+    document.getElementById('avis-text').value='';
+    selectedStar=0;
+    document.querySelectorAll('.star').forEach(s=>{ s.textContent='☆'; s.classList.remove('on'); });
+    await renderAvis(); alert('✅ Merci pour votre avis !');
+  } catch(e) { alert('❌ Erreur lors de l\'envoi. Réessayez.'); }
+  btn.disabled=false; btn.textContent='Publier mon avis';
+};
 
-  // ── TELEGRAM FULLSCREEN ─────────────────────────────────────────────────────
-  const tg = window.Telegram?.WebApp;
-  if (tg) {
-    tg.ready();
-    tg.expand();
-    if (typeof tg.requestFullscreen === 'function') tg.requestFullscreen();
-    if (typeof tg.setHeaderColor === 'function') tg.setHeaderColor('#000000');
-    if (typeof tg.setBackgroundColor === 'function') tg.setBackgroundColor('#000000');
-    if (typeof tg.setBottomBarColor === 'function') tg.setBottomBarColor('#000000');
-    tg.enableClosingConfirmation();
-  }
+document.querySelectorAll('.reseau-item[data-link]').forEach(el => {
+  el.onclick=()=>{ const l=el.getAttribute('data-link'); if(tg) tg.openLink(l); else window.open(l,'_blank'); };
+});
+if(tg) tg.BackButton.onClick(()=>goToHome());
 
-  // ── PRODUITS ─────────────────────────────────────────────────────────────────
-  const products = {
-    blanche: {
-      key: 'blanche', title: 'Blanche❄️',
-      category: 'Blanche❄️', farm: 'R8🏎️',
-      videos: [{ src: '', poster: 'blanche.jpg' }, { src: 'blanche.mp4', poster: 'blanche.jpg' }],
-      strain: '', description: "Blanche comme la neige fraîche, texture bien grasse et cristalline.",
-      quantities: [
-        { qty: '1G', price: '60€' }, { qty: '3G', price: '160€' },
-        { qty: '5G', price: '210€' }, { qty: '10G', price: '360€' }, { qty: '20G', price: '680€' }
-      ]
-    },
-    caliweed: {
-      key: 'caliweed', title: '🍀Cali Weed🍀',
-      category: '🍀Cali Weed🍀', farm: '🏆 Top Shelf',
-      videos: [{ src: 'caliweed.mp4', poster: '' }],
-      strain: '- Runtz🌈',
-      description: "🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l'euphorie et la motivation.",
-      quantities: [
-        { qty: '5G', price: '70€' }, { qty: '10G', price: '130€' },
-        { qty: '25G', price: '260€' }, { qty: '50G', price: '410€' }, { qty: '100G', price: '770€' }
-      ]
-    },
-    capncrunch: {
-      key: 'capncrunch', title: "Cap'n Crunch🥣🌾",
-      category: "Cap'n Crunch🥣🌾", farm: 'Total farm🧑‍🌾🌝',
-      videos: [{ src: '', poster: 'dry90u.jpg' }, { src: 'dry90u.mp4', poster: 'dry90u.jpg' }],
-      strain: '', description: "Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés.",
-      quantities: [
-        { qty: '10g', price: '90€' }, { qty: '25g', price: '190€' },
-        { qty: '50g', price: '300€' }, { qty: '100g', price: '550€' }
-      ]
-    }
-  };
-
-  // ── PANIER ───────────────────────────────────────────────────────────────────
-  let cart = JSON.parse(localStorage.getItem('cart_bart76')) || [];
-
-  function saveCart() {
-    localStorage.setItem('cart_bart76', JSON.stringify(cart));
-    updateBadge();
-  }
-
-  function updateBadge() {
-    const badge = document.getElementById('cart-badge');
-    badge.textContent = cart.length || '';
-    badge.style.display = cart.length > 0 ? 'inline-block' : 'none';
-  }
-
-  // ── FILTRES ───────────────────────────────────────────────────────────────────
-  function populateFilters() {
-    const allProducts = Object.values(products);
-    const categories  = [...new Set(allProducts.map(p => p.category))].sort();
-    const farms       = [...new Set(allProducts.map(p => p.farm))].sort();
-    const catSelect  = document.getElementById('category-filter');
-    const farmSelect = document.getElementById('farm-filter');
-    categories.forEach(cat => {
-      const opt = document.createElement('option');
-      opt.value = cat; opt.textContent = cat;
-      catSelect.appendChild(opt);
-    });
-    farms.forEach(farm => {
-      const opt = document.createElement('option');
-      opt.value = farm; opt.textContent = farm;
-      farmSelect.appendChild(opt);
-    });
-  }
-
-  function filterProducts() {
-    const catFilter  = document.getElementById('category-filter').value;
-    const farmFilter = document.getElementById('farm-filter').value;
-    const filtered = Object.values(products).filter(p => {
-      const catMatch  = !catFilter  || p.category === catFilter;
-      const farmMatch = !farmFilter || p.farm === farmFilter;
-      return catMatch && farmMatch;
-    });
-    renderProducts(filtered);
-  }
-
-  function resetFilters() {
-    document.getElementById('category-filter').value = '';
-    document.getElementById('farm-filter').value = '';
-    renderProducts(Object.values(products));
-  }
-
-  // ── RENDU PRODUITS ────────────────────────────────────────────────────────────
-  function renderProducts(list) {
-    if (!list) list = Object.values(products);
-    const grid = document.getElementById('products-grid');
-    grid.innerHTML = '';
-    const count = list.length;
-    const countEl = document.getElementById('products-count-modern');
-    countEl.querySelector('.products-count-number').textContent = count;
-    countEl.querySelector('.products-count-label').textContent = count > 1 ? 'Produits' : 'Produit';
-    if (count === 0) {
-      grid.innerHTML = `<div class="no-results">Aucun produit 🔍</div>`;
-      return;
-    }
-    list.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      const thumb = p.videos[0].poster || p.videos[0].src || 'chat.PNG';
-      card.innerHTML = `
-        <div class="card-img">
-          <img src="${thumb}" alt="${p.title}">
-          <div class="card-overlay">
-            <div class="card-title">${p.title}</div>
-            <div class="card-farm">${p.farm}</div>
-          </div>
-        </div>`;
-      card.onclick = () => openProductDetail(p.key);
-      grid.appendChild(card);
-    });
-  }
-
-  // ── NAVIGATION ────────────────────────────────────────────────────────────────
-  function hideAllPages() {
-    ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
-    });
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  }
-
-  function scrollToTop() { document.querySelector('.content').scrollTo({ top: 0, behavior: 'instant' }); }
-
-  function goToHome() {
-    hideAllPages();
-    document.getElementById('home-page').style.display = 'block';
-    document.getElementById('nav-home').classList.add('active');
-    if (tg) tg.BackButton.hide();
-    scrollToTop();
-  }
-
-  // ── SWIPER ────────────────────────────────────────────────────────────────────
-  let swiperIndex = 0;
-  let swiperItems = [];
-
-  function buildSwiper(videos) {
-    swiperIndex = 0;
-    swiperItems = videos;
-    const track = document.getElementById('swiper-track');
-    track.innerHTML = '';
-    videos.forEach(vid => {
-      if (vid.src) {
-        const v = document.createElement('video');
-        v.autoplay = false; v.loop = true; v.muted = true; v.playsinline = true; v.controls = true;
-        v.style.cssText = 'flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#111;';
-        if (vid.poster) v.poster = vid.poster;
-        v.innerHTML = `<source src="${vid.src}" type="video/mp4">`;
-        track.appendChild(v);
-      } else if (vid.poster) {
-        const img = document.createElement('img');
-        img.src = vid.poster;
-        img.style.cssText = 'flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#111;pointer-events:none;user-select:none;';
-        track.appendChild(img);
-      }
-    });
-    updateSwiper();
-  }
-
-  function updateSwiper() {
-    const total = swiperItems.length;
-    document.getElementById('swiper-track').style.transform = `translateX(-${swiperIndex * 100}%)`;
-    document.getElementById('swiper-counter').textContent = `${swiperIndex + 1} / ${total}`;
-    document.getElementById('swiper-track').querySelectorAll('video').forEach((v, i) => {
-      if (i === swiperIndex) v.play().catch(() => {}); else v.pause();
-    });
-    const showArrows = total > 1;
-    document.querySelector('.swiper-btn-prev').style.display = showArrows ? 'flex' : 'none';
-    document.querySelector('.swiper-btn-next').style.display = showArrows ? 'flex' : 'none';
-    document.getElementById('swiper-counter').style.display  = showArrows ? 'block' : 'none';
-  }
-
-  function swiperPrev() { swiperIndex = (swiperIndex - 1 + swiperItems.length) % swiperItems.length; updateSwiper(); }
-  function swiperNext() { swiperIndex = (swiperIndex + 1) % swiperItems.length; updateSwiper(); }
-  window.swiperPrev = swiperPrev;
-  window.swiperNext = swiperNext;
-
-  // ── DÉTAIL PRODUIT ────────────────────────────────────────────────────────────
-  function openProductDetail(key) {
-    const p = products[key];
-    document.getElementById('detail-title').textContent = p.title;
-    document.getElementById('detail-farm-badge').textContent = p.farm;
-    let content = p.strain ? p.strain.replace(/\n/g, '<br>') : '';
-    if (p.description) content += '<div class="description">' + p.description.replace(/\n/g, '<br>') + '</div>';
-    document.getElementById('detail-strain-desc').innerHTML =
-      content || '<p style="color:#888;font-style:italic;">Aucune description disponible</p>';
-    const qtyGrid = document.getElementById('qty-grid');
-    qtyGrid.innerHTML = '';
-    p.quantities.forEach((item, idx) => {
-      const btn = document.createElement('button');
-      btn.className = 'qty-btn';
-      btn.innerHTML = `${item.qty}<br><span class="price-new">${item.price}</span>`;
-      btn.dataset.idx = idx;
-      btn.onclick = () => {
-        qtyGrid.querySelectorAll('.qty-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-      };
-      qtyGrid.appendChild(btn);
-    });
-    buildSwiper(p.videos);
-    hideAllPages();
-    document.getElementById('product-detail').style.display = 'flex';
-    if (tg) tg.BackButton.show();
-    scrollToTop();
-  }
-
-  document.getElementById('add-to-cart-btn').onclick = () => {
-    const selected = document.querySelector('.qty-btn.selected');
-    if (!selected) return alert('Sélectionnez une quantité !');
-    const title = document.getElementById('detail-title').textContent;
-    const key   = Object.keys(products).find(k => products[k].title === title);
-    const item  = products[key].quantities[parseInt(selected.dataset.idx)];
-    cart.push({ title, qty: item.qty, price: item.price });
-    saveCart();
-    alert('✅ Ajouté au panier !');
-  };
-
-  // ── NAVIGATION TABS ───────────────────────────────────────────────────────────
-  document.getElementById('nav-home').onclick = goToHome;
-
-  document.getElementById('nav-cart').onclick = () => {
-    hideAllPages();
-    document.getElementById('cart-page').style.display = 'block';
-    document.getElementById('nav-cart').classList.add('active');
-    if (tg) tg.BackButton.hide();
-    renderCart();
-    scrollToTop();
-  };
-
-  document.getElementById('nav-infos').onclick = () => {
-    hideAllPages();
-    document.getElementById('infos-page').style.display = 'block';
-    document.getElementById('nav-infos').classList.add('active');
-    if (tg) tg.BackButton.hide();
-    scrollToTop();
-  };
-
-  document.getElementById('nav-reseaux').onclick = () => {
-    hideAllPages();
-    document.getElementById('reseaux-page').style.display = 'block';
-    document.getElementById('nav-reseaux').classList.add('active');
-    if (tg) tg.BackButton.hide();
-    scrollToTop();
-  };
-
-  document.getElementById('nav-avis').onclick = () => {
-    hideAllPages();
-    document.getElementById('avis-page').style.display = 'block';
-    document.getElementById('nav-avis').classList.add('active');
-    if (tg) tg.BackButton.hide();
-    renderAvis();
-    scrollToTop();
-  };
-
-  document.getElementById('nav-profil').onclick = () => {
-    hideAllPages();
-    document.getElementById('profil-page').style.display = 'block';
-    document.getElementById('nav-profil').classList.add('active');
-    if (tg) tg.BackButton.hide();
-    renderProfilPage();
-    scrollToTop();
-  };
-
-  document.getElementById('nav-chat').onclick = () => {
-    hideAllPages();
-    const chatPage = document.getElementById('chat-page');
-    chatPage.style.display = 'flex';
-    chatPage.style.flexDirection = 'column';
-    document.getElementById('nav-chat').classList.add('active');
-    if (tg) tg.BackButton.hide();
-    renderChatPage();
-  };
-
-  // ── AVIS SYSTEM ──────────────────────────────────────────────────────────────
-  let selectedStar = 0;
-
-  document.querySelectorAll('.star').forEach(star => {
-    star.addEventListener('click', () => {
-      selectedStar = parseInt(star.dataset.v);
-      document.querySelectorAll('.star').forEach(s => {
-        s.textContent = parseInt(s.dataset.v) <= selectedStar ? '★' : '☆';
-        s.classList.toggle('on', parseInt(s.dataset.v) <= selectedStar);
-      });
-    });
+// ── PANIER RENDU ──────────────────────────────────────────────────────────────
+function renderCart() {
+  const container=document.getElementById('cart-items'); container.innerHTML='';
+  if(!cart.length) { container.innerHTML='<p style="text-align:center;color:#888;padding:40px 0">Votre panier est vide</p>'; document.getElementById('cart-total').textContent=''; return; }
+  let total=0;
+  cart.forEach((item,index) => {
+    total+=parseInt(item.price)||0;
+    const div=document.createElement('div'); div.className='cart-item';
+    div.innerHTML=`<div class="cart-item-info"><div class="cart-item-title">${item.title}</div><div class="cart-item-qty">${item.qty} — ${item.price}</div></div><button class="delete-btn" data-index="${index}">×</button>`;
+    container.appendChild(div);
   });
-
-  async function renderAvis() {
-    const list = document.getElementById('avis-list');
-    list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0;">Chargement des avis...</p>';
+  document.getElementById('cart-total').innerHTML=`Total : <strong>${total}€</strong>`;
+}
+document.getElementById('cart-page').addEventListener('click', e => {
+  if(e.target.classList.contains('delete-btn')) { cart.splice(parseInt(e.target.dataset.index),1); saveCart(); renderCart(); }
+});
+document.querySelectorAll('.option-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+    document.getElementById('pickup-questions').style.display  =btn.dataset.type==='pickup'  ?'block':'none';
+    document.getElementById('delivery-questions').style.display=btn.dataset.type==='delivery'?'block':'none';
+  });
+});
+document.getElementById('submit-order-btn').onclick = async () => {
+  if(!cart.length) return alert("Votre panier est vide");
+  const modeBtn=document.querySelector('.option-btn.active');
+  if(!modeBtn) return alert("Veuillez choisir un mode de récupération.");
+  const mode=modeBtn.dataset.type==='pickup'?'Venir sur place':'Livraison';
+  const tgUser=tg?.initDataUnsafe?.user;
+  let message=`🛒 *NOUVELLE COMMANDE* 🛒\n\n`;
+  message+=`👤 ${tgUser?.username?'@'+tgUser.username:tgUser?.first_name||'Utilisateur'}\n`;
+  message+=`📅 ${new Date().toLocaleString('fr-FR')}\n\n🛍️ *Articles :*\n`;
+  let total=0; let itemsText='';
+  cart.forEach(item => { total+=parseInt(item.price)||0; message+=`• ${item.title} — ${item.qty} (${item.price})\n`; itemsText+=`• ${item.title} ${item.qty} (${item.price})\n`; });
+  message+=`\n💰 *Total : ${total}€*\n\n📦 *Mode :* ${mode}\n`;
+  const user=_auth.currentUser;
+  if(user) {
     try {
-      const { getDocs, collection, query, orderBy } = window._firestore;
-      const q = query(collection(window._db, 'avis'), orderBy('timestamp', 'desc'));
-      const snap = await getDocs(q);
-      const avisList = snap.docs.map(d => d.data());
-      if (!avisList || avisList.length === 0) {
-        list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0;">Aucun avis pour l\'instant. Soyez le premier !</p>';
-        return;
-      }
-      list.innerHTML = avisList.map(a => `
-        <div class="avis-card">
-          <div class="avis-header">
-            <span class="avis-user">${a.user}</span>
-            <span class="avis-stars">${'★'.repeat(a.note)}${'☆'.repeat(5 - a.note)}</span>
-          </div>
-          <div class="avis-date">${a.date}</div>
-          <div class="avis-comment">${a.comment}</div>
-        </div>
-      `).join('');
-    } catch(e) {
-      list.innerHTML = '<p style="text-align:center;color:#ef4444;padding:30px 0;">Erreur de chargement.</p>';
-    }
-  }
-
-  document.getElementById('submit-avis-btn').onclick = async () => {
-    const comment = document.getElementById('avis-text').value.trim();
-    if (!selectedStar) return alert('Veuillez sélectionner une note ⭐');
-    if (!comment) return alert('Veuillez écrire un commentaire');
-
-    // ── Utilise uniquement le prénom Telegram (first_name), sans @
-    const tgUser    = tg?.initDataUnsafe?.user;
-    const username  = tgUser?.first_name || 'Anonyme';
-
-    const btn = document.getElementById('submit-avis-btn');
-    btn.disabled = true; btn.textContent = 'Envoi...';
-    try {
-      const { addDoc, collection, serverTimestamp } = window._firestore;
-      await addDoc(collection(window._db, 'avis'), {
-        user: username,
-        note: selectedStar,
-        comment,
-        date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' }),
-        timestamp: serverTimestamp()
+      await addDoc(collection(_db,'commandes'), {
+        uid:user.uid, items:itemsText.trim(), total, mode,
+        date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),
+        timestamp:serverTimestamp()
       });
-      document.getElementById('avis-text').value = '';
-      selectedStar = 0;
-      document.querySelectorAll('.star').forEach(s => { s.textContent = '☆'; s.classList.remove('on'); });
-      await renderAvis();
-      alert('✅ Merci pour votre avis !');
-    } catch(e) {
-      alert('❌ Erreur lors de l\'envoi. Réessayez.');
-    }
-    btn.disabled = false; btn.textContent = 'Publier mon avis';
-  };
-
-  document.querySelectorAll('.reseau-item[data-link]').forEach(el => {
-    el.onclick = () => {
-      const link = el.getAttribute('data-link');
-      if (tg) tg.openLink(link); else window.open(link, '_blank');
-    };
-  });
-
-  if (tg) tg.BackButton.onClick(() => goToHome());
-
-  // ── PANIER RENDU ──────────────────────────────────────────────────────────────
-  function renderCart() {
-    const container = document.getElementById('cart-items');
-    container.innerHTML = '';
-    if (cart.length === 0) {
-      container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0;">Votre panier est vide</p>';
-      document.getElementById('cart-total').textContent = '';
-      return;
-    }
-    let total = 0;
-    cart.forEach((item, index) => {
-      total += parseInt(item.price) || 0;
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
-        <div class="cart-item-info">
-          <div class="cart-item-title">${item.title}</div>
-          <div class="cart-item-qty">${item.qty} — ${item.price}</div>
-        </div>
-        <button class="delete-btn" data-index="${index}">×</button>`;
-      container.appendChild(div);
-    });
-    document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
+    } catch(e) { console.error('Erreur sauvegarde commande',e); }
   }
+  const url=`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
+  if(tg) tg.openTelegramLink(url); else window.open(url,'_blank');
+};
 
-  document.getElementById('cart-page').addEventListener('click', e => {
-    if (e.target.classList.contains('delete-btn')) {
-      cart.splice(parseInt(e.target.dataset.index), 1);
-      saveCart();
-      renderCart();
-    }
-  });
-
-  document.querySelectorAll('.option-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('pickup-questions').style.display   = btn.dataset.type === 'pickup'   ? 'block' : 'none';
-      document.getElementById('delivery-questions').style.display = btn.dataset.type === 'delivery' ? 'block' : 'none';
-    });
-  });
-
-  document.getElementById('submit-order-btn').onclick = async () => {
-    if (cart.length === 0) return alert("Votre panier est vide");
-    const modeBtn = document.querySelector('.option-btn.active');
-    if (!modeBtn) return alert("Veuillez choisir un mode de récupération.");
-    const mode = modeBtn.dataset.type === 'pickup' ? 'Venir sur place' : 'Livraison';
-    const tgUser = tg?.initDataUnsafe?.user;
-    let message = `🛒 *NOUVELLE COMMANDE* 🛒\n\n`;
-    message += `👤 ${tgUser?.username ? '@' + tgUser.username : tgUser?.first_name || 'Utilisateur'}\n`;
-    message += `📅 ${new Date().toLocaleString('fr-FR')}\n\n`;
-    message += `🛍️ *Articles :*\n`;
-    let total = 0;
-    let itemsText = '';
-    cart.forEach(item => {
-      total += parseInt(item.price) || 0;
-      message  += `• ${item.title} — ${item.qty} (${item.price})\n`;
-      itemsText += `• ${item.title} ${item.qty} (${item.price})\n`;
-    });
-    message += `\n💰 *Total : ${total}€*\n\n`;
-    message += `📦 *Mode :* ${mode}\n`;
-
-    const user = _auth.currentUser;
-    if (user) {
-      try {
-        await addDoc(collection(_db, 'commandes'), {
-          uid: user.uid,
-          items: itemsText.trim(),
-          total,
-          mode,
-          date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' }),
-          timestamp: serverTimestamp()
-        });
-      } catch(e) { console.error('Erreur sauvegarde commande', e); }
-    }
-
-    const url = `https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
-    if (tg) tg.openTelegramLink(url); else window.open(url, '_blank');
-  };
-
-  // ── INIT ──────────────────────────────────────────────────────────────────────
-  document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('splash-particles');
-    for (let i = 0; i < 22; i++) {
-      const s = document.createElement('div');
-      s.className = 'spark';
-      s.style.cssText = `
-        left: ${Math.random() * 100}%;
-        top: ${40 + Math.random() * 40}%;
-        --dur: ${1.8 + Math.random() * 2.2}s;
-        --delay: ${Math.random() * 2}s;
-        width: ${2 + Math.random() * 3}px;
-        height: ${2 + Math.random() * 3}px;
-        opacity: 0;
-      `;
-      container.appendChild(s);
-    }
-
-    const splash = document.getElementById('splash-screen');
+// ── INIT ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const container=document.getElementById('splash-particles');
+  for(let i=0;i<22;i++) {
+    const s=document.createElement('div'); s.className='spark';
+    s.style.cssText=`left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;opacity:0;`;
+    container.appendChild(s);
+  }
+  const splash=document.getElementById('splash-screen');
+  setTimeout(() => {
+    splash.classList.add('hidden');
     setTimeout(() => {
-      splash.classList.add('hidden');
-      setTimeout(() => {
-        splash.style.display = 'none';
-        populateFilters();
-        renderProducts();
-        updateBadge();
-        goToHome();
-      }, 600);
-    }, 2500);
-  });
-  </script>
+      splash.style.display='none';
+      populateFilters(); renderProducts(); updateBadge(); goToHome();
+    },600);
+  },2500);
+});
+</script>
 
 </body>
 </html>
