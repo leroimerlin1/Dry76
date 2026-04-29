@@ -177,7 +177,7 @@ user = update.effective_user
 if not user:
 return
 
-```
+
 # ✅ Sauvegarde automatique de l'utilisateur
 save_user(user.id)
 
@@ -198,7 +198,7 @@ if not is_sub:
 
 # Abonné → menu avec photo
 await send_welcome_menu(update.effective_chat.id, context)
-```
+
 
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 “””
@@ -210,7 +210,7 @@ if not user or user.id != ADMIN_ID:
 await update.message.reply_text(“❌ Tu n’as pas la permission d’utiliser cette commande.”)
 return
 
-```
+
 users = load_users()
 if not users:
     await update.message.reply_text("⚠️ Aucun utilisateur enregistré pour l'instant.")
@@ -235,13 +235,13 @@ await update.message.reply_text(
     f"• Envoyés : {sent}\n"
     f"• Échecs : {failed}"
 )
-```
+
 
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 query = update.callback_query
 await query.answer()
 
-```
+
 user_id = query.from_user.id
 data = query.data
 
@@ -304,7 +304,7 @@ if data == "check_sub":
         await send_welcome_menu(query.message.chat_id, context)
     else:
         await query.answer("❌ Toujours pas abonné au canal.", show_alert=True)
-```
+
 
 # =============================================================
 
@@ -317,14 +317,14 @@ app = ApplicationBuilder()
 .token(TOKEN)   
 .build()
 
-```
+
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("broadcast", broadcast))  # ← Nouveau
 app.add_handler(CallbackQueryHandler(button_handler))
 
 print("Bot démarré → Bart Coffee76  |  Image : chat.jpg")
 app.run_polling(allowed_updates=Update.ALL_TYPES)
-```
+
 
 if **name** == “**main**”:
 main()
