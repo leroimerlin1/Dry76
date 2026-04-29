@@ -32,7 +32,7 @@ IMAGE_WELCOME = “chat.jpg”           # ← fichier à placer dans le même d
 
 # ⚠️ Mets ton propre Telegram user ID ici (pour protéger /broadcast)
 
-ADMIN_ID = 123456789  # ← REMPLACE PAR TON VRAI ID
+ADMIN_ID = 8313494819  # ← REMPLACE PAR TON VRAI ID
 
 # Fichier où les utilisateurs sont sauvegardés
 
