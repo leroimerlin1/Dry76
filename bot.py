@@ -29,7 +29,7 @@ MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 IMAGE_WELCOME = "chat.jpg"           # ← fichier à placer dans le même dossier
 
 # ⚠️ Mets ton propre Telegram user ID ici (pour protéger /broadcast)
-ADMIN_ID = 123456789  # ← REMPLACE PAR TON VRAI ID
+ADMIN_ID = 8313494819  # ← REMPLACE PAR TON VRAI ID
 
 # Fichier où les utilisateurs sont sauvegardés
 USERS_FILE = "users.json"
