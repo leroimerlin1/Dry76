@@ -21,7 +21,7 @@ ContextTypes
 
 # =============================================================
 
-TOKEN = “8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE”
+TOKEN = "8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE"
 
 CHANNEL_ID = -1003798159205          # ID du canal (avec -100…)
 CHANNEL_LINK = “https://t.me/+xkLrkV6xQBQ2OTQ0”
