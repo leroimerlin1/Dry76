@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -133,301 +132,200 @@
     .avis-date { font-size:0.75rem; color:#555; margin-bottom:8px; }
     .avis-comment { color:#ccc; font-size:0.95rem; line-height:1.5; }
 
+    /* ═══════════════════════════════════
+       NAV — EMOJIS UNIQUEMENT
+    ═══════════════════════════════════ */
+    nav { position:fixed; bottom:18px; left:12px; right:12px; height:64px; background:rgba(15,15,20,0.96); border-radius:26px; border:1px solid rgba(255,235,59,0.2); display:flex; justify-content:space-around; align-items:center; z-index:1000; box-shadow:0 10px 40px rgba(0,0,0,0.7); padding:0 4px; }
+    .nav-item { display:flex; align-items:center; justify-content:center; cursor:pointer; width:44px; height:44px; border-radius:50%; background:transparent; transition:all 0.25s ease; position:relative; }
+    .nav-item.active { background:rgba(255,235,59,0.22); box-shadow:0 3px 14px rgba(255,235,59,0.3); transform:translateY(-4px) scale(1.08); }
+    .nav-emoji { font-size:1.25rem; line-height:1; display:block; transition:transform 0.2s; }
+    .nav-item.active .nav-emoji { transform:scale(1.1); }
+    #cart-badge { position:absolute; top:-2px; right:-2px; background:#ef4444; color:white; border-radius:50%; min-width:15px; height:15px; padding:0 3px; font-size:0.58rem; font-weight:bold; line-height:15px; box-shadow:0 0 6px rgba(239,68,68,0.6); display:none; z-index:2; text-align:center; }
 
-/* ═══════════════════════════════════
-   NAV — EMOJIS UNIQUEMENT, PAS DE TEXTE
-═══════════════════════════════════ */
-nav {
-  position:fixed; bottom:18px; left:12px; right:12px; height:64px;
-  background:rgba(15,15,20,0.96); border-radius:26px;
-  border:1px solid rgba(255,235,59,0.2);
-  display:flex; justify-content:space-around; align-items:center;
-  z-index:1000; box-shadow:0 10px 40px rgba(0,0,0,0.7);
-  padding:0 4px;
-}
-.nav-item {
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  width:44px; height:44px;
-  border-radius:50%;
-  background:transparent;
-  transition:all 0.25s ease;
-  position:relative;
-}
-.nav-item.active {
-  background:rgba(255,235,59,0.22);
-  box-shadow:0 3px 14px rgba(255,235,59,0.3);
-  transform:translateY(-4px) scale(1.08);
-}
-.nav-emoji {
-  font-size:1.25rem;
-  line-height:1;
-  display:block;
-  transition:transform 0.2s;
-}
-.nav-item.active .nav-emoji { transform:scale(1.1); }
-#cart-badge {
-  position:absolute; top:-2px; right:-2px;
-  background:#ef4444; color:white;
-  border-radius:50%; min-width:15px; height:15px;
-  padding:0 3px; font-size:0.58rem; font-weight:bold;
-  line-height:15px; box-shadow:0 0 6px rgba(239,68,68,0.6);
-  display:none; z-index:2; text-align:center;
-}
+    /* AUTH MODAL */
+    #auth-modal { display:none; position:fixed; inset:0; z-index:8000; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
+    #auth-modal.open { display:flex; }
+    .auth-sheet { width:100%; background:#0f0f16; border-radius:28px 28px 0 0; border-top:1.5px solid rgba(255,235,59,0.2); padding:24px 20px 40px; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1); }
+    @keyframes slideUp { from{transform:translateY(100%);}to{transform:translateY(0);} }
+    .auth-handle { width:40px; height:4px; background:rgba(255,255,255,0.15); border-radius:999px; margin:0 auto 24px; }
+    .auth-tabs { display:flex; gap:0; background:rgba(255,255,255,0.05); border-radius:14px; padding:4px; margin-bottom:24px; }
+    .auth-tab { flex:1; padding:10px; text-align:center; font-family:'Orbitron',sans-serif; font-size:0.82rem; font-weight:700; color:#666; border-radius:10px; cursor:pointer; transition:all 0.2s; letter-spacing:0.5px; }
+    .auth-tab.active { background:#ffeb3b; color:#111; box-shadow:0 4px 12px rgba(255,235,59,0.3); }
+    .auth-field { margin-bottom:14px; }
+    .auth-field label { display:block; font-size:0.78rem; color:#666; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:7px; }
+    .auth-field input { width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:14px; color:#fff; font-size:1rem; font-family:'M PLUS Rounded 1c',sans-serif; outline:none; transition:border-color 0.2s; }
+    .auth-field input:focus { border-color:rgba(255,235,59,0.5); }
+    .auth-submit { width:100%; padding:16px; background:#ffeb3b; color:#111; border:none; border-radius:16px; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:900; cursor:pointer; margin-top:8px; box-shadow:0 0 20px rgba(255,235,59,0.35); transition:opacity 0.2s; }
+    .auth-submit:disabled { opacity:0.5; cursor:not-allowed; }
+    .auth-error { color:#ef4444; font-size:0.85rem; text-align:center; margin-top:10px; min-height:20px; }
 
-/* AUTH MODAL */
-#auth-modal { display:none; position:fixed; inset:0; z-index:8000; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
-#auth-modal.open { display:flex; }
-.auth-sheet { width:100%; background:#0f0f16; border-radius:28px 28px 0 0; border-top:1.5px solid rgba(255,235,59,0.2); padding:24px 20px 40px; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1); }
-@keyframes slideUp { from{transform:translateY(100%);}to{transform:translateY(0);} }
-.auth-handle { width:40px; height:4px; background:rgba(255,255,255,0.15); border-radius:999px; margin:0 auto 24px; }
-.auth-tabs { display:flex; gap:0; background:rgba(255,255,255,0.05); border-radius:14px; padding:4px; margin-bottom:24px; }
-.auth-tab { flex:1; padding:10px; text-align:center; font-family:'Orbitron',sans-serif; font-size:0.82rem; font-weight:700; color:#666; border-radius:10px; cursor:pointer; transition:all 0.2s; letter-spacing:0.5px; }
-.auth-tab.active { background:#ffeb3b; color:#111; box-shadow:0 4px 12px rgba(255,235,59,0.3); }
-.auth-field { margin-bottom:14px; }
-.auth-field label { display:block; font-size:0.78rem; color:#666; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:7px; }
-.auth-field input { width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:14px; color:#fff; font-size:1rem; font-family:'M PLUS Rounded 1c',sans-serif; outline:none; transition:border-color 0.2s; }
-.auth-field input:focus { border-color:rgba(255,235,59,0.5); }
-.auth-submit { width:100%; padding:16px; background:#ffeb3b; color:#111; border:none; border-radius:16px; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:900; cursor:pointer; margin-top:8px; box-shadow:0 0 20px rgba(255,235,59,0.35); transition:opacity 0.2s; }
-.auth-submit:disabled { opacity:0.5; cursor:not-allowed; }
-.auth-error { color:#ef4444; font-size:0.85rem; text-align:center; margin-top:10px; min-height:20px; }
+    /* PROFIL */
+    #profil-page { display:none; padding:16px 16px 110px 16px; }
+    .profil-header { background:rgba(15,15,22,0.9); border:1.5px solid rgba(255,235,59,0.15); border-radius:24px; padding:28px 20px 22px; text-align:center; margin-bottom:18px; position:relative; }
+    .profil-avatar { width:80px; height:80px; background:rgba(255,235,59,0.12); border:2.5px solid rgba(255,235,59,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.2rem; margin:0 auto 14px; box-shadow:0 0 24px rgba(255,235,59,0.15); }
+    .profil-name { font-family:'Orbitron',sans-serif; font-size:1.2rem; font-weight:900; color:#fff; margin-bottom:4px; }
+    .profil-logout { position:absolute; top:16px; right:16px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); color:#ef4444; font-size:0.72rem; font-family:'Orbitron',sans-serif; font-weight:700; padding:6px 12px; border-radius:10px; cursor:pointer; letter-spacing:0.5px; }
+    .profil-section-title { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:800; color:#ffeb3b; letter-spacing:1px; text-transform:uppercase; margin:20px 0 12px; }
+    .profil-stats-block { background:rgba(15,15,22,0.9); border:1.5px solid rgba(255,235,59,0.2); border-radius:20px; padding:20px 18px; margin-bottom:18px; display:flex; align-items:center; gap:18px; box-shadow:0 6px 24px rgba(0,0,0,0.45); }
+    .profil-stats-icon { width:56px; height:56px; background:rgba(255,235,59,0.1); border:1.5px solid rgba(255,235,59,0.3); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; flex-shrink:0; }
+    .profil-stats-info { flex:1; }
+    .profil-stats-number { font-family:'Orbitron',sans-serif; font-size:2.2rem; font-weight:900; color:#ffeb3b; line-height:1; text-shadow:0 0 14px rgba(255,235,59,0.4); }
+    .profil-stats-label { font-size:0.8rem; color:#666; font-weight:600; letter-spacing:0.5px; margin-top:4px; }
+    .commande-card { background:rgba(15,15,22,0.88); border:1.5px solid rgba(255,255,255,0.07); border-radius:18px; padding:16px 18px; margin-bottom:12px; }
+    .commande-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+    .commande-date { font-size:0.78rem; color:#555; font-weight:600; }
+    .commande-total { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:900; color:#ffeb3b; }
+    .commande-items { font-size:0.88rem; color:#888; line-height:1.6; }
+    .commande-mode { display:inline-block; margin-top:8px; background:rgba(255,235,59,0.08); border:1px solid rgba(255,235,59,0.2); color:rgba(255,235,59,0.7); font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:999px; letter-spacing:0.5px; }
 
-/* PROFIL */
-#profil-page { display:none; padding:16px 16px 110px 16px; }
-.profil-header { background:rgba(15,15,22,0.9); border:1.5px solid rgba(255,235,59,0.15); border-radius:24px; padding:28px 20px 22px; text-align:center; margin-bottom:18px; position:relative; }
-.profil-avatar { width:80px; height:80px; background:rgba(255,235,59,0.12); border:2.5px solid rgba(255,235,59,0.4); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.2rem; margin:0 auto 14px; box-shadow:0 0 24px rgba(255,235,59,0.15); }
-.profil-name { font-family:'Orbitron',sans-serif; font-size:1.2rem; font-weight:900; color:#fff; margin-bottom:4px; }
-.profil-logout { position:absolute; top:16px; right:16px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); color:#ef4444; font-size:0.72rem; font-family:'Orbitron',sans-serif; font-weight:700; padding:6px 12px; border-radius:10px; cursor:pointer; letter-spacing:0.5px; }
-.profil-section-title { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:800; color:#ffeb3b; letter-spacing:1px; text-transform:uppercase; margin:20px 0 12px; }
-/* Bloc stats commandes */
-.profil-stats-block { background:rgba(15,15,22,0.9); border:1.5px solid rgba(255,235,59,0.2); border-radius:20px; padding:20px 18px; margin-bottom:18px; display:flex; align-items:center; gap:18px; box-shadow:0 6px 24px rgba(0,0,0,0.45); }
-.profil-stats-icon { width:56px; height:56px; background:rgba(255,235,59,0.1); border:1.5px solid rgba(255,235,59,0.3); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; flex-shrink:0; }
-.profil-stats-info { flex:1; }
-.profil-stats-number { font-family:'Orbitron',sans-serif; font-size:2.2rem; font-weight:900; color:#ffeb3b; line-height:1; text-shadow:0 0 14px rgba(255,235,59,0.4); }
-.profil-stats-label { font-size:0.8rem; color:#666; font-weight:600; letter-spacing:0.5px; margin-top:4px; }
-.commande-card { background:rgba(15,15,22,0.88); border:1.5px solid rgba(255,255,255,0.07); border-radius:18px; padding:16px 18px; margin-bottom:12px; }
-.commande-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-.commande-date { font-size:0.78rem; color:#555; font-weight:600; }
-.commande-total { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:900; color:#ffeb3b; }
-.commande-items { font-size:0.88rem; color:#888; line-height:1.6; }
-.commande-mode { display:inline-block; margin-top:8px; background:rgba(255,235,59,0.08); border:1px solid rgba(255,235,59,0.2); color:rgba(255,235,59,0.7); font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:999px; letter-spacing:0.5px; }
+    /* CHAT */
+    #chat-page { display:none; flex-direction:column; position:fixed; inset:0; bottom:86px; background:linear-gradient(160deg,#0a0a12 0%,#0f0f1e 50%,#080810 100%); z-index:500; }
+    .chat-header { flex-shrink:0; padding:14px 18px 12px; background:rgba(10,10,20,0.98); border-bottom:1px solid rgba(255,235,59,0.08); display:flex; align-items:center; gap:14px; position:relative; }
+    .chat-header::after { content:''; position:absolute; bottom:0; left:18px; right:18px; height:1px; background:linear-gradient(90deg,transparent,rgba(255,235,59,0.25),transparent); }
+    .chat-header-avatar { width:44px; height:44px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg,rgba(255,235,59,0.15),rgba(255,235,59,0.05)); border:2px solid rgba(255,235,59,0.3); display:flex; align-items:center; justify-content:center; font-size:1.3rem; box-shadow:0 0 16px rgba(255,235,59,0.12); }
+    .chat-header-info { flex:1; }
+    .chat-header-title { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:800; color:#fff; letter-spacing:0.3px; }
+    .chat-header-status { display:flex; align-items:center; gap:5px; margin-top:2px; }
+    .chat-status-dot { width:6px; height:6px; border-radius:50%; background:#4ade80; box-shadow:0 0 6px #4ade80; animation:blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;}50%{opacity:0.4;} }
+    .chat-status-text { font-size:0.7rem; color:#4ade80; font-weight:600; }
+    .chat-header-timer { font-size:0.65rem; color:rgba(255,235,59,0.45); font-weight:600; letter-spacing:0.5px; background:rgba(255,235,59,0.06); border:1px solid rgba(255,235,59,0.12); border-radius:8px; padding:3px 8px; white-space:nowrap; }
+    .chat-messages { flex:1; overflow-y:auto; padding:14px 14px 8px; display:flex; flex-direction:column; gap:6px; -webkit-overflow-scrolling:touch; scroll-behavior:smooth; }
+    .chat-messages::-webkit-scrollbar { width:3px; }
+    .chat-messages::-webkit-scrollbar-track { background:transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background:rgba(255,235,59,0.2); border-radius:999px; }
+    .chat-date-sep { text-align:center; margin:8px 0 4px; font-size:0.65rem; color:#444; font-weight:600; letter-spacing:1px; text-transform:uppercase; position:relative; }
+    .chat-date-sep::before,.chat-date-sep::after { content:''; position:absolute; top:50%; width:30%; height:1px; background:rgba(255,255,255,0.06); }
+    .chat-date-sep::before { left:0; }
+    .chat-date-sep::after { right:0; }
+    .chat-msg-group { display:flex; flex-direction:column; gap:2px; margin-bottom:6px; }
+    .chat-msg-group.me { align-items:flex-end; }
+    .chat-msg-group.other { align-items:flex-start; }
+    .chat-sender-name { font-size:0.68rem; font-weight:700; color:#ffeb3b; margin-bottom:3px; padding:0 4px; opacity:0.8; }
+    .chat-bubble { max-width:80%; padding:9px 13px; font-size:0.9rem; line-height:1.45; word-break:break-word; position:relative; animation:bubblePop 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes bubblePop { from{transform:scale(0.88);opacity:0;} to{transform:scale(1);opacity:1;} }
+    .chat-bubble.me { background:linear-gradient(135deg,#ffeb3b,#ffd600); color:#111; font-weight:600; border-radius:18px 18px 4px 18px; box-shadow:0 3px 14px rgba(255,235,59,0.25); }
+    .chat-bubble.other { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.08); color:#e8e8e8; border-radius:18px 18px 18px 4px; backdrop-filter:blur(8px); }
+    .chat-bubble-time { display:block; font-size:0.6rem; margin-top:4px; opacity:0.55; text-align:right; }
+    .chat-bubble.other .chat-bubble-time { text-align:left; }
+    .chat-bubble.expiring-soon { border-left:2px solid rgba(255,100,100,0.5); opacity:0.75; }
+    .chat-input-bar { flex-shrink:0; display:flex; gap:10px; align-items:flex-end; padding:10px 14px; padding-bottom:max(10px,env(safe-area-inset-bottom)); background:rgba(8,8,16,0.98); border-top:1px solid rgba(255,235,59,0.07); }
+    #chat-input { flex:1; padding:11px 16px; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.09); border-radius:22px; color:#fff; font-size:0.9rem; font-family:'M PLUS Rounded 1c',sans-serif; outline:none; resize:none; transition:border-color 0.2s,box-shadow 0.2s; max-height:100px; }
+    #chat-input:focus { border-color:rgba(255,235,59,0.35); box-shadow:0 0 12px rgba(255,235,59,0.08); }
+    #chat-input::placeholder { color:#333; }
+    #chat-send-btn { width:42px; height:42px; flex-shrink:0; background:linear-gradient(135deg,#ffeb3b,#ffd600); border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1rem; box-shadow:0 0 16px rgba(255,235,59,0.35); transition:transform 0.15s,box-shadow 0.15s; }
+    #chat-send-btn:active { transform:scale(0.88); box-shadow:none; }
+    .chat-locked { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:40px 24px; background:linear-gradient(160deg,#0a0a12,#0f0f1e); }
+    .chat-locked-icon { font-size:3.5rem; filter:grayscale(0.3); }
+    .chat-locked-title { font-family:'Orbitron',sans-serif; font-size:1.05rem; font-weight:900; color:#fff; text-align:center; }
+    .chat-locked-text { font-size:0.85rem; color:#444; text-align:center; line-height:1.6; }
+    .chat-locked-btn { background:linear-gradient(135deg,#ffeb3b,#ffd600); color:#111; border:none; padding:14px 32px; border-radius:16px; font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:900; cursor:pointer; letter-spacing:0.3px; box-shadow:0 0 20px rgba(255,235,59,0.3); }
+    .chat-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; opacity:0.35; padding:20px; }
+    .chat-empty-icon { font-size:2.5rem; }
+    .chat-empty-text { font-size:0.82rem; color:#666; text-align:center; }
 
-/* ═══════════════════════════════════════
-   CHAT — NOUVEAU STYLE PREMIUM
-═══════════════════════════════════════ */
-#chat-page {
-  display:none;
-  flex-direction:column;
-  position:fixed;
-  inset:0;
-  bottom:86px; /* au dessus de la nav */
-  background: linear-gradient(160deg, #0a0a12 0%, #0f0f1e 50%, #080810 100%);
-  z-index:500;
-}
-
-/* Header chat */
-.chat-header {
-  flex-shrink:0;
-  padding:14px 18px 12px;
-  background:rgba(10,10,20,0.98);
-  border-bottom:1px solid rgba(255,235,59,0.08);
-  display:flex; align-items:center; gap:14px;
-  position:relative;
-}
-.chat-header::after {
-  content:'';
-  position:absolute; bottom:0; left:18px; right:18px; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,235,59,0.25),transparent);
-}
-.chat-header-avatar {
-  width:44px; height:44px; border-radius:50%; flex-shrink:0;
-  background:linear-gradient(135deg,rgba(255,235,59,0.15),rgba(255,235,59,0.05));
-  border:2px solid rgba(255,235,59,0.3);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.3rem;
-  box-shadow:0 0 16px rgba(255,235,59,0.12);
-}
-.chat-header-info { flex:1; }
-.chat-header-title {
-  font-family:'Orbitron',sans-serif;
-  font-size:0.9rem; font-weight:800; color:#fff;
-  letter-spacing:0.3px;
-}
-.chat-header-status {
-  display:flex; align-items:center; gap:5px;
-  margin-top:2px;
-}
-.chat-status-dot {
-  width:6px; height:6px; border-radius:50%;
-  background:#4ade80;
-  box-shadow:0 0 6px #4ade80;
-  animation:blink 2s ease-in-out infinite;
-}
-@keyframes blink { 0%,100%{opacity:1;}50%{opacity:0.4;} }
-.chat-status-text { font-size:0.7rem; color:#4ade80; font-weight:600; }
-.chat-header-timer {
-  font-size:0.65rem; color:rgba(255,235,59,0.45);
-  font-weight:600; letter-spacing:0.5px;
-  background:rgba(255,235,59,0.06);
-  border:1px solid rgba(255,235,59,0.12);
-  border-radius:8px; padding:3px 8px;
-  white-space:nowrap;
-}
-
-/* Zone messages */
-.chat-messages {
-  flex:1;
-  overflow-y:auto;
-  padding:14px 14px 8px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  -webkit-overflow-scrolling:touch;
-  scroll-behavior:smooth;
-}
-.chat-messages::-webkit-scrollbar { width:3px; }
-.chat-messages::-webkit-scrollbar-track { background:transparent; }
-.chat-messages::-webkit-scrollbar-thumb { background:rgba(255,235,59,0.2); border-radius:999px; }
-
-/* Séparateur de date */
-.chat-date-sep {
-  text-align:center; margin:8px 0 4px;
-  font-size:0.65rem; color:#444; font-weight:600;
-  letter-spacing:1px; text-transform:uppercase;
-  position:relative;
-}
-.chat-date-sep::before,.chat-date-sep::after {
-  content:''; position:absolute; top:50%;
-  width:30%; height:1px; background:rgba(255,255,255,0.06);
-}
-.chat-date-sep::before { left:0; }
-.chat-date-sep::after  { right:0; }
-
-/* Groupe message */
-.chat-msg-group { display:flex; flex-direction:column; gap:2px; margin-bottom:6px; }
-.chat-msg-group.me    { align-items:flex-end; }
-.chat-msg-group.other { align-items:flex-start; }
-
-.chat-sender-name {
-  font-size:0.68rem; font-weight:700;
-  color:#ffeb3b; margin-bottom:3px; padding:0 4px;
-  opacity:0.8;
-}
-
-/* Bulles */
-.chat-bubble {
-  max-width:80%;
-  padding:9px 13px;
-  font-size:0.9rem;
-  line-height:1.45;
-  word-break:break-word;
-  position:relative;
-  animation:bubblePop 0.2s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes bubblePop { from{transform:scale(0.88);opacity:0;} to{transform:scale(1);opacity:1;} }
-
-.chat-bubble.me {
-  background:linear-gradient(135deg,#ffeb3b,#ffd600);
-  color:#111; font-weight:600;
-  border-radius:18px 18px 4px 18px;
-  box-shadow:0 3px 14px rgba(255,235,59,0.25);
-}
-.chat-bubble.other {
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.08);
-  color:#e8e8e8;
-  border-radius:18px 18px 18px 4px;
-  backdrop-filter:blur(8px);
-}
-.chat-bubble-time {
-  display:block;
-  font-size:0.6rem;
-  margin-top:4px;
-  opacity:0.55;
-  text-align:right;
-}
-.chat-bubble.other .chat-bubble-time { text-align:left; }
-
-/* Message expirant bientôt */
-.chat-bubble.expiring-soon {
-  border-left:2px solid rgba(255,100,100,0.5);
-  opacity:0.75;
-}
-
-/* Barre d'input — FIXÉE EN BAS */
-.chat-input-bar {
-  flex-shrink:0;
-  display:flex; gap:10px; align-items:flex-end;
-  padding:10px 14px;
-  padding-bottom:max(10px, env(safe-area-inset-bottom));
-  background:rgba(8,8,16,0.98);
-  border-top:1px solid rgba(255,235,59,0.07);
-}
-#chat-input {
-  flex:1;
-  padding:11px 16px;
-  background:rgba(255,255,255,0.05);
-  border:1.5px solid rgba(255,255,255,0.09);
-  border-radius:22px;
-  color:#fff; font-size:0.9rem;
-  font-family:'M PLUS Rounded 1c',sans-serif;
-  outline:none; resize:none;
-  transition:border-color 0.2s, box-shadow 0.2s;
-  max-height:100px;
-}
-#chat-input:focus {
-  border-color:rgba(255,235,59,0.35);
-  box-shadow:0 0 12px rgba(255,235,59,0.08);
-}
-#chat-input::placeholder { color:#333; }
-#chat-send-btn {
-  width:42px; height:42px; flex-shrink:0;
-  background:linear-gradient(135deg,#ffeb3b,#ffd600);
-  border:none; border-radius:50%; cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1rem;
-  box-shadow:0 0 16px rgba(255,235,59,0.35);
-  transition:transform 0.15s, box-shadow 0.15s;
-}
-#chat-send-btn:active { transform:scale(0.88); box-shadow:none; }
-
-/* Locked */
-.chat-locked {
-  flex:1; display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  gap:18px; padding:40px 24px;
-  background:linear-gradient(160deg,#0a0a12,#0f0f1e);
-}
-.chat-locked-icon { font-size:3.5rem; filter:grayscale(0.3); }
-.chat-locked-title {
-  font-family:'Orbitron',sans-serif;
-  font-size:1.05rem; font-weight:900; color:#fff;
-  text-align:center;
-}
-.chat-locked-text { font-size:0.85rem; color:#444; text-align:center; line-height:1.6; }
-.chat-locked-btn {
-  background:linear-gradient(135deg,#ffeb3b,#ffd600);
-  color:#111; border:none; padding:14px 32px;
-  border-radius:16px;
-  font-family:'Orbitron',sans-serif;
-  font-size:0.88rem; font-weight:900;
-  cursor:pointer; letter-spacing:0.3px;
-  box-shadow:0 0 20px rgba(255,235,59,0.3);
-}
-
-/* Message vide */
-.chat-empty {
-  flex:1; display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  gap:10px; opacity:0.35; padding:20px;
-}
-.chat-empty-icon { font-size:2.5rem; }
-.chat-empty-text { font-size:0.82rem; color:#666; text-align:center; }
-
-
+    /* ═══════════════════════════════════
+       MUSIC PLAYER FLOTTANT
+    ═══════════════════════════════════ */
+    #music-player {
+      position:fixed;
+      top:14px;
+      right:14px;
+      z-index:3000;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(10,10,18,0.94);
+      border:1.5px solid rgba(255,235,59,0.35);
+      border-radius:999px;
+      padding:7px 14px 7px 10px;
+      box-shadow:0 4px 24px rgba(0,0,0,0.7), 0 0 16px rgba(255,235,59,0.1);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      transition:padding 0.35s ease, box-shadow 0.3s;
+    }
+    #music-player.collapsed {
+      padding:7px 10px;
+    }
+    #music-toggle-btn {
+      width:32px; height:32px;
+      background:rgba(255,235,59,0.14);
+      border:1.5px solid rgba(255,235,59,0.45);
+      border-radius:50%;
+      color:#ffeb3b;
+      font-size:0.9rem;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+      transition:background 0.2s, transform 0.15s;
+    }
+    #music-toggle-btn:active { background:rgba(255,235,59,0.3); transform:scale(0.88); }
+    #music-volume-wrap {
+      display:flex; align-items:center; gap:6px;
+      overflow:hidden;
+      transition:max-width 0.35s ease, opacity 0.3s ease;
+      max-width:130px;
+      opacity:1;
+    }
+    #music-player.collapsed #music-volume-wrap {
+      max-width:0;
+      opacity:0;
+      pointer-events:none;
+    }
+    #music-vol-icon {
+      font-size:0.9rem;
+      color:rgba(255,235,59,0.65);
+      cursor:pointer;
+      flex-shrink:0;
+      transition:transform 0.15s;
+    }
+    #music-vol-icon:active { transform:scale(0.85); }
+    #music-volume {
+      -webkit-appearance:none;
+      appearance:none;
+      width:82px; height:3px;
+      background:linear-gradient(to right,#ffeb3b 70%,rgba(255,255,255,0.12) 70%);
+      border-radius:999px;
+      outline:none;
+      cursor:pointer;
+    }
+    #music-volume::-webkit-slider-thumb {
+      -webkit-appearance:none;
+      width:14px; height:14px;
+      border-radius:50%;
+      background:#ffeb3b;
+      box-shadow:0 0 8px rgba(255,235,59,0.7);
+      cursor:pointer;
+    }
+    #music-note {
+      font-size:0.75rem;
+      color:rgba(255,235,59,0.55);
+      animation:musicPulse 1.8s ease-in-out infinite;
+      flex-shrink:0;
+    }
+    #music-player.paused #music-note { animation:none; opacity:0.2; }
+    @keyframes musicPulse {
+      0%,100%{ opacity:0.35; transform:scale(1) rotate(-8deg); }
+      50%{ opacity:1; transform:scale(1.25) rotate(8deg); }
+    }
   </style>
 </head>
 <body>
+
+<!-- MUSIC — chargé dès le début -->
+<audio id="bg-music" loop preload="auto">
+  <source src="Mous-K – Le Bon Samaritain.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MUSIC PLAYER FLOTTANT -->
+<div id="music-player" class="collapsed paused">
+  <button id="music-toggle-btn" title="Lecture / Pause">▶</button>
+  <div id="music-volume-wrap">
+    <span id="music-vol-icon" title="Muet">🔊</span>
+    <input type="range" id="music-volume" min="0" max="1" step="0.01" value="0.7">
+  </div>
+  <span id="music-note">♪</span>
+</div>
 
 <div id="splash-screen" class="splash">
   <div class="splash-content">
@@ -447,191 +345,186 @@ nav {
   <div class="overlay"></div>
   <div class="content">
 
+    <!-- ACCUEIL -->
+    <div id="home-page">
+      <div id="home-logo-wrapper"><img id="top-logo" src="chat.PNG" alt="Logo"></div>
+      <div id="products-header">
+        <div class="products-title"><span style="font-size:1.4rem">🛍️</span>Catalogue</div>
+        <div id="products-count-modern" class="products-count">
+          <div class="products-count-number">3</div>
+          <div class="products-count-label">Produits</div>
+        </div>
+      </div>
+      <div id="filters-bar">
+        <div class="filters-inner">
+          <select id="category-filter" class="compact-select" onchange="filterProducts()"><option value="">Toutes catégories</option></select>
+          <select id="farm-filter" class="compact-select" onchange="filterProducts()"><option value="">Toutes farms</option></select>
+        </div>
+      </div>
+      <div id="products-grid"></div>
+    </div>
 
-<!-- ACCUEIL -->
-<div id="home-page">
-  <div id="home-logo-wrapper"><img id="top-logo" src="chat.PNG" alt="Logo"></div>
-  <div id="products-header">
-    <div class="products-title"><span style="font-size:1.4rem">🛍️</span>Catalogue</div>
-    <div id="products-count-modern" class="products-count">
-      <div class="products-count-number">3</div>
-      <div class="products-count-label">Produits</div>
-    </div>
-  </div>
-  <div id="filters-bar">
-    <div class="filters-inner">
-      <select id="category-filter" class="compact-select" onchange="filterProducts()"><option value="">Toutes catégories</option></select>
-      <select id="farm-filter" class="compact-select" onchange="filterProducts()"><option value="">Toutes farms</option></select>
-    </div>
-  </div>
-  <div id="products-grid"></div>
-</div>
-
-<!-- DÉTAIL PRODUIT -->
-<div id="product-detail">
-  <div class="swiper-wrap">
-    <div class="swiper-track" id="swiper-track"></div>
-    <button class="swiper-btn swiper-btn-prev" onclick="swiperPrev()">&#8249;</button>
-    <button class="swiper-btn swiper-btn-next" onclick="swiperNext()">&#8250;</button>
-    <div class="swiper-counter" id="swiper-counter">1 / 1</div>
-  </div>
-  <div class="product-info">
-    <div class="product-title" id="detail-title"></div>
-    <div class="badges"><div class="badge badge-farm" id="detail-farm-badge"></div></div>
-    <div class="strain-section" id="detail-strain-desc"></div>
-    <div class="quantity-section">
-      <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
-      <div class="quantity-grid" id="qty-grid"></div>
-    </div>
-    <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
-  </div>
-</div>
-
-<!-- PANIER -->
-<div id="cart-page">
-  <h2 style="color:#ffeb3b;text-align:center;margin:20px 0">Votre Panier</h2>
-  <div id="cart-items"></div>
-  <div id="cart-total" class="cart-total"></div>
-  <div class="questionnaire">
-    <div class="question">
-      <span class="question-label">Mode de récupération :</span>
-      <button class="option-btn" data-type="pickup">Venir sur place</button>
-      <button class="option-btn" data-type="delivery">Livraison</button>
-    </div>
-    <div id="pickup-questions" style="display:none">
-      <div class="question"><span class="question-label">Pour quelle heure ?</span><input type="time" id="pickup-time"></div>
-    </div>
-    <div id="delivery-questions" style="display:none">
-      <div class="question"><span class="question-label">Heure souhaitée</span><input type="time" id="delivery-time"></div>
-      <div class="question"><span class="question-label">Adresse complète</span><input type="text" id="delivery-address" placeholder="Rue, numéro, ville..."></div>
-      <div class="question"><span class="question-label">Précisions (étage, code, etc.)</span><textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea></div>
-    </div>
-    <button id="submit-order-btn">Commander</button>
-  </div>
-</div>
-
-<!-- INFOS -->
-<div id="infos-page">
-  <div class="info-card" style="margin-top:8px">
-    <div class="info-card-header"><div class="info-card-icon">🪪</div><div class="info-card-title">Information de Bart.Coffee76</div></div>
-    <div class="info-row"><span class="info-row-icon">ℹ️</span><span class="info-row-label">Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.</span></div>
-    <div style="margin-top:14px;background:rgba(255,235,59,0.07);border:1px solid rgba(255,235,59,0.25);border-radius:14px;padding:12px 16px;text-align:center">
-      <span style="color:#aaa;font-size:0.88rem">Contact secrétaire</span><br>
-      <span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:800">@sav_Bart76</span>
-    </div>
-  </div>
-  <div class="info-card">
-    <div class="info-card-header"><div class="info-card-icon">🚚</div><div class="info-card-title">Livraison</div></div>
-    <div class="info-row" style="margin-bottom:10px">
-      <span class="info-row-icon">📍</span>
-      <div><div class="info-row-label">Départements desservis</div>
-      <div class="dept-badges"><span class="dept-badge">76</span><span class="dept-badge">27</span><span class="dept-badge">14</span></div></div>
-    </div>
-    <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px 16px;margin-bottom:12px">
-      <div style="color:#888;font-size:0.85rem;margin-bottom:10px;font-weight:600">TARIFS</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Sur Rouen</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">70€</span></div>
-        <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Moins de 10 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">100€</span></div>
-        <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Supérieur à 10 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">150€</span></div>
-        <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Supérieur à 25 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">270€</span></div>
+    <!-- DÉTAIL PRODUIT -->
+    <div id="product-detail">
+      <div class="swiper-wrap">
+        <div class="swiper-track" id="swiper-track"></div>
+        <button class="swiper-btn swiper-btn-prev" onclick="swiperPrev()">&#8249;</button>
+        <button class="swiper-btn swiper-btn-next" onclick="swiperNext()">&#8250;</button>
+        <div class="swiper-counter" id="swiper-counter">1 / 1</div>
+      </div>
+      <div class="product-info">
+        <div class="product-title" id="detail-title"></div>
+        <div class="badges"><div class="badge badge-farm" id="detail-farm-badge"></div></div>
+        <div class="strain-section" id="detail-strain-desc"></div>
+        <div class="quantity-section">
+          <div class="quantity-title"><span>🛍️</span> Sélectionner la Quantité</div>
+          <div class="quantity-grid" id="qty-grid"></div>
+        </div>
+        <button class="add-to-cart" id="add-to-cart-btn"><span>🛒</span> Ajouter au Panier</button>
       </div>
     </div>
-    <div class="minimum-badge"><span>Minimum 70€</span></div>
-  </div>
-  <div class="info-card">
-    <div class="info-card-header"><div class="info-card-icon">📍</div><div class="info-card-title">Meet-up</div></div>
-    <div class="meetup-location-row">
-      <div class="meetup-location-left"><span style="color:#ffeb3b;font-size:1.1rem">📍</span><span class="meetup-location-name">Rouen Rive Gauche</span></div>
-      <div class="disponible-badge">Disponible</div>
-    </div>
-    <div class="meetup-horaires-row"><span style="color:#ffeb3b;font-size:1.1rem">🕐</span><span class="meetup-horaires-text">Horaires : 12h – 23h</span></div>
-    <div class="minimum-badge"><span>Minimum 50€</span></div>
-  </div>
-</div>
 
-<!-- RÉSEAUX -->
-<div id="reseaux-page">
-  <h2 class="section-title">Nos réseaux</h2>
-  <div class="reseaux-list">
-    <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
-      <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram"></div>
-      <div class="reseau-text"><div class="reseau-name">Telegram VIP</div><div class="reseau-sub">Canal privé ⭐️</div></div>
-      <div class="reseau-arrow">›</div>
-    </div>
-    <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
-      <div class="reseau-icon-wrap" style="background:rgba(255,193,7,0.12);border-color:rgba(255,193,7,0.35)"><img src="potato.jpg" alt="Canal Potato"></div>
-      <div class="reseau-text"><div class="reseau-name">Canal Potato</div><div class="reseau-sub">Rejoindre 🥔</div></div>
-      <div class="reseau-arrow">›</div>
-    </div>
-    <div class="reseau-item" data-link="http://t.me/sav_Bart76">
-      <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire"></div>
-      <div class="reseau-text"><div class="reseau-name">Secrétaire</div><div class="reseau-sub">@sav_Bart76 👨‍💼</div></div>
-      <div class="reseau-arrow">›</div>
-    </div>
-  </div>
-</div>
-
-<!-- AVIS -->
-<div id="avis-page" style="display:none;padding:16px 16px 110px 16px">
-  <h2 class="section-title">⭐ Avis clients</h2>
-  <div class="info-card" style="margin-bottom:20px">
-    <div class="info-card-header"><div class="info-card-icon">✍️</div><div class="info-card-title">Laisser un avis</div></div>
-    <div style="margin-bottom:14px">
-      <div style="color:#aaa;font-size:0.9rem;margin-bottom:10px;font-weight:600">Votre note</div>
-      <div id="star-rating" style="display:flex;gap:8px;font-size:2rem;cursor:pointer">
-        <span class="star" data-v="1">☆</span><span class="star" data-v="2">☆</span><span class="star" data-v="3">☆</span><span class="star" data-v="4">☆</span><span class="star" data-v="5">☆</span>
+    <!-- PANIER -->
+    <div id="cart-page">
+      <h2 style="color:#ffeb3b;text-align:center;margin:20px 0">Votre Panier</h2>
+      <div id="cart-items"></div>
+      <div id="cart-total" class="cart-total"></div>
+      <div class="questionnaire">
+        <div class="question">
+          <span class="question-label">Mode de récupération :</span>
+          <button class="option-btn" data-type="pickup">Venir sur place</button>
+          <button class="option-btn" data-type="delivery">Livraison</button>
+        </div>
+        <div id="pickup-questions" style="display:none">
+          <div class="question"><span class="question-label">Pour quelle heure ?</span><input type="time" id="pickup-time"></div>
+        </div>
+        <div id="delivery-questions" style="display:none">
+          <div class="question"><span class="question-label">Heure souhaitée</span><input type="time" id="delivery-time"></div>
+          <div class="question"><span class="question-label">Adresse complète</span><input type="text" id="delivery-address" placeholder="Rue, numéro, ville..."></div>
+          <div class="question"><span class="question-label">Précisions (étage, code, etc.)</span><textarea id="delivery-details" placeholder="Interphone, digicode, remarques..."></textarea></div>
+        </div>
+        <button id="submit-order-btn">Commander</button>
       </div>
     </div>
-    <div style="margin-bottom:14px">
-      <div style="color:#aaa;font-size:0.9rem;margin-bottom:8px;font-weight:600">Votre commentaire</div>
-      <textarea id="avis-text" placeholder="Partagez votre expérience..." style="width:100%;padding:14px;border-radius:12px;border:1.5px solid rgba(255,235,59,0.3);background:rgba(20,20,30,0.9);color:#e0e0e0;font-size:1rem;min-height:90px;resize:vertical;font-family:'M PLUS Rounded 1c',sans-serif;outline:none"></textarea>
-    </div>
-    <button id="submit-avis-btn" style="width:100%;padding:15px;background:#ffeb3b;color:#111;border:none;border-radius:14px;font-size:1.05rem;font-weight:800;cursor:pointer;font-family:'Orbitron',sans-serif;box-shadow:0 0 12px rgba(255,235,59,0.4)">Publier mon avis</button>
-  </div>
-  <div id="avis-list"></div>
-</div>
 
-<!-- PROFIL -->
-<div id="profil-page"></div>
-
-<!-- CHAT — nouveau style, input en bas -->
-<div id="chat-page">
-  <div class="chat-header">
-    <div class="chat-header-avatar">💬</div>
-    <div class="chat-header-info">
-      <div class="chat-header-title">Support Client</div>
-      <div class="chat-header-status">
-        <div class="chat-status-dot"></div>
-        <span class="chat-status-text">En ligne</span>
+    <!-- INFOS -->
+    <div id="infos-page">
+      <div class="info-card" style="margin-top:8px">
+        <div class="info-card-header"><div class="info-card-icon">🪪</div><div class="info-card-title">Information de Bart.Coffee76</div></div>
+        <div class="info-row"><span class="info-row-icon">ℹ️</span><span class="info-row-label">Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.</span></div>
+        <div style="margin-top:14px;background:rgba(255,235,59,0.07);border:1px solid rgba(255,235,59,0.25);border-radius:14px;padding:12px 16px;text-align:center">
+          <span style="color:#aaa;font-size:0.88rem">Contact secrétaire</span><br>
+          <span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:800">@sav_Bart76</span>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-header"><div class="info-card-icon">🚚</div><div class="info-card-title">Livraison</div></div>
+        <div class="info-row" style="margin-bottom:10px">
+          <span class="info-row-icon">📍</span>
+          <div><div class="info-row-label">Départements desservis</div>
+          <div class="dept-badges"><span class="dept-badge">76</span><span class="dept-badge">27</span><span class="dept-badge">14</span></div></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:14px;padding:14px 16px;margin-bottom:12px">
+          <div style="color:#888;font-size:0.85rem;margin-bottom:10px;font-weight:600">TARIFS</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Sur Rouen</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">70€</span></div>
+            <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Moins de 10 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">100€</span></div>
+            <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Supérieur à 10 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">150€</span></div>
+            <div style="height:1px;background:rgba(255,255,255,0.06)"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#ccc;font-size:0.95rem">Supérieur à 25 km</span><span style="color:#ffeb3b;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem">270€</span></div>
+          </div>
+        </div>
+        <div class="minimum-badge"><span>Minimum 70€</span></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-header"><div class="info-card-icon">📍</div><div class="info-card-title">Meet-up</div></div>
+        <div class="meetup-location-row">
+          <div class="meetup-location-left"><span style="color:#ffeb3b;font-size:1.1rem">📍</span><span class="meetup-location-name">Rouen Rive Gauche</span></div>
+          <div class="disponible-badge">Disponible</div>
+        </div>
+        <div class="meetup-horaires-row"><span style="color:#ffeb3b;font-size:1.1rem">🕐</span><span class="meetup-horaires-text">Horaires : 12h – 23h</span></div>
+        <div class="minimum-badge"><span>Minimum 50€</span></div>
       </div>
     </div>
-    <div class="chat-header-timer">⏱ Messages 24h</div>
+
+    <!-- RÉSEAUX -->
+    <div id="reseaux-page">
+      <h2 class="section-title">Nos réseaux</h2>
+      <div class="reseaux-list">
+        <div class="reseau-item" data-link="https://t.me/+xkLrkV6xQBQ2OTQ0">
+          <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Telegram"></div>
+          <div class="reseau-text"><div class="reseau-name">Telegram VIP</div><div class="reseau-sub">Canal privé ⭐️</div></div>
+          <div class="reseau-arrow">›</div>
+        </div>
+        <div class="reseau-item" data-link="https://tutuduanyu.org/joinchat/vlNUyjhhgWD8SfEaRTwUCQ">
+          <div class="reseau-icon-wrap" style="background:rgba(255,193,7,0.12);border-color:rgba(255,193,7,0.35)"><img src="potato.jpg" alt="Canal Potato"></div>
+          <div class="reseau-text"><div class="reseau-name">Canal Potato</div><div class="reseau-sub">Rejoindre 🥔</div></div>
+          <div class="reseau-arrow">›</div>
+        </div>
+        <div class="reseau-item" data-link="http://t.me/sav_Bart76">
+          <div class="reseau-icon-wrap" style="background:rgba(41,182,246,0.12);border-color:rgba(41,182,246,0.35)"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/512px-Telegram_logo.svg.png" alt="Secrétaire"></div>
+          <div class="reseau-text"><div class="reseau-name">Secrétaire</div><div class="reseau-sub">@sav_Bart76 👨‍💼</div></div>
+          <div class="reseau-arrow">›</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AVIS -->
+    <div id="avis-page" style="display:none;padding:16px 16px 110px 16px">
+      <h2 class="section-title">⭐ Avis clients</h2>
+      <div class="info-card" style="margin-bottom:20px">
+        <div class="info-card-header"><div class="info-card-icon">✍️</div><div class="info-card-title">Laisser un avis</div></div>
+        <div style="margin-bottom:14px">
+          <div style="color:#aaa;font-size:0.9rem;margin-bottom:10px;font-weight:600">Votre note</div>
+          <div id="star-rating" style="display:flex;gap:8px;font-size:2rem;cursor:pointer">
+            <span class="star" data-v="1">☆</span><span class="star" data-v="2">☆</span><span class="star" data-v="3">☆</span><span class="star" data-v="4">☆</span><span class="star" data-v="5">☆</span>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="color:#aaa;font-size:0.9rem;margin-bottom:8px;font-weight:600">Votre commentaire</div>
+          <textarea id="avis-text" placeholder="Partagez votre expérience..." style="width:100%;padding:14px;border-radius:12px;border:1.5px solid rgba(255,235,59,0.3);background:rgba(20,20,30,0.9);color:#e0e0e0;font-size:1rem;min-height:90px;resize:vertical;font-family:'M PLUS Rounded 1c',sans-serif;outline:none"></textarea>
+        </div>
+        <button id="submit-avis-btn" style="width:100%;padding:15px;background:#ffeb3b;color:#111;border:none;border-radius:14px;font-size:1.05rem;font-weight:800;cursor:pointer;font-family:'Orbitron',sans-serif;box-shadow:0 0 12px rgba(255,235,59,0.4)">Publier mon avis</button>
+      </div>
+      <div id="avis-list"></div>
+    </div>
+
+    <!-- PROFIL -->
+    <div id="profil-page"></div>
+
+    <!-- CHAT -->
+    <div id="chat-page">
+      <div class="chat-header">
+        <div class="chat-header-avatar">💬</div>
+        <div class="chat-header-info">
+          <div class="chat-header-title">Support Client</div>
+          <div class="chat-header-status">
+            <div class="chat-status-dot"></div>
+            <span class="chat-status-text">En ligne</span>
+          </div>
+        </div>
+        <div class="chat-header-timer">⏱ Messages 24h</div>
+      </div>
+      <div id="chat-body" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-item active" id="nav-home"><span class="nav-emoji">🏠</span></div>
+      <div class="nav-item" id="nav-cart"><span class="nav-emoji">🛒</span><span id="cart-badge"></span></div>
+      <div class="nav-item" id="nav-avis"><span class="nav-emoji">⭐</span></div>
+      <div class="nav-item" id="nav-chat"><span class="nav-emoji">💬</span></div>
+      <div class="nav-item" id="nav-infos"><span class="nav-emoji">ℹ️</span></div>
+      <div class="nav-item" id="nav-reseaux"><span class="nav-emoji">📡</span></div>
+      <div class="nav-item" id="nav-profil"><span class="nav-emoji">👤</span></div>
+    </nav>
+
   </div>
-  <div id="chat-body" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;"></div>
 </div>
 
-<!-- ═══════════════════════════
-     NAV — EMOJIS UNIQUEMENT
-═══════════════════════════ -->
-<nav>
-  <div class="nav-item active" id="nav-home"><span class="nav-emoji">🏠</span></div>
-  <div class="nav-item" id="nav-cart"><span class="nav-emoji">🛒</span><span id="cart-badge"></span></div>
-  <div class="nav-item" id="nav-avis"><span class="nav-emoji">⭐</span></div>
-  <div class="nav-item" id="nav-chat"><span class="nav-emoji">💬</span></div>
-  <div class="nav-item" id="nav-infos"><span class="nav-emoji">ℹ️</span></div>
-  <div class="nav-item" id="nav-reseaux"><span class="nav-emoji">📡</span></div>
-  <div class="nav-item" id="nav-profil"><span class="nav-emoji">👤</span></div>
-</nav>
-
-
-  </div>
-</div>
-
-<!-- AUTH MODAL — IDENTIFIANT + MOT DE PASSE (pas d'email) -->
-
+<!-- AUTH MODAL -->
 <div id="auth-modal">
   <div class="auth-sheet">
     <div class="auth-handle"></div>
@@ -683,6 +576,98 @@ let chatUnsub = null;
 
 onAuthStateChanged(_auth, () => {});
 
+// ── MUSIC PLAYER ─────────────────────────────────────────────────────────────
+(function() {
+  const audio      = document.getElementById('bg-music');
+  const toggleBtn  = document.getElementById('music-toggle-btn');
+  const volSlider  = document.getElementById('music-volume');
+  const volIcon    = document.getElementById('music-vol-icon');
+  const player     = document.getElementById('music-player');
+  let isPlaying    = false;
+  let isMuted      = false;
+  let collapseTimer;
+
+  audio.volume = 0.7;
+
+  function updateSliderGradient(val) {
+    const pct = val * 100;
+    volSlider.style.background =
+      `linear-gradient(to right, #ffeb3b ${pct}%, rgba(255,255,255,0.12) ${pct}%)`;
+  }
+
+  function startMusic() {
+    audio.play().then(() => {
+      isPlaying = true;
+      toggleBtn.textContent = '⏸';
+      player.classList.remove('paused');
+      // Ouvrir le player brièvement puis replier
+      player.classList.remove('collapsed');
+      clearTimeout(collapseTimer);
+      collapseTimer = setTimeout(() => player.classList.add('collapsed'), 3500);
+    }).catch(() => {});
+  }
+
+  function stopMusic() {
+    audio.pause();
+    isPlaying = false;
+    toggleBtn.textContent = '▶';
+    player.classList.add('paused');
+    player.classList.remove('collapsed');
+    clearTimeout(collapseTimer);
+  }
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    player.classList.remove('collapsed');
+    clearTimeout(collapseTimer);
+    if (isPlaying) {
+      stopMusic();
+    } else {
+      startMusic();
+    }
+  });
+
+  volSlider.addEventListener('input', () => {
+    const v = parseFloat(volSlider.value);
+    audio.volume = v;
+    isMuted = v === 0;
+    audio.muted = isMuted;
+    volIcon.textContent = v === 0 ? '🔇' : v < 0.4 ? '🔉' : '🔊';
+    updateSliderGradient(v);
+    clearTimeout(collapseTimer);
+    collapseTimer = setTimeout(() => { if(isPlaying) player.classList.add('collapsed'); }, 3000);
+  });
+
+  volIcon.addEventListener('click', (e) => {
+    e.stopPropagation();
+    isMuted = !isMuted;
+    audio.muted = isMuted;
+    volIcon.textContent = isMuted ? '🔇' : parseFloat(volSlider.value) < 0.4 ? '🔉' : '🔊';
+  });
+
+  // Toucher le player l'ouvre
+  player.addEventListener('click', () => {
+    player.classList.remove('collapsed');
+    clearTimeout(collapseTimer);
+    if (isPlaying) {
+      collapseTimer = setTimeout(() => player.classList.add('collapsed'), 4000);
+    }
+  });
+
+  updateSliderGradient(0.7);
+
+  // ── Lancement dès le premier événement utilisateur (politique navigateurs)
+  function tryStart() {
+    if (!isPlaying) startMusic();
+  }
+  // Sur Telegram WebApp le son démarre souvent dès le touch du splash
+  document.addEventListener('touchstart', tryStart, { once: true });
+  document.addEventListener('click',      tryStart, { once: true });
+
+  // Exposer pour lancement depuis l'init du splash
+  window._startMusic = startMusic;
+})();
+
 // ── AUTH ─────────────────────────────────────────────────────────────────────
 window.switchAuthTab = (tab) => {
   document.getElementById('tab-login').classList.toggle('active', tab === 'login');
@@ -698,7 +683,6 @@ document.getElementById('auth-modal').addEventListener('click', e => {
   if (e.target === document.getElementById('auth-modal')) closeAuthModal();
 });
 
-// LOGIN via identifiant → email synthétique identifiant@bart76.app
 window.doLogin = async () => {
   const username = document.getElementById('login-username').value.trim().toLowerCase();
   const pass     = document.getElementById('login-password').value;
@@ -708,15 +692,11 @@ window.doLogin = async () => {
   btn.disabled = true; btn.textContent = 'Connexion...';
   try {
     await signInWithEmailAndPassword(_auth, username + '@bart76.app', pass);
-    closeAuthModal();
-    renderProfilPage();
-  } catch(e) {
-    errEl.textContent = 'Identifiant ou mot de passe incorrect.';
-  }
+    closeAuthModal(); renderProfilPage();
+  } catch(e) { errEl.textContent = 'Identifiant ou mot de passe incorrect.'; }
   btn.disabled = false; btn.textContent = 'Se connecter';
 };
 
-// REGISTER via identifiant → email synthétique
 window.doRegister = async () => {
   const name     = document.getElementById('reg-name').value.trim();
   const username = document.getElementById('reg-username').value.trim().toLowerCase();
@@ -731,8 +711,7 @@ window.doRegister = async () => {
     const cred = await createUserWithEmailAndPassword(_auth, username + '@bart76.app', pass);
     await updateProfile(cred.user, { displayName: name });
     await setDoc(doc(_db, 'users', username), { uid: cred.user.uid, name, username });
-    closeAuthModal();
-    renderProfilPage();
+    closeAuthModal(); renderProfilPage();
   } catch(e) {
     errEl.textContent = e.code === 'auth/email-already-in-use'
       ? 'Cet identifiant est déjà utilisé.'
@@ -743,15 +722,13 @@ window.doRegister = async () => {
 
 window.doLogout = async () => {
   if (!confirm('Se déconnecter ?')) return;
-  await signOut(_auth);
-  renderProfilPage();
+  await signOut(_auth); renderProfilPage();
 };
 
 // ── PROFIL ────────────────────────────────────────────────────────────────────
 async function renderProfilPage() {
   const page = document.getElementById('profil-page');
   const user = _auth.currentUser;
-
   if (!user) {
     page.innerHTML = `
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:20px;padding:20px">
@@ -764,9 +741,7 @@ async function renderProfilPage() {
       </div>`;
     return;
   }
-
-  const displayUsername = user.email ? user.email.replace('@bart76.app', '') : 'utilisateur';
-
+  const displayUsername = user.email ? user.email.replace('@bart76.app','') : 'utilisateur';
   page.innerHTML = `
     <div class="profil-header">
       <button class="profil-logout" onclick="doLogout()">Déconnexion</button>
@@ -774,8 +749,6 @@ async function renderProfilPage() {
       <div class="profil-name">${user.displayName || displayUsername}</div>
       <div style="color:#555;font-size:0.8rem;margin-top:2px">@${displayUsername}</div>
     </div>
-
-    <!-- Bloc nombre de commandes -->
     <div class="profil-stats-block">
       <div class="profil-stats-icon">📦</div>
       <div class="profil-stats-info">
@@ -783,33 +756,24 @@ async function renderProfilPage() {
         <div class="profil-stats-label">commande(s) passée(s)</div>
       </div>
     </div>
-
     <div class="profil-section-title">📦 Mes commandes</div>
     <div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px">Chargement...</p></div>`;
-
   try {
     const q    = query(collection(_db,'commandes'), where('uid','==',user.uid), orderBy('timestamp','desc'));
     const snap = await getDocs(q);
     const cmdEl   = document.getElementById('profil-commandes');
     const countEl = document.getElementById('profil-cmd-count');
     countEl.textContent = snap.size;
-    if (snap.empty) {
-      cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>';
-      return;
-    }
+    if (snap.empty) { cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>'; return; }
     cmdEl.innerHTML = snap.docs.map(d => {
       const c = d.data();
       return `<div class="commande-card">
-        <div class="commande-header">
-          <span class="commande-date">${c.date}</span>
-          <span class="commande-total">${c.total}€</span>
-        </div>
+        <div class="commande-header"><span class="commande-date">${c.date}</span><span class="commande-total">${c.total}€</span></div>
         <div class="commande-items">${c.items}</div>
         <span class="commande-mode">${c.mode}</span>
       </div>`;
     }).join('');
   } catch(e) {
-    // Pas de message d'erreur rouge — juste 0 commandes
     const countEl = document.getElementById('profil-cmd-count');
     if (countEl) countEl.textContent = '0';
     const cmdEl = document.getElementById('profil-commandes');
@@ -818,23 +782,20 @@ async function renderProfilPage() {
 }
 window.openAuthModal = openAuthModal;
 
-// ── CHAT — nouveau style + suppression automatique après 24h ─────────────────
-
-// Purge les messages Firestore dont le timestamp > 24h (côté client au chargement)
+// ── CHAT ──────────────────────────────────────────────────────────────────────
 async function purgeOldMessages() {
   try {
     const { getDocs, collection, query, where, deleteDoc, doc, Timestamp } = window._firestoreExtra;
-    const cutoff = Date.now() - 24 * 60 * 60 * 1000; // 24h en ms
+    const cutoff = Date.now() - 24 * 60 * 60 * 1000;
     const q = query(collection(_db,'chat'), where('timestampMs','<', cutoff));
     const snap = await getDocs(q);
     snap.docs.forEach(d => deleteDoc(doc(_db,'chat',d.id)));
-  } catch(e) { /* silencieux */ }
+  } catch(e) {}
 }
 
 function renderChatPage() {
   const body = document.getElementById('chat-body');
   const user = _auth.currentUser;
-
   if (!user) {
     body.style.cssText = 'flex:1;display:flex;flex-direction:column;';
     body.innerHTML = `
@@ -846,8 +807,6 @@ function renderChatPage() {
       </div>`;
     return;
   }
-
-  // Structure : messages en haut, input en bas
   body.style.cssText = 'flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;';
   body.innerHTML = `
     <div class="chat-messages" id="chat-messages">
@@ -860,50 +819,31 @@ function renderChatPage() {
       <input id="chat-input" type="text" placeholder="Votre message..." maxlength="500" autocomplete="off">
       <button id="chat-send-btn" onclick="sendChatMsg()">➤</button>
     </div>`;
-
-  // Purge silencieuse des vieux messages
   purgeOldMessages();
-
   if (chatUnsub) chatUnsub();
-
-  // Écoute temps réel — filtre en JS les messages > 24h
   const q = query(collection(_db,'chat'), orderBy('timestampMs','asc'));
   chatUnsub = onSnapshot(q, snap => {
-    const msgs    = document.getElementById('chat-messages');
-    const empty   = document.getElementById('chat-empty');
+    const msgs  = document.getElementById('chat-messages');
+    const empty = document.getElementById('chat-empty');
     if (!msgs) return;
-
     const now    = Date.now();
     const cutoff = now - 24 * 60 * 60 * 1000;
-    // Filtrer les messages valides (< 24h)
-    const validDocs = snap.docs.filter(d => {
-      const ms = d.data().timestampMs;
-      return ms && ms > cutoff;
-    });
-
+    const validDocs = snap.docs.filter(d => { const ms = d.data().timestampMs; return ms && ms > cutoff; });
     if (validDocs.length === 0) {
       if (empty) empty.style.display = 'flex';
-      // Supprimer les bulles existantes sauf empty
       msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el=>el.remove());
       return;
     }
     if (empty) empty.style.display = 'none';
-
-    // Regrouper par jour
-    let lastDate = '';
-    let html = '';
+    let lastDate = '', html = '';
     validDocs.forEach(d => {
       const m   = d.data();
       const isMe= m.uid === user.uid;
       const ts  = m.timestampMs ? new Date(m.timestampMs) : null;
       const day = ts ? ts.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}) : '';
-      const timeLeft = m.timestampMs ? Math.max(0, 24*60*60*1000 - (now - m.timestampMs)) : 0;
-      const soonClass= timeLeft < 2*60*60*1000 ? ' expiring-soon' : ''; // rouge si <2h
-
-      if (day && day !== lastDate) {
-        html += `<div class="chat-date-sep">${day}</div>`;
-        lastDate = day;
-      }
+      const timeLeft  = m.timestampMs ? Math.max(0, 24*60*60*1000-(now-m.timestampMs)) : 0;
+      const soonClass = timeLeft < 2*60*60*1000 ? ' expiring-soon' : '';
+      if (day && day !== lastDate) { html += `<div class="chat-date-sep">${day}</div>`; lastDate = day; }
       html += `<div class="chat-msg-group ${isMe?'me':'other'}">
         ${!isMe ? `<div class="chat-sender-name">${m.name||'?'}</div>` : ''}
         <div class="chat-bubble ${isMe?'me':'other'}${soonClass}">
@@ -912,13 +852,10 @@ function renderChatPage() {
         </div>
       </div>`;
     });
-
-    // Remplacer uniquement les bulles (garder #chat-empty)
     msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el=>el.remove());
     msgs.insertAdjacentHTML('beforeend', html);
     msgs.scrollTop = msgs.scrollHeight;
   });
-
   document.getElementById('chat-input').addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMsg(); }
   });
@@ -932,12 +869,9 @@ window.sendChatMsg = async () => {
   input.value = '';
   const now = Date.now();
   await addDoc(collection(_db,'chat'), {
-    uid: user.uid,
-    name: user.displayName || 'Utilisateur',
-    text,
+    uid: user.uid, name: user.displayName || 'Utilisateur', text,
     time: new Date(now).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
-    timestampMs: now,           // timestamp numérique pour filtrage 24h
-    timestamp: serverTimestamp() // pour compatibilité
+    timestampMs: now, timestamp: serverTimestamp()
   });
 };
 
@@ -975,24 +909,23 @@ const products = {
   }
 };
 
-// ── PANIER ───────────────────────────────────────────────────────────────────
+// ── PANIER ────────────────────────────────────────────────────────────────────
 let cart = JSON.parse(localStorage.getItem('cart_bart76')) || [];
 function saveCart() { localStorage.setItem('cart_bart76', JSON.stringify(cart)); updateBadge(); }
 function updateBadge() {
   const b = document.getElementById('cart-badge');
-  b.textContent = cart.length||'';
-  b.style.display = cart.length>0 ? 'inline-block' : 'none';
+  b.textContent = cart.length||''; b.style.display = cart.length>0?'inline-block':'none';
 }
 
 // ── FILTRES ───────────────────────────────────────────────────────────────────
 function populateFilters() {
-  const all = Object.values(products);
+  const all  = Object.values(products);
   const cats  = [...new Set(all.map(p=>p.category))].sort();
   const farms = [...new Set(all.map(p=>p.farm))].sort();
   const cs = document.getElementById('category-filter');
   const fs = document.getElementById('farm-filter');
-  cats.forEach(c  => { const o=document.createElement('option'); o.value=c;  o.textContent=c;  cs.appendChild(o); });
-  farms.forEach(f => { const o=document.createElement('option'); o.value=f;  o.textContent=f;  fs.appendChild(o); });
+  cats.forEach(c  => { const o=document.createElement('option'); o.value=c; o.textContent=c; cs.appendChild(o); });
+  farms.forEach(f => { const o=document.createElement('option'); o.value=f; o.textContent=f; fs.appendChild(o); });
 }
 function filterProducts() {
   const cf = document.getElementById('category-filter').value;
@@ -1004,17 +937,16 @@ window.filterProducts = filterProducts;
 // ── RENDU PRODUITS ────────────────────────────────────────────────────────────
 function renderProducts(list) {
   if (!list) list = Object.values(products);
-  const grid = document.getElementById('products-grid');
-  grid.innerHTML = '';
+  const grid = document.getElementById('products-grid'); grid.innerHTML='';
   const n = list.length;
   const ce = document.getElementById('products-count-modern');
   ce.querySelector('.products-count-number').textContent = n;
-  ce.querySelector('.products-count-label').textContent  = n>1 ? 'Produits' : 'Produit';
+  ce.querySelector('.products-count-label').textContent  = n>1?'Produits':'Produit';
   if (n===0) { grid.innerHTML='<div class="no-results">Aucun produit 🔍</div>'; return; }
   list.forEach(p => {
     const card = document.createElement('div'); card.className='card';
     const thumb = p.videos[0].poster||p.videos[0].src||'chat.PNG';
-    card.innerHTML = `<div class="card-img"><img src="${thumb}" alt="${p.title}">
+    card.innerHTML=`<div class="card-img"><img src="${thumb}" alt="${p.title}">
       <div class="card-overlay"><div class="card-title">${p.title}</div><div class="card-farm">${p.farm}</div></div></div>`;
     card.onclick = () => openProductDetail(p.key);
     grid.appendChild(card);
@@ -1033,8 +965,7 @@ function goToHome() {
   hideAllPages();
   document.getElementById('home-page').style.display='block';
   document.getElementById('nav-home').classList.add('active');
-  if (tg) tg.BackButton.hide();
-  scrollToTop();
+  if (tg) tg.BackButton.hide(); scrollToTop();
 }
 
 // ── SWIPER ────────────────────────────────────────────────────────────────────
@@ -1124,11 +1055,9 @@ document.getElementById('nav-profil').onclick = () => {
 document.getElementById('nav-chat').onclick = () => {
   hideAllPages();
   const cp = document.getElementById('chat-page');
-  cp.style.display = 'flex';
-  cp.style.flexDirection = 'column';
+  cp.style.display='flex'; cp.style.flexDirection='column';
   document.getElementById('nav-chat').classList.add('active');
-  if(tg) tg.BackButton.hide();
-  renderChatPage();
+  if(tg) tg.BackButton.hide(); renderChatPage();
 };
 
 // ── AVIS ─────────────────────────────────────────────────────────────────────
@@ -1166,7 +1095,6 @@ document.getElementById('submit-avis-btn').onclick = async () => {
   const comment=document.getElementById('avis-text').value.trim();
   if(!selectedStar) return alert('Veuillez sélectionner une note ⭐');
   if(!comment) return alert('Veuillez écrire un commentaire');
-  // ── Prénom Telegram SANS @ — uniquement first_name
   const tgUser   = tg?.initDataUnsafe?.user;
   const username = tgUser?.first_name || 'Anonyme';
   const btn=document.getElementById('submit-avis-btn');
@@ -1177,8 +1105,7 @@ document.getElementById('submit-avis-btn').onclick = async () => {
       date: new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),
       timestamp: serverTimestamp()
     });
-    document.getElementById('avis-text').value='';
-    selectedStar=0;
+    document.getElementById('avis-text').value=''; selectedStar=0;
     document.querySelectorAll('.star').forEach(s=>{ s.textContent='☆'; s.classList.remove('on'); });
     await renderAvis(); alert('✅ Merci pour votre avis !');
   } catch(e) { alert('❌ Erreur lors de l\'envoi. Réessayez.'); }
@@ -1239,22 +1166,35 @@ document.getElementById('submit-order-btn').onclick = async () => {
   if(tg) tg.openTelegramLink(url); else window.open(url,'_blank');
 };
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// ── INIT SPLASH ───────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+  // Particules splash
   const container=document.getElementById('splash-particles');
   for(let i=0;i<22;i++) {
     const s=document.createElement('div'); s.className='spark';
     s.style.cssText=`left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;opacity:0;`;
     container.appendChild(s);
   }
+
+  // Lancer la musique dès le splash (premier événement ou directement)
+  const tryMusicNow = () => {
+    if (window._startMusic) window._startMusic();
+  };
+  // Tentative directe (Telegram WebApp autorise souvent l'autoplay)
+  setTimeout(tryMusicNow, 100);
+  // Fallback : premier touch/click pendant le splash
+  document.addEventListener('touchstart', tryMusicNow, { once: true });
+  document.addEventListener('click',      tryMusicNow, { once: true });
+
+  // Masquer le splash après 2.5s
   const splash=document.getElementById('splash-screen');
   setTimeout(() => {
     splash.classList.add('hidden');
     setTimeout(() => {
       splash.style.display='none';
       populateFilters(); renderProducts(); updateBadge(); goToHome();
-    },600);
-  },2500);
+    }, 600);
+  }, 2500);
 });
 </script>
 
