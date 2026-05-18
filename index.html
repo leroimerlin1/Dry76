@@ -58,6 +58,9 @@
     .card.rupture-card { border-color:#ef4444 !important; }
     .card-img { height:100%; width:100%; position:relative; }
     .card-img img { width:100%; height:100%; object-fit:cover; display:block; }
+    /* Placeholder noir quand pas d'image */
+    .card-no-img { width:100%; height:100%; background:#000; display:flex; align-items:center; justify-content:center; }
+    .card-no-img span { font-size:2.5rem; opacity:0.18; }
     .card-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%); padding:16px 12px 12px; z-index:2; }
     .card-title { font-family:'Orbitron',sans-serif; font-size:1.1rem; color:#ffeb3b; font-weight:900; letter-spacing:1px; margin-bottom:4px; text-shadow:0 1px 3px black; }
     .card-farm { font-size:0.85rem; color:#ddd; font-weight:bold; text-shadow:0 1px 3px black; }
@@ -94,10 +97,13 @@
     .rupture-overlay span { font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:#ef4444; border:2px solid #ef4444; padding:10px 24px; border-radius:14px; background:rgba(239,68,68,0.12); letter-spacing:2px; transform:rotate(-8deg); }
 
     /* SWIPER */
-    .swiper-wrap { position:relative; width:100%; overflow:hidden; background:#111; aspect-ratio:1/1; flex:0 0 auto; }
+    .swiper-wrap { position:relative; width:100%; overflow:hidden; background:#000; aspect-ratio:1/1; flex:0 0 auto; }
     .swiper-track { display:flex; transition:transform 0.35s ease; will-change:transform; height:100%; }
-    .swiper-track>* { flex-shrink:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; background:#111; }
+    .swiper-track>* { flex-shrink:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; background:#000; }
     .swiper-track video { pointer-events:auto; object-fit:cover; }
+    /* Slide noir placeholder dans le swiper */
+    .swiper-black-slide { flex-shrink:0; width:100%; height:100%; background:#000; display:flex; align-items:center; justify-content:center; }
+    .swiper-black-slide span { font-size:3rem; opacity:0.12; }
     .swiper-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.65); border:1.5px solid rgba(255,255,255,0.2); color:white; width:46px; height:46px; border-radius:50%; font-size:18px; cursor:pointer; z-index:10; display:flex; align-items:center; justify-content:center; }
     .swiper-btn-prev { left:12px; } .swiper-btn-next { right:12px; }
     .swiper-counter { position:absolute; bottom:10px; right:14px; background:rgba(0,0,0,0.65); border:1px solid rgba(255,235,59,0.4); border-radius:20px; padding:4px 12px; font-size:13px; font-weight:700; color:#ffeb3b; }
@@ -242,22 +248,9 @@
     .chat-locked-btn { background:linear-gradient(135deg,#ffeb3b,#ffd600); color:#111; border:none; padding:14px 32px; border-radius:16px; font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:900; cursor:pointer; }
     .chat-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; opacity:0.35; padding:20px; }
 
-    /* MUSIC PLAYER */
-    #music-player { position:fixed; bottom:96px; left:14px; z-index:3000; display:flex; align-items:center; gap:8px; background:rgba(10,10,18,0.94); border:1.5px solid rgba(255,235,59,0.35); border-radius:999px; padding:7px 14px 7px 10px; box-shadow:0 4px 24px rgba(0,0,0,0.7); backdrop-filter:blur(12px); transition:padding 0.35s ease; }
-    #music-player.collapsed { padding:7px 10px; }
-    #music-toggle-btn { width:32px; height:32px; background:rgba(255,235,59,0.14); border:1.5px solid rgba(255,235,59,0.45); border-radius:50%; color:#ffeb3b; font-size:0.9rem; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    #music-volume-wrap { display:flex; align-items:center; gap:6px; overflow:hidden; transition:max-width 0.35s ease,opacity 0.3s ease; max-width:130px; opacity:1; }
-    #music-player.collapsed #music-volume-wrap { max-width:0; opacity:0; pointer-events:none; }
-    #music-vol-icon { font-size:0.9rem; color:rgba(255,235,59,0.65); cursor:pointer; flex-shrink:0; }
-    #music-volume { -webkit-appearance:none; appearance:none; width:82px; height:3px; background:linear-gradient(to right,#ffeb3b 70%,rgba(255,255,255,0.12) 70%); border-radius:999px; outline:none; cursor:pointer; }
-    #music-volume::-webkit-slider-thumb { -webkit-appearance:none; width:14px; height:14px; border-radius:50%; background:#ffeb3b; box-shadow:0 0 8px rgba(255,235,59,0.7); cursor:pointer; }
-    #music-note { font-size:0.75rem; color:rgba(255,235,59,0.55); animation:musicPulse 1.8s ease-in-out infinite; flex-shrink:0; }
-    #music-player.paused #music-note { animation:none; opacity:0.2; }
-    @keyframes musicPulse { 0%,100%{opacity:0.35;transform:scale(1) rotate(-8deg);}50%{opacity:1;transform:scale(1.25) rotate(8deg);} }
 
-    /* ════════════════════════════
-       PAGE ADMIN
-    ════════════════════════════ */
+
+    /* ADMIN */
     #admin-page { display:none; padding:16px 16px 110px 16px; }
     #admin-login { background:rgba(15,15,22,0.95); border:1.5px solid rgba(255,235,59,0.3); border-radius:24px; padding:32px 24px; margin-top:40px; text-align:center; }
     #admin-login h2 { font-family:'Orbitron',sans-serif; color:#ffeb3b; font-size:1.3rem; margin-bottom:8px; }
@@ -297,19 +290,7 @@
 </head>
 <body>
 
-<audio id="bg-music" loop preload="auto">
-  <source src="Mous-K – Le Bon Samaritain.mp3" type="audio/mpeg">
-</audio>
 
-<!-- MUSIC PLAYER -->
-<div id="music-player" class="collapsed paused">
-  <button id="music-toggle-btn" title="Lecture / Pause">▶</button>
-  <div id="music-volume-wrap">
-    <span id="music-vol-icon">🔊</span>
-    <input type="range" id="music-volume" min="0" max="1" step="0.01" value="0.7">
-  </div>
-  <span id="music-note">♪</span>
-</div>
 
 <!-- LIGHTBOX PHOTO -->
 <div id="photo-lightbox">
@@ -479,7 +460,6 @@
           <div style="color:#aaa;font-size:0.9rem;margin-bottom:8px;font-weight:600">Votre commentaire</div>
           <textarea id="avis-text" placeholder="Partagez votre expérience..." style="width:100%;padding:14px;border-radius:12px;border:1.5px solid rgba(255,235,59,0.3);background:rgba(20,20,30,0.9);color:#e0e0e0;font-size:1rem;min-height:90px;resize:vertical;font-family:'M PLUS Rounded 1c',sans-serif;outline:none"></textarea>
         </div>
-        <!-- PHOTO UPLOAD -->
         <label class="photo-upload-label" for="avis-photo-input">
           <span style="font-size:1.3rem">📸</span>
           <span id="photo-upload-text">Ajouter une photo (optionnel)</span>
@@ -510,7 +490,7 @@
       <div id="chat-body" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;"></div>
     </div>
 
-    <!-- ADMIN PAGE (cachée) -->
+    <!-- ADMIN PAGE -->
     <div id="admin-page">
       <div id="admin-login">
         <div style="font-size:2.5rem;margin-bottom:14px">🔐</div>
@@ -525,12 +505,8 @@
           <h2>🛠️ Panel Admin</h2>
           <button id="admin-logout-btn">Déconnexion</button>
         </div>
-
-        <!-- Gestion stock / badges existants -->
         <div class="admin-section-title">📦 Stock & Badges</div>
         <div id="admin-products-list"></div>
-
-        <!-- Ajouter produit -->
         <div class="admin-section-title">➕ Ajouter un produit</div>
         <div class="admin-form">
           <input class="admin-input" id="new-title" placeholder="Nom du produit (ex: OG Kush 🍃)">
@@ -622,9 +598,9 @@ window._firestoreExtra = { getDocs, collection, query, where, deleteDoc, doc, Ti
 let chatUnsub = null;
 
 // ── MOT DE PASSE ADMIN ───────────────────────────────────────────────────────
-const ADMIN_PASSWORD = "Bart76Admin!";  // ← CHANGE CE MOT DE PASSE
+const ADMIN_PASSWORD = "Bart76Admin!";
 
-// ── PRODUITS (état local + Firestore) ────────────────────────────────────────
+// ── PRODUITS ─────────────────────────────────────────────────────────────────
 let products = {
   blanche: {
     key:'blanche', title:'Blanche❄️', category:'Blanche❄️', farm:'R8🏎️',
@@ -650,45 +626,61 @@ let products = {
   }
 };
 
-// Charger les overrides depuis Firestore (stock / isNew / produits ajoutés)
+// ── HELPER : thumb sécurisé (noir si vide) ────────────────────────────────────
+function getThumb(p) {
+  if (!p.videos || !p.videos.length) return null;
+  const first = p.videos[0];
+  return (first.poster && first.poster.trim()) ? first.poster.trim()
+       : (first.src   && first.src.trim())    ? null   // vidéo sans poster → noir
+       : null;
+}
+
+// ── CHARGER OVERRIDES FIRESTORE ───────────────────────────────────────────────
 async function loadProductOverrides() {
   try {
-    const snap = await getDocs(collection(_db,'products_meta'));
+    const snap = await getDocs(collection(_db, 'products_meta'));
     snap.forEach(d => {
       const data = d.data();
       if (products[d.id]) {
-        if (data.stock !== undefined)  products[d.id].stock  = data.stock;
-        if (data.isNew !== undefined)  products[d.id].isNew  = data.isNew;
+        // Produit de base : mise à jour stock / isNew uniquement
+        if (data.stock  !== undefined) products[d.id].stock  = data.stock;
+        if (data.isNew  !== undefined) products[d.id].isNew  = data.isNew;
       } else {
-        // Produit ajouté via admin
-        products[d.id] = { ...data, key: d.id };
+        // Produit créé via admin : reconstruction complète et sécurisée
+        let safeVideos = [];
+        if (Array.isArray(data.videos) && data.videos.length > 0) {
+          safeVideos = data.videos.map(v => ({
+            src:    (v.src    && v.src.trim())    ? v.src.trim()    : '',
+            poster: (v.poster && v.poster.trim()) ? v.poster.trim() : ''
+          }));
+        } else {
+          // Reconstruire depuis les champs plats si videos absent
+          safeVideos = [{
+            src:    (data.video  && data.video.trim())  ? data.video.trim()  : '',
+            poster: (data.poster && data.poster.trim()) ? data.poster.trim() : ''
+          }];
+        }
+        products[d.id] = {
+          key:         d.id,
+          title:       data.title       || 'Produit',
+          farm:        data.farm        || '',
+          category:    data.category    || data.title || '',
+          description: data.description || data.desc  || '',
+          desc:        data.desc        || data.description || '',
+          strain:      data.strain      || '',
+          videos:      safeVideos,
+          quantities:  Array.isArray(data.quantities) ? data.quantities : [],
+          stock:       data.stock       || 'dispo',
+          isNew:       data.isNew       || false
+        };
       }
     });
-  } catch(e) { console.log('products_meta non chargé', e); }
+  } catch(e) {
+    console.log('products_meta non chargé', e);
+  }
 }
 
-// ── MUSIC PLAYER ──────────────────────────────────────────────────────────────
-(function(){
-  const audio=document.getElementById('bg-music');
-  const toggleBtn=document.getElementById('music-toggle-btn');
-  const volSlider=document.getElementById('music-volume');
-  const volIcon=document.getElementById('music-vol-icon');
-  const player=document.getElementById('music-player');
-  let isPlaying=false,isMuted=false,collapseTimer;
-  audio.volume=0.7;
-  function updateGradient(v){const p=v*100;volSlider.style.background=`linear-gradient(to right,#ffeb3b ${p}%,rgba(255,255,255,0.12) ${p}%)`;}
-  function startMusic(){audio.play().then(()=>{isPlaying=true;toggleBtn.textContent='⏸';player.classList.remove('paused');player.classList.remove('collapsed');clearTimeout(collapseTimer);collapseTimer=setTimeout(()=>player.classList.add('collapsed'),3500);}).catch(()=>{});}
-  function stopMusic(){audio.pause();isPlaying=false;toggleBtn.textContent='▶';player.classList.add('paused');player.classList.remove('collapsed');clearTimeout(collapseTimer);}
-  toggleBtn.addEventListener('click',e=>{e.stopPropagation();player.classList.remove('collapsed');clearTimeout(collapseTimer);isPlaying?stopMusic():startMusic();});
-  volSlider.addEventListener('input',()=>{const v=parseFloat(volSlider.value);audio.volume=v;isMuted=v===0;audio.muted=isMuted;volIcon.textContent=v===0?'🔇':v<0.4?'🔉':'🔊';updateGradient(v);clearTimeout(collapseTimer);collapseTimer=setTimeout(()=>{if(isPlaying)player.classList.add('collapsed');},3000);});
-  volIcon.addEventListener('click',e=>{e.stopPropagation();isMuted=!isMuted;audio.muted=isMuted;volIcon.textContent=isMuted?'🔇':parseFloat(volSlider.value)<0.4?'🔉':'🔊';});
-  player.addEventListener('click',()=>{player.classList.remove('collapsed');clearTimeout(collapseTimer);if(isPlaying)collapseTimer=setTimeout(()=>player.classList.add('collapsed'),4000);});
-  updateGradient(0.7);
-  function tryStart(){if(!isPlaying)startMusic();}
-  document.addEventListener('touchstart',tryStart,{once:true});
-  document.addEventListener('click',tryStart,{once:true});
-  window._startMusic=startMusic;
-})();
+
 
 // ── ADMIN SECRET (5 clics sur le logo) ───────────────────────────────────────
 let logoClickCount=0, logoClickTimer=null;
@@ -698,13 +690,9 @@ function handleLogoClick(){
   logoClickCount++;
   clearTimeout(logoClickTimer);
   logoClickTimer=setTimeout(()=>{logoClickCount=0;},2000);
-  if(logoClickCount>=5){
-    logoClickCount=0;
-    openAdminPage();
-  }
+  if(logoClickCount>=5){logoClickCount=0;openAdminPage();}
 }
 document.getElementById('top-logo').addEventListener('click', handleLogoClick);
-// Aussi sur le logo du splash
 document.getElementById('splash-logo').addEventListener('click', handleLogoClick);
 
 function openAdminPage(){
@@ -757,27 +745,23 @@ function renderAdminPanel(){
 
 window.adminSetStock = async (key, stock) => {
   products[key].stock = stock;
-  try { await setDoc(doc(_db,'products_meta',key),{stock,isNew:products[key].isNew},{merge:true}); } catch(e){}
-  renderAdminPanel();
-  renderProducts();
+  try { await setDoc(doc(_db,'products_meta',key), {stock, isNew:products[key].isNew}, {merge:true}); } catch(e){}
+  renderAdminPanel(); renderProducts();
 };
 
 window.adminToggleNew = async (key) => {
   products[key].isNew = !products[key].isNew;
-  try { await setDoc(doc(_db,'products_meta',key),{isNew:products[key].isNew,stock:products[key].stock},{merge:true}); } catch(e){}
-  renderAdminPanel();
-  renderProducts();
+  try { await setDoc(doc(_db,'products_meta',key), {isNew:products[key].isNew, stock:products[key].stock}, {merge:true}); } catch(e){}
+  renderAdminPanel(); renderProducts();
 };
 
 window.adminDeleteProduct = async (key) => {
   if(!confirm(`Supprimer "${products[key].title}" ?`)) return;
   delete products[key];
   try { await deleteDoc(doc(_db,'products_meta',key)); } catch(e){}
-  renderAdminPanel();
-  renderProducts();
+  renderAdminPanel(); renderProducts();
 };
 
-// Ajouter quantité dans le formulaire
 document.getElementById('add-qty-row-btn').addEventListener('click',()=>{
   const row=document.createElement('div'); row.className='admin-qty-row';
   row.innerHTML='<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">';
@@ -796,25 +780,32 @@ document.getElementById('save-new-product-btn').addEventListener('click', async 
   const quantities=[];
   rows.forEach(row=>{
     const ins=row.querySelectorAll('input');
-    if(ins[0].value.trim()&&ins[1].value.trim()) quantities.push({qty:ins[0].value.trim(),price:ins[1].value.trim()});
+    if(ins[0].value.trim()&&ins[1].value.trim()) quantities.push({qty:ins[0].value.trim(), price:ins[1].value.trim()});
   });
   if(!quantities.length){alert('Ajoutez au moins une quantité !'); return;}
   const key = title.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,20)+'_'+Date.now();
+  // On stocke videos comme tableau pour une reconstruction correcte au rechargement
+  const safeVideos = [{
+    src:    video  || '',
+    poster: poster || ''
+  }];
   const newProduct = {
-    key, title, farm, category, desc, description:desc, strain:'',
-    videos:[{src:video||'',poster:poster||''}],
-    quantities, stock:'dispo', isNew:false
+    key, title, farm, category,
+    description: desc, desc,
+    strain: '',
+    videos: safeVideos,
+    quantities,
+    stock: 'dispo',
+    isNew: false
   };
-  products[key]=newProduct;
+  products[key] = newProduct;
   try {
-    await setDoc(doc(_db,'products_meta',key),newProduct);
+    await setDoc(doc(_db,'products_meta',key), newProduct);
   } catch(e){ console.error(e); }
-  // Reset form
   ['new-title','new-farm','new-category','new-poster','new-video','new-desc'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('new-qty-list').innerHTML='<div class="admin-qty-row"><input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)"></div>';
   alert('✅ Produit créé !');
-  renderAdminPanel();
-  renderProducts();
+  renderAdminPanel(); renderProducts();
 });
 
 // ── AUTH ─────────────────────────────────────────────────────────────────────
@@ -996,7 +987,6 @@ function populateFilters(){
   const farms=[...new Set(all.map(p=>p.farm))].sort();
   const cs=document.getElementById('category-filter');
   const fs=document.getElementById('farm-filter');
-  // clear existing options except first
   while(cs.options.length>1)cs.remove(1);
   while(fs.options.length>1)fs.remove(1);
   cats.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;cs.appendChild(o);});
@@ -1011,24 +1001,30 @@ window.filterProducts=filterProducts;
 
 // ── RENDU PRODUITS ────────────────────────────────────────────────────────────
 function renderProducts(list){
-  if(!list)list=Object.values(products);
-  const grid=document.getElementById('products-grid');grid.innerHTML='';
+  if(!list) list=Object.values(products);
+  const grid=document.getElementById('products-grid'); grid.innerHTML='';
   const n=list.length;
   const ce=document.getElementById('products-count-modern');
   ce.querySelector('.products-count-number').textContent=n;
   ce.querySelector('.products-count-label').textContent=n>1?'Produits':'Produit';
   if(!n){grid.innerHTML='<div class="no-results">Aucun produit 🔍</div>';return;}
+
   list.forEach(p=>{
     const card=document.createElement('div');
     card.className='card'+(p.stock==='rupture'?' rupture-card':'');
-    const thumb=p.videos[0].poster||p.videos[0].src||'chat.PNG';
-    // Badges stock + NEW
+
+    // Thumbnail sécurisé : null = fond noir, sinon url de l'image
+    const thumb = getThumb(p);
+    const imgHTML = thumb
+      ? `<img src="${thumb}" alt="${p.title}" onerror="this.parentNode.innerHTML='<div class=\\'card-no-img\\'><span>☕</span></div>'">`
+      : `<div class="card-no-img"><span>☕</span></div>`;
+
     const stockBadge=`<div class="stock-badge ${p.stock==='rupture'?'rupture':'dispo'}">${p.stock==='rupture'?'❌ Rupture':'✅ Dispo'}</div>`;
     const newBadge=p.isNew?`<div class="new-badge">🆕 NEW</div>`:'';
-    // Overlay rupture
     const ruptureOverlay=p.stock==='rupture'?`<div class="rupture-overlay"><span>Rupture de stock</span></div>`:'';
+
     card.innerHTML=`<div class="card-img">
-      <img src="${thumb}" alt="${p.title}">
+      ${imgHTML}
       ${stockBadge}${newBadge}${ruptureOverlay}
       <div class="card-overlay">
         <div class="card-title">${p.title}</div>
@@ -1052,31 +1048,71 @@ function goToHome(){
   hideAllPages();
   document.getElementById('home-page').style.display='block';
   document.getElementById('nav-home').classList.add('active');
-  if(tg)tg.BackButton.hide();scrollToTop();
+  if(tg)tg.BackButton.hide(); scrollToTop();
 }
 
 // ── SWIPER ────────────────────────────────────────────────────────────────────
-let swiperIndex=0,swiperItems=[];
+let swiperIndex=0, swiperItems=[];
+
 function buildSwiper(videos){
-  swiperIndex=0;swiperItems=videos;
-  const track=document.getElementById('swiper-track');track.innerHTML='';
+  swiperIndex=0; swiperItems=videos;
+  const track=document.getElementById('swiper-track'); track.innerHTML='';
+
   videos.forEach(vid=>{
-    if(vid.src){
-      const v=document.createElement('video');v.autoplay=false;v.loop=true;v.muted=true;v.playsinline=true;v.controls=true;
-      v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#111;';
-      if(vid.poster)v.poster=vid.poster;v.innerHTML=`<source src="${vid.src}" type="video/mp4">`;track.appendChild(v);
-    } else if(vid.poster){
-      const img=document.createElement('img');img.src=vid.poster;
-      img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#111;pointer-events:none;user-select:none;';track.appendChild(img);
+    const hasSrc    = vid.src    && vid.src.trim();
+    const hasPoster = vid.poster && vid.poster.trim();
+
+    if(hasSrc){
+      // Slide vidéo
+      const v=document.createElement('video');
+      v.autoplay=false; v.loop=true; v.muted=true; v.playsinline=true; v.controls=true;
+      v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
+      if(hasPoster) v.poster=vid.poster.trim();
+      v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;
+      track.appendChild(v);
+    } else if(hasPoster){
+      // Slide image
+      const img=document.createElement('img');
+      img.src=vid.poster.trim();
+      img.alt='';
+      img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';
+      // Si l'image échoue → remplacer par fond noir
+      img.onerror=function(){
+        const black=document.createElement('div');
+        black.className='swiper-black-slide';
+        black.innerHTML='<span>☕</span>';
+        track.replaceChild(black, img);
+      };
+      track.appendChild(img);
+    } else {
+      // Aucun média → fond noir
+      const black=document.createElement('div');
+      black.className='swiper-black-slide';
+      black.innerHTML='<span>☕</span>';
+      track.appendChild(black);
     }
   });
+
+  // Si aucun slide ajouté, mettre au moins un fond noir
+  if(!track.children.length){
+    const black=document.createElement('div');
+    black.className='swiper-black-slide';
+    black.innerHTML='<span>☕</span>';
+    track.appendChild(black);
+    swiperItems=[{src:'',poster:''}];
+  }
+
   updateSwiper();
 }
+
 function updateSwiper(){
   const total=swiperItems.length;
   document.getElementById('swiper-track').style.transform=`translateX(-${swiperIndex*100}%)`;
   document.getElementById('swiper-counter').textContent=`${swiperIndex+1} / ${total}`;
-  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{if(i===swiperIndex)v.play().catch(()=>{});else v.pause();});
+  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{
+    if(i===swiperIndex) v.play().catch(()=>{});
+    else v.pause();
+  });
   const show=total>1;
   document.querySelector('.swiper-btn-prev').style.display=show?'flex':'none';
   document.querySelector('.swiper-btn-next').style.display=show?'flex':'none';
@@ -1089,7 +1125,6 @@ window.swiperNext=()=>{swiperIndex=(swiperIndex+1)%swiperItems.length;updateSwip
 function openProductDetail(key){
   const p=products[key];
   document.getElementById('detail-title').textContent=p.title;
-  // Badges
   const badgesEl=document.getElementById('detail-badges');
   const stockClass=p.stock==='rupture'?'badge-rupture':'badge-dispo';
   const stockLabel=p.stock==='rupture'?'❌ Rupture de stock':'✅ Disponible';
@@ -1097,30 +1132,33 @@ function openProductDetail(key){
   if(p.isNew)badgesHTML+=`<div class="badge badge-new">🆕 Nouveauté</div>`;
   badgesEl.innerHTML=badgesHTML;
   let content=p.strain?p.strain.replace(/\n/g,'<br>'):'';
-  if(p.description)content+='<div class="description">'+(p.description||p.desc||'').replace(/\n/g,'<br>')+'</div>';
+  const descText = p.description || p.desc || '';
+  if(descText) content+='<div class="description">'+descText.replace(/\n/g,'<br>')+'</div>';
   document.getElementById('detail-strain-desc').innerHTML=content||'<p style="color:#888;font-style:italic">Aucune description disponible</p>';
-  const qtyGrid=document.getElementById('qty-grid');qtyGrid.innerHTML='';
+  const qtyGrid=document.getElementById('qty-grid'); qtyGrid.innerHTML='';
   const disabled=p.stock==='rupture';
-  p.quantities.forEach((item,idx)=>{
-    const btn=document.createElement('button');btn.className='qty-btn';
-    btn.innerHTML=`${item.qty}<br><span class="price-new">${item.price}</span>`;btn.dataset.idx=idx;
+  const safeQtys = Array.isArray(p.quantities) ? p.quantities : [];
+  safeQtys.forEach((item,idx)=>{
+    const btn=document.createElement('button'); btn.className='qty-btn';
+    btn.innerHTML=`${item.qty}<br><span class="price-new">${item.price}</span>`; btn.dataset.idx=idx;
     if(disabled){btn.disabled=true;btn.style.opacity='0.4';btn.style.cursor='not-allowed';}
     else btn.onclick=()=>{qtyGrid.querySelectorAll('.qty-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');};
     qtyGrid.appendChild(btn);
   });
   const addBtn=document.getElementById('add-to-cart-btn');
-  addBtn.disabled=disabled;addBtn.style.opacity=disabled?'0.4':'1';addBtn.style.cursor=disabled?'not-allowed':'pointer';
-  buildSwiper(p.videos);hideAllPages();
+  addBtn.disabled=disabled; addBtn.style.opacity=disabled?'0.4':'1'; addBtn.style.cursor=disabled?'not-allowed':'pointer';
+  buildSwiper(p.videos && p.videos.length ? p.videos : [{src:'',poster:''}]);
+  hideAllPages();
   document.getElementById('product-detail').style.display='flex';
-  if(tg)tg.BackButton.show();scrollToTop();
+  if(tg)tg.BackButton.show(); scrollToTop();
 }
 
 document.getElementById('add-to-cart-btn').onclick=()=>{
-  const sel=document.querySelector('.qty-btn.selected');if(!sel)return alert('Sélectionnez une quantité !');
+  const sel=document.querySelector('.qty-btn.selected'); if(!sel)return alert('Sélectionnez une quantité !');
   const title=document.getElementById('detail-title').textContent;
   const key=Object.keys(products).find(k=>products[k].title===title);
   const item=products[key].quantities[parseInt(sel.dataset.idx)];
-  cart.push({title,qty:item.qty,price:item.price});saveCart();alert('✅ Ajouté au panier !');
+  cart.push({title,qty:item.qty,price:item.price}); saveCart(); alert('✅ Ajouté au panier !');
 };
 
 // ── NAV ───────────────────────────────────────────────────────────────────────
@@ -1132,7 +1170,7 @@ document.getElementById('nav-avis').onclick=()=>{hideAllPages();document.getElem
 document.getElementById('nav-profil').onclick=()=>{hideAllPages();document.getElementById('profil-page').style.display='block';document.getElementById('nav-profil').classList.add('active');if(tg)tg.BackButton.hide();renderProfilPage();scrollToTop();};
 document.getElementById('nav-chat').onclick=()=>{hideAllPages();const cp=document.getElementById('chat-page');cp.style.display='flex';cp.style.flexDirection='column';document.getElementById('nav-chat').classList.add('active');if(tg)tg.BackButton.hide();renderChatPage();};
 
-// ── AVIS + PHOTOS ─────────────────────────────────────────────────────────────
+// ── AVIS ─────────────────────────────────────────────────────────────────────
 let selectedStar=0;
 let avisPhotoBase64=null;
 
@@ -1146,18 +1184,15 @@ document.querySelectorAll('.star').forEach(star=>{
   });
 });
 
-// Photo preview
 document.getElementById('avis-photo-input').addEventListener('change',function(){
   const file=this.files[0];
   if(!file)return;
-  // Limit 4MB
   if(file.size>4*1024*1024){alert('Image trop grande (max 4 Mo)');return;}
   const reader=new FileReader();
   reader.onload=e=>{
     avisPhotoBase64=e.target.result;
     const preview=document.getElementById('avis-photo-preview');
-    preview.src=avisPhotoBase64;
-    preview.style.display='block';
+    preview.src=avisPhotoBase64; preview.style.display='block';
     document.getElementById('photo-upload-text').textContent='Photo sélectionnée ✅';
   };
   reader.readAsDataURL(file);
@@ -1188,10 +1223,9 @@ document.getElementById('submit-avis-btn').onclick=async()=>{
   const tgUser=tg?.initDataUnsafe?.user;
   const username=tgUser?.first_name||_auth.currentUser?.displayName||'Anonyme';
   const btn=document.getElementById('submit-avis-btn');
-  btn.disabled=true;btn.textContent='Envoi...';
+  btn.disabled=true; btn.textContent='Envoi...';
   try{
     let photoUrl=null;
-    // Upload photo dans Firebase Storage si présente
     if(avisPhotoBase64){
       try{
         const storageRef=ref(_storage,'avis/'+Date.now()+'.jpg');
@@ -1200,14 +1234,13 @@ document.getElementById('submit-avis-btn').onclick=async()=>{
       }catch(e){console.warn('Photo upload failed',e);}
     }
     await addDoc(collection(_db,'avis'),{
-      user:username,note:selectedStar,comment,
+      user:username, note:selectedStar, comment,
       photoUrl:photoUrl||null,
       date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),
       timestamp:serverTimestamp()
     });
     document.getElementById('avis-text').value='';
-    selectedStar=0;
-    avisPhotoBase64=null;
+    selectedStar=0; avisPhotoBase64=null;
     document.getElementById('avis-photo-preview').style.display='none';
     document.getElementById('avis-photo-preview').src='';
     document.getElementById('photo-upload-text').textContent='Ajouter une photo (optionnel)';
@@ -1216,7 +1249,7 @@ document.getElementById('submit-avis-btn').onclick=async()=>{
     await renderAvis();
     alert('✅ Merci pour votre avis !');
   }catch(e){alert('❌ Erreur lors de l\'envoi.');}
-  btn.disabled=false;btn.textContent='Publier mon avis';
+  btn.disabled=false; btn.textContent='Publier mon avis';
 };
 
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
@@ -1240,12 +1273,12 @@ if(tg)tg.BackButton.onClick(()=>goToHome());
 
 // ── PANIER RENDU ──────────────────────────────────────────────────────────────
 function renderCart(){
-  const container=document.getElementById('cart-items');container.innerHTML='';
+  const container=document.getElementById('cart-items'); container.innerHTML='';
   if(!cart.length){container.innerHTML='<p style="text-align:center;color:#888;padding:40px 0">Votre panier est vide</p>';document.getElementById('cart-total').textContent='';return;}
   let total=0;
   cart.forEach((item,index)=>{
     total+=parseInt(item.price)||0;
-    const div=document.createElement('div');div.className='cart-item';
+    const div=document.createElement('div'); div.className='cart-item';
     div.innerHTML=`<div><div class="cart-item-title">${item.title}</div><div class="cart-item-qty">${item.qty} — ${item.price}</div></div><button class="delete-btn" data-index="${index}">×</button>`;
     container.appendChild(div);
   });
@@ -1256,7 +1289,7 @@ document.getElementById('cart-page').addEventListener('click',e=>{
 });
 document.querySelectorAll('.option-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
     document.getElementById('pickup-questions').style.display=btn.dataset.type==='pickup'?'block':'none';
     document.getElementById('delivery-questions').style.display=btn.dataset.type==='delivery'?'block':'none';
   });
@@ -1268,7 +1301,7 @@ document.getElementById('submit-order-btn').onclick=async()=>{
   const mode=modeBtn.dataset.type==='pickup'?'Venir sur place':'Livraison';
   const tgUser=tg?.initDataUnsafe?.user;
   let message=`🛒 *NOUVELLE COMMANDE* 🛒\n\n👤 ${tgUser?.username?'@'+tgUser.username:tgUser?.first_name||'Utilisateur'}\n📅 ${new Date().toLocaleString('fr-FR')}\n\n🛍️ *Articles :*\n`;
-  let total=0,itemsText='';
+  let total=0, itemsText='';
   cart.forEach(item=>{total+=parseInt(item.price)||0;message+=`• ${item.title} — ${item.qty} (${item.price})\n`;itemsText+=`• ${item.title} ${item.qty} (${item.price})\n`;});
   message+=`\n💰 *Total : ${total}€*\n\n📦 *Mode :* ${mode}\n`;
   const user=_auth.currentUser;
@@ -1285,17 +1318,11 @@ document.addEventListener('DOMContentLoaded',async()=>{
   // Particules splash
   const container=document.getElementById('splash-particles');
   for(let i=0;i<22;i++){
-    const s=document.createElement('div');s.className='spark';
+    const s=document.createElement('div'); s.className='spark';
     s.style.cssText=`left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
     container.appendChild(s);
   }
-  // Musique
-  const tryMusicNow=()=>{if(window._startMusic)window._startMusic();};
-  setTimeout(tryMusicNow,100);
-  document.addEventListener('touchstart',tryMusicNow,{once:true});
-  document.addEventListener('click',tryMusicNow,{once:true});
-
-  // Charger overrides Firestore avant d'afficher
+  // Charger les produits depuis Firestore avant d'afficher
   await loadProductOverrides();
 
   // Splash → home
@@ -1304,7 +1331,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
     splash.classList.add('hidden');
     setTimeout(()=>{
       splash.style.display='none';
-      populateFilters();renderProducts();updateBadge();goToHome();
+      populateFilters(); renderProducts(); updateBadge(); goToHome();
     },600);
   },2500);
 });
