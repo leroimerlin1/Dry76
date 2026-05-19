@@ -723,16 +723,24 @@ function compressImage(base64, maxPx = 1200, quality = 0.82) {
   });
 }
 
-// Upload vers Firebase Storage → retourne URL publique
-async function uploadFileToStorage(file, base64Data) {
+// Upload vers Firebase Storage
+// - Vidéo : uploadBytes direct (File brut) → rapide sur iPhone
+// - Image  : uploadString base64 compressée → plus légère
+async function uploadFileToStorage(file, base64OrNull) {
   const isVideo = file.type.startsWith('video/');
-  const ext     = isVideo ? (file.name.endsWith('.webm') ? 'webm' : 'mp4') : 'jpg';
+  const ext     = isVideo ? (file.name.toLowerCase().endsWith('.webm') ? 'webm' : 'mp4') : 'jpg';
   const path    = `products/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
   const storageRef = ref(_storage, path);
-  // Utilise uploadString avec base64 dataURL
-  await uploadString(storageRef, base64Data, 'data_url');
-  const url = await getDownloadURL(storageRef);
-  return url;
+
+  if (isVideo) {
+    // Upload direct sans conversion base64 — beaucoup plus rapide sur mobile
+    await uploadBytes(storageRef, file, { contentType: file.type });
+  } else {
+    // Image compressée en base64
+    await uploadString(storageRef, base64OrNull, 'data_url');
+  }
+
+  return await getDownloadURL(storageRef);
 }
 
 // État temporaire des médias
@@ -748,15 +756,18 @@ function renderMediaPreviews(items, containerId, onDeleteFnName) {
     const thumb = document.createElement('div');
     thumb.className = 'admin-media-thumb' + (m.uploading ? ' uploading' : '');
 
-    // Source d'affichage : URL Storage en priorité, sinon base64 local
-    const displaySrc = m.url || (m.type === 'image' ? m.poster : m.src) || '';
+    // Pour les vidéos en cours d'upload on n'a pas de src local → juste l'icône
+    const displaySrc = m.url || (m.type === 'image' ? m.poster : '') || '';
 
-    if (m.type === 'video' && displaySrc) {
-      thumb.innerHTML = `<video src="${displaySrc}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
+    if (m.type === 'video' && m.url) {
+      thumb.innerHTML = `<video src="${m.url}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
+    } else if (m.type === 'video' && m.uploading) {
+      // Pas de preview local pour les vidéos (pas de base64) → icône film
+      thumb.innerHTML = `<div style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;font-size:1.8rem">🎬</div>`;
     } else if (displaySrc) {
       thumb.innerHTML = `<img src="${displaySrc}" alt="" style="width:100%;height:100%;object-fit:cover">`;
     } else {
-      thumb.innerHTML = `<div style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🎬</div>`;
+      thumb.innerHTML = `<div style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;font-size:1.5rem">☕</div>`;
     }
 
     if (!m.uploading) {
@@ -767,7 +778,9 @@ function renderMediaPreviews(items, containerId, onDeleteFnName) {
   });
 }
 
-// Gère l'ajout de fichiers : lit en local pour aperçu immédiat, puis upload Storage
+// Gère l'ajout de fichiers
+// - Vidéo : upload direct (File brut), pas de base64
+// - Image  : compression base64 puis upload
 async function handleMediaFiles(files, itemsArray, containerId, onDeleteFnName, progressId, barId) {
   if (!files.length) return;
   const progWrap = document.getElementById(progressId);
@@ -780,50 +793,50 @@ async function handleMediaFiles(files, itemsArray, containerId, onDeleteFnName, 
     const isImage = file.type.startsWith('image/');
     if (!isVideo && !isImage) continue;
 
-    // Limite : 500 Mo vidéo, 20 Mo image
+    // Limites : 500 Mo vidéo, 20 Mo image
     const maxSize = isVideo ? 500 * 1024 * 1024 : 20 * 1024 * 1024;
     if (file.size > maxSize) {
       alert(`${file.name} : trop volumineux (max ${isVideo ? '500 Mo' : '20 Mo'})`);
       continue;
     }
 
-    try {
-      // Lire en base64
-      let base64 = await fileToBase64(file);
-      // Compresser si image
-      if (isImage) base64 = await compressImage(base64, 1200, 0.82);
+    const idx = itemsArray.length;
 
-      // Ajouter avec état "uploading" pour aperçu immédiat
-      const idx = itemsArray.length;
+    try {
+      let base64 = null;
+
+      if (isImage) {
+        // Lire et compresser l'image
+        base64 = await fileToBase64(file);
+        base64 = await compressImage(base64, 1200, 0.82);
+      }
+      // Pour les vidéos : pas de base64, on garde le File brut
+
+      // Aperçu immédiat
       itemsArray.push({
         type:      isVideo ? 'video' : 'image',
-        src:       isVideo ? base64 : '',
+        src:       '',
         poster:    isImage ? base64 : '',
         url:       null,
         uploading: true,
-        name:      file.name
+        name:      file.name,
+        _file:     isVideo ? file : null   // garde le File pour l'upload vidéo
       });
       renderMediaPreviews(itemsArray, containerId, onDeleteFnName);
 
-      // Upload vers Firebase Storage
+      // Upload Firebase Storage
       const url = await uploadFileToStorage(file, base64);
 
-      // Mettre à jour avec l'URL et libérer le base64
       itemsArray[idx].url       = url;
       itemsArray[idx].uploading = false;
-      // Remplacer le base64 lourd par l'URL légère
-      if (isVideo) {
-        itemsArray[idx].src    = url;
-      } else {
-        itemsArray[idx].poster = url;
-      }
+      itemsArray[idx]._file     = null;
+      if (isVideo) itemsArray[idx].src    = url;
+      else         itemsArray[idx].poster = url;
 
     } catch(e) {
       console.error('Upload échoué :', e);
       alert(`❌ Échec upload : ${file.name}\n${e.message}`);
-      // Retirer l'item en erreur
-      const failIdx = itemsArray.findIndex(m => m.name === file.name && m.uploading);
-      if (failIdx !== -1) itemsArray.splice(failIdx, 1);
+      if (itemsArray[idx]) itemsArray.splice(idx, 1);
     }
 
     done++;
