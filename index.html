@@ -58,7 +58,6 @@
     .card.rupture-card { border-color:#ef4444 !important; }
     .card-img { height:100%; width:100%; position:relative; }
     .card-img img { width:100%; height:100%; object-fit:cover; display:block; }
-    /* Placeholder noir quand pas d'image */
     .card-no-img { width:100%; height:100%; background:#000; display:flex; align-items:center; justify-content:center; }
     .card-no-img span { font-size:2.5rem; opacity:0.18; }
     .card-overlay { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,rgba(0,0,0,0.85) 0%,transparent 100%); padding:16px 12px 12px; z-index:2; }
@@ -101,7 +100,6 @@
     .swiper-track { display:flex; transition:transform 0.35s ease; will-change:transform; height:100%; }
     .swiper-track>* { flex-shrink:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; background:#000; }
     .swiper-track video { pointer-events:auto; object-fit:cover; }
-    /* Slide noir placeholder dans le swiper */
     .swiper-black-slide { flex-shrink:0; width:100%; height:100%; background:#000; display:flex; align-items:center; justify-content:center; }
     .swiper-black-slide span { font-size:3rem; opacity:0.12; }
     .swiper-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.65); border:1.5px solid rgba(255,255,255,0.2); color:white; width:46px; height:46px; border-radius:50%; font-size:18px; cursor:pointer; z-index:10; display:flex; align-items:center; justify-content:center; }
@@ -248,9 +246,9 @@
     .chat-locked-btn { background:linear-gradient(135deg,#ffeb3b,#ffd600); color:#111; border:none; padding:14px 32px; border-radius:16px; font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:900; cursor:pointer; }
     .chat-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; opacity:0.35; padding:20px; }
 
-
-
-    /* ADMIN */
+    /* ══════════════════════════════════════════
+       ADMIN — styles améliorés
+    ══════════════════════════════════════════ */
     #admin-page { display:none; padding:16px 16px 110px 16px; }
     #admin-login { background:rgba(15,15,22,0.95); border:1.5px solid rgba(255,235,59,0.3); border-radius:24px; padding:32px 24px; margin-top:40px; text-align:center; }
     #admin-login h2 { font-family:'Orbitron',sans-serif; color:#ffeb3b; font-size:1.3rem; margin-bottom:8px; }
@@ -265,9 +263,9 @@
     #admin-logout-btn { background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.4); color:#ef4444; font-size:0.75rem; font-family:'Orbitron',sans-serif; font-weight:700; padding:6px 14px; border-radius:10px; cursor:pointer; }
     .admin-section-title { font-family:'Orbitron',sans-serif; font-size:0.85rem; font-weight:800; color:#aaa; letter-spacing:1px; text-transform:uppercase; margin:20px 0 12px; }
     .admin-product-card { background:rgba(15,15,22,0.9); border:1.5px solid rgba(255,235,59,0.15); border-radius:18px; padding:16px; margin-bottom:14px; }
-    .admin-product-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+    .admin-product-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
     .admin-product-name { font-family:'Orbitron',sans-serif; font-size:0.95rem; font-weight:800; color:#fff; }
-    .admin-toggle-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .admin-toggle-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
     .admin-toggle-btn { padding:7px 14px; border-radius:999px; font-family:'Orbitron',sans-serif; font-size:0.7rem; font-weight:800; border:1.5px solid; cursor:pointer; transition:all 0.2s; letter-spacing:0.5px; }
     .admin-toggle-btn.stock-dispo-btn { border-color:#4ade80; color:#4ade80; background:transparent; }
     .admin-toggle-btn.stock-dispo-btn.active { background:#4ade80; color:#111; }
@@ -275,6 +273,8 @@
     .admin-toggle-btn.stock-rupture-btn.active { background:#ef4444; color:#fff; }
     .admin-toggle-btn.new-btn { border-color:#ff9800; color:#ff9800; background:transparent; }
     .admin-toggle-btn.new-btn.active { background:linear-gradient(135deg,#ffeb3b,#ff9800); color:#111; border-color:transparent; }
+    .admin-toggle-btn.edit-btn { border-color:#60a5fa; color:#60a5fa; background:transparent; }
+    .admin-toggle-btn.edit-btn:active { background:#60a5fa; color:#111; }
     .admin-form { background:rgba(15,15,22,0.9); border:1.5px solid rgba(255,235,59,0.15); border-radius:18px; padding:20px 16px; margin-bottom:20px; }
     .admin-input { width:100%; padding:12px 14px; background:rgba(255,255,255,0.05); border:1.5px solid rgba(255,255,255,0.1); border-radius:12px; color:#fff; font-size:0.95rem; font-family:'M PLUS Rounded 1c',sans-serif; outline:none; margin-bottom:12px; }
     .admin-input:focus { border-color:rgba(255,235,59,0.4); }
@@ -286,11 +286,63 @@
     .admin-qty-row { display:flex; gap:8px; margin-bottom:8px; }
     .admin-qty-row input { flex:1; }
     .admin-add-qty-btn { background:rgba(255,235,59,0.1); border:1px solid rgba(255,235,59,0.3); color:#ffeb3b; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.9rem; width:100%; margin-top:4px; }
+
+    /* Upload fichiers admin */
+    .admin-upload-label {
+      display:flex; align-items:center; gap:10px; padding:12px 14px;
+      background:rgba(255,235,59,0.06); border:1.5px dashed rgba(255,235,59,0.3);
+      border-radius:12px; cursor:pointer; color:#ffeb3b; font-size:0.85rem; font-weight:700;
+      margin-bottom:10px; transition:background 0.2s;
+    }
+    .admin-upload-label:active { background:rgba(255,235,59,0.12); }
+    .admin-upload-label input { display:none; }
+    .admin-media-previews { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+    .admin-media-thumb {
+      position:relative; width:72px; height:72px; border-radius:10px; overflow:hidden;
+      border:1.5px solid rgba(255,235,59,0.3); background:#000; flex-shrink:0;
+    }
+    .admin-media-thumb img,
+    .admin-media-thumb video { width:100%; height:100%; object-fit:cover; }
+    .admin-media-thumb .thumb-del {
+      position:absolute; top:2px; right:2px; background:rgba(239,68,68,0.85);
+      border:none; color:#fff; border-radius:50%; width:20px; height:20px;
+      font-size:0.7rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-weight:900; line-height:1;
+    }
+    .admin-media-thumb .thumb-type {
+      position:absolute; bottom:2px; left:3px; background:rgba(0,0,0,0.7);
+      color:#ffeb3b; font-size:0.55rem; font-weight:800; padding:1px 5px;
+      border-radius:6px; letter-spacing:0.5px;
+    }
+    .admin-upload-progress {
+      height:4px; background:rgba(255,235,59,0.12); border-radius:999px;
+      overflow:hidden; margin-bottom:10px; display:none;
+    }
+    .admin-upload-progress-bar {
+      height:100%; width:0%; background:linear-gradient(90deg,#ffeb3b,#fff176);
+      border-radius:999px; transition:width 0.3s ease;
+    }
+
+    /* Modal édition produit */
+    #edit-modal {
+      display:none; position:fixed; inset:0; z-index:8500;
+      background:rgba(0,0,0,0.88); backdrop-filter:blur(6px);
+      align-items:flex-end; justify-content:center;
+    }
+    #edit-modal.open { display:flex; }
+    .edit-sheet {
+      width:100%; background:#0a0a14; border-radius:28px 28px 0 0;
+      border-top:1.5px solid rgba(255,235,59,0.25); padding:20px 18px 40px;
+      max-height:90dvh; overflow-y:auto; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1);
+    }
+    .edit-sheet-handle { width:40px; height:4px; background:rgba(255,255,255,0.15); border-radius:999px; margin:0 auto 18px; }
+    .edit-sheet-title { font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:900; color:#ffeb3b; margin-bottom:18px; text-align:center; }
+    .edit-section-label { font-size:0.75rem; font-weight:800; color:#555; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; margin-top:14px; }
+    .edit-save-btn { width:100%; padding:15px; background:#ffeb3b; color:#111; border:none; border-radius:14px; font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:900; cursor:pointer; margin-top:16px; }
+    .edit-cancel-btn { width:100%; padding:13px; background:transparent; color:#555; border:1.5px solid #333; border-radius:14px; font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; margin-top:8px; }
   </style>
 </head>
 <body>
-
-
 
 <!-- LIGHTBOX PHOTO -->
 <div id="photo-lightbox">
@@ -505,15 +557,26 @@
           <h2>🛠️ Panel Admin</h2>
           <button id="admin-logout-btn">Déconnexion</button>
         </div>
-        <div class="admin-section-title">📦 Stock & Badges</div>
+        <div class="admin-section-title">📦 Stock, Badges & Édition</div>
         <div id="admin-products-list"></div>
         <div class="admin-section-title">➕ Ajouter un produit</div>
         <div class="admin-form">
           <input class="admin-input" id="new-title" placeholder="Nom du produit (ex: OG Kush 🍃)">
           <input class="admin-input" id="new-farm" placeholder="Farm (ex: R8🏎️)">
           <input class="admin-input" id="new-category" placeholder="Catégorie">
-          <input class="admin-input" id="new-poster" placeholder="Image principale (nom fichier ou URL)">
-          <input class="admin-input" id="new-video" placeholder="Vidéo (optionnel)">
+
+          <!-- ── UPLOAD LOCAL IMAGES/VIDÉOS ── -->
+          <div class="edit-section-label" style="margin-top:4px">📸 Images & Vidéos</div>
+          <label class="admin-upload-label">
+            <span style="font-size:1.2rem">📁</span>
+            <span>Ajouter image(s) / vidéo(s) depuis l'appareil</span>
+            <input type="file" id="new-media-input" multiple accept="image/*,video/mp4,video/webm">
+          </label>
+          <div class="admin-upload-progress" id="new-upload-progress">
+            <div class="admin-upload-progress-bar" id="new-upload-bar"></div>
+          </div>
+          <div class="admin-media-previews" id="new-media-previews"></div>
+
           <textarea class="admin-input" id="new-desc" placeholder="Description du produit..." style="min-height:80px;resize:vertical"></textarea>
           <div style="color:#aaa;font-size:0.8rem;margin-bottom:8px;font-weight:600">QUANTITÉS & PRIX</div>
           <div id="new-qty-list">
@@ -566,6 +629,48 @@
   </div>
 </div>
 
+<!-- ══ MODAL ÉDITION PRODUIT ══ -->
+<div id="edit-modal">
+  <div class="edit-sheet">
+    <div class="edit-sheet-handle"></div>
+    <div class="edit-sheet-title">✏️ Modifier le produit</div>
+
+    <input type="hidden" id="edit-key">
+
+    <div class="edit-section-label">Nom</div>
+    <input class="admin-input" id="edit-title" placeholder="Nom du produit">
+
+    <div class="edit-section-label">Farm</div>
+    <input class="admin-input" id="edit-farm" placeholder="Farm">
+
+    <div class="edit-section-label">Catégorie</div>
+    <input class="admin-input" id="edit-category" placeholder="Catégorie">
+
+    <div class="edit-section-label">Description / Strain</div>
+    <textarea class="admin-input" id="edit-desc" placeholder="Description..." style="min-height:80px;resize:vertical"></textarea>
+
+    <!-- Upload médias édition -->
+    <div class="edit-section-label">📸 Ajouter images/vidéos</div>
+    <label class="admin-upload-label">
+      <span style="font-size:1.2rem">📁</span>
+      <span>Sélectionner depuis l'appareil</span>
+      <input type="file" id="edit-media-input" multiple accept="image/*,video/mp4,video/webm">
+    </label>
+    <div class="admin-upload-progress" id="edit-upload-progress">
+      <div class="admin-upload-progress-bar" id="edit-upload-bar"></div>
+    </div>
+    <div class="edit-section-label">Médias actuels (appuyer × pour supprimer)</div>
+    <div class="admin-media-previews" id="edit-media-previews"></div>
+
+    <div class="edit-section-label">Quantités & Prix</div>
+    <div id="edit-qty-list"></div>
+    <button class="admin-add-qty-btn" id="edit-add-qty-btn" style="margin-bottom:8px">+ Ajouter une quantité</button>
+
+    <button class="edit-save-btn" id="edit-save-btn">💾 Enregistrer</button>
+    <button class="edit-cancel-btn" onclick="closeEditModal()">Annuler</button>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, where, onSnapshot, doc, setDoc, deleteDoc, getDoc, updateDoc, Timestamp }
@@ -597,10 +702,9 @@ window._firestoreExtra = { getDocs, collection, query, where, deleteDoc, doc, Ti
 
 let chatUnsub = null;
 
-// ── MOT DE PASSE ADMIN ───────────────────────────────────────────────────────
 const ADMIN_PASSWORD = "Bart76Admin!";
 
-// ── PRODUITS ─────────────────────────────────────────────────────────────────
+// ── PRODUITS ──────────────────────────────────────────────────────────────────
 let products = {
   blanche: {
     key:'blanche', title:'Blanche❄️', category:'Blanche❄️', farm:'R8🏎️',
@@ -626,13 +730,148 @@ let products = {
   }
 };
 
-// ── HELPER : thumb sécurisé (noir si vide) ────────────────────────────────────
+// ── GESTION MÉDIAS EN BASE64 (local → Firestore) ─────────────────────────────
+// Convertit un File en base64
+function fileToBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload  = () => res(r.result);
+    r.onerror = () => rej(new Error('Lecture échouée'));
+    r.readAsDataURL(file);
+  });
+}
+
+// Compresse une image vers max 800px, qualité 0.75
+function compressImage(base64, maxPx = 800, quality = 0.75) {
+  return new Promise(res => {
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxPx / Math.max(img.width, img.height));
+      const w = Math.round(img.width  * scale);
+      const h = Math.round(img.height * scale);
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      res(c.toDataURL('image/jpeg', quality));
+    };
+    img.src = base64;
+  });
+}
+
+// État temporaire des médias (avant sauvegarde)
+// Structure : { src: base64|'', poster: base64|'', type: 'image'|'video', name: string }
+let newMediaItems  = [];  // pour le formulaire "créer"
+let editMediaItems = [];  // pour le modal "éditer"
+
+// Affiche les thumbnails dans un conteneur
+function renderMediaPreviews(items, containerId, onDelete) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  if (!items.length) return;
+  items.forEach((m, i) => {
+    const thumb = document.createElement('div');
+    thumb.className = 'admin-media-thumb';
+    const src = m.type === 'image' ? m.poster : m.poster || m.src;
+    if (src && src.startsWith('data:video')) {
+      thumb.innerHTML = `<video src="${m.src}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
+    } else if (src) {
+      thumb.innerHTML = `<img src="${src}" alt="">`;
+    } else {
+      thumb.innerHTML = `<div style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🎬</div>`;
+    }
+    thumb.innerHTML += `<button class="thumb-del" onclick="(${onDelete.toString()})(${i})">×</button>
+      <div class="thumb-type">${m.type === 'video' ? '🎬' : '🖼️'}</div>`;
+    el.appendChild(thumb);
+  });
+}
+
+// Gère l'ajout de fichiers (input change) → base64
+async function handleMediaFiles(files, itemsArray, containerId, onDelete, progressId, barId) {
+  if (!files.length) return;
+  const progWrap = document.getElementById(progressId);
+  const progBar  = document.getElementById(barId);
+  progWrap.style.display = 'block';
+  let done = 0;
+  for (const file of Array.from(files)) {
+    const isVideo = file.type.startsWith('video/');
+    const isImage = file.type.startsWith('image/');
+    if (!isVideo && !isImage) continue;
+    if (file.size > 50 * 1024 * 1024) { alert(`${file.name} : trop volumineux (max 50 Mo)`); continue; }
+    let raw = await fileToBase64(file);
+    if (isImage) raw = await compressImage(raw, 900, 0.78);
+    itemsArray.push({
+      type:   isVideo ? 'video' : 'image',
+      src:    isVideo ? raw : '',
+      poster: isImage ? raw : '',
+      name:   file.name
+    });
+    done++;
+    progBar.style.width = `${(done / files.length) * 100}%`;
+  }
+  setTimeout(() => { progWrap.style.display = 'none'; progBar.style.width = '0%'; }, 600);
+  renderMediaPreviews(itemsArray, containerId, onDelete);
+}
+
+// Supprime un média (formulaire nouveau produit)
+window._deleteNewMedia = (i) => {
+  newMediaItems.splice(i, 1);
+  renderMediaPreviews(newMediaItems, 'new-media-previews', (idx) => `_deleteNewMedia(${idx})`);
+};
+// Supprime un média (modal édition)
+window._deleteEditMedia = (i) => {
+  editMediaItems.splice(i, 1);
+  renderMediaPreviews(editMediaItems, 'edit-media-previews', (idx) => `_deleteEditMedia(${idx})`);
+};
+
+// Convertit les mediaItems en tableau videos compatible avec le reste du code
+function mediaItemsToVideos(items) {
+  if (!items.length) return [{src:'', poster:''}];
+  return items.map(m => ({
+    src:    m.type === 'video' ? m.src    : '',
+    poster: m.type === 'image' ? m.poster : ''
+  }));
+}
+
+// Reconstruit mediaItems depuis le tableau videos existant (pour pré-remplir le modal édition)
+function videosToMediaItems(videos) {
+  if (!videos || !videos.length) return [];
+  const result = [];
+  videos.forEach(v => {
+    if (v.poster && v.poster.trim()) {
+      result.push({ type:'image', src:'', poster: v.poster.trim(), name:'image' });
+    }
+    if (v.src && v.src.trim()) {
+      result.push({ type:'video', src: v.src.trim(), poster: '', name:'video' });
+    }
+  });
+  return result;
+}
+
+// Input listener — nouveau produit
+document.getElementById('new-media-input').addEventListener('change', function() {
+  handleMediaFiles(
+    this.files, newMediaItems,
+    'new-media-previews', (i) => `_deleteNewMedia(${i})`,
+    'new-upload-progress', 'new-upload-bar'
+  );
+  this.value = '';
+});
+
+// Input listener — modal édition
+document.getElementById('edit-media-input').addEventListener('change', function() {
+  handleMediaFiles(
+    this.files, editMediaItems,
+    'edit-media-previews', (i) => `_deleteEditMedia(${i})`,
+    'edit-upload-progress', 'edit-upload-bar'
+  );
+  this.value = '';
+});
+
+// ── HELPER : thumb sécurisé ───────────────────────────────────────────────────
 function getThumb(p) {
   if (!p.videos || !p.videos.length) return null;
   const first = p.videos[0];
-  return (first.poster && first.poster.trim()) ? first.poster.trim()
-       : (first.src   && first.src.trim())    ? null   // vidéo sans poster → noir
-       : null;
+  return (first.poster && first.poster.trim()) ? first.poster.trim() : null;
 }
 
 // ── CHARGER OVERRIDES FIRESTORE ───────────────────────────────────────────────
@@ -642,11 +881,19 @@ async function loadProductOverrides() {
     snap.forEach(d => {
       const data = d.data();
       if (products[d.id]) {
-        // Produit de base : mise à jour stock / isNew uniquement
         if (data.stock  !== undefined) products[d.id].stock  = data.stock;
         if (data.isNew  !== undefined) products[d.id].isNew  = data.isNew;
+        // Mise à jour complète si le produit de base a été édité via admin
+        if (data._edited) {
+          if (data.title)       products[d.id].title       = data.title;
+          if (data.farm)        products[d.id].farm        = data.farm;
+          if (data.category)    products[d.id].category    = data.category;
+          if (data.description) products[d.id].description = data.description;
+          if (data.desc)        products[d.id].desc        = data.desc;
+          if (data.quantities)  products[d.id].quantities  = data.quantities;
+          if (data.videos)      products[d.id].videos      = data.videos;
+        }
       } else {
-        // Produit créé via admin : reconstruction complète et sécurisée
         let safeVideos = [];
         if (Array.isArray(data.videos) && data.videos.length > 0) {
           safeVideos = data.videos.map(v => ({
@@ -654,7 +901,6 @@ async function loadProductOverrides() {
             poster: (v.poster && v.poster.trim()) ? v.poster.trim() : ''
           }));
         } else {
-          // Reconstruire depuis les champs plats si videos absent
           safeVideos = [{
             src:    (data.video  && data.video.trim())  ? data.video.trim()  : '',
             poster: (data.poster && data.poster.trim()) ? data.poster.trim() : ''
@@ -680,9 +926,7 @@ async function loadProductOverrides() {
   }
 }
 
-
-
-// ── ADMIN SECRET (5 clics sur le logo) ───────────────────────────────────────
+// ── ADMIN SECRET (5 clics) ────────────────────────────────────────────────────
 let logoClickCount=0, logoClickTimer=null;
 let adminAuthenticated = false;
 
@@ -729,18 +973,28 @@ document.getElementById('admin-logout-btn').addEventListener('click',()=>{
 
 function renderAdminPanel(){
   const list = document.getElementById('admin-products-list');
-  list.innerHTML = Object.values(products).map(p=>`
+  list.innerHTML = Object.values(products).map(p=>{
+    const thumb = getThumb(p);
+    const thumbHTML = thumb
+      ? `<img src="${thumb}" style="width:44px;height:44px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,235,59,0.3);flex-shrink:0" onerror="this.style.display='none'">`
+      : `<div style="width:44px;height:44px;background:#111;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">☕</div>`;
+    return `
     <div class="admin-product-card" data-key="${p.key}">
       <div class="admin-product-top">
-        <div class="admin-product-name">${p.title}</div>
-        <button class="admin-delete-btn" onclick="adminDeleteProduct('${p.key}')">🗑 Supprimer</button>
+        <div style="display:flex;align-items:center;gap:10px">
+          ${thumbHTML}
+          <div class="admin-product-name">${p.title}</div>
+        </div>
+        <button class="admin-delete-btn" onclick="adminDeleteProduct('${p.key}')">🗑</button>
       </div>
       <div class="admin-toggle-row">
         <button class="admin-toggle-btn stock-dispo-btn ${p.stock==='dispo'?'active':''}" onclick="adminSetStock('${p.key}','dispo')">✅ DISPO</button>
         <button class="admin-toggle-btn stock-rupture-btn ${p.stock==='rupture'?'active':''}" onclick="adminSetStock('${p.key}','rupture')">❌ RUPTURE</button>
         <button class="admin-toggle-btn new-btn ${p.isNew?'active':''}" onclick="adminToggleNew('${p.key}')">${p.isNew?'🆕 NEW ✓':'🆕 NEW'}</button>
+        <button class="admin-toggle-btn edit-btn" onclick="openEditModal('${p.key}')">✏️ Modifier</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 window.adminSetStock = async (key, stock) => {
@@ -762,6 +1016,102 @@ window.adminDeleteProduct = async (key) => {
   renderAdminPanel(); renderProducts();
 };
 
+// ── MODAL ÉDITION ─────────────────────────────────────────────────────────────
+window.openEditModal = (key) => {
+  const p = products[key];
+  document.getElementById('edit-key').value        = key;
+  document.getElementById('edit-title').value      = p.title       || '';
+  document.getElementById('edit-farm').value       = p.farm        || '';
+  document.getElementById('edit-category').value   = p.category    || '';
+  document.getElementById('edit-desc').value       = p.description || p.desc || '';
+
+  // Charger les médias existants
+  editMediaItems = videosToMediaItems(p.videos || []);
+  renderMediaPreviews(editMediaItems, 'edit-media-previews', (i) => `_deleteEditMedia(${i})`);
+
+  // Charger les quantités
+  const qtyList = document.getElementById('edit-qty-list');
+  qtyList.innerHTML = '';
+  const qtys = Array.isArray(p.quantities) ? p.quantities : [];
+  qtys.forEach(q => {
+    const row = document.createElement('div'); row.className = 'admin-qty-row';
+    row.innerHTML = `<input class="admin-input" style="margin:0" placeholder="Qté" value="${q.qty||''}">
+                     <input class="admin-input" style="margin:0" placeholder="Prix" value="${q.price||''}">`;
+    qtyList.appendChild(row);
+  });
+  if (!qtys.length) {
+    const row = document.createElement('div'); row.className = 'admin-qty-row';
+    row.innerHTML = `<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)">
+                     <input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">`;
+    qtyList.appendChild(row);
+  }
+
+  document.getElementById('edit-modal').classList.add('open');
+};
+
+document.getElementById('edit-add-qty-btn').addEventListener('click', () => {
+  const row = document.createElement('div'); row.className = 'admin-qty-row';
+  row.innerHTML = `<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)">
+                   <input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">`;
+  document.getElementById('edit-qty-list').appendChild(row);
+});
+
+window.closeEditModal = () => {
+  document.getElementById('edit-modal').classList.remove('open');
+  editMediaItems = [];
+};
+document.getElementById('edit-modal').addEventListener('click', e => {
+  if(e.target === document.getElementById('edit-modal')) closeEditModal();
+});
+
+document.getElementById('edit-save-btn').addEventListener('click', async () => {
+  const key      = document.getElementById('edit-key').value;
+  const title    = document.getElementById('edit-title').value.trim();
+  const farm     = document.getElementById('edit-farm').value.trim();
+  const category = document.getElementById('edit-category').value.trim() || title;
+  const desc     = document.getElementById('edit-desc').value.trim();
+  if (!title || !farm) { alert('Nom et farm obligatoires !'); return; }
+
+  // Quantités
+  const rows = document.getElementById('edit-qty-list').querySelectorAll('.admin-qty-row');
+  const quantities = [];
+  rows.forEach(row => {
+    const ins = row.querySelectorAll('input');
+    if (ins[0].value.trim() && ins[1].value.trim())
+      quantities.push({ qty: ins[0].value.trim(), price: ins[1].value.trim() });
+  });
+
+  // Médias → videos
+  const videos = mediaItemsToVideos(editMediaItems);
+
+  // Sauvegarder localement
+  products[key] = {
+    ...products[key],
+    title, farm, category,
+    description: desc, desc,
+    videos, quantities,
+    _edited: true
+  };
+
+  // Sauvegarder dans Firestore
+  try {
+    await setDoc(doc(_db, 'products_meta', key), {
+      title, farm, category,
+      description: desc, desc,
+      videos, quantities,
+      stock:   products[key].stock,
+      isNew:   products[key].isNew,
+      _edited: true
+    }, { merge: true });
+  } catch(e) { console.error(e); }
+
+  closeEditModal();
+  renderAdminPanel();
+  renderProducts();
+  alert('✅ Produit mis à jour !');
+});
+
+// ── NOUVEAU PRODUIT (avec upload local) ───────────────────────────────────────
 document.getElementById('add-qty-row-btn').addEventListener('click',()=>{
   const row=document.createElement('div'); row.className='admin-qty-row';
   row.innerHTML='<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">';
@@ -772,8 +1122,6 @@ document.getElementById('save-new-product-btn').addEventListener('click', async 
   const title    = document.getElementById('new-title').value.trim();
   const farm     = document.getElementById('new-farm').value.trim();
   const category = document.getElementById('new-category').value.trim() || title;
-  const poster   = document.getElementById('new-poster').value.trim();
-  const video    = document.getElementById('new-video').value.trim();
   const desc     = document.getElementById('new-desc').value.trim();
   if(!title||!farm){alert('Nom et farm obligatoires !'); return;}
   const rows = document.getElementById('new-qty-list').querySelectorAll('.admin-qty-row');
@@ -783,27 +1131,31 @@ document.getElementById('save-new-product-btn').addEventListener('click', async 
     if(ins[0].value.trim()&&ins[1].value.trim()) quantities.push({qty:ins[0].value.trim(), price:ins[1].value.trim()});
   });
   if(!quantities.length){alert('Ajoutez au moins une quantité !'); return;}
+
+  const videos = mediaItemsToVideos(newMediaItems);
   const key = title.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,20)+'_'+Date.now();
-  // On stocke videos comme tableau pour une reconstruction correcte au rechargement
-  const safeVideos = [{
-    src:    video  || '',
-    poster: poster || ''
-  }];
+
   const newProduct = {
     key, title, farm, category,
     description: desc, desc,
     strain: '',
-    videos: safeVideos,
+    videos,
     quantities,
     stock: 'dispo',
     isNew: false
   };
   products[key] = newProduct;
+
   try {
     await setDoc(doc(_db,'products_meta',key), newProduct);
   } catch(e){ console.error(e); }
-  ['new-title','new-farm','new-category','new-poster','new-video','new-desc'].forEach(id=>document.getElementById(id).value='');
+
+  // Reset formulaire
+  ['new-title','new-farm','new-category','new-desc'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('new-qty-list').innerHTML='<div class="admin-qty-row"><input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)"></div>';
+  newMediaItems = [];
+  renderMediaPreviews(newMediaItems, 'new-media-previews', (i) => `_deleteNewMedia(${i})`);
+
   alert('✅ Produit créé !');
   renderAdminPanel(); renderProducts();
 });
@@ -1008,21 +1360,16 @@ function renderProducts(list){
   ce.querySelector('.products-count-number').textContent=n;
   ce.querySelector('.products-count-label').textContent=n>1?'Produits':'Produit';
   if(!n){grid.innerHTML='<div class="no-results">Aucun produit 🔍</div>';return;}
-
   list.forEach(p=>{
     const card=document.createElement('div');
     card.className='card'+(p.stock==='rupture'?' rupture-card':'');
-
-    // Thumbnail sécurisé : null = fond noir, sinon url de l'image
     const thumb = getThumb(p);
     const imgHTML = thumb
       ? `<img src="${thumb}" alt="${p.title}" onerror="this.parentNode.innerHTML='<div class=\\'card-no-img\\'><span>☕</span></div>'">`
       : `<div class="card-no-img"><span>☕</span></div>`;
-
     const stockBadge=`<div class="stock-badge ${p.stock==='rupture'?'rupture':'dispo'}">${p.stock==='rupture'?'❌ Rupture':'✅ Dispo'}</div>`;
     const newBadge=p.isNew?`<div class="new-badge">🆕 NEW</div>`:'';
     const ruptureOverlay=p.stock==='rupture'?`<div class="rupture-overlay"><span>Rupture de stock</span></div>`:'';
-
     card.innerHTML=`<div class="card-img">
       ${imgHTML}
       ${stockBadge}${newBadge}${ruptureOverlay}
@@ -1057,13 +1404,10 @@ let swiperIndex=0, swiperItems=[];
 function buildSwiper(videos){
   swiperIndex=0; swiperItems=videos;
   const track=document.getElementById('swiper-track'); track.innerHTML='';
-
   videos.forEach(vid=>{
     const hasSrc    = vid.src    && vid.src.trim();
     const hasPoster = vid.poster && vid.poster.trim();
-
     if(hasSrc){
-      // Slide vidéo
       const v=document.createElement('video');
       v.autoplay=false; v.loop=true; v.muted=true; v.playsinline=true; v.controls=true;
       v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
@@ -1071,37 +1415,23 @@ function buildSwiper(videos){
       v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;
       track.appendChild(v);
     } else if(hasPoster){
-      // Slide image
       const img=document.createElement('img');
-      img.src=vid.poster.trim();
-      img.alt='';
+      img.src=vid.poster.trim(); img.alt='';
       img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';
-      // Si l'image échoue → remplacer par fond noir
       img.onerror=function(){
-        const black=document.createElement('div');
-        black.className='swiper-black-slide';
-        black.innerHTML='<span>☕</span>';
+        const black=document.createElement('div'); black.className='swiper-black-slide'; black.innerHTML='<span>☕</span>';
         track.replaceChild(black, img);
       };
       track.appendChild(img);
     } else {
-      // Aucun média → fond noir
-      const black=document.createElement('div');
-      black.className='swiper-black-slide';
-      black.innerHTML='<span>☕</span>';
+      const black=document.createElement('div'); black.className='swiper-black-slide'; black.innerHTML='<span>☕</span>';
       track.appendChild(black);
     }
   });
-
-  // Si aucun slide ajouté, mettre au moins un fond noir
   if(!track.children.length){
-    const black=document.createElement('div');
-    black.className='swiper-black-slide';
-    black.innerHTML='<span>☕</span>';
-    track.appendChild(black);
-    swiperItems=[{src:'',poster:''}];
+    const black=document.createElement('div'); black.className='swiper-black-slide'; black.innerHTML='<span>☕</span>';
+    track.appendChild(black); swiperItems=[{src:'',poster:''}];
   }
-
   updateSwiper();
 }
 
@@ -1185,8 +1515,7 @@ document.querySelectorAll('.star').forEach(star=>{
 });
 
 document.getElementById('avis-photo-input').addEventListener('change',function(){
-  const file=this.files[0];
-  if(!file)return;
+  const file=this.files[0]; if(!file)return;
   if(file.size>4*1024*1024){alert('Image trop grande (max 4 Mo)');return;}
   const reader=new FileReader();
   reader.onload=e=>{
@@ -1315,17 +1644,13 @@ document.getElementById('submit-order-btn').onclick=async()=>{
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',async()=>{
-  // Particules splash
   const container=document.getElementById('splash-particles');
   for(let i=0;i<22;i++){
     const s=document.createElement('div'); s.className='spark';
     s.style.cssText=`left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
     container.appendChild(s);
   }
-  // Charger les produits depuis Firestore avant d'afficher
   await loadProductOverrides();
-
-  // Splash → home
   const splash=document.getElementById('splash-screen');
   setTimeout(()=>{
     splash.classList.add('hidden');
