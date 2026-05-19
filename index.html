@@ -246,9 +246,7 @@
     .chat-locked-btn { background:linear-gradient(135deg,#ffeb3b,#ffd600); color:#111; border:none; padding:14px 32px; border-radius:16px; font-family:'Orbitron',sans-serif; font-size:0.88rem; font-weight:900; cursor:pointer; }
     .chat-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; opacity:0.35; padding:20px; }
 
-    /* ══════════════════════════════════════════
-       ADMIN — styles améliorés
-    ══════════════════════════════════════════ */
+    /* ADMIN */
     #admin-page { display:none; padding:16px 16px 110px 16px; }
     #admin-login { background:rgba(15,15,22,0.95); border:1.5px solid rgba(255,235,59,0.3); border-radius:24px; padding:32px 24px; margin-top:40px; text-align:center; }
     #admin-login h2 { font-family:'Orbitron',sans-serif; color:#ffeb3b; font-size:1.3rem; margin-bottom:8px; }
@@ -287,54 +285,27 @@
     .admin-qty-row input { flex:1; }
     .admin-add-qty-btn { background:rgba(255,235,59,0.1); border:1px solid rgba(255,235,59,0.3); color:#ffeb3b; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.9rem; width:100%; margin-top:4px; }
 
-    /* Upload fichiers admin */
-    .admin-upload-label {
-      display:flex; align-items:center; gap:10px; padding:12px 14px;
-      background:rgba(255,235,59,0.06); border:1.5px dashed rgba(255,235,59,0.3);
-      border-radius:12px; cursor:pointer; color:#ffeb3b; font-size:0.85rem; font-weight:700;
-      margin-bottom:10px; transition:background 0.2s;
-    }
+    /* Upload médias admin */
+    .admin-upload-label { display:flex; align-items:center; gap:10px; padding:12px 14px; background:rgba(255,235,59,0.06); border:1.5px dashed rgba(255,235,59,0.3); border-radius:12px; cursor:pointer; color:#ffeb3b; font-size:0.85rem; font-weight:700; margin-bottom:10px; transition:background 0.2s; }
     .admin-upload-label:active { background:rgba(255,235,59,0.12); }
     .admin-upload-label input { display:none; }
     .admin-media-previews { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
-    .admin-media-thumb {
-      position:relative; width:72px; height:72px; border-radius:10px; overflow:hidden;
-      border:1.5px solid rgba(255,235,59,0.3); background:#000; flex-shrink:0;
-    }
-    .admin-media-thumb img,
-    .admin-media-thumb video { width:100%; height:100%; object-fit:cover; }
-    .admin-media-thumb .thumb-del {
-      position:absolute; top:2px; right:2px; background:rgba(239,68,68,0.85);
-      border:none; color:#fff; border-radius:50%; width:20px; height:20px;
-      font-size:0.7rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
-      font-weight:900; line-height:1;
-    }
-    .admin-media-thumb .thumb-type {
-      position:absolute; bottom:2px; left:3px; background:rgba(0,0,0,0.7);
-      color:#ffeb3b; font-size:0.55rem; font-weight:800; padding:1px 5px;
-      border-radius:6px; letter-spacing:0.5px;
-    }
-    .admin-upload-progress {
-      height:4px; background:rgba(255,235,59,0.12); border-radius:999px;
-      overflow:hidden; margin-bottom:10px; display:none;
-    }
-    .admin-upload-progress-bar {
-      height:100%; width:0%; background:linear-gradient(90deg,#ffeb3b,#fff176);
-      border-radius:999px; transition:width 0.3s ease;
-    }
+    .admin-media-thumb { position:relative; width:72px; height:72px; border-radius:10px; overflow:hidden; border:1.5px solid rgba(255,235,59,0.3); background:#000; flex-shrink:0; }
+    .admin-media-thumb img, .admin-media-thumb video { width:100%; height:100%; object-fit:cover; }
+    .admin-media-thumb .thumb-del { position:absolute; top:2px; right:2px; background:rgba(239,68,68,0.85); border:none; color:#fff; border-radius:50%; width:20px; height:20px; font-size:0.7rem; cursor:pointer; display:flex; align-items:center; justify-content:center; font-weight:900; line-height:1; }
+    .admin-media-thumb .thumb-type { position:absolute; bottom:2px; left:3px; background:rgba(0,0,0,0.7); color:#ffeb3b; font-size:0.55rem; font-weight:800; padding:1px 5px; border-radius:6px; letter-spacing:0.5px; }
+    /* Indicateur upload en cours */
+    .admin-media-thumb.uploading { border-color:rgba(255,235,59,0.7); }
+    .admin-media-thumb.uploading::after { content:'⏳'; position:absolute; inset:0; background:rgba(0,0,0,0.65); display:flex; align-items:center; justify-content:center; font-size:1.4rem; border-radius:8px; }
+    .admin-upload-progress { height:4px; background:rgba(255,235,59,0.12); border-radius:999px; overflow:hidden; margin-bottom:10px; display:none; }
+    .admin-upload-progress-bar { height:100%; width:0%; background:linear-gradient(90deg,#ffeb3b,#fff176); border-radius:999px; transition:width 0.3s ease; }
+    /* Info storage */
+    .storage-info { background:rgba(74,222,128,0.07); border:1px solid rgba(74,222,128,0.25); border-radius:10px; padding:10px 14px; margin-bottom:12px; font-size:0.78rem; color:#4ade80; font-weight:600; display:flex; align-items:center; gap:8px; }
 
     /* Modal édition produit */
-    #edit-modal {
-      display:none; position:fixed; inset:0; z-index:8500;
-      background:rgba(0,0,0,0.88); backdrop-filter:blur(6px);
-      align-items:flex-end; justify-content:center;
-    }
+    #edit-modal { display:none; position:fixed; inset:0; z-index:8500; background:rgba(0,0,0,0.88); backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
     #edit-modal.open { display:flex; }
-    .edit-sheet {
-      width:100%; background:#0a0a14; border-radius:28px 28px 0 0;
-      border-top:1.5px solid rgba(255,235,59,0.25); padding:20px 18px 40px;
-      max-height:90dvh; overflow-y:auto; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1);
-    }
+    .edit-sheet { width:100%; background:#0a0a14; border-radius:28px 28px 0 0; border-top:1.5px solid rgba(255,235,59,0.25); padding:20px 18px 40px; max-height:90dvh; overflow-y:auto; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1); }
     .edit-sheet-handle { width:40px; height:4px; background:rgba(255,255,255,0.15); border-radius:999px; margin:0 auto 18px; }
     .edit-sheet-title { font-family:'Orbitron',sans-serif; font-size:1rem; font-weight:900; color:#ffeb3b; margin-bottom:18px; text-align:center; }
     .edit-section-label { font-size:0.75rem; font-weight:800; color:#555; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; margin-top:14px; }
@@ -565,8 +536,8 @@
           <input class="admin-input" id="new-farm" placeholder="Farm (ex: R8🏎️)">
           <input class="admin-input" id="new-category" placeholder="Catégorie">
 
-          <!-- ── UPLOAD LOCAL IMAGES/VIDÉOS ── -->
           <div class="edit-section-label" style="margin-top:4px">📸 Images & Vidéos</div>
+          <div class="storage-info">☁️ Fichiers uploadés sur Firebase Storage — pas de limite de taille Firestore</div>
           <label class="admin-upload-label">
             <span style="font-size:1.2rem">📁</span>
             <span>Ajouter image(s) / vidéo(s) depuis l'appareil</span>
@@ -629,28 +600,22 @@
   </div>
 </div>
 
-<!-- ══ MODAL ÉDITION PRODUIT ══ -->
+<!-- MODAL ÉDITION PRODUIT -->
 <div id="edit-modal">
   <div class="edit-sheet">
     <div class="edit-sheet-handle"></div>
     <div class="edit-sheet-title">✏️ Modifier le produit</div>
-
     <input type="hidden" id="edit-key">
-
     <div class="edit-section-label">Nom</div>
     <input class="admin-input" id="edit-title" placeholder="Nom du produit">
-
     <div class="edit-section-label">Farm</div>
     <input class="admin-input" id="edit-farm" placeholder="Farm">
-
     <div class="edit-section-label">Catégorie</div>
     <input class="admin-input" id="edit-category" placeholder="Catégorie">
-
     <div class="edit-section-label">Description / Strain</div>
     <textarea class="admin-input" id="edit-desc" placeholder="Description..." style="min-height:80px;resize:vertical"></textarea>
-
-    <!-- Upload médias édition -->
     <div class="edit-section-label">📸 Ajouter images/vidéos</div>
+    <div class="storage-info">☁️ Upload direct vers Firebase Storage</div>
     <label class="admin-upload-label">
       <span style="font-size:1.2rem">📁</span>
       <span>Sélectionner depuis l'appareil</span>
@@ -659,13 +624,11 @@
     <div class="admin-upload-progress" id="edit-upload-progress">
       <div class="admin-upload-progress-bar" id="edit-upload-bar"></div>
     </div>
-    <div class="edit-section-label">Médias actuels (appuyer × pour supprimer)</div>
+    <div class="edit-section-label">Médias actuels (× pour supprimer)</div>
     <div class="admin-media-previews" id="edit-media-previews"></div>
-
     <div class="edit-section-label">Quantités & Prix</div>
     <div id="edit-qty-list"></div>
     <button class="admin-add-qty-btn" id="edit-add-qty-btn" style="margin-bottom:8px">+ Ajouter une quantité</button>
-
     <button class="edit-save-btn" id="edit-save-btn">💾 Enregistrer</button>
     <button class="edit-cancel-btn" onclick="closeEditModal()">Annuler</button>
   </div>
@@ -677,7 +640,7 @@ import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimest
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-import { getStorage, ref, uploadString, getDownloadURL }
+import { getStorage, ref, uploadBytes, uploadString, getDownloadURL, deleteObject }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js';
 
 const firebaseConfig = {
@@ -701,7 +664,6 @@ window._firestore = { addDoc, collection, getDocs, query, orderBy, serverTimesta
 window._firestoreExtra = { getDocs, collection, query, where, deleteDoc, doc, Timestamp, getDoc, updateDoc };
 
 let chatUnsub = null;
-
 const ADMIN_PASSWORD = "Bart76Admin!";
 
 // ── PRODUITS ──────────────────────────────────────────────────────────────────
@@ -717,21 +679,24 @@ let products = {
     key:'caliweed', title:'🍀Cali Weed🍀', category:'🍀Cali Weed🍀', farm:'🏆 Top Shelf',
     videos:[{src:'caliweed.mp4',poster:''}],
     strain:'- Runtz🌈',
-    description:"🌟 EFFET Relaxé, Créatif, Euphorique et Motivant. Une variété premium qui vous plonge dans une détente profonde tout en stimulant la créativité, l'euphorie et la motivation.",
+    description:"🌟 EFFET Relaxé, Créatif, Euphorique et Motivant.",
     quantities:[{qty:'5G',price:'70€'},{qty:'10G',price:'130€'},{qty:'25G',price:'260€'},{qty:'50G',price:'410€'},{qty:'100G',price:'770€'}],
     stock:'dispo', isNew:false
   },
   capncrunch: {
     key:'capncrunch', title:"Cap'n Crunch🥣🌾", category:"Cap'n Crunch🥣🌾", farm:'Total farm🧑‍🌾🌝',
     videos:[{src:'',poster:'dry90u.jpg'},{src:'dry90u.mp4',poster:'dry90u.jpg'}],
-    strain:'', description:"Hash artisanal full melt, pressé à la main. Texture parfaite, arômes terreux, épicés et légèrement sucrés.",
+    strain:'', description:"Hash artisanal full melt, pressé à la main.",
     quantities:[{qty:'10g',price:'90€'},{qty:'25g',price:'190€'},{qty:'50g',price:'300€'},{qty:'100g',price:'550€'}],
     stock:'rupture', isNew:false
   }
 };
 
-// ── GESTION MÉDIAS EN BASE64 (local → Firestore) ─────────────────────────────
-// Convertit un File en base64
+// ══════════════════════════════════════════════════════════════════
+//  GESTION MÉDIAS — UPLOAD FIREBASE STORAGE
+// ══════════════════════════════════════════════════════════════════
+
+// Convertit File → base64 dataURL
 function fileToBase64(file) {
   return new Promise((res, rej) => {
     const r = new FileReader();
@@ -741,8 +706,8 @@ function fileToBase64(file) {
   });
 }
 
-// Compresse une image vers max 800px, qualité 0.75
-function compressImage(base64, maxPx = 800, quality = 0.75) {
+// Compresse image → max 1200px, qualité 0.82
+function compressImage(base64, maxPx = 1200, quality = 0.82) {
   return new Promise(res => {
     const img = new Image();
     img.onload = () => {
@@ -758,121 +723,171 @@ function compressImage(base64, maxPx = 800, quality = 0.75) {
   });
 }
 
-// État temporaire des médias (avant sauvegarde)
-// Structure : { src: base64|'', poster: base64|'', type: 'image'|'video', name: string }
-let newMediaItems  = [];  // pour le formulaire "créer"
-let editMediaItems = [];  // pour le modal "éditer"
+// Upload vers Firebase Storage → retourne URL publique
+async function uploadFileToStorage(file, base64Data) {
+  const isVideo = file.type.startsWith('video/');
+  const ext     = isVideo ? (file.name.endsWith('.webm') ? 'webm' : 'mp4') : 'jpg';
+  const path    = `products/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+  const storageRef = ref(_storage, path);
+  // Utilise uploadString avec base64 dataURL
+  await uploadString(storageRef, base64Data, 'data_url');
+  const url = await getDownloadURL(storageRef);
+  return url;
+}
 
-// Affiche les thumbnails dans un conteneur
-function renderMediaPreviews(items, containerId, onDelete) {
+// État temporaire des médias
+let newMediaItems  = [];
+let editMediaItems = [];
+
+// Affiche les thumbnails
+function renderMediaPreviews(items, containerId, onDeleteFnName) {
   const el = document.getElementById(containerId);
   el.innerHTML = '';
   if (!items.length) return;
   items.forEach((m, i) => {
     const thumb = document.createElement('div');
-    thumb.className = 'admin-media-thumb';
-    const src = m.type === 'image' ? m.poster : m.poster || m.src;
-    if (src && src.startsWith('data:video')) {
-      thumb.innerHTML = `<video src="${m.src}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
-    } else if (src) {
-      thumb.innerHTML = `<img src="${src}" alt="">`;
+    thumb.className = 'admin-media-thumb' + (m.uploading ? ' uploading' : '');
+
+    // Source d'affichage : URL Storage en priorité, sinon base64 local
+    const displaySrc = m.url || (m.type === 'image' ? m.poster : m.src) || '';
+
+    if (m.type === 'video' && displaySrc) {
+      thumb.innerHTML = `<video src="${displaySrc}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
+    } else if (displaySrc) {
+      thumb.innerHTML = `<img src="${displaySrc}" alt="" style="width:100%;height:100%;object-fit:cover">`;
     } else {
       thumb.innerHTML = `<div style="width:100%;height:100%;background:#111;display:flex;align-items:center;justify-content:center;font-size:1.5rem">🎬</div>`;
     }
-    thumb.innerHTML += `<button class="thumb-del" onclick="(${onDelete.toString()})(${i})">×</button>
-      <div class="thumb-type">${m.type === 'video' ? '🎬' : '🖼️'}</div>`;
+
+    if (!m.uploading) {
+      thumb.innerHTML += `<button class="thumb-del" onclick="${onDeleteFnName}(${i})">×</button>`;
+    }
+    thumb.innerHTML += `<div class="thumb-type">${m.type === 'video' ? '🎬' : '🖼️'}</div>`;
     el.appendChild(thumb);
   });
 }
 
-// Gère l'ajout de fichiers (input change) → base64
-async function handleMediaFiles(files, itemsArray, containerId, onDelete, progressId, barId) {
+// Gère l'ajout de fichiers : lit en local pour aperçu immédiat, puis upload Storage
+async function handleMediaFiles(files, itemsArray, containerId, onDeleteFnName, progressId, barId) {
   if (!files.length) return;
   const progWrap = document.getElementById(progressId);
   const progBar  = document.getElementById(barId);
   progWrap.style.display = 'block';
   let done = 0;
+
   for (const file of Array.from(files)) {
     const isVideo = file.type.startsWith('video/');
     const isImage = file.type.startsWith('image/');
     if (!isVideo && !isImage) continue;
-    if (file.size > 50 * 1024 * 1024) { alert(`${file.name} : trop volumineux (max 50 Mo)`); continue; }
-    let raw = await fileToBase64(file);
-    if (isImage) raw = await compressImage(raw, 900, 0.78);
-    itemsArray.push({
-      type:   isVideo ? 'video' : 'image',
-      src:    isVideo ? raw : '',
-      poster: isImage ? raw : '',
-      name:   file.name
-    });
+
+    // Limite : 500 Mo vidéo, 20 Mo image
+    const maxSize = isVideo ? 500 * 1024 * 1024 : 20 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert(`${file.name} : trop volumineux (max ${isVideo ? '500 Mo' : '20 Mo'})`);
+      continue;
+    }
+
+    try {
+      // Lire en base64
+      let base64 = await fileToBase64(file);
+      // Compresser si image
+      if (isImage) base64 = await compressImage(base64, 1200, 0.82);
+
+      // Ajouter avec état "uploading" pour aperçu immédiat
+      const idx = itemsArray.length;
+      itemsArray.push({
+        type:      isVideo ? 'video' : 'image',
+        src:       isVideo ? base64 : '',
+        poster:    isImage ? base64 : '',
+        url:       null,
+        uploading: true,
+        name:      file.name
+      });
+      renderMediaPreviews(itemsArray, containerId, onDeleteFnName);
+
+      // Upload vers Firebase Storage
+      const url = await uploadFileToStorage(file, base64);
+
+      // Mettre à jour avec l'URL et libérer le base64
+      itemsArray[idx].url       = url;
+      itemsArray[idx].uploading = false;
+      // Remplacer le base64 lourd par l'URL légère
+      if (isVideo) {
+        itemsArray[idx].src    = url;
+      } else {
+        itemsArray[idx].poster = url;
+      }
+
+    } catch(e) {
+      console.error('Upload échoué :', e);
+      alert(`❌ Échec upload : ${file.name}\n${e.message}`);
+      // Retirer l'item en erreur
+      const failIdx = itemsArray.findIndex(m => m.name === file.name && m.uploading);
+      if (failIdx !== -1) itemsArray.splice(failIdx, 1);
+    }
+
     done++;
     progBar.style.width = `${(done / files.length) * 100}%`;
+    renderMediaPreviews(itemsArray, containerId, onDeleteFnName);
   }
-  setTimeout(() => { progWrap.style.display = 'none'; progBar.style.width = '0%'; }, 600);
-  renderMediaPreviews(itemsArray, containerId, onDelete);
+
+  setTimeout(() => {
+    progWrap.style.display = 'none';
+    progBar.style.width    = '0%';
+  }, 600);
 }
 
-// Supprime un média (formulaire nouveau produit)
+// Supprime un média — formulaire nouveau produit
 window._deleteNewMedia = (i) => {
   newMediaItems.splice(i, 1);
-  renderMediaPreviews(newMediaItems, 'new-media-previews', (idx) => `_deleteNewMedia(${idx})`);
+  renderMediaPreviews(newMediaItems, 'new-media-previews', '_deleteNewMedia');
 };
-// Supprime un média (modal édition)
+// Supprime un média — modal édition
 window._deleteEditMedia = (i) => {
   editMediaItems.splice(i, 1);
-  renderMediaPreviews(editMediaItems, 'edit-media-previews', (idx) => `_deleteEditMedia(${idx})`);
+  renderMediaPreviews(editMediaItems, 'edit-media-previews', '_deleteEditMedia');
 };
 
-// Convertit les mediaItems en tableau videos compatible avec le reste du code
+// Convertit mediaItems → tableau videos (URLs uniquement, rien en base64)
 function mediaItemsToVideos(items) {
-  if (!items.length) return [{src:'', poster:''}];
+  if (!items.length) return [{ src: '', poster: '' }];
   return items.map(m => ({
-    src:    m.type === 'video' ? m.src    : '',
-    poster: m.type === 'image' ? m.poster : ''
+    src:    m.type === 'video' ? (m.url || '') : '',
+    poster: m.type === 'image' ? (m.url || '') : ''
   }));
 }
 
-// Reconstruit mediaItems depuis le tableau videos existant (pour pré-remplir le modal édition)
+// Reconstruit mediaItems depuis un tableau videos existant (URLs Firebase)
 function videosToMediaItems(videos) {
   if (!videos || !videos.length) return [];
   const result = [];
   videos.forEach(v => {
     if (v.poster && v.poster.trim()) {
-      result.push({ type:'image', src:'', poster: v.poster.trim(), name:'image' });
+      result.push({ type:'image', src:'', poster:v.poster.trim(), url:v.poster.trim(), uploading:false, name:'image' });
     }
     if (v.src && v.src.trim()) {
-      result.push({ type:'video', src: v.src.trim(), poster: '', name:'video' });
+      result.push({ type:'video', src:v.src.trim(), poster:'', url:v.src.trim(), uploading:false, name:'video' });
     }
   });
   return result;
 }
 
-// Input listener — nouveau produit
-document.getElementById('new-media-input').addEventListener('change', function() {
-  handleMediaFiles(
-    this.files, newMediaItems,
-    'new-media-previews', (i) => `_deleteNewMedia(${i})`,
-    'new-upload-progress', 'new-upload-bar'
-  );
-  this.value = '';
-});
-
-// Input listener — modal édition
-document.getElementById('edit-media-input').addEventListener('change', function() {
-  handleMediaFiles(
-    this.files, editMediaItems,
-    'edit-media-previews', (i) => `_deleteEditMedia(${i})`,
-    'edit-upload-progress', 'edit-upload-bar'
-  );
-  this.value = '';
-});
-
-// ── HELPER : thumb sécurisé ───────────────────────────────────────────────────
+// Helper : 1ère image d'un produit
 function getThumb(p) {
   if (!p.videos || !p.videos.length) return null;
   const first = p.videos[0];
   return (first.poster && first.poster.trim()) ? first.poster.trim() : null;
 }
+
+// Listeners inputs fichiers
+document.getElementById('new-media-input').addEventListener('change', function() {
+  handleMediaFiles(this.files, newMediaItems, 'new-media-previews', '_deleteNewMedia', 'new-upload-progress', 'new-upload-bar');
+  this.value = '';
+});
+document.getElementById('edit-media-input').addEventListener('change', function() {
+  handleMediaFiles(this.files, editMediaItems, 'edit-media-previews', '_deleteEditMedia', 'edit-upload-progress', 'edit-upload-bar');
+  this.value = '';
+});
 
 // ── CHARGER OVERRIDES FIRESTORE ───────────────────────────────────────────────
 async function loadProductOverrides() {
@@ -883,7 +898,6 @@ async function loadProductOverrides() {
       if (products[d.id]) {
         if (data.stock  !== undefined) products[d.id].stock  = data.stock;
         if (data.isNew  !== undefined) products[d.id].isNew  = data.isNew;
-        // Mise à jour complète si le produit de base a été édité via admin
         if (data._edited) {
           if (data.title)       products[d.id].title       = data.title;
           if (data.farm)        products[d.id].farm        = data.farm;
@@ -926,54 +940,54 @@ async function loadProductOverrides() {
   }
 }
 
-// ── ADMIN SECRET (5 clics) ────────────────────────────────────────────────────
-let logoClickCount=0, logoClickTimer=null;
+// ── ADMIN SECRET (5 clics logo) ───────────────────────────────────────────────
+let logoClickCount = 0, logoClickTimer = null;
 let adminAuthenticated = false;
 
-function handleLogoClick(){
+function handleLogoClick() {
   logoClickCount++;
   clearTimeout(logoClickTimer);
-  logoClickTimer=setTimeout(()=>{logoClickCount=0;},2000);
-  if(logoClickCount>=5){logoClickCount=0;openAdminPage();}
+  logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 2000);
+  if (logoClickCount >= 5) { logoClickCount = 0; openAdminPage(); }
 }
 document.getElementById('top-logo').addEventListener('click', handleLogoClick);
 document.getElementById('splash-logo').addEventListener('click', handleLogoClick);
 
-function openAdminPage(){
+function openAdminPage() {
   hideAllPages();
-  document.getElementById('admin-page').style.display='block';
-  if(!adminAuthenticated){
-    document.getElementById('admin-login').style.display='block';
-    document.getElementById('admin-panel').style.display='none';
+  document.getElementById('admin-page').style.display = 'block';
+  if (!adminAuthenticated) {
+    document.getElementById('admin-login').style.display = 'block';
+    document.getElementById('admin-panel').style.display = 'none';
   } else {
     renderAdminPanel();
   }
 }
 
-document.getElementById('admin-login-btn').addEventListener('click', ()=>{
+document.getElementById('admin-login-btn').addEventListener('click', () => {
   const pw = document.getElementById('admin-password-input').value;
-  if(pw===ADMIN_PASSWORD){
-    adminAuthenticated=true;
-    document.getElementById('admin-login').style.display='none';
-    document.getElementById('admin-panel').style.display='block';
-    document.getElementById('admin-password-input').value='';
-    document.getElementById('admin-error').textContent='';
+  if (pw === ADMIN_PASSWORD) {
+    adminAuthenticated = true;
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    document.getElementById('admin-password-input').value = '';
+    document.getElementById('admin-error').textContent = '';
     renderAdminPanel();
   } else {
-    document.getElementById('admin-error').textContent='Mot de passe incorrect ❌';
+    document.getElementById('admin-error').textContent = 'Mot de passe incorrect ❌';
   }
 });
 
-document.getElementById('admin-logout-btn').addEventListener('click',()=>{
-  adminAuthenticated=false;
-  document.getElementById('admin-panel').style.display='none';
-  document.getElementById('admin-login').style.display='block';
+document.getElementById('admin-logout-btn').addEventListener('click', () => {
+  adminAuthenticated = false;
+  document.getElementById('admin-panel').style.display = 'none';
+  document.getElementById('admin-login').style.display = 'block';
   goToHome();
 });
 
-function renderAdminPanel(){
+function renderAdminPanel() {
   const list = document.getElementById('admin-products-list');
-  list.innerHTML = Object.values(products).map(p=>{
+  list.innerHTML = Object.values(products).map(p => {
     const thumb = getThumb(p);
     const thumbHTML = thumb
       ? `<img src="${thumb}" style="width:44px;height:44px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,235,59,0.3);flex-shrink:0" onerror="this.style.display='none'">`
@@ -1010,7 +1024,7 @@ window.adminToggleNew = async (key) => {
 };
 
 window.adminDeleteProduct = async (key) => {
-  if(!confirm(`Supprimer "${products[key].title}" ?`)) return;
+  if (!confirm(`Supprimer "${products[key].title}" ?`)) return;
   delete products[key];
   try { await deleteDoc(doc(_db,'products_meta',key)); } catch(e){}
   renderAdminPanel(); renderProducts();
@@ -1019,32 +1033,26 @@ window.adminDeleteProduct = async (key) => {
 // ── MODAL ÉDITION ─────────────────────────────────────────────────────────────
 window.openEditModal = (key) => {
   const p = products[key];
-  document.getElementById('edit-key').value        = key;
-  document.getElementById('edit-title').value      = p.title       || '';
-  document.getElementById('edit-farm').value       = p.farm        || '';
-  document.getElementById('edit-category').value   = p.category    || '';
-  document.getElementById('edit-desc').value       = p.description || p.desc || '';
+  document.getElementById('edit-key').value      = key;
+  document.getElementById('edit-title').value    = p.title       || '';
+  document.getElementById('edit-farm').value     = p.farm        || '';
+  document.getElementById('edit-category').value = p.category    || '';
+  document.getElementById('edit-desc').value     = p.description || p.desc || '';
 
-  // Charger les médias existants
+  // Charger médias existants (URLs Firebase)
   editMediaItems = videosToMediaItems(p.videos || []);
-  renderMediaPreviews(editMediaItems, 'edit-media-previews', (i) => `_deleteEditMedia(${i})`);
+  renderMediaPreviews(editMediaItems, 'edit-media-previews', '_deleteEditMedia');
 
-  // Charger les quantités
+  // Charger quantités
   const qtyList = document.getElementById('edit-qty-list');
   qtyList.innerHTML = '';
   const qtys = Array.isArray(p.quantities) ? p.quantities : [];
-  qtys.forEach(q => {
+  (qtys.length ? qtys : [{}]).forEach(q => {
     const row = document.createElement('div'); row.className = 'admin-qty-row';
     row.innerHTML = `<input class="admin-input" style="margin:0" placeholder="Qté" value="${q.qty||''}">
                      <input class="admin-input" style="margin:0" placeholder="Prix" value="${q.price||''}">`;
     qtyList.appendChild(row);
   });
-  if (!qtys.length) {
-    const row = document.createElement('div'); row.className = 'admin-qty-row';
-    row.innerHTML = `<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)">
-                     <input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">`;
-    qtyList.appendChild(row);
-  }
 
   document.getElementById('edit-modal').classList.add('open');
 };
@@ -1061,7 +1069,7 @@ window.closeEditModal = () => {
   editMediaItems = [];
 };
 document.getElementById('edit-modal').addEventListener('click', e => {
-  if(e.target === document.getElementById('edit-modal')) closeEditModal();
+  if (e.target === document.getElementById('edit-modal')) closeEditModal();
 });
 
 document.getElementById('edit-save-btn').addEventListener('click', async () => {
@@ -1070,9 +1078,15 @@ document.getElementById('edit-save-btn').addEventListener('click', async () => {
   const farm     = document.getElementById('edit-farm').value.trim();
   const category = document.getElementById('edit-category').value.trim() || title;
   const desc     = document.getElementById('edit-desc').value.trim();
+
   if (!title || !farm) { alert('Nom et farm obligatoires !'); return; }
 
-  // Quantités
+  // Vérifier qu'aucun upload n'est encore en cours
+  if (editMediaItems.some(m => m.uploading)) {
+    alert('⏳ Upload en cours, attendez que tous les fichiers soient uploadés !');
+    return;
+  }
+
   const rows = document.getElementById('edit-qty-list').querySelectorAll('.admin-qty-row');
   const quantities = [];
   rows.forEach(row => {
@@ -1081,29 +1095,17 @@ document.getElementById('edit-save-btn').addEventListener('click', async () => {
       quantities.push({ qty: ins[0].value.trim(), price: ins[1].value.trim() });
   });
 
-  // Médias → videos
+  // Convertir en videos avec URLs Storage uniquement
   const videos = mediaItemsToVideos(editMediaItems);
 
-  // Sauvegarder localement
-  products[key] = {
-    ...products[key],
-    title, farm, category,
-    description: desc, desc,
-    videos, quantities,
-    _edited: true
-  };
+  products[key] = { ...products[key], title, farm, category, description: desc, desc, videos, quantities, _edited: true };
 
-  // Sauvegarder dans Firestore
   try {
     await setDoc(doc(_db, 'products_meta', key), {
-      title, farm, category,
-      description: desc, desc,
-      videos, quantities,
-      stock:   products[key].stock,
-      isNew:   products[key].isNew,
-      _edited: true
+      title, farm, category, description: desc, desc, videos, quantities,
+      stock: products[key].stock, isNew: products[key].isNew, _edited: true
     }, { merge: true });
-  } catch(e) { console.error(e); }
+  } catch(e) { console.error(e); alert('❌ Erreur Firestore : ' + e.message); return; }
 
   closeEditModal();
   renderAdminPanel();
@@ -1111,107 +1113,114 @@ document.getElementById('edit-save-btn').addEventListener('click', async () => {
   alert('✅ Produit mis à jour !');
 });
 
-// ── NOUVEAU PRODUIT (avec upload local) ───────────────────────────────────────
-document.getElementById('add-qty-row-btn').addEventListener('click',()=>{
-  const row=document.createElement('div'); row.className='admin-qty-row';
-  row.innerHTML='<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">';
+// ── NOUVEAU PRODUIT ───────────────────────────────────────────────────────────
+document.getElementById('add-qty-row-btn').addEventListener('click', () => {
+  const row = document.createElement('div'); row.className = 'admin-qty-row';
+  row.innerHTML = '<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">';
   document.getElementById('new-qty-list').appendChild(row);
 });
 
-document.getElementById('save-new-product-btn').addEventListener('click', async ()=>{
+document.getElementById('save-new-product-btn').addEventListener('click', async () => {
   const title    = document.getElementById('new-title').value.trim();
   const farm     = document.getElementById('new-farm').value.trim();
   const category = document.getElementById('new-category').value.trim() || title;
   const desc     = document.getElementById('new-desc').value.trim();
-  if(!title||!farm){alert('Nom et farm obligatoires !'); return;}
+
+  if (!title || !farm) { alert('Nom et farm obligatoires !'); return; }
+
+  // Vérifier qu'aucun upload n'est encore en cours
+  if (newMediaItems.some(m => m.uploading)) {
+    alert('⏳ Upload en cours, attendez que tous les fichiers soient uploadés !');
+    return;
+  }
+
   const rows = document.getElementById('new-qty-list').querySelectorAll('.admin-qty-row');
-  const quantities=[];
-  rows.forEach(row=>{
-    const ins=row.querySelectorAll('input');
-    if(ins[0].value.trim()&&ins[1].value.trim()) quantities.push({qty:ins[0].value.trim(), price:ins[1].value.trim()});
+  const quantities = [];
+  rows.forEach(row => {
+    const ins = row.querySelectorAll('input');
+    if (ins[0].value.trim() && ins[1].value.trim())
+      quantities.push({ qty: ins[0].value.trim(), price: ins[1].value.trim() });
   });
-  if(!quantities.length){alert('Ajoutez au moins une quantité !'); return;}
+  if (!quantities.length) { alert('Ajoutez au moins une quantité !'); return; }
 
+  // Médias → URLs Storage uniquement
   const videos = mediaItemsToVideos(newMediaItems);
-  const key = title.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,20)+'_'+Date.now();
+  const key = title.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0, 20) + '_' + Date.now();
 
-  const newProduct = {
-    key, title, farm, category,
-    description: desc, desc,
-    strain: '',
-    videos,
-    quantities,
-    stock: 'dispo',
-    isNew: false
-  };
+  const newProduct = { key, title, farm, category, description: desc, desc, strain: '', videos, quantities, stock: 'dispo', isNew: false };
   products[key] = newProduct;
 
   try {
-    await setDoc(doc(_db,'products_meta',key), newProduct);
-  } catch(e){ console.error(e); }
+    await setDoc(doc(_db, 'products_meta', key), newProduct);
+  } catch(e) { console.error(e); alert('❌ Erreur Firestore : ' + e.message); return; }
 
   // Reset formulaire
-  ['new-title','new-farm','new-category','new-desc'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('new-qty-list').innerHTML='<div class="admin-qty-row"><input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)"></div>';
+  ['new-title','new-farm','new-category','new-desc'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('new-qty-list').innerHTML = '<div class="admin-qty-row"><input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)"></div>';
   newMediaItems = [];
-  renderMediaPreviews(newMediaItems, 'new-media-previews', (i) => `_deleteNewMedia(${i})`);
+  renderMediaPreviews(newMediaItems, 'new-media-previews', '_deleteNewMedia');
 
-  alert('✅ Produit créé !');
-  renderAdminPanel(); renderProducts();
+  renderAdminPanel();
+  renderProducts();
+  alert('✅ Produit créé avec succès !');
 });
 
-// ── AUTH ─────────────────────────────────────────────────────────────────────
-window.switchAuthTab=(tab)=>{
-  document.getElementById('tab-login').classList.toggle('active',tab==='login');
-  document.getElementById('tab-register').classList.toggle('active',tab==='register');
-  document.getElementById('auth-login-form').style.display=tab==='login'?'block':'none';
-  document.getElementById('auth-register-form').style.display=tab==='register'?'block':'none';
-  document.getElementById('auth-error').textContent='';
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+window.switchAuthTab = (tab) => {
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-register').classList.toggle('active', tab==='register');
+  document.getElementById('auth-login-form').style.display  = tab==='login'    ? 'block' : 'none';
+  document.getElementById('auth-register-form').style.display = tab==='register' ? 'block' : 'none';
+  document.getElementById('auth-error').textContent = '';
 };
-function openAuthModal(){document.getElementById('auth-modal').classList.add('open');}
-function closeAuthModal(){document.getElementById('auth-modal').classList.remove('open');}
-document.getElementById('auth-modal').addEventListener('click',e=>{if(e.target===document.getElementById('auth-modal'))closeAuthModal();});
+function openAuthModal()  { document.getElementById('auth-modal').classList.add('open'); }
+function closeAuthModal() { document.getElementById('auth-modal').classList.remove('open'); }
+document.getElementById('auth-modal').addEventListener('click', e => { if(e.target===document.getElementById('auth-modal')) closeAuthModal(); });
 
-window.doLogin=async()=>{
-  const username=document.getElementById('login-username').value.trim().toLowerCase();
-  const pass=document.getElementById('login-password').value;
-  const errEl=document.getElementById('auth-error');
-  const btn=document.getElementById('login-btn');
-  if(!username||!pass){errEl.textContent='Remplissez tous les champs.';return;}
-  btn.disabled=true;btn.textContent='Connexion...';
-  try{await signInWithEmailAndPassword(_auth,username+'@bart76.app',pass);closeAuthModal();renderProfilPage();}
-  catch(e){errEl.textContent='Identifiant ou mot de passe incorrect.';}
-  btn.disabled=false;btn.textContent='Se connecter';
-};
-
-window.doRegister=async()=>{
-  const name=document.getElementById('reg-name').value.trim();
-  const username=document.getElementById('reg-username').value.trim().toLowerCase();
-  const pass=document.getElementById('reg-password').value;
-  const errEl=document.getElementById('auth-error');
-  const btn=document.getElementById('register-btn');
-  if(!name||!username||!pass){errEl.textContent='Remplissez tous les champs.';return;}
-  if(pass.length<6){errEl.textContent='Mot de passe trop court.';return;}
-  if(!/^[a-z0-9_]+$/.test(username)){errEl.textContent='Identifiant invalide.';return;}
-  btn.disabled=true;btn.textContent='Création...';
-  try{
-    const cred=await createUserWithEmailAndPassword(_auth,username+'@bart76.app',pass);
-    await updateProfile(cred.user,{displayName:name});
-    await setDoc(doc(_db,'users',username),{uid:cred.user.uid,name,username});
-    closeAuthModal();renderProfilPage();
-  }catch(e){errEl.textContent=e.code==='auth/email-already-in-use'?'Identifiant déjà utilisé.':'Erreur : '+e.message;}
-  btn.disabled=false;btn.textContent='Créer mon compte';
+window.doLogin = async () => {
+  const username = document.getElementById('login-username').value.trim().toLowerCase();
+  const pass     = document.getElementById('login-password').value;
+  const errEl    = document.getElementById('auth-error');
+  const btn      = document.getElementById('login-btn');
+  if (!username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
+  btn.disabled = true; btn.textContent = 'Connexion...';
+  try {
+    await signInWithEmailAndPassword(_auth, username+'@bart76.app', pass);
+    closeAuthModal(); renderProfilPage();
+  } catch(e) { errEl.textContent = 'Identifiant ou mot de passe incorrect.'; }
+  btn.disabled = false; btn.textContent = 'Se connecter';
 };
 
-window.doLogout=async()=>{if(!confirm('Se déconnecter ?'))return;await signOut(_auth);renderProfilPage();};
-window.openAuthModal=openAuthModal;
+window.doRegister = async () => {
+  const name     = document.getElementById('reg-name').value.trim();
+  const username = document.getElementById('reg-username').value.trim().toLowerCase();
+  const pass     = document.getElementById('reg-password').value;
+  const errEl    = document.getElementById('auth-error');
+  const btn      = document.getElementById('register-btn');
+  if (!name || !username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
+  if (pass.length < 6) { errEl.textContent = 'Mot de passe trop court.'; return; }
+  if (!/^[a-z0-9_]+$/.test(username)) { errEl.textContent = 'Identifiant invalide.'; return; }
+  btn.disabled = true; btn.textContent = 'Création...';
+  try {
+    const cred = await createUserWithEmailAndPassword(_auth, username+'@bart76.app', pass);
+    await updateProfile(cred.user, { displayName: name });
+    await setDoc(doc(_db,'users',username), { uid: cred.user.uid, name, username });
+    closeAuthModal(); renderProfilPage();
+  } catch(e) {
+    errEl.textContent = e.code==='auth/email-already-in-use' ? 'Identifiant déjà utilisé.' : 'Erreur : '+e.message;
+  }
+  btn.disabled = false; btn.textContent = 'Créer mon compte';
+};
+
+window.doLogout = async () => { if (!confirm('Se déconnecter ?')) return; await signOut(_auth); renderProfilPage(); };
+window.openAuthModal = openAuthModal;
 
 // ── PROFIL ────────────────────────────────────────────────────────────────────
-async function renderProfilPage(){
-  const page=document.getElementById('profil-page');
-  const user=_auth.currentUser;
-  if(!user){
-    page.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:20px;padding:20px">
+async function renderProfilPage() {
+  const page = document.getElementById('profil-page');
+  const user = _auth.currentUser;
+  if (!user) {
+    page.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:20px;padding:20px">
       <div style="font-size:3.5rem">👤</div>
       <div style="font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#fff;text-align:center">Mon Compte</div>
       <div style="color:#666;font-size:0.9rem;text-align:center;line-height:1.6">Connecte-toi pour accéder à ton profil.</div>
@@ -1219,56 +1228,56 @@ async function renderProfilPage(){
     </div>`;
     return;
   }
-  const displayUsername=user.email?user.email.replace('@bart76.app',''):'utilisateur';
-  page.innerHTML=`
+  const displayUsername = user.email ? user.email.replace('@bart76.app','') : 'utilisateur';
+  page.innerHTML = `
     <div class="profil-header">
       <button class="profil-logout" onclick="doLogout()">Déconnexion</button>
       <div class="profil-avatar">👤</div>
-      <div class="profil-name">${user.displayName||displayUsername}</div>
+      <div class="profil-name">${user.displayName || displayUsername}</div>
       <div style="color:#555;font-size:0.8rem;margin-top:2px">@${displayUsername}</div>
     </div>
     <div class="profil-stats-block">
       <div class="profil-stats-icon">📦</div>
-      <div class="profil-stats-info">
-        <div class="profil-stats-number" id="profil-cmd-count">—</div>
-        <div class="profil-stats-label">commande(s) passée(s)</div>
-      </div>
+      <div><div class="profil-stats-number" id="profil-cmd-count">—</div><div class="profil-stats-label">commande(s) passée(s)</div></div>
     </div>
     <div class="profil-section-title">📦 Mes commandes</div>
     <div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px">Chargement...</p></div>`;
-  try{
-    const q=query(collection(_db,'commandes'),where('uid','==',user.uid),orderBy('timestamp','desc'));
-    const snap=await getDocs(q);
-    const cmdEl=document.getElementById('profil-commandes');
-    document.getElementById('profil-cmd-count').textContent=snap.size;
-    if(snap.empty){cmdEl.innerHTML='<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>';return;}
-    cmdEl.innerHTML=snap.docs.map(d=>{const c=d.data();return`<div class="commande-card"><div class="commande-header"><span class="commande-date">${c.date}</span><span class="commande-total">${c.total}€</span></div><div class="commande-items">${c.items}</div><span class="commande-mode">${c.mode}</span></div>`;}).join('');
-  }catch(e){
-    const c=document.getElementById('profil-cmd-count');if(c)c.textContent='0';
-    const cm=document.getElementById('profil-commandes');if(cm)cm.innerHTML='<p style="color:#555;text-align:center;padding:20px">Aucune commande.</p>';
+  try {
+    const q = query(collection(_db,'commandes'), where('uid','==',user.uid), orderBy('timestamp','desc'));
+    const snap = await getDocs(q);
+    document.getElementById('profil-cmd-count').textContent = snap.size;
+    const cmdEl = document.getElementById('profil-commandes');
+    if (snap.empty) { cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>'; return; }
+    cmdEl.innerHTML = snap.docs.map(d => {
+      const c = d.data();
+      return `<div class="commande-card"><div class="commande-header"><span class="commande-date">${c.date}</span><span class="commande-total">${c.total}€</span></div><div class="commande-items">${c.items}</div><span class="commande-mode">${c.mode}</span></div>`;
+    }).join('');
+  } catch(e) {
+    const c = document.getElementById('profil-cmd-count'); if(c) c.textContent = '0';
+    const cm = document.getElementById('profil-commandes'); if(cm) cm.innerHTML = '<p style="color:#555;text-align:center;padding:20px">Aucune commande.</p>';
   }
 }
 
 // ── CHAT ──────────────────────────────────────────────────────────────────────
-async function purgeOldMessages(){
-  try{
-    const cutoff=Date.now()-24*60*60*1000;
-    const q=query(collection(_db,'chat'),where('timestampMs','<',cutoff));
-    const snap=await getDocs(q);
-    snap.docs.forEach(d=>deleteDoc(doc(_db,'chat',d.id)));
-  }catch(e){}
+async function purgeOldMessages() {
+  try {
+    const cutoff = Date.now() - 24*60*60*1000;
+    const q = query(collection(_db,'chat'), where('timestampMs','<',cutoff));
+    const snap = await getDocs(q);
+    snap.docs.forEach(d => deleteDoc(doc(_db,'chat',d.id)));
+  } catch(e) {}
 }
 
-function renderChatPage(){
-  const body=document.getElementById('chat-body');
-  const user=_auth.currentUser;
-  if(!user){
-    body.style.cssText='flex:1;display:flex;flex-direction:column;';
-    body.innerHTML=`<div class="chat-locked"><div class="chat-locked-icon">🔒</div><div class="chat-locked-title">Accès réservé</div><div class="chat-locked-text">Connecte-toi pour accéder au chat.</div><button class="chat-locked-btn" onclick="openAuthModal()">Se connecter</button></div>`;
+function renderChatPage() {
+  const body = document.getElementById('chat-body');
+  const user = _auth.currentUser;
+  if (!user) {
+    body.style.cssText = 'flex:1;display:flex;flex-direction:column;';
+    body.innerHTML = `<div class="chat-locked"><div class="chat-locked-icon">🔒</div><div class="chat-locked-title">Accès réservé</div><div class="chat-locked-text">Connecte-toi pour accéder au chat.</div><button class="chat-locked-btn" onclick="openAuthModal()">Se connecter</button></div>`;
     return;
   }
-  body.style.cssText='flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;';
-  body.innerHTML=`
+  body.style.cssText = 'flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;';
+  body.innerHTML = `
     <div class="chat-messages" id="chat-messages">
       <div class="chat-empty" id="chat-empty"><div style="font-size:2.5rem">💬</div><div style="font-size:0.82rem;color:#666;text-align:center">Aucun message.<br>Commencez la conversation !</div></div>
     </div>
@@ -1277,388 +1286,387 @@ function renderChatPage(){
       <button id="chat-send-btn" onclick="sendChatMsg()">➤</button>
     </div>`;
   purgeOldMessages();
-  if(chatUnsub)chatUnsub();
-  const q=query(collection(_db,'chat'),orderBy('timestampMs','asc'));
-  chatUnsub=onSnapshot(q,snap=>{
-    const msgs=document.getElementById('chat-messages');
-    const empty=document.getElementById('chat-empty');
-    if(!msgs)return;
-    const now=Date.now(),cutoff=now-24*60*60*1000;
-    const validDocs=snap.docs.filter(d=>{const ms=d.data().timestampMs;return ms&&ms>cutoff;});
-    if(!validDocs.length){if(empty)empty.style.display='flex';msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el=>el.remove());return;}
-    if(empty)empty.style.display='none';
-    let lastDate='',html='';
-    validDocs.forEach(d=>{
-      const m=d.data(),isMe=m.uid===user.uid;
-      const ts=m.timestampMs?new Date(m.timestampMs):null;
-      const day=ts?ts.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}):'';
-      if(day&&day!==lastDate){html+=`<div class="chat-date-sep">${day}</div>`;lastDate=day;}
-      html+=`<div class="chat-msg-group ${isMe?'me':'other'}">${!isMe?`<div class="chat-sender-name">${m.name||'?'}</div>`:''}<div class="chat-bubble ${isMe?'me':'other'}">${m.text}<span class="chat-bubble-time">${m.time||''}</span></div></div>`;
+  if (chatUnsub) chatUnsub();
+  const q = query(collection(_db,'chat'), orderBy('timestampMs','asc'));
+  chatUnsub = onSnapshot(q, snap => {
+    const msgs  = document.getElementById('chat-messages');
+    const empty = document.getElementById('chat-empty');
+    if (!msgs) return;
+    const cutoff = Date.now() - 24*60*60*1000;
+    const validDocs = snap.docs.filter(d => { const ms=d.data().timestampMs; return ms&&ms>cutoff; });
+    if (!validDocs.length) {
+      if (empty) empty.style.display = 'flex';
+      msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el => el.remove());
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    let lastDate = '', html = '';
+    validDocs.forEach(d => {
+      const m = d.data(), isMe = m.uid === user.uid;
+      const ts  = m.timestampMs ? new Date(m.timestampMs) : null;
+      const day = ts ? ts.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}) : '';
+      if (day && day !== lastDate) { html += `<div class="chat-date-sep">${day}</div>`; lastDate = day; }
+      html += `<div class="chat-msg-group ${isMe?'me':'other'}">${!isMe?`<div class="chat-sender-name">${m.name||'?'}</div>`:''}<div class="chat-bubble ${isMe?'me':'other'}">${m.text}<span class="chat-bubble-time">${m.time||''}</span></div></div>`;
     });
-    msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el=>el.remove());
-    msgs.insertAdjacentHTML('beforeend',html);
-    msgs.scrollTop=msgs.scrollHeight;
+    msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el => el.remove());
+    msgs.insertAdjacentHTML('beforeend', html);
+    msgs.scrollTop = msgs.scrollHeight;
   });
-  document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMsg();}});
+  document.getElementById('chat-input').addEventListener('keydown', e => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMsg();} });
 }
 
-window.sendChatMsg=async()=>{
-  const input=document.getElementById('chat-input');
-  const text=input?.value.trim();
-  const user=_auth.currentUser;
-  if(!text||!user)return;
-  input.value='';
-  const now=Date.now();
-  await addDoc(collection(_db,'chat'),{
-    uid:user.uid,name:user.displayName||'Utilisateur',text,
-    time:new Date(now).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
-    timestampMs:now,timestamp:serverTimestamp()
+window.sendChatMsg = async () => {
+  const input = document.getElementById('chat-input');
+  const text  = input?.value.trim();
+  const user  = _auth.currentUser;
+  if (!text || !user) return;
+  input.value = '';
+  const now = Date.now();
+  await addDoc(collection(_db,'chat'), {
+    uid: user.uid, name: user.displayName||'Utilisateur', text,
+    time: new Date(now).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
+    timestampMs: now, timestamp: serverTimestamp()
   });
 };
 
 // ── TELEGRAM ─────────────────────────────────────────────────────────────────
-const tg=window.Telegram?.WebApp;
-if(tg){
-  tg.ready();tg.expand();
-  if(typeof tg.requestFullscreen==='function')tg.requestFullscreen();
-  if(typeof tg.setHeaderColor==='function')tg.setHeaderColor('#000000');
-  if(typeof tg.setBackgroundColor==='function')tg.setBackgroundColor('#000000');
-  if(typeof tg.setBottomBarColor==='function')tg.setBottomBarColor('#000000');
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.ready(); tg.expand();
+  if (typeof tg.requestFullscreen === 'function') tg.requestFullscreen();
+  if (typeof tg.setHeaderColor    === 'function') tg.setHeaderColor('#000000');
+  if (typeof tg.setBackgroundColor === 'function') tg.setBackgroundColor('#000000');
+  if (typeof tg.setBottomBarColor  === 'function') tg.setBottomBarColor('#000000');
   tg.enableClosingConfirmation();
 }
 
 // ── PANIER ────────────────────────────────────────────────────────────────────
-let cart=JSON.parse(localStorage.getItem('cart_bart76'))||[];
-function saveCart(){localStorage.setItem('cart_bart76',JSON.stringify(cart));updateBadge();}
-function updateBadge(){const b=document.getElementById('cart-badge');b.textContent=cart.length||'';b.style.display=cart.length>0?'inline-block':'none';}
+let cart = JSON.parse(localStorage.getItem('cart_bart76')) || [];
+function saveCart()    { localStorage.setItem('cart_bart76', JSON.stringify(cart)); updateBadge(); }
+function updateBadge() { const b=document.getElementById('cart-badge'); b.textContent=cart.length||''; b.style.display=cart.length>0?'inline-block':'none'; }
 
 // ── FILTRES ───────────────────────────────────────────────────────────────────
-function populateFilters(){
-  const all=Object.values(products);
-  const cats=[...new Set(all.map(p=>p.category))].sort();
-  const farms=[...new Set(all.map(p=>p.farm))].sort();
-  const cs=document.getElementById('category-filter');
-  const fs=document.getElementById('farm-filter');
-  while(cs.options.length>1)cs.remove(1);
-  while(fs.options.length>1)fs.remove(1);
-  cats.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;cs.appendChild(o);});
-  farms.forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;fs.appendChild(o);});
+function populateFilters() {
+  const all   = Object.values(products);
+  const cats  = [...new Set(all.map(p => p.category))].sort();
+  const farms = [...new Set(all.map(p => p.farm))].sort();
+  const cs = document.getElementById('category-filter');
+  const fs = document.getElementById('farm-filter');
+  while (cs.options.length > 1) cs.remove(1);
+  while (fs.options.length > 1) fs.remove(1);
+  cats.forEach(c  => { const o=document.createElement('option'); o.value=c; o.textContent=c; cs.appendChild(o); });
+  farms.forEach(f => { const o=document.createElement('option'); o.value=f; o.textContent=f; fs.appendChild(o); });
 }
-function filterProducts(){
-  const cf=document.getElementById('category-filter').value;
-  const ff=document.getElementById('farm-filter').value;
-  renderProducts(Object.values(products).filter(p=>(!cf||p.category===cf)&&(!ff||p.farm===ff)));
+function filterProducts() {
+  const cf = document.getElementById('category-filter').value;
+  const ff = document.getElementById('farm-filter').value;
+  renderProducts(Object.values(products).filter(p => (!cf||p.category===cf) && (!ff||p.farm===ff)));
 }
-window.filterProducts=filterProducts;
+window.filterProducts = filterProducts;
 
 // ── RENDU PRODUITS ────────────────────────────────────────────────────────────
-function renderProducts(list){
-  if(!list) list=Object.values(products);
-  const grid=document.getElementById('products-grid'); grid.innerHTML='';
-  const n=list.length;
-  const ce=document.getElementById('products-count-modern');
-  ce.querySelector('.products-count-number').textContent=n;
-  ce.querySelector('.products-count-label').textContent=n>1?'Produits':'Produit';
-  if(!n){grid.innerHTML='<div class="no-results">Aucun produit 🔍</div>';return;}
-  list.forEach(p=>{
-    const card=document.createElement('div');
-    card.className='card'+(p.stock==='rupture'?' rupture-card':'');
+function renderProducts(list) {
+  if (!list) list = Object.values(products);
+  const grid = document.getElementById('products-grid'); grid.innerHTML = '';
+  const n = list.length;
+  const ce = document.getElementById('products-count-modern');
+  ce.querySelector('.products-count-number').textContent = n;
+  ce.querySelector('.products-count-label').textContent  = n > 1 ? 'Produits' : 'Produit';
+  if (!n) { grid.innerHTML = '<div class="no-results">Aucun produit 🔍</div>'; return; }
+  list.forEach(p => {
+    const card  = document.createElement('div');
+    card.className = 'card' + (p.stock==='rupture' ? ' rupture-card' : '');
     const thumb = getThumb(p);
     const imgHTML = thumb
       ? `<img src="${thumb}" alt="${p.title}" onerror="this.parentNode.innerHTML='<div class=\\'card-no-img\\'><span>☕</span></div>'">`
       : `<div class="card-no-img"><span>☕</span></div>`;
-    const stockBadge=`<div class="stock-badge ${p.stock==='rupture'?'rupture':'dispo'}">${p.stock==='rupture'?'❌ Rupture':'✅ Dispo'}</div>`;
-    const newBadge=p.isNew?`<div class="new-badge">🆕 NEW</div>`:'';
-    const ruptureOverlay=p.stock==='rupture'?`<div class="rupture-overlay"><span>Rupture de stock</span></div>`:'';
-    card.innerHTML=`<div class="card-img">
-      ${imgHTML}
-      ${stockBadge}${newBadge}${ruptureOverlay}
-      <div class="card-overlay">
-        <div class="card-title">${p.title}</div>
-        <div class="card-farm">${p.farm}</div>
-      </div>
-    </div>`;
-    card.onclick=()=>openProductDetail(p.key);
+    const stockBadge     = `<div class="stock-badge ${p.stock==='rupture'?'rupture':'dispo'}">${p.stock==='rupture'?'❌ Rupture':'✅ Dispo'}</div>`;
+    const newBadge       = p.isNew ? `<div class="new-badge">🆕 NEW</div>` : '';
+    const ruptureOverlay = p.stock==='rupture' ? `<div class="rupture-overlay"><span>Rupture de stock</span></div>` : '';
+    card.innerHTML = `<div class="card-img">${imgHTML}${stockBadge}${newBadge}${ruptureOverlay}<div class="card-overlay"><div class="card-title">${p.title}</div><div class="card-farm">${p.farm}</div></div></div>`;
+    card.onclick = () => openProductDetail(p.key);
     grid.appendChild(card);
   });
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
-function hideAllPages(){
-  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.style.display='none';
+function hideAllPages() {
+  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.style.display = 'none';
   });
-  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 }
-function scrollToTop(){document.querySelector('.content').scrollTo({top:0,behavior:'instant'});}
-function goToHome(){
+function scrollToTop() { document.querySelector('.content').scrollTo({top:0,behavior:'instant'}); }
+function goToHome() {
   hideAllPages();
-  document.getElementById('home-page').style.display='block';
+  document.getElementById('home-page').style.display = 'block';
   document.getElementById('nav-home').classList.add('active');
-  if(tg)tg.BackButton.hide(); scrollToTop();
+  if (tg) tg.BackButton.hide();
+  scrollToTop();
 }
 
 // ── SWIPER ────────────────────────────────────────────────────────────────────
-let swiperIndex=0, swiperItems=[];
+let swiperIndex = 0, swiperItems = [];
 
-function buildSwiper(videos){
-  swiperIndex=0; swiperItems=videos;
-  const track=document.getElementById('swiper-track'); track.innerHTML='';
-  videos.forEach(vid=>{
+function buildSwiper(videos) {
+  swiperIndex = 0; swiperItems = videos;
+  const track = document.getElementById('swiper-track'); track.innerHTML = '';
+  videos.forEach(vid => {
     const hasSrc    = vid.src    && vid.src.trim();
     const hasPoster = vid.poster && vid.poster.trim();
-    if(hasSrc){
-      const v=document.createElement('video');
-      v.autoplay=false; v.loop=true; v.muted=true; v.playsinline=true; v.controls=true;
-      v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
-      if(hasPoster) v.poster=vid.poster.trim();
-      v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;
+    if (hasSrc) {
+      const v = document.createElement('video');
+      v.autoplay = false; v.loop = true; v.muted = true; v.playsinline = true; v.controls = true;
+      v.style.cssText = 'flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
+      if (hasPoster) v.poster = vid.poster.trim();
+      v.innerHTML = `<source src="${vid.src.trim()}" type="video/mp4">`;
       track.appendChild(v);
-    } else if(hasPoster){
-      const img=document.createElement('img');
-      img.src=vid.poster.trim(); img.alt='';
-      img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';
-      img.onerror=function(){
-        const black=document.createElement('div'); black.className='swiper-black-slide'; black.innerHTML='<span>☕</span>';
+    } else if (hasPoster) {
+      const img = document.createElement('img');
+      img.src = vid.poster.trim(); img.alt = '';
+      img.style.cssText = 'flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';
+      img.onerror = function() {
+        const black = document.createElement('div'); black.className = 'swiper-black-slide'; black.innerHTML = '<span>☕</span>';
         track.replaceChild(black, img);
       };
       track.appendChild(img);
     } else {
-      const black=document.createElement('div'); black.className='swiper-black-slide'; black.innerHTML='<span>☕</span>';
+      const black = document.createElement('div'); black.className = 'swiper-black-slide'; black.innerHTML = '<span>☕</span>';
       track.appendChild(black);
     }
   });
-  if(!track.children.length){
-    const black=document.createElement('div'); black.className='swiper-black-slide'; black.innerHTML='<span>☕</span>';
-    track.appendChild(black); swiperItems=[{src:'',poster:''}];
+  if (!track.children.length) {
+    const black = document.createElement('div'); black.className = 'swiper-black-slide'; black.innerHTML = '<span>☕</span>';
+    track.appendChild(black); swiperItems = [{src:'',poster:''}];
   }
   updateSwiper();
 }
 
-function updateSwiper(){
-  const total=swiperItems.length;
-  document.getElementById('swiper-track').style.transform=`translateX(-${swiperIndex*100}%)`;
-  document.getElementById('swiper-counter').textContent=`${swiperIndex+1} / ${total}`;
-  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{
-    if(i===swiperIndex) v.play().catch(()=>{});
+function updateSwiper() {
+  const total = swiperItems.length;
+  document.getElementById('swiper-track').style.transform = `translateX(-${swiperIndex * 100}%)`;
+  document.getElementById('swiper-counter').textContent   = `${swiperIndex+1} / ${total}`;
+  document.getElementById('swiper-track').querySelectorAll('video').forEach((v, i) => {
+    if (i === swiperIndex) v.play().catch(()=>{});
     else v.pause();
   });
-  const show=total>1;
-  document.querySelector('.swiper-btn-prev').style.display=show?'flex':'none';
-  document.querySelector('.swiper-btn-next').style.display=show?'flex':'none';
-  document.getElementById('swiper-counter').style.display=show?'block':'none';
+  const show = total > 1;
+  document.querySelector('.swiper-btn-prev').style.display = show ? 'flex' : 'none';
+  document.querySelector('.swiper-btn-next').style.display = show ? 'flex' : 'none';
+  document.getElementById('swiper-counter').style.display  = show ? 'block' : 'none';
 }
-window.swiperPrev=()=>{swiperIndex=(swiperIndex-1+swiperItems.length)%swiperItems.length;updateSwiper();};
-window.swiperNext=()=>{swiperIndex=(swiperIndex+1)%swiperItems.length;updateSwiper();};
+window.swiperPrev = () => { swiperIndex = (swiperIndex - 1 + swiperItems.length) % swiperItems.length; updateSwiper(); };
+window.swiperNext = () => { swiperIndex = (swiperIndex + 1) % swiperItems.length; updateSwiper(); };
 
 // ── DÉTAIL PRODUIT ────────────────────────────────────────────────────────────
-function openProductDetail(key){
-  const p=products[key];
-  document.getElementById('detail-title').textContent=p.title;
-  const badgesEl=document.getElementById('detail-badges');
-  const stockClass=p.stock==='rupture'?'badge-rupture':'badge-dispo';
-  const stockLabel=p.stock==='rupture'?'❌ Rupture de stock':'✅ Disponible';
-  let badgesHTML=`<div class="badge badge-farm">${p.farm}</div><div class="badge ${stockClass}">${stockLabel}</div>`;
-  if(p.isNew)badgesHTML+=`<div class="badge badge-new">🆕 Nouveauté</div>`;
-  badgesEl.innerHTML=badgesHTML;
-  let content=p.strain?p.strain.replace(/\n/g,'<br>'):'';
+function openProductDetail(key) {
+  const p = products[key];
+  document.getElementById('detail-title').textContent = p.title;
+  const badgesEl    = document.getElementById('detail-badges');
+  const stockClass  = p.stock==='rupture' ? 'badge-rupture' : 'badge-dispo';
+  const stockLabel  = p.stock==='rupture' ? '❌ Rupture de stock' : '✅ Disponible';
+  let badgesHTML    = `<div class="badge badge-farm">${p.farm}</div><div class="badge ${stockClass}">${stockLabel}</div>`;
+  if (p.isNew) badgesHTML += `<div class="badge badge-new">🆕 Nouveauté</div>`;
+  badgesEl.innerHTML = badgesHTML;
+  let content = p.strain ? p.strain.replace(/\n/g,'<br>') : '';
   const descText = p.description || p.desc || '';
-  if(descText) content+='<div class="description">'+descText.replace(/\n/g,'<br>')+'</div>';
-  document.getElementById('detail-strain-desc').innerHTML=content||'<p style="color:#888;font-style:italic">Aucune description disponible</p>';
-  const qtyGrid=document.getElementById('qty-grid'); qtyGrid.innerHTML='';
-  const disabled=p.stock==='rupture';
+  if (descText) content += '<div class="description">' + descText.replace(/\n/g,'<br>') + '</div>';
+  document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888;font-style:italic">Aucune description disponible</p>';
+  const qtyGrid  = document.getElementById('qty-grid'); qtyGrid.innerHTML = '';
+  const disabled = p.stock === 'rupture';
   const safeQtys = Array.isArray(p.quantities) ? p.quantities : [];
-  safeQtys.forEach((item,idx)=>{
-    const btn=document.createElement('button'); btn.className='qty-btn';
-    btn.innerHTML=`${item.qty}<br><span class="price-new">${item.price}</span>`; btn.dataset.idx=idx;
-    if(disabled){btn.disabled=true;btn.style.opacity='0.4';btn.style.cursor='not-allowed';}
-    else btn.onclick=()=>{qtyGrid.querySelectorAll('.qty-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');};
+  safeQtys.forEach((item, idx) => {
+    const btn = document.createElement('button'); btn.className = 'qty-btn';
+    btn.innerHTML = `${item.qty}<br><span class="price-new">${item.price}</span>`; btn.dataset.idx = idx;
+    if (disabled) { btn.disabled=true; btn.style.opacity='0.4'; btn.style.cursor='not-allowed'; }
+    else btn.onclick = () => { qtyGrid.querySelectorAll('.qty-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); };
     qtyGrid.appendChild(btn);
   });
-  const addBtn=document.getElementById('add-to-cart-btn');
-  addBtn.disabled=disabled; addBtn.style.opacity=disabled?'0.4':'1'; addBtn.style.cursor=disabled?'not-allowed':'pointer';
+  const addBtn = document.getElementById('add-to-cart-btn');
+  addBtn.disabled = disabled; addBtn.style.opacity = disabled ? '0.4' : '1'; addBtn.style.cursor = disabled ? 'not-allowed' : 'pointer';
   buildSwiper(p.videos && p.videos.length ? p.videos : [{src:'',poster:''}]);
   hideAllPages();
-  document.getElementById('product-detail').style.display='flex';
-  if(tg)tg.BackButton.show(); scrollToTop();
+  document.getElementById('product-detail').style.display = 'flex';
+  if (tg) tg.BackButton.show();
+  scrollToTop();
 }
 
-document.getElementById('add-to-cart-btn').onclick=()=>{
-  const sel=document.querySelector('.qty-btn.selected'); if(!sel)return alert('Sélectionnez une quantité !');
-  const title=document.getElementById('detail-title').textContent;
-  const key=Object.keys(products).find(k=>products[k].title===title);
-  const item=products[key].quantities[parseInt(sel.dataset.idx)];
-  cart.push({title,qty:item.qty,price:item.price}); saveCart(); alert('✅ Ajouté au panier !');
+document.getElementById('add-to-cart-btn').onclick = () => {
+  const sel = document.querySelector('.qty-btn.selected'); if (!sel) return alert('Sélectionnez une quantité !');
+  const title = document.getElementById('detail-title').textContent;
+  const key   = Object.keys(products).find(k => products[k].title === title);
+  const item  = products[key].quantities[parseInt(sel.dataset.idx)];
+  cart.push({ title, qty: item.qty, price: item.price }); saveCart(); alert('✅ Ajouté au panier !');
 };
 
 // ── NAV ───────────────────────────────────────────────────────────────────────
-document.getElementById('nav-home').onclick=goToHome;
-document.getElementById('nav-cart').onclick=()=>{hideAllPages();document.getElementById('cart-page').style.display='block';document.getElementById('nav-cart').classList.add('active');if(tg)tg.BackButton.hide();renderCart();scrollToTop();};
-document.getElementById('nav-infos').onclick=()=>{hideAllPages();document.getElementById('infos-page').style.display='block';document.getElementById('nav-infos').classList.add('active');if(tg)tg.BackButton.hide();scrollToTop();};
-document.getElementById('nav-reseaux').onclick=()=>{hideAllPages();document.getElementById('reseaux-page').style.display='block';document.getElementById('nav-reseaux').classList.add('active');if(tg)tg.BackButton.hide();scrollToTop();};
-document.getElementById('nav-avis').onclick=()=>{hideAllPages();document.getElementById('avis-page').style.display='block';document.getElementById('nav-avis').classList.add('active');if(tg)tg.BackButton.hide();renderAvis();scrollToTop();};
-document.getElementById('nav-profil').onclick=()=>{hideAllPages();document.getElementById('profil-page').style.display='block';document.getElementById('nav-profil').classList.add('active');if(tg)tg.BackButton.hide();renderProfilPage();scrollToTop();};
-document.getElementById('nav-chat').onclick=()=>{hideAllPages();const cp=document.getElementById('chat-page');cp.style.display='flex';cp.style.flexDirection='column';document.getElementById('nav-chat').classList.add('active');if(tg)tg.BackButton.hide();renderChatPage();};
+document.getElementById('nav-home').onclick    = goToHome;
+document.getElementById('nav-cart').onclick    = () => { hideAllPages(); document.getElementById('cart-page').style.display='block'; document.getElementById('nav-cart').classList.add('active'); if(tg)tg.BackButton.hide(); renderCart(); scrollToTop(); };
+document.getElementById('nav-infos').onclick   = () => { hideAllPages(); document.getElementById('infos-page').style.display='block'; document.getElementById('nav-infos').classList.add('active'); if(tg)tg.BackButton.hide(); scrollToTop(); };
+document.getElementById('nav-reseaux').onclick = () => { hideAllPages(); document.getElementById('reseaux-page').style.display='block'; document.getElementById('nav-reseaux').classList.add('active'); if(tg)tg.BackButton.hide(); scrollToTop(); };
+document.getElementById('nav-avis').onclick    = () => { hideAllPages(); document.getElementById('avis-page').style.display='block'; document.getElementById('nav-avis').classList.add('active'); if(tg)tg.BackButton.hide(); renderAvis(); scrollToTop(); };
+document.getElementById('nav-profil').onclick  = () => { hideAllPages(); document.getElementById('profil-page').style.display='block'; document.getElementById('nav-profil').classList.add('active'); if(tg)tg.BackButton.hide(); renderProfilPage(); scrollToTop(); };
+document.getElementById('nav-chat').onclick    = () => { hideAllPages(); const cp=document.getElementById('chat-page'); cp.style.display='flex'; cp.style.flexDirection='column'; document.getElementById('nav-chat').classList.add('active'); if(tg)tg.BackButton.hide(); renderChatPage(); };
 
 // ── AVIS ─────────────────────────────────────────────────────────────────────
-let selectedStar=0;
-let avisPhotoBase64=null;
+let selectedStar = 0;
+let avisPhotoBase64 = null;
 
-document.querySelectorAll('.star').forEach(star=>{
-  star.addEventListener('click',()=>{
-    selectedStar=parseInt(star.dataset.v);
-    document.querySelectorAll('.star').forEach(s=>{
-      s.textContent=parseInt(s.dataset.v)<=selectedStar?'★':'☆';
-      s.classList.toggle('on',parseInt(s.dataset.v)<=selectedStar);
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', () => {
+    selectedStar = parseInt(star.dataset.v);
+    document.querySelectorAll('.star').forEach(s => {
+      s.textContent = parseInt(s.dataset.v) <= selectedStar ? '★' : '☆';
+      s.classList.toggle('on', parseInt(s.dataset.v) <= selectedStar);
     });
   });
 });
 
-document.getElementById('avis-photo-input').addEventListener('change',function(){
-  const file=this.files[0]; if(!file)return;
-  if(file.size>4*1024*1024){alert('Image trop grande (max 4 Mo)');return;}
-  const reader=new FileReader();
-  reader.onload=e=>{
-    avisPhotoBase64=e.target.result;
-    const preview=document.getElementById('avis-photo-preview');
-    preview.src=avisPhotoBase64; preview.style.display='block';
-    document.getElementById('photo-upload-text').textContent='Photo sélectionnée ✅';
+document.getElementById('avis-photo-input').addEventListener('change', function() {
+  const file = this.files[0]; if (!file) return;
+  if (file.size > 4*1024*1024) { alert('Image trop grande (max 4 Mo)'); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    avisPhotoBase64 = e.target.result;
+    const preview = document.getElementById('avis-photo-preview');
+    preview.src = avisPhotoBase64; preview.style.display = 'block';
+    document.getElementById('photo-upload-text').textContent = 'Photo sélectionnée ✅';
   };
   reader.readAsDataURL(file);
 });
 
-async function renderAvis(){
-  const list=document.getElementById('avis-list');
-  list.innerHTML='<p style="text-align:center;color:#555;padding:30px 0">Chargement...</p>';
-  try{
-    const q=query(collection(_db,'avis'),orderBy('timestamp','desc'));
-    const snap=await getDocs(q);
-    const avisList=snap.docs.map(d=>d.data());
-    if(!avisList.length){list.innerHTML='<p style="text-align:center;color:#555;padding:30px 0">Aucun avis pour l\'instant.</p>';return;}
-    list.innerHTML=avisList.map(a=>`
+async function renderAvis() {
+  const list = document.getElementById('avis-list');
+  list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0">Chargement...</p>';
+  try {
+    const q    = query(collection(_db,'avis'), orderBy('timestamp','desc'));
+    const snap = await getDocs(q);
+    const avisList = snap.docs.map(d => d.data());
+    if (!avisList.length) { list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0">Aucun avis pour l\'instant.</p>'; return; }
+    list.innerHTML = avisList.map(a => `
       <div class="avis-card">
         <div class="avis-header"><span class="avis-user">${a.user}</span><span class="avis-stars">${'★'.repeat(a.note)}${'☆'.repeat(5-a.note)}</span></div>
         <div class="avis-date">${a.date}</div>
         <div class="avis-comment">${a.comment}</div>
-        ${a.photoUrl?`<img class="avis-photo" src="${a.photoUrl}" alt="Photo" onclick="openLightbox('${a.photoUrl}')">`:''}
+        ${a.photoUrl ? `<img class="avis-photo" src="${a.photoUrl}" alt="Photo" onclick="openLightbox('${a.photoUrl}')">` : ''}
       </div>`).join('');
-  }catch(e){list.innerHTML='<p style="text-align:center;color:#ef4444;padding:30px 0">Erreur de chargement.</p>';}
+  } catch(e) { list.innerHTML = '<p style="text-align:center;color:#ef4444;padding:30px 0">Erreur de chargement.</p>'; }
 }
 
-document.getElementById('submit-avis-btn').onclick=async()=>{
-  const comment=document.getElementById('avis-text').value.trim();
-  if(!selectedStar)return alert('Veuillez sélectionner une note ⭐');
-  if(!comment)return alert('Veuillez écrire un commentaire');
-  const tgUser=tg?.initDataUnsafe?.user;
-  const username=tgUser?.first_name||_auth.currentUser?.displayName||'Anonyme';
-  const btn=document.getElementById('submit-avis-btn');
-  btn.disabled=true; btn.textContent='Envoi...';
-  try{
-    let photoUrl=null;
-    if(avisPhotoBase64){
-      try{
-        const storageRef=ref(_storage,'avis/'+Date.now()+'.jpg');
-        await uploadString(storageRef,avisPhotoBase64,'data_url');
-        photoUrl=await getDownloadURL(storageRef);
-      }catch(e){console.warn('Photo upload failed',e);}
+document.getElementById('submit-avis-btn').onclick = async () => {
+  const comment = document.getElementById('avis-text').value.trim();
+  if (!selectedStar) return alert('Veuillez sélectionner une note ⭐');
+  if (!comment)      return alert('Veuillez écrire un commentaire');
+  const tgUser   = tg?.initDataUnsafe?.user;
+  const username = tgUser?.first_name || _auth.currentUser?.displayName || 'Anonyme';
+  const btn = document.getElementById('submit-avis-btn');
+  btn.disabled = true; btn.textContent = 'Envoi...';
+  try {
+    let photoUrl = null;
+    if (avisPhotoBase64) {
+      try {
+        const storageRef = ref(_storage, 'avis/'+Date.now()+'.jpg');
+        await uploadString(storageRef, avisPhotoBase64, 'data_url');
+        photoUrl = await getDownloadURL(storageRef);
+      } catch(e) { console.warn('Photo upload failed', e); }
     }
-    await addDoc(collection(_db,'avis'),{
-      user:username, note:selectedStar, comment,
-      photoUrl:photoUrl||null,
-      date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),
-      timestamp:serverTimestamp()
+    await addDoc(collection(_db,'avis'), {
+      user: username, note: selectedStar, comment,
+      photoUrl: photoUrl || null,
+      date: new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),
+      timestamp: serverTimestamp()
     });
-    document.getElementById('avis-text').value='';
-    selectedStar=0; avisPhotoBase64=null;
-    document.getElementById('avis-photo-preview').style.display='none';
-    document.getElementById('avis-photo-preview').src='';
-    document.getElementById('photo-upload-text').textContent='Ajouter une photo (optionnel)';
-    document.getElementById('avis-photo-input').value='';
-    document.querySelectorAll('.star').forEach(s=>{s.textContent='☆';s.classList.remove('on');});
+    document.getElementById('avis-text').value = '';
+    selectedStar = 0; avisPhotoBase64 = null;
+    document.getElementById('avis-photo-preview').style.display = 'none';
+    document.getElementById('avis-photo-preview').src = '';
+    document.getElementById('photo-upload-text').textContent = 'Ajouter une photo (optionnel)';
+    document.getElementById('avis-photo-input').value = '';
+    document.querySelectorAll('.star').forEach(s => { s.textContent='☆'; s.classList.remove('on'); });
     await renderAvis();
     alert('✅ Merci pour votre avis !');
-  }catch(e){alert('❌ Erreur lors de l\'envoi.');}
-  btn.disabled=false; btn.textContent='Publier mon avis';
+  } catch(e) { alert('❌ Erreur lors de l\'envoi.'); }
+  btn.disabled = false; btn.textContent = 'Publier mon avis';
 };
 
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
-window.openLightbox=(url)=>{
-  document.getElementById('lb-img').src=url;
+window.openLightbox = (url) => {
+  document.getElementById('lb-img').src = url;
   document.getElementById('photo-lightbox').classList.add('open');
 };
-document.getElementById('lb-close').addEventListener('click',()=>{
+document.getElementById('lb-close').addEventListener('click', () => {
   document.getElementById('photo-lightbox').classList.remove('open');
-  document.getElementById('lb-img').src='';
+  document.getElementById('lb-img').src = '';
 });
-document.getElementById('photo-lightbox').addEventListener('click',e=>{
-  if(e.target===document.getElementById('photo-lightbox'))document.getElementById('photo-lightbox').classList.remove('open');
+document.getElementById('photo-lightbox').addEventListener('click', e => {
+  if (e.target === document.getElementById('photo-lightbox')) document.getElementById('photo-lightbox').classList.remove('open');
 });
 
 // ── RÉSEAUX ───────────────────────────────────────────────────────────────────
-document.querySelectorAll('.reseau-item[data-link]').forEach(el=>{
-  el.onclick=()=>{const l=el.getAttribute('data-link');if(tg)tg.openLink(l);else window.open(l,'_blank');};
+document.querySelectorAll('.reseau-item[data-link]').forEach(el => {
+  el.onclick = () => { const l=el.getAttribute('data-link'); if(tg)tg.openLink(l); else window.open(l,'_blank'); };
 });
-if(tg)tg.BackButton.onClick(()=>goToHome());
+if (tg) tg.BackButton.onClick(() => goToHome());
 
 // ── PANIER RENDU ──────────────────────────────────────────────────────────────
-function renderCart(){
-  const container=document.getElementById('cart-items'); container.innerHTML='';
-  if(!cart.length){container.innerHTML='<p style="text-align:center;color:#888;padding:40px 0">Votre panier est vide</p>';document.getElementById('cart-total').textContent='';return;}
-  let total=0;
-  cart.forEach((item,index)=>{
-    total+=parseInt(item.price)||0;
-    const div=document.createElement('div'); div.className='cart-item';
-    div.innerHTML=`<div><div class="cart-item-title">${item.title}</div><div class="cart-item-qty">${item.qty} — ${item.price}</div></div><button class="delete-btn" data-index="${index}">×</button>`;
+function renderCart() {
+  const container = document.getElementById('cart-items'); container.innerHTML = '';
+  if (!cart.length) { container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0">Votre panier est vide</p>'; document.getElementById('cart-total').textContent = ''; return; }
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += parseInt(item.price) || 0;
+    const div = document.createElement('div'); div.className = 'cart-item';
+    div.innerHTML = `<div><div class="cart-item-title">${item.title}</div><div class="cart-item-qty">${item.qty} — ${item.price}</div></div><button class="delete-btn" data-index="${index}">×</button>`;
     container.appendChild(div);
   });
-  document.getElementById('cart-total').innerHTML=`Total : <strong>${total}€</strong>`;
+  document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
 }
-document.getElementById('cart-page').addEventListener('click',e=>{
-  if(e.target.classList.contains('delete-btn')){cart.splice(parseInt(e.target.dataset.index),1);saveCart();renderCart();}
+document.getElementById('cart-page').addEventListener('click', e => {
+  if (e.target.classList.contains('delete-btn')) { cart.splice(parseInt(e.target.dataset.index),1); saveCart(); renderCart(); }
 });
-document.querySelectorAll('.option-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
-    document.getElementById('pickup-questions').style.display=btn.dataset.type==='pickup'?'block':'none';
-    document.getElementById('delivery-questions').style.display=btn.dataset.type==='delivery'?'block':'none';
+document.querySelectorAll('.option-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
+    document.getElementById('pickup-questions').style.display   = btn.dataset.type==='pickup'   ? 'block' : 'none';
+    document.getElementById('delivery-questions').style.display = btn.dataset.type==='delivery' ? 'block' : 'none';
   });
 });
-document.getElementById('submit-order-btn').onclick=async()=>{
-  if(!cart.length)return alert('Votre panier est vide');
-  const modeBtn=document.querySelector('.option-btn.active');
-  if(!modeBtn)return alert('Choisissez un mode de récupération.');
-  const mode=modeBtn.dataset.type==='pickup'?'Venir sur place':'Livraison';
-  const tgUser=tg?.initDataUnsafe?.user;
-  let message=`🛒 *NOUVELLE COMMANDE* 🛒\n\n👤 ${tgUser?.username?'@'+tgUser.username:tgUser?.first_name||'Utilisateur'}\n📅 ${new Date().toLocaleString('fr-FR')}\n\n🛍️ *Articles :*\n`;
-  let total=0, itemsText='';
-  cart.forEach(item=>{total+=parseInt(item.price)||0;message+=`• ${item.title} — ${item.qty} (${item.price})\n`;itemsText+=`• ${item.title} ${item.qty} (${item.price})\n`;});
-  message+=`\n💰 *Total : ${total}€*\n\n📦 *Mode :* ${mode}\n`;
-  const user=_auth.currentUser;
-  if(user){
-    try{await addDoc(collection(_db,'commandes'),{uid:user.uid,items:itemsText.trim(),total,mode,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});}
-    catch(e){console.error(e);}
+document.getElementById('submit-order-btn').onclick = async () => {
+  if (!cart.length) return alert('Votre panier est vide');
+  const modeBtn = document.querySelector('.option-btn.active');
+  if (!modeBtn) return alert('Choisissez un mode de récupération.');
+  const mode   = modeBtn.dataset.type==='pickup' ? 'Venir sur place' : 'Livraison';
+  const tgUser = tg?.initDataUnsafe?.user;
+  let message  = `🛒 *NOUVELLE COMMANDE* 🛒\n\n👤 ${tgUser?.username?'@'+tgUser.username:tgUser?.first_name||'Utilisateur'}\n📅 ${new Date().toLocaleString('fr-FR')}\n\n🛍️ *Articles :*\n`;
+  let total = 0, itemsText = '';
+  cart.forEach(item => { total += parseInt(item.price)||0; message += `• ${item.title} — ${item.qty} (${item.price})\n`; itemsText += `• ${item.title} ${item.qty} (${item.price})\n`; });
+  message += `\n💰 *Total : ${total}€*\n\n📦 *Mode :* ${mode}\n`;
+  const user = _auth.currentUser;
+  if (user) {
+    try { await addDoc(collection(_db,'commandes'), {uid:user.uid, items:itemsText.trim(), total, mode, date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}), timestamp:serverTimestamp()}); }
+    catch(e) { console.error(e); }
   }
-  const url=`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
-  if(tg)tg.openTelegramLink(url);else window.open(url,'_blank');
+  const url = `https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
+  if (tg) tg.openTelegramLink(url); else window.open(url,'_blank');
 };
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded',async()=>{
-  const container=document.getElementById('splash-particles');
-  for(let i=0;i<22;i++){
-    const s=document.createElement('div'); s.className='spark';
-    s.style.cssText=`left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
+document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('splash-particles');
+  for (let i=0; i<22; i++) {
+    const s = document.createElement('div'); s.className = 'spark';
+    s.style.cssText = `left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
     container.appendChild(s);
   }
   await loadProductOverrides();
-  const splash=document.getElementById('splash-screen');
-  setTimeout(()=>{
+  const splash = document.getElementById('splash-screen');
+  setTimeout(() => {
     splash.classList.add('hidden');
-    setTimeout(()=>{
-      splash.style.display='none';
+    setTimeout(() => {
+      splash.style.display = 'none';
       populateFilters(); renderProducts(); updateBadge(); goToHome();
-    },600);
-  },2500);
+    }, 600);
+  }, 2500);
 });
 </script>
 </body>
