@@ -45,10 +45,13 @@
     .products-count { display:flex; flex-direction:column; align-items:center; background:rgba(255,235,59,0.08); border:1.5px solid rgba(255,235,59,0.3); border-radius:16px; padding:8px 20px; box-shadow:0 0 18px rgba(255,235,59,0.1); min-width:80px; }
     .products-count-number { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:#ffeb3b; line-height:1; text-shadow:0 0 12px rgba(255,235,59,0.5); }
     .products-count-label { font-size:0.65rem; font-weight:700; color:rgba(255,235,59,0.6); letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; }
+
+    /* ── FILTRE FIX ── */
     #filters-bar { margin:0 16px 14px 16px; }
-    .filters-inner { display:flex; gap:10px; align-items:center; }
-    .compact-select { flex:1; height:44px; font-size:14px; padding:0 32px 0 14px; font-family:'M PLUS Rounded 1c',sans-serif; font-weight:600; background:rgba(20,20,30,0.92); border:1.5px solid rgba(255,235,59,0.4); border-radius:14px; color:#e0e0e0; appearance:none; -webkit-appearance:none; cursor:pointer; outline:none; transition:border-color 0.2s; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffeb3b' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-color:rgba(20,20,30,0.92); }
+    .filters-inner { display:flex; gap:8px; align-items:center; width:100%; }
+    .compact-select { flex:1; min-width:0; width:0; height:44px; font-size:13px; padding:0 28px 0 10px; font-family:'M PLUS Rounded 1c',sans-serif; font-weight:600; background-color:rgba(20,20,30,0.92); border:1.5px solid rgba(255,235,59,0.4); border-radius:14px; color:#e0e0e0; appearance:none; -webkit-appearance:none; cursor:pointer; outline:none; transition:border-color 0.2s; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffeb3b' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .compact-select option { background:#1a1a24; color:#e0e0e0; }
+
     #products-grid { padding:0 16px 16px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
     .no-results { grid-column:1/-1; text-align:center; padding:48px 20px; color:rgba(255,235,59,0.5); font-family:'Orbitron',sans-serif; font-size:1rem; }
 
@@ -284,18 +287,12 @@
     .admin-qty-row { display:flex; gap:8px; margin-bottom:8px; }
     .admin-qty-row input { flex:1; }
     .admin-add-qty-btn { background:rgba(255,235,59,0.1); border:1px solid rgba(255,235,59,0.3); color:#ffeb3b; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.9rem; width:100%; margin-top:4px; }
-
-    /* Médias admin — fichiers locaux */
     .admin-media-previews { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
     .admin-media-thumb { position:relative; width:72px; height:72px; border-radius:10px; overflow:hidden; border:1.5px solid rgba(255,235,59,0.3); background:#000; flex-shrink:0; }
     .admin-media-thumb img, .admin-media-thumb video { width:100%; height:100%; object-fit:cover; }
     .admin-media-thumb .thumb-del { position:absolute; top:2px; right:2px; background:rgba(239,68,68,0.85); border:none; color:#fff; border-radius:50%; width:20px; height:20px; font-size:0.7rem; cursor:pointer; display:flex; align-items:center; justify-content:center; font-weight:900; line-height:1; }
     .admin-media-thumb .thumb-type { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.7); color:#ffeb3b; font-size:0.5rem; font-weight:800; padding:2px 4px; letter-spacing:0.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-
-    /* Info storage */
     .storage-info { background:rgba(255,235,59,0.07); border:1px solid rgba(255,235,59,0.2); border-radius:10px; padding:10px 14px; margin-bottom:12px; font-size:0.78rem; color:rgba(255,235,59,0.75); font-weight:600; display:flex; align-items:center; gap:8px; }
-
-    /* Modal édition produit */
     #edit-modal { display:none; position:fixed; inset:0; z-index:8500; background:rgba(0,0,0,0.88); backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
     #edit-modal.open { display:flex; }
     .edit-sheet { width:100%; background:#0a0a14; border-radius:28px 28px 0 0; border-top:1.5px solid rgba(255,235,59,0.25); padding:20px 18px 40px; max-height:90dvh; overflow-y:auto; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1); }
@@ -528,7 +525,6 @@
           <input class="admin-input" id="new-title" placeholder="Nom du produit (ex: OG Kush 🍃)">
           <input class="admin-input" id="new-farm" placeholder="Farm (ex: R8🏎️)">
           <input class="admin-input" id="new-category" placeholder="Catégorie">
-
           <div class="edit-section-label" style="margin-top:4px">📸 Images & Vidéos</div>
           <div class="storage-info">📁 Placez les fichiers dans le même dossier que index.html, puis entrez leur nom ci-dessous</div>
           <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center">
@@ -536,7 +532,6 @@
             <button id="new-media-add-btn" style="background:#ffeb3b;color:#111;border:none;border-radius:12px;padding:0 18px;height:46px;font-weight:900;font-size:1.3rem;cursor:pointer;flex-shrink:0">+</button>
           </div>
           <div class="admin-media-previews" id="new-media-previews"></div>
-
           <textarea class="admin-input" id="new-desc" placeholder="Description du produit..." style="min-height:80px;resize:vertical"></textarea>
           <div style="color:#aaa;font-size:0.8rem;margin-bottom:8px;font-weight:600">QUANTITÉS & PRIX</div>
           <div id="new-qty-list">
@@ -625,7 +620,6 @@ import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimest
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-// Firebase Storage retiré — médias locaux (fichiers dans le même dossier que index.html)
 
 const firebaseConfig = {
   apiKey: "AIzaSyAzZrBxpJZOpCDMfdNeOJ7PlkpktLW-_xE",
@@ -639,7 +633,6 @@ const firebaseConfig = {
 const _app  = initializeApp(firebaseConfig);
 const _db   = getFirestore(_app);
 const _auth = getAuth(_app);
-// _storage retiré (médias locaux)
 
 window._db        = _db;
 window._auth      = _auth;
@@ -675,900 +668,574 @@ let products = {
   }
 };
 
-// ══════════════════════════════════════════════════════════════════════════════
-//  GESTION MÉDIAS — FICHIERS LOCAUX (même dossier que index.html)
-//  → L'admin saisit juste le nom du fichier : "photo.jpg" ou "video.mp4"
-// ══════════════════════════════════════════════════════════════════════════════
-
-// État temporaire des médias
+// ── MÉDIAS LOCAUX ─────────────────────────────────────────────────────────────
 let newMediaItems  = [];
 let editMediaItems = [];
 
-// Détermine si le fichier est une vidéo d'après son extension
 function guessType(name) {
   const ext = name.split('.').pop().toLowerCase();
   return ['mp4','webm','mov','avi','ogg'].includes(ext) ? 'video' : 'image';
 }
-
-// Construit un objet mediaItem depuis un nom de fichier local
 function filenameToMediaItem(filename) {
   filename = filename.trim();
   const type = guessType(filename);
-  return {
-    type,
-    src:    type === 'video' ? filename : '',
-    poster: type === 'image' ? filename : '',
-    url:    filename,
-    name:   filename
-  };
+  return { type, src: type==='video'?filename:'', poster: type==='image'?filename:'', url:filename, name:filename };
 }
-
-// Convertit mediaItems → tableau videos (format attendu par Firestore/swiper)
 function mediaItemsToVideos(items) {
-  if (!items.length) return [{ src: '', poster: '' }];
-  return items.map(m => ({
-    src:    m.type === 'video' ? (m.url || '') : '',
-    poster: m.type === 'image' ? (m.url || '') : ''
-  }));
+  if (!items.length) return [{src:'',poster:''}];
+  return items.map(m => ({ src: m.type==='video'?(m.url||''):'', poster: m.type==='image'?(m.url||''):'' }));
 }
-
-// Reconstruit mediaItems depuis un tableau videos existant
 function videosToMediaItems(videos) {
-  if (!videos || !videos.length) return [];
-  const result = [];
+  if (!videos||!videos.length) return [];
+  const result=[];
   videos.forEach(v => {
-    if (v.poster && v.poster.trim()) result.push(filenameToMediaItem(v.poster.trim()));
-    if (v.src    && v.src.trim())    result.push(filenameToMediaItem(v.src.trim()));
+    if (v.poster&&v.poster.trim()) result.push(filenameToMediaItem(v.poster.trim()));
+    if (v.src&&v.src.trim())       result.push(filenameToMediaItem(v.src.trim()));
   });
   return result;
 }
-
-// Helper : 1ère image/poster d'un produit
 function getThumb(p) {
-  if (!p.videos || !p.videos.length) return null;
-  const first = p.videos[0];
-  return (first.poster && first.poster.trim()) ? first.poster.trim() : null;
+  if (!p.videos||!p.videos.length) return null;
+  const first=p.videos[0];
+  return (first.poster&&first.poster.trim())?first.poster.trim():null;
 }
-
-// Affiche les thumbnails dans l'interface admin
 function renderMediaPreviews(items, containerId, onDeleteFnName) {
-  const el = document.getElementById(containerId);
-  el.innerHTML = '';
-  if (!items.length) {
-    el.innerHTML = '<div style="color:#555;font-size:0.8rem;padding:8px 0">Aucun média ajouté</div>';
-    return;
-  }
-  items.forEach((m, i) => {
-    const thumb = document.createElement('div');
-    thumb.className = 'admin-media-thumb';
-    const src = m.url || m.src || m.poster || '';
-    if (m.type === 'video' && src) {
-      thumb.innerHTML = `<video src="${src}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
-    } else if (m.type === 'image' && src) {
-      thumb.innerHTML = `<img src="${src}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.parentNode.style.background='#333'">`;
-    } else {
-      thumb.innerHTML = `<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;font-size:1.5rem">☕</div>`;
-    }
-    thumb.innerHTML += `<button class="thumb-del" onclick="${onDeleteFnName}(${i})">×</button>`;
-    thumb.innerHTML += `<div class="thumb-type">${m.type === 'video' ? '🎬' : '🖼️'} ${m.name || ''}</div>`;
+  const el=document.getElementById(containerId); el.innerHTML='';
+  if (!items.length) { el.innerHTML='<div style="color:#555;font-size:0.8rem;padding:8px 0">Aucun média ajouté</div>'; return; }
+  items.forEach((m,i) => {
+    const thumb=document.createElement('div'); thumb.className='admin-media-thumb';
+    const src=m.url||m.src||m.poster||'';
+    if (m.type==='video'&&src) thumb.innerHTML=`<video src="${src}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
+    else if (m.type==='image'&&src) thumb.innerHTML=`<img src="${src}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.parentNode.style.background='#333'">`;
+    else thumb.innerHTML=`<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;font-size:1.5rem">☕</div>`;
+    thumb.innerHTML+=`<button class="thumb-del" onclick="${onDeleteFnName}(${i})">×</button>`;
+    thumb.innerHTML+=`<div class="thumb-type">${m.type==='video'?'🎬':'🖼️'} ${m.name||''}</div>`;
     el.appendChild(thumb);
   });
 }
-
-// Ajoute un ou plusieurs fichiers depuis le champ texte (séparés par virgule)
 function addMediaByFilenames(rawInput, itemsArray, containerId, onDeleteFnName) {
-  rawInput.split(',').forEach(f => {
-    const filename = f.trim();
-    if (!filename) return;
-    itemsArray.push(filenameToMediaItem(filename));
-  });
+  rawInput.split(',').forEach(f => { const fn=f.trim(); if (!fn) return; itemsArray.push(filenameToMediaItem(fn)); });
   renderMediaPreviews(itemsArray, containerId, onDeleteFnName);
 }
+window._deleteNewMedia  = (i) => { newMediaItems.splice(i,1);  renderMediaPreviews(newMediaItems,'new-media-previews','_deleteNewMedia'); };
+window._deleteEditMedia = (i) => { editMediaItems.splice(i,1); renderMediaPreviews(editMediaItems,'edit-media-previews','_deleteEditMedia'); };
 
-// Supprime un média — formulaire nouveau produit
-window._deleteNewMedia = (i) => {
-  newMediaItems.splice(i, 1);
-  renderMediaPreviews(newMediaItems, 'new-media-previews', '_deleteNewMedia');
-};
-// Supprime un média — modal édition
-window._deleteEditMedia = (i) => {
-  editMediaItems.splice(i, 1);
-  renderMediaPreviews(editMediaItems, 'edit-media-previews', '_deleteEditMedia');
-};
-
-// Branche les boutons "+" après le DOM
 function bindMediaAddButtons() {
-  // Nouveau produit
-  const newBtn   = document.getElementById('new-media-add-btn');
-  const newInput = document.getElementById('new-media-filename');
-  if (newBtn && newInput) {
-    newBtn.onclick = () => {
-      if (!newInput.value.trim()) return;
-      addMediaByFilenames(newInput.value, newMediaItems, 'new-media-previews', '_deleteNewMedia');
-      newInput.value = '';
-    };
-    newInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); newBtn.onclick(); } });
+  const newBtn=document.getElementById('new-media-add-btn'), newInput=document.getElementById('new-media-filename');
+  if (newBtn&&newInput) {
+    newBtn.onclick=()=>{ if (!newInput.value.trim()) return; addMediaByFilenames(newInput.value,newMediaItems,'new-media-previews','_deleteNewMedia'); newInput.value=''; };
+    newInput.addEventListener('keydown',e=>{ if (e.key==='Enter'){e.preventDefault();newBtn.onclick();} });
   }
-  // Édition produit
-  const editBtn   = document.getElementById('edit-media-add-btn');
-  const editInput = document.getElementById('edit-media-filename');
-  if (editBtn && editInput) {
-    editBtn.onclick = () => {
-      if (!editInput.value.trim()) return;
-      addMediaByFilenames(editInput.value, editMediaItems, 'edit-media-previews', '_deleteEditMedia');
-      editInput.value = '';
-    };
-    editInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); editBtn.onclick(); } });
+  const editBtn=document.getElementById('edit-media-add-btn'), editInput=document.getElementById('edit-media-filename');
+  if (editBtn&&editInput) {
+    editBtn.onclick=()=>{ if (!editInput.value.trim()) return; addMediaByFilenames(editInput.value,editMediaItems,'edit-media-previews','_deleteEditMedia'); editInput.value=''; };
+    editInput.addEventListener('keydown',e=>{ if (e.key==='Enter'){e.preventDefault();editBtn.onclick();} });
   }
 }
 
-// ── CHARGER OVERRIDES FIRESTORE ───────────────────────────────────────────────
+// ── FIRESTORE OVERRIDES ───────────────────────────────────────────────────────
 async function loadProductOverrides() {
   try {
-    const snap = await getDocs(collection(_db, 'products_meta'));
+    const snap=await getDocs(collection(_db,'products_meta'));
     snap.forEach(d => {
-      const data = d.data();
+      const data=d.data();
       if (products[d.id]) {
-        if (data.stock  !== undefined) products[d.id].stock  = data.stock;
-        if (data.isNew  !== undefined) products[d.id].isNew  = data.isNew;
+        if (data.stock!==undefined) products[d.id].stock=data.stock;
+        if (data.isNew!==undefined) products[d.id].isNew=data.isNew;
         if (data._edited) {
-          if (data.title)       products[d.id].title       = data.title;
-          if (data.farm)        products[d.id].farm        = data.farm;
-          if (data.category)    products[d.id].category    = data.category;
-          if (data.description) products[d.id].description = data.description;
-          if (data.desc)        products[d.id].desc        = data.desc;
-          if (data.quantities)  products[d.id].quantities  = data.quantities;
-          if (data.videos)      products[d.id].videos      = data.videos;
+          if (data.title)       products[d.id].title=data.title;
+          if (data.farm)        products[d.id].farm=data.farm;
+          if (data.category)    products[d.id].category=data.category;
+          if (data.description) products[d.id].description=data.description;
+          if (data.desc)        products[d.id].desc=data.desc;
+          if (data.quantities)  products[d.id].quantities=data.quantities;
+          if (data.videos)      products[d.id].videos=data.videos;
         }
       } else {
-        let safeVideos = [];
-        if (Array.isArray(data.videos) && data.videos.length > 0) {
-          safeVideos = data.videos.map(v => ({
-            src:    (v.src    && v.src.trim())    ? v.src.trim()    : '',
-            poster: (v.poster && v.poster.trim()) ? v.poster.trim() : ''
-          }));
+        let safeVideos=[];
+        if (Array.isArray(data.videos)&&data.videos.length>0) {
+          safeVideos=data.videos.map(v=>({ src:(v.src&&v.src.trim())?v.src.trim():'', poster:(v.poster&&v.poster.trim())?v.poster.trim():'' }));
         } else {
-          safeVideos = [{
-            src:    (data.video  && data.video.trim())  ? data.video.trim()  : '',
-            poster: (data.poster && data.poster.trim()) ? data.poster.trim() : ''
-          }];
+          safeVideos=[{ src:(data.video&&data.video.trim())?data.video.trim():'', poster:(data.poster&&data.poster.trim())?data.poster.trim():'' }];
         }
-        products[d.id] = {
-          key:         d.id,
-          title:       data.title       || 'Produit',
-          farm:        data.farm        || '',
-          category:    data.category    || data.title || '',
-          description: data.description || data.desc  || '',
-          desc:        data.desc        || data.description || '',
-          strain:      data.strain      || '',
-          videos:      safeVideos,
-          quantities:  Array.isArray(data.quantities) ? data.quantities : [],
-          stock:       data.stock       || 'dispo',
-          isNew:       data.isNew       || false
-        };
+        products[d.id]={ key:d.id, title:data.title||'Produit', farm:data.farm||'', category:data.category||data.title||'', description:data.description||data.desc||'', desc:data.desc||data.description||'', strain:data.strain||'', videos:safeVideos, quantities:Array.isArray(data.quantities)?data.quantities:[], stock:data.stock||'dispo', isNew:data.isNew||false };
       }
     });
-  } catch(e) {
-    console.log('products_meta non chargé', e);
-  }
+  } catch(e) { console.log('products_meta non chargé',e); }
 }
 
-// ── ADMIN SECRET (5 clics logo) ───────────────────────────────────────────────
-let logoClickCount = 0, logoClickTimer = null;
-let adminAuthenticated = false;
-
+// ── ADMIN ─────────────────────────────────────────────────────────────────────
+let logoClickCount=0, logoClickTimer=null, adminAuthenticated=false;
 function handleLogoClick() {
-  logoClickCount++;
-  clearTimeout(logoClickTimer);
-  logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 2000);
-  if (logoClickCount >= 5) { logoClickCount = 0; openAdminPage(); }
+  logoClickCount++; clearTimeout(logoClickTimer);
+  logoClickTimer=setTimeout(()=>{logoClickCount=0;},2000);
+  if (logoClickCount>=5){logoClickCount=0;openAdminPage();}
 }
-document.getElementById('top-logo').addEventListener('click', handleLogoClick);
-document.getElementById('splash-logo').addEventListener('click', handleLogoClick);
+document.getElementById('top-logo').addEventListener('click',handleLogoClick);
+document.getElementById('splash-logo').addEventListener('click',handleLogoClick);
 
 function openAdminPage() {
-  hideAllPages();
-  document.getElementById('admin-page').style.display = 'block';
-  if (!adminAuthenticated) {
-    document.getElementById('admin-login').style.display = 'block';
-    document.getElementById('admin-panel').style.display = 'none';
-  } else {
-    renderAdminPanel();
-  }
+  hideAllPages(); document.getElementById('admin-page').style.display='block';
+  if (!adminAuthenticated){document.getElementById('admin-login').style.display='block';document.getElementById('admin-panel').style.display='none';}
+  else renderAdminPanel();
 }
-
-document.getElementById('admin-login-btn').addEventListener('click', () => {
-  const pw = document.getElementById('admin-password-input').value;
-  if (pw === ADMIN_PASSWORD) {
-    adminAuthenticated = true;
-    document.getElementById('admin-login').style.display = 'none';
-    document.getElementById('admin-panel').style.display = 'block';
-    document.getElementById('admin-password-input').value = '';
-    document.getElementById('admin-error').textContent = '';
-    renderAdminPanel();
-  } else {
-    document.getElementById('admin-error').textContent = 'Mot de passe incorrect ❌';
-  }
+document.getElementById('admin-login-btn').addEventListener('click',()=>{
+  const pw=document.getElementById('admin-password-input').value;
+  if (pw===ADMIN_PASSWORD){adminAuthenticated=true;document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-password-input').value='';document.getElementById('admin-error').textContent='';renderAdminPanel();}
+  else document.getElementById('admin-error').textContent='Mot de passe incorrect ❌';
 });
-
-document.getElementById('admin-logout-btn').addEventListener('click', () => {
-  adminAuthenticated = false;
-  document.getElementById('admin-panel').style.display = 'none';
-  document.getElementById('admin-login').style.display = 'block';
-  goToHome();
-});
+document.getElementById('admin-logout-btn').addEventListener('click',()=>{adminAuthenticated=false;document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';goToHome();});
 
 function renderAdminPanel() {
-  const list = document.getElementById('admin-products-list');
-  list.innerHTML = Object.values(products).map(p => {
-    const thumb = getThumb(p);
-    const thumbHTML = thumb
-      ? `<img src="${thumb}" style="width:44px;height:44px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,235,59,0.3);flex-shrink:0" onerror="this.style.display='none'">`
-      : `<div style="width:44px;height:44px;background:#111;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">☕</div>`;
-    return `
-    <div class="admin-product-card" data-key="${p.key}">
-      <div class="admin-product-top">
-        <div style="display:flex;align-items:center;gap:10px">
-          ${thumbHTML}
-          <div class="admin-product-name">${p.title}</div>
-        </div>
-        <button class="admin-delete-btn" onclick="adminDeleteProduct('${p.key}')">🗑</button>
-      </div>
-      <div class="admin-toggle-row">
-        <button class="admin-toggle-btn stock-dispo-btn ${p.stock==='dispo'?'active':''}" onclick="adminSetStock('${p.key}','dispo')">✅ DISPO</button>
-        <button class="admin-toggle-btn stock-rupture-btn ${p.stock==='rupture'?'active':''}" onclick="adminSetStock('${p.key}','rupture')">❌ RUPTURE</button>
-        <button class="admin-toggle-btn new-btn ${p.isNew?'active':''}" onclick="adminToggleNew('${p.key}')">${p.isNew?'🆕 NEW ✓':'🆕 NEW'}</button>
-        <button class="admin-toggle-btn edit-btn" onclick="openEditModal('${p.key}')">✏️ Modifier</button>
-      </div>
-    </div>`;
+  const list=document.getElementById('admin-products-list');
+  list.innerHTML=Object.values(products).map(p=>{
+    const thumb=getThumb(p);
+    const thumbHTML=thumb?`<img src="${thumb}" style="width:44px;height:44px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,235,59,0.3);flex-shrink:0" onerror="this.style.display='none'">`:`<div style="width:44px;height:44px;background:#111;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">☕</div>`;
+    return `<div class="admin-product-card" data-key="${p.key}"><div class="admin-product-top"><div style="display:flex;align-items:center;gap:10px">${thumbHTML}<div class="admin-product-name">${p.title}</div></div><button class="admin-delete-btn" onclick="adminDeleteProduct('${p.key}')">🗑</button></div><div class="admin-toggle-row"><button class="admin-toggle-btn stock-dispo-btn ${p.stock==='dispo'?'active':''}" onclick="adminSetStock('${p.key}','dispo')">✅ DISPO</button><button class="admin-toggle-btn stock-rupture-btn ${p.stock==='rupture'?'active':''}" onclick="adminSetStock('${p.key}','rupture')">❌ RUPTURE</button><button class="admin-toggle-btn new-btn ${p.isNew?'active':''}" onclick="adminToggleNew('${p.key}')">${p.isNew?'🆕 NEW ✓':'🆕 NEW'}</button><button class="admin-toggle-btn edit-btn" onclick="openEditModal('${p.key}')">✏️ Modifier</button></div></div>`;
   }).join('');
 }
 
-window.adminSetStock = async (key, stock) => {
-  products[key].stock = stock;
-  try { await setDoc(doc(_db,'products_meta',key), {stock, isNew:products[key].isNew}, {merge:true}); } catch(e){}
-  renderAdminPanel(); renderProducts();
-};
-
-window.adminToggleNew = async (key) => {
-  products[key].isNew = !products[key].isNew;
-  try { await setDoc(doc(_db,'products_meta',key), {isNew:products[key].isNew, stock:products[key].stock}, {merge:true}); } catch(e){}
-  renderAdminPanel(); renderProducts();
-};
-
-window.adminDeleteProduct = async (key) => {
-  if (!confirm(`Supprimer "${products[key].title}" ?`)) return;
-  delete products[key];
-  try { await deleteDoc(doc(_db,'products_meta',key)); } catch(e){}
-  renderAdminPanel(); renderProducts();
-};
+window.adminSetStock=async(key,stock)=>{products[key].stock=stock;try{await setDoc(doc(_db,'products_meta',key),{stock,isNew:products[key].isNew},{merge:true});}catch(e){}renderAdminPanel();renderProducts();};
+window.adminToggleNew=async(key)=>{products[key].isNew=!products[key].isNew;try{await setDoc(doc(_db,'products_meta',key),{isNew:products[key].isNew,stock:products[key].stock},{merge:true});}catch(e){}renderAdminPanel();renderProducts();};
+window.adminDeleteProduct=async(key)=>{if (!confirm(`Supprimer "${products[key].title}" ?`)) return;delete products[key];try{await deleteDoc(doc(_db,'products_meta',key));}catch(e){}renderAdminPanel();renderProducts();};
 
 // ── MODAL ÉDITION ─────────────────────────────────────────────────────────────
-window.openEditModal = (key) => {
-  const p = products[key];
-  document.getElementById('edit-key').value      = key;
-  document.getElementById('edit-title').value    = p.title       || '';
-  document.getElementById('edit-farm').value     = p.farm        || '';
-  document.getElementById('edit-category').value = p.category    || '';
-  document.getElementById('edit-desc').value     = p.description || p.desc || '';
-
-  // Charger médias existants (noms de fichiers)
-  editMediaItems = videosToMediaItems(p.videos || []);
-  renderMediaPreviews(editMediaItems, 'edit-media-previews', '_deleteEditMedia');
-
-  // Charger quantités
-  const qtyList = document.getElementById('edit-qty-list');
-  qtyList.innerHTML = '';
-  const qtys = Array.isArray(p.quantities) ? p.quantities : [];
-  (qtys.length ? qtys : [{}]).forEach(q => {
-    const row = document.createElement('div'); row.className = 'admin-qty-row';
-    row.innerHTML = `<input class="admin-input" style="margin:0" placeholder="Qté" value="${q.qty||''}">
-                     <input class="admin-input" style="margin:0" placeholder="Prix" value="${q.price||''}">`;
+window.openEditModal=(key)=>{
+  const p=products[key];
+  document.getElementById('edit-key').value=key;
+  document.getElementById('edit-title').value=p.title||'';
+  document.getElementById('edit-farm').value=p.farm||'';
+  document.getElementById('edit-category').value=p.category||'';
+  document.getElementById('edit-desc').value=p.description||p.desc||'';
+  editMediaItems=videosToMediaItems(p.videos||[]);
+  renderMediaPreviews(editMediaItems,'edit-media-previews','_deleteEditMedia');
+  const qtyList=document.getElementById('edit-qty-list'); qtyList.innerHTML='';
+  const qtys=Array.isArray(p.quantities)?p.quantities:[];
+  (qtys.length?qtys:[{}]).forEach(q=>{
+    const row=document.createElement('div'); row.className='admin-qty-row';
+    row.innerHTML=`<input class="admin-input" style="margin:0" placeholder="Qté" value="${q.qty||''}"><input class="admin-input" style="margin:0" placeholder="Prix" value="${q.price||''}">`;
     qtyList.appendChild(row);
   });
-
-  // Reset champ saisie
-  const editInput = document.getElementById('edit-media-filename');
-  if (editInput) editInput.value = '';
-
+  const editInput=document.getElementById('edit-media-filename'); if (editInput) editInput.value='';
   document.getElementById('edit-modal').classList.add('open');
 };
-
-document.getElementById('edit-add-qty-btn').addEventListener('click', () => {
-  const row = document.createElement('div'); row.className = 'admin-qty-row';
-  row.innerHTML = `<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)">
-                   <input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">`;
+document.getElementById('edit-add-qty-btn').addEventListener('click',()=>{
+  const row=document.createElement('div'); row.className='admin-qty-row';
+  row.innerHTML=`<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">`;
   document.getElementById('edit-qty-list').appendChild(row);
 });
-
-window.closeEditModal = () => {
-  document.getElementById('edit-modal').classList.remove('open');
-  editMediaItems = [];
-};
-document.getElementById('edit-modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('edit-modal')) closeEditModal();
-});
-
-document.getElementById('edit-save-btn').addEventListener('click', async () => {
-  const key      = document.getElementById('edit-key').value;
-  const title    = document.getElementById('edit-title').value.trim();
-  const farm     = document.getElementById('edit-farm').value.trim();
-  const category = document.getElementById('edit-category').value.trim() || title;
-  const desc     = document.getElementById('edit-desc').value.trim();
-
-  if (!title || !farm) { alert('Nom et farm obligatoires !'); return; }
-
-  const rows = document.getElementById('edit-qty-list').querySelectorAll('.admin-qty-row');
-  const quantities = [];
-  rows.forEach(row => {
-    const ins = row.querySelectorAll('input');
-    if (ins[0].value.trim() && ins[1].value.trim())
-      quantities.push({ qty: ins[0].value.trim(), price: ins[1].value.trim() });
-  });
-
-  const videos = mediaItemsToVideos(editMediaItems);
-  products[key] = { ...products[key], title, farm, category, description: desc, desc, videos, quantities, _edited: true };
-
-  try {
-    await setDoc(doc(_db, 'products_meta', key), {
-      title, farm, category, description: desc, desc, videos, quantities,
-      stock: products[key].stock, isNew: products[key].isNew, _edited: true
-    }, { merge: true });
-  } catch(e) { console.error(e); alert('❌ Erreur Firestore : ' + e.message); return; }
-
-  closeEditModal();
-  renderAdminPanel();
-  renderProducts();
-  alert('✅ Produit mis à jour !');
+window.closeEditModal=()=>{document.getElementById('edit-modal').classList.remove('open');editMediaItems=[];};
+document.getElementById('edit-modal').addEventListener('click',e=>{if (e.target===document.getElementById('edit-modal')) closeEditModal();});
+document.getElementById('edit-save-btn').addEventListener('click',async()=>{
+  const key=document.getElementById('edit-key').value;
+  const title=document.getElementById('edit-title').value.trim();
+  const farm=document.getElementById('edit-farm').value.trim();
+  const category=document.getElementById('edit-category').value.trim()||title;
+  const desc=document.getElementById('edit-desc').value.trim();
+  if (!title||!farm){alert('Nom et farm obligatoires !');return;}
+  const rows=document.getElementById('edit-qty-list').querySelectorAll('.admin-qty-row');
+  const quantities=[];
+  rows.forEach(row=>{const ins=row.querySelectorAll('input');if (ins[0].value.trim()&&ins[1].value.trim()) quantities.push({qty:ins[0].value.trim(),price:ins[1].value.trim()});});
+  const videos=mediaItemsToVideos(editMediaItems);
+  products[key]={...products[key],title,farm,category,description:desc,desc,videos,quantities,_edited:true};
+  try{await setDoc(doc(_db,'products_meta',key),{title,farm,category,description:desc,desc,videos,quantities,stock:products[key].stock,isNew:products[key].isNew,_edited:true},{merge:true});}
+  catch(e){console.error(e);alert('❌ Erreur Firestore : '+e.message);return;}
+  closeEditModal();renderAdminPanel();renderProducts();alert('✅ Produit mis à jour !');
 });
 
 // ── NOUVEAU PRODUIT ───────────────────────────────────────────────────────────
-document.getElementById('add-qty-row-btn').addEventListener('click', () => {
-  const row = document.createElement('div'); row.className = 'admin-qty-row';
-  row.innerHTML = '<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">';
+document.getElementById('add-qty-row-btn').addEventListener('click',()=>{
+  const row=document.createElement('div'); row.className='admin-qty-row';
+  row.innerHTML='<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">';
   document.getElementById('new-qty-list').appendChild(row);
 });
-
-document.getElementById('save-new-product-btn').addEventListener('click', async () => {
-  const title    = document.getElementById('new-title').value.trim();
-  const farm     = document.getElementById('new-farm').value.trim();
-  const category = document.getElementById('new-category').value.trim() || title;
-  const desc     = document.getElementById('new-desc').value.trim();
-
-  if (!title || !farm) { alert('Nom et farm obligatoires !'); return; }
-
-  const rows = document.getElementById('new-qty-list').querySelectorAll('.admin-qty-row');
-  const quantities = [];
-  rows.forEach(row => {
-    const ins = row.querySelectorAll('input');
-    if (ins[0].value.trim() && ins[1].value.trim())
-      quantities.push({ qty: ins[0].value.trim(), price: ins[1].value.trim() });
-  });
-  if (!quantities.length) { alert('Ajoutez au moins une quantité !'); return; }
-
-  const videos = mediaItemsToVideos(newMediaItems);
-  const key = title.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0, 20) + '_' + Date.now();
-
-  const newProduct = { key, title, farm, category, description: desc, desc, strain: '', videos, quantities, stock: 'dispo', isNew: false };
-  products[key] = newProduct;
-
-  try {
-    await setDoc(doc(_db, 'products_meta', key), newProduct);
-  } catch(e) { console.error(e); alert('❌ Erreur Firestore : ' + e.message); return; }
-
-  // Reset formulaire
-  ['new-title','new-farm','new-category','new-desc'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('new-qty-list').innerHTML = '<div class="admin-qty-row"><input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)"></div>';
-  newMediaItems = [];
-  const filenameInput = document.getElementById('new-media-filename');
-  if (filenameInput) filenameInput.value = '';
-  renderMediaPreviews(newMediaItems, 'new-media-previews', '_deleteNewMedia');
-
-  renderAdminPanel();
-  renderProducts();
-  alert('✅ Produit créé avec succès !');
+document.getElementById('save-new-product-btn').addEventListener('click',async()=>{
+  const title=document.getElementById('new-title').value.trim();
+  const farm=document.getElementById('new-farm').value.trim();
+  const category=document.getElementById('new-category').value.trim()||title;
+  const desc=document.getElementById('new-desc').value.trim();
+  if (!title||!farm){alert('Nom et farm obligatoires !');return;}
+  const rows=document.getElementById('new-qty-list').querySelectorAll('.admin-qty-row');
+  const quantities=[];
+  rows.forEach(row=>{const ins=row.querySelectorAll('input');if (ins[0].value.trim()&&ins[1].value.trim()) quantities.push({qty:ins[0].value.trim(),price:ins[1].value.trim()});});
+  if (!quantities.length){alert('Ajoutez au moins une quantité !');return;}
+  const videos=mediaItemsToVideos(newMediaItems);
+  const key=title.toLowerCase().replace(/[^a-z0-9]/g,'_').substring(0,20)+'_'+Date.now();
+  const newProduct={key,title,farm,category,description:desc,desc,strain:'',videos,quantities,stock:'dispo',isNew:false};
+  products[key]=newProduct;
+  try{await setDoc(doc(_db,'products_meta',key),newProduct);}
+  catch(e){console.error(e);alert('❌ Erreur Firestore : '+e.message);return;}
+  ['new-title','new-farm','new-category','new-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('new-qty-list').innerHTML='<div class="admin-qty-row"><input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)"></div>';
+  newMediaItems=[];
+  const fi=document.getElementById('new-media-filename'); if (fi) fi.value='';
+  renderMediaPreviews(newMediaItems,'new-media-previews','_deleteNewMedia');
+  renderAdminPanel();renderProducts();alert('✅ Produit créé avec succès !');
 });
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
-window.switchAuthTab = (tab) => {
-  document.getElementById('tab-login').classList.toggle('active', tab==='login');
-  document.getElementById('tab-register').classList.toggle('active', tab==='register');
-  document.getElementById('auth-login-form').style.display  = tab==='login'    ? 'block' : 'none';
-  document.getElementById('auth-register-form').style.display = tab==='register' ? 'block' : 'none';
-  document.getElementById('auth-error').textContent = '';
+window.switchAuthTab=(tab)=>{
+  document.getElementById('tab-login').classList.toggle('active',tab==='login');
+  document.getElementById('tab-register').classList.toggle('active',tab==='register');
+  document.getElementById('auth-login-form').style.display=tab==='login'?'block':'none';
+  document.getElementById('auth-register-form').style.display=tab==='register'?'block':'none';
+  document.getElementById('auth-error').textContent='';
 };
-function openAuthModal()  { document.getElementById('auth-modal').classList.add('open'); }
-function closeAuthModal() { document.getElementById('auth-modal').classList.remove('open'); }
-document.getElementById('auth-modal').addEventListener('click', e => { if(e.target===document.getElementById('auth-modal')) closeAuthModal(); });
-
-window.doLogin = async () => {
-  const username = document.getElementById('login-username').value.trim().toLowerCase();
-  const pass     = document.getElementById('login-password').value;
-  const errEl    = document.getElementById('auth-error');
-  const btn      = document.getElementById('login-btn');
-  if (!username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
-  btn.disabled = true; btn.textContent = 'Connexion...';
-  try {
-    await signInWithEmailAndPassword(_auth, username+'@bart76.app', pass);
-    closeAuthModal(); renderProfilPage();
-  } catch(e) { errEl.textContent = 'Identifiant ou mot de passe incorrect.'; }
-  btn.disabled = false; btn.textContent = 'Se connecter';
+function openAuthModal(){document.getElementById('auth-modal').classList.add('open');}
+function closeAuthModal(){document.getElementById('auth-modal').classList.remove('open');}
+document.getElementById('auth-modal').addEventListener('click',e=>{if (e.target===document.getElementById('auth-modal')) closeAuthModal();});
+window.doLogin=async()=>{
+  const username=document.getElementById('login-username').value.trim().toLowerCase();
+  const pass=document.getElementById('login-password').value;
+  const errEl=document.getElementById('auth-error'), btn=document.getElementById('login-btn');
+  if (!username||!pass){errEl.textContent='Remplissez tous les champs.';return;}
+  btn.disabled=true;btn.textContent='Connexion...';
+  try{await signInWithEmailAndPassword(_auth,username+'@bart76.app',pass);closeAuthModal();renderProfilPage();}
+  catch(e){errEl.textContent='Identifiant ou mot de passe incorrect.';}
+  btn.disabled=false;btn.textContent='Se connecter';
 };
-
-window.doRegister = async () => {
-  const name     = document.getElementById('reg-name').value.trim();
-  const username = document.getElementById('reg-username').value.trim().toLowerCase();
-  const pass     = document.getElementById('reg-password').value;
-  const errEl    = document.getElementById('auth-error');
-  const btn      = document.getElementById('register-btn');
-  if (!name || !username || !pass) { errEl.textContent = 'Remplissez tous les champs.'; return; }
-  if (pass.length < 6) { errEl.textContent = 'Mot de passe trop court.'; return; }
-  if (!/^[a-z0-9_]+$/.test(username)) { errEl.textContent = 'Identifiant invalide.'; return; }
-  btn.disabled = true; btn.textContent = 'Création...';
-  try {
-    const cred = await createUserWithEmailAndPassword(_auth, username+'@bart76.app', pass);
-    await updateProfile(cred.user, { displayName: name });
-    await setDoc(doc(_db,'users',username), { uid: cred.user.uid, name, username });
-    closeAuthModal(); renderProfilPage();
-  } catch(e) {
-    errEl.textContent = e.code==='auth/email-already-in-use' ? 'Identifiant déjà utilisé.' : 'Erreur : '+e.message;
-  }
-  btn.disabled = false; btn.textContent = 'Créer mon compte';
+window.doRegister=async()=>{
+  const name=document.getElementById('reg-name').value.trim();
+  const username=document.getElementById('reg-username').value.trim().toLowerCase();
+  const pass=document.getElementById('reg-password').value;
+  const errEl=document.getElementById('auth-error'), btn=document.getElementById('register-btn');
+  if (!name||!username||!pass){errEl.textContent='Remplissez tous les champs.';return;}
+  if (pass.length<6){errEl.textContent='Mot de passe trop court.';return;}
+  if (!/^[a-z0-9_]+$/.test(username)){errEl.textContent='Identifiant invalide.';return;}
+  btn.disabled=true;btn.textContent='Création...';
+  try{
+    const cred=await createUserWithEmailAndPassword(_auth,username+'@bart76.app',pass);
+    await updateProfile(cred.user,{displayName:name});
+    await setDoc(doc(_db,'users',username),{uid:cred.user.uid,name,username});
+    closeAuthModal();renderProfilPage();
+  }catch(e){errEl.textContent=e.code==='auth/email-already-in-use'?'Identifiant déjà utilisé.':'Erreur : '+e.message;}
+  btn.disabled=false;btn.textContent='Créer mon compte';
 };
-
-window.doLogout = async () => { if (!confirm('Se déconnecter ?')) return; await signOut(_auth); renderProfilPage(); };
-window.openAuthModal = openAuthModal;
+window.doLogout=async()=>{if (!confirm('Se déconnecter ?')) return;await signOut(_auth);renderProfilPage();};
+window.openAuthModal=openAuthModal;
 
 // ── PROFIL ────────────────────────────────────────────────────────────────────
-async function renderProfilPage() {
-  const page = document.getElementById('profil-page');
-  const user = _auth.currentUser;
-  if (!user) {
-    page.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:20px;padding:20px">
-      <div style="font-size:3.5rem">👤</div>
-      <div style="font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#fff;text-align:center">Mon Compte</div>
-      <div style="color:#666;font-size:0.9rem;text-align:center;line-height:1.6">Connecte-toi pour accéder à ton profil.</div>
-      <button onclick="openAuthModal()" style="background:#ffeb3b;color:#111;border:none;padding:15px 32px;border-radius:16px;font-family:'Orbitron',sans-serif;font-size:0.95rem;font-weight:900;cursor:pointer">Se connecter / S'inscrire</button>
-    </div>`;
+async function renderProfilPage(){
+  const page=document.getElementById('profil-page'), user=_auth.currentUser;
+  if (!user){
+    page.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:20px;padding:20px"><div style="font-size:3.5rem">👤</div><div style="font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#fff;text-align:center">Mon Compte</div><div style="color:#666;font-size:0.9rem;text-align:center;line-height:1.6">Connecte-toi pour accéder à ton profil.</div><button onclick="openAuthModal()" style="background:#ffeb3b;color:#111;border:none;padding:15px 32px;border-radius:16px;font-family:'Orbitron',sans-serif;font-size:0.95rem;font-weight:900;cursor:pointer">Se connecter / S'inscrire</button></div>`;
     return;
   }
-  const displayUsername = user.email ? user.email.replace('@bart76.app','') : 'utilisateur';
-  page.innerHTML = `
-    <div class="profil-header">
-      <button class="profil-logout" onclick="doLogout()">Déconnexion</button>
-      <div class="profil-avatar">👤</div>
-      <div class="profil-name">${user.displayName || displayUsername}</div>
-      <div style="color:#555;font-size:0.8rem;margin-top:2px">@${displayUsername}</div>
-    </div>
-    <div class="profil-stats-block">
-      <div class="profil-stats-icon">📦</div>
-      <div><div class="profil-stats-number" id="profil-cmd-count">—</div><div class="profil-stats-label">commande(s) passée(s)</div></div>
-    </div>
-    <div class="profil-section-title">📦 Mes commandes</div>
-    <div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px">Chargement...</p></div>`;
-  try {
-    const q = query(collection(_db,'commandes'), where('uid','==',user.uid), orderBy('timestamp','desc'));
-    const snap = await getDocs(q);
-    document.getElementById('profil-cmd-count').textContent = snap.size;
-    const cmdEl = document.getElementById('profil-commandes');
-    if (snap.empty) { cmdEl.innerHTML = '<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>'; return; }
-    cmdEl.innerHTML = snap.docs.map(d => {
-      const c = d.data();
-      return `<div class="commande-card"><div class="commande-header"><span class="commande-date">${c.date}</span><span class="commande-total">${c.total}€</span></div><div class="commande-items">${c.items}</div><span class="commande-mode">${c.mode}</span></div>`;
-    }).join('');
-  } catch(e) {
-    const c = document.getElementById('profil-cmd-count'); if(c) c.textContent = '0';
-    const cm = document.getElementById('profil-commandes'); if(cm) cm.innerHTML = '<p style="color:#555;text-align:center;padding:20px">Aucune commande.</p>';
-  }
+  const displayUsername=user.email?user.email.replace('@bart76.app',''):'utilisateur';
+  page.innerHTML=`<div class="profil-header"><button class="profil-logout" onclick="doLogout()">Déconnexion</button><div class="profil-avatar">👤</div><div class="profil-name">${user.displayName||displayUsername}</div><div style="color:#555;font-size:0.8rem;margin-top:2px">@${displayUsername}</div></div><div class="profil-stats-block"><div class="profil-stats-icon">📦</div><div><div class="profil-stats-number" id="profil-cmd-count">—</div><div class="profil-stats-label">commande(s) passée(s)</div></div></div><div class="profil-section-title">📦 Mes commandes</div><div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px">Chargement...</p></div>`;
+  try{
+    const q=query(collection(_db,'commandes'),where('uid','==',user.uid),orderBy('timestamp','desc'));
+    const snap=await getDocs(q);
+    document.getElementById('profil-cmd-count').textContent=snap.size;
+    const cmdEl=document.getElementById('profil-commandes');
+    if (snap.empty){cmdEl.innerHTML='<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>';return;}
+    cmdEl.innerHTML=snap.docs.map(d=>{const c=d.data();return `<div class="commande-card"><div class="commande-header"><span class="commande-date">${c.date}</span><span class="commande-total">${c.total}€</span></div><div class="commande-items">${c.items}</div><span class="commande-mode">${c.mode}</span></div>`;}).join('');
+  }catch(e){const c=document.getElementById('profil-cmd-count');if(c)c.textContent='0';const cm=document.getElementById('profil-commandes');if(cm)cm.innerHTML='<p style="color:#555;text-align:center;padding:20px">Aucune commande.</p>';}
 }
 
 // ── CHAT ──────────────────────────────────────────────────────────────────────
-async function purgeOldMessages() {
-  try {
-    const cutoff = Date.now() - 24*60*60*1000;
-    const q = query(collection(_db,'chat'), where('timestampMs','<',cutoff));
-    const snap = await getDocs(q);
-    snap.docs.forEach(d => deleteDoc(doc(_db,'chat',d.id)));
-  } catch(e) {}
+async function purgeOldMessages(){
+  try{const cutoff=Date.now()-24*60*60*1000;const q=query(collection(_db,'chat'),where('timestampMs','<',cutoff));const snap=await getDocs(q);snap.docs.forEach(d=>deleteDoc(doc(_db,'chat',d.id)));}catch(e){}
 }
-
-function renderChatPage() {
-  const body = document.getElementById('chat-body');
-  const user = _auth.currentUser;
-  if (!user) {
-    body.style.cssText = 'flex:1;display:flex;flex-direction:column;';
-    body.innerHTML = `<div class="chat-locked"><div class="chat-locked-icon">🔒</div><div class="chat-locked-title">Accès réservé</div><div class="chat-locked-text">Connecte-toi pour accéder au chat.</div><button class="chat-locked-btn" onclick="openAuthModal()">Se connecter</button></div>`;
-    return;
-  }
-  body.style.cssText = 'flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;';
-  body.innerHTML = `
-    <div class="chat-messages" id="chat-messages">
-      <div class="chat-empty" id="chat-empty"><div style="font-size:2.5rem">💬</div><div style="font-size:0.82rem;color:#666;text-align:center">Aucun message.<br>Commencez la conversation !</div></div>
-    </div>
-    <div class="chat-input-bar">
-      <input id="chat-input" type="text" placeholder="Votre message..." maxlength="500" autocomplete="off">
-      <button id="chat-send-btn" onclick="sendChatMsg()">➤</button>
-    </div>`;
+function renderChatPage(){
+  const body=document.getElementById('chat-body'), user=_auth.currentUser;
+  if (!user){body.style.cssText='flex:1;display:flex;flex-direction:column;';body.innerHTML=`<div class="chat-locked"><div class="chat-locked-icon">🔒</div><div class="chat-locked-title">Accès réservé</div><div class="chat-locked-text">Connecte-toi pour accéder au chat.</div><button class="chat-locked-btn" onclick="openAuthModal()">Se connecter</button></div>`;return;}
+  body.style.cssText='flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;';
+  body.innerHTML=`<div class="chat-messages" id="chat-messages"><div class="chat-empty" id="chat-empty"><div style="font-size:2.5rem">💬</div><div style="font-size:0.82rem;color:#666;text-align:center">Aucun message.<br>Commencez la conversation !</div></div></div><div class="chat-input-bar"><input id="chat-input" type="text" placeholder="Votre message..." maxlength="500" autocomplete="off"><button id="chat-send-btn" onclick="sendChatMsg()">➤</button></div>`;
   purgeOldMessages();
   if (chatUnsub) chatUnsub();
-  const q = query(collection(_db,'chat'), orderBy('timestampMs','asc'));
-  chatUnsub = onSnapshot(q, snap => {
-    const msgs  = document.getElementById('chat-messages');
-    const empty = document.getElementById('chat-empty');
+  const q=query(collection(_db,'chat'),orderBy('timestampMs','asc'));
+  chatUnsub=onSnapshot(q,snap=>{
+    const msgs=document.getElementById('chat-messages'), empty=document.getElementById('chat-empty');
     if (!msgs) return;
-    const cutoff = Date.now() - 24*60*60*1000;
-    const validDocs = snap.docs.filter(d => { const ms=d.data().timestampMs; return ms&&ms>cutoff; });
-    if (!validDocs.length) {
-      if (empty) empty.style.display = 'flex';
-      msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el => el.remove());
-      return;
-    }
-    if (empty) empty.style.display = 'none';
-    let lastDate = '', html = '';
-    validDocs.forEach(d => {
-      const m = d.data(), isMe = m.uid === user.uid;
-      const ts  = m.timestampMs ? new Date(m.timestampMs) : null;
-      const day = ts ? ts.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}) : '';
-      if (day && day !== lastDate) { html += `<div class="chat-date-sep">${day}</div>`; lastDate = day; }
-      html += `<div class="chat-msg-group ${isMe?'me':'other'}">${!isMe?`<div class="chat-sender-name">${m.name||'?'}</div>`:''}<div class="chat-bubble ${isMe?'me':'other'}">${m.text}<span class="chat-bubble-time">${m.time||''}</span></div></div>`;
+    const cutoff=Date.now()-24*60*60*1000;
+    const validDocs=snap.docs.filter(d=>{const ms=d.data().timestampMs;return ms&&ms>cutoff;});
+    if (!validDocs.length){if(empty)empty.style.display='flex';msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el=>el.remove());return;}
+    if (empty) empty.style.display='none';
+    let lastDate='',html='';
+    validDocs.forEach(d=>{
+      const m=d.data(),isMe=m.uid===user.uid;
+      const ts=m.timestampMs?new Date(m.timestampMs):null;
+      const day=ts?ts.toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}):'';
+      if (day&&day!==lastDate){html+=`<div class="chat-date-sep">${day}</div>`;lastDate=day;}
+      html+=`<div class="chat-msg-group ${isMe?'me':'other'}">${!isMe?`<div class="chat-sender-name">${m.name||'?'}</div>`:''}<div class="chat-bubble ${isMe?'me':'other'}">${m.text}<span class="chat-bubble-time">${m.time||''}</span></div></div>`;
     });
-    msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el => el.remove());
-    msgs.insertAdjacentHTML('beforeend', html);
-    msgs.scrollTop = msgs.scrollHeight;
+    msgs.querySelectorAll('.chat-msg-group,.chat-date-sep').forEach(el=>el.remove());
+    msgs.insertAdjacentHTML('beforeend',html);
+    msgs.scrollTop=msgs.scrollHeight;
   });
-  document.getElementById('chat-input').addEventListener('keydown', e => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMsg();} });
+  document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMsg();}});
 }
-
-window.sendChatMsg = async () => {
-  const input = document.getElementById('chat-input');
-  const text  = input?.value.trim();
-  const user  = _auth.currentUser;
-  if (!text || !user) return;
-  input.value = '';
-  const now = Date.now();
-  await addDoc(collection(_db,'chat'), {
-    uid: user.uid, name: user.displayName||'Utilisateur', text,
-    time: new Date(now).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),
-    timestampMs: now, timestamp: serverTimestamp()
-  });
+window.sendChatMsg=async()=>{
+  const input=document.getElementById('chat-input'), text=input?.value.trim(), user=_auth.currentUser;
+  if (!text||!user) return; input.value='';
+  const now=Date.now();
+  await addDoc(collection(_db,'chat'),{uid:user.uid,name:user.displayName||'Utilisateur',text,time:new Date(now).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),timestampMs:now,timestamp:serverTimestamp()});
 };
 
 // ── TELEGRAM ─────────────────────────────────────────────────────────────────
-const tg = window.Telegram?.WebApp;
-if (tg) {
-  tg.ready(); tg.expand();
-  if (typeof tg.requestFullscreen === 'function') tg.requestFullscreen();
-  if (typeof tg.setHeaderColor    === 'function') tg.setHeaderColor('#000000');
-  if (typeof tg.setBackgroundColor === 'function') tg.setBackgroundColor('#000000');
-  if (typeof tg.setBottomBarColor  === 'function') tg.setBottomBarColor('#000000');
+const tg=window.Telegram?.WebApp;
+if (tg){
+  tg.ready();tg.expand();
+  if (typeof tg.requestFullscreen==='function') tg.requestFullscreen();
+  if (typeof tg.setHeaderColor==='function') tg.setHeaderColor('#000000');
+  if (typeof tg.setBackgroundColor==='function') tg.setBackgroundColor('#000000');
+  if (typeof tg.setBottomBarColor==='function') tg.setBottomBarColor('#000000');
   tg.enableClosingConfirmation();
 }
 
 // ── PANIER ────────────────────────────────────────────────────────────────────
-let cart = JSON.parse(localStorage.getItem('cart_bart76')) || [];
-function saveCart()    { localStorage.setItem('cart_bart76', JSON.stringify(cart)); updateBadge(); }
-function updateBadge() { const b=document.getElementById('cart-badge'); b.textContent=cart.length||''; b.style.display=cart.length>0?'inline-block':'none'; }
+let cart=JSON.parse(localStorage.getItem('cart_bart76'))||[];
+function saveCart(){localStorage.setItem('cart_bart76',JSON.stringify(cart));updateBadge();}
+function updateBadge(){const b=document.getElementById('cart-badge');b.textContent=cart.length||'';b.style.display=cart.length>0?'inline-block':'none';}
 
 // ── FILTRES ───────────────────────────────────────────────────────────────────
-function populateFilters() {
-  const all   = Object.values(products);
-  const cats  = [...new Set(all.map(p => p.category))].sort();
-  const farms = [...new Set(all.map(p => p.farm))].sort();
-  const cs = document.getElementById('category-filter');
-  const fs = document.getElementById('farm-filter');
-  while (cs.options.length > 1) cs.remove(1);
-  while (fs.options.length > 1) fs.remove(1);
-  cats.forEach(c  => { const o=document.createElement('option'); o.value=c; o.textContent=c; cs.appendChild(o); });
-  farms.forEach(f => { const o=document.createElement('option'); o.value=f; o.textContent=f; fs.appendChild(o); });
+function populateFilters(){
+  const all=Object.values(products);
+  const cats=[...new Set(all.map(p=>p.category))].sort();
+  const farms=[...new Set(all.map(p=>p.farm))].sort();
+  const cs=document.getElementById('category-filter'), fs=document.getElementById('farm-filter');
+  while (cs.options.length>1) cs.remove(1);
+  while (fs.options.length>1) fs.remove(1);
+  cats.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;cs.appendChild(o);});
+  farms.forEach(f=>{const o=document.createElement('option');o.value=f;o.textContent=f;fs.appendChild(o);});
 }
-function filterProducts() {
-  const cf = document.getElementById('category-filter').value;
-  const ff = document.getElementById('farm-filter').value;
-  renderProducts(Object.values(products).filter(p => (!cf||p.category===cf) && (!ff||p.farm===ff)));
+function filterProducts(){
+  const cf=document.getElementById('category-filter').value, ff=document.getElementById('farm-filter').value;
+  renderProducts(Object.values(products).filter(p=>(!cf||p.category===cf)&&(!ff||p.farm===ff)));
 }
-window.filterProducts = filterProducts;
+window.filterProducts=filterProducts;
 
 // ── RENDU PRODUITS ────────────────────────────────────────────────────────────
-function renderProducts(list) {
-  if (!list) list = Object.values(products);
-  const grid = document.getElementById('products-grid'); grid.innerHTML = '';
-  const n = list.length;
-  const ce = document.getElementById('products-count-modern');
-  ce.querySelector('.products-count-number').textContent = n;
-  ce.querySelector('.products-count-label').textContent  = n > 1 ? 'Produits' : 'Produit';
-  if (!n) { grid.innerHTML = '<div class="no-results">Aucun produit 🔍</div>'; return; }
-  list.forEach(p => {
-    const card  = document.createElement('div');
-    card.className = 'card' + (p.stock==='rupture' ? ' rupture-card' : '');
-    const thumb = getThumb(p);
-    const imgHTML = thumb
-      ? `<img src="${thumb}" alt="${p.title}" onerror="this.parentNode.innerHTML='<div class=\\'card-no-img\\'><span>☕</span></div>'">`
-      : `<div class="card-no-img"><span>☕</span></div>`;
-    const stockBadge     = `<div class="stock-badge ${p.stock==='rupture'?'rupture':'dispo'}">${p.stock==='rupture'?'❌ Rupture':'✅ Dispo'}</div>`;
-    const newBadge       = p.isNew ? `<div class="new-badge">🆕 NEW</div>` : '';
-    const ruptureOverlay = p.stock==='rupture' ? `<div class="rupture-overlay"><span>Rupture de stock</span></div>` : '';
-    card.innerHTML = `<div class="card-img">${imgHTML}${stockBadge}${newBadge}${ruptureOverlay}<div class="card-overlay"><div class="card-title">${p.title}</div><div class="card-farm">${p.farm}</div></div></div>`;
-    card.onclick = () => openProductDetail(p.key);
+function renderProducts(list){
+  if (!list) list=Object.values(products);
+  const grid=document.getElementById('products-grid'); grid.innerHTML='';
+  const n=list.length;
+  const ce=document.getElementById('products-count-modern');
+  ce.querySelector('.products-count-number').textContent=n;
+  ce.querySelector('.products-count-label').textContent=n>1?'Produits':'Produit';
+  if (!n){grid.innerHTML='<div class="no-results">Aucun produit 🔍</div>';return;}
+  list.forEach(p=>{
+    const card=document.createElement('div');
+    card.className='card'+(p.stock==='rupture'?' rupture-card':'');
+    const thumb=getThumb(p);
+    const imgHTML=thumb?`<img src="${thumb}" alt="${p.title}" onerror="this.parentNode.innerHTML='<div class=\\'card-no-img\\'><span>☕</span></div>'">`:`<div class="card-no-img"><span>☕</span></div>`;
+    const stockBadge=`<div class="stock-badge ${p.stock==='rupture'?'rupture':'dispo'}">${p.stock==='rupture'?'❌ Rupture':'✅ Dispo'}</div>`;
+    const newBadge=p.isNew?`<div class="new-badge">🆕 NEW</div>`:'';
+    const ruptureOverlay=p.stock==='rupture'?`<div class="rupture-overlay"><span>Rupture de stock</span></div>`:'';
+    card.innerHTML=`<div class="card-img">${imgHTML}${stockBadge}${newBadge}${ruptureOverlay}<div class="card-overlay"><div class="card-title">${p.title}</div><div class="card-farm">${p.farm}</div></div></div>`;
+    card.onclick=()=>openProductDetail(p.key);
     grid.appendChild(card);
   });
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
-function hideAllPages() {
-  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id => {
-    const el = document.getElementById(id); if(el) el.style.display = 'none';
-  });
-  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+function hideAllPages(){
+  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
 }
-function scrollToTop() { document.querySelector('.content').scrollTo({top:0,behavior:'instant'}); }
-function goToHome() {
+function scrollToTop(){document.querySelector('.content').scrollTo({top:0,behavior:'instant'});}
+function goToHome(){
   hideAllPages();
-  document.getElementById('home-page').style.display = 'block';
+  document.getElementById('home-page').style.display='block';
   document.getElementById('nav-home').classList.add('active');
   if (tg) tg.BackButton.hide();
   scrollToTop();
 }
 
 // ── SWIPER ────────────────────────────────────────────────────────────────────
-let swiperIndex = 0, swiperItems = [];
-
-function buildSwiper(videos) {
-  swiperIndex = 0; swiperItems = videos;
-  const track = document.getElementById('swiper-track'); track.innerHTML = '';
-  videos.forEach(vid => {
-    const hasSrc    = vid.src    && vid.src.trim();
-    const hasPoster = vid.poster && vid.poster.trim();
-    if (hasSrc) {
-      const v = document.createElement('video');
-      v.autoplay = false; v.loop = true; v.muted = true; v.playsinline = true; v.controls = true;
-      v.style.cssText = 'flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
-      if (hasPoster) v.poster = vid.poster.trim();
-      v.innerHTML = `<source src="${vid.src.trim()}" type="video/mp4">`;
+let swiperIndex=0, swiperItems=[];
+function buildSwiper(videos){
+  swiperIndex=0;swiperItems=videos;
+  const track=document.getElementById('swiper-track');track.innerHTML='';
+  videos.forEach(vid=>{
+    const hasSrc=vid.src&&vid.src.trim(), hasPoster=vid.poster&&vid.poster.trim();
+    if (hasSrc){
+      const v=document.createElement('video');
+      v.autoplay=false;v.loop=true;v.muted=true;v.playsinline=true;v.controls=true;
+      v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
+      if (hasPoster) v.poster=vid.poster.trim();
+      v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;
       track.appendChild(v);
-    } else if (hasPoster) {
-      const img = document.createElement('img');
-      img.src = vid.poster.trim(); img.alt = '';
-      img.style.cssText = 'flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';
-      img.onerror = function() {
-        const black = document.createElement('div'); black.className = 'swiper-black-slide'; black.innerHTML = '<span>☕</span>';
-        track.replaceChild(black, img);
-      };
+    } else if (hasPoster){
+      const img=document.createElement('img');
+      img.src=vid.poster.trim();img.alt='';
+      img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';
+      img.onerror=function(){const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.replaceChild(black,img);};
       track.appendChild(img);
     } else {
-      const black = document.createElement('div'); black.className = 'swiper-black-slide'; black.innerHTML = '<span>☕</span>';
-      track.appendChild(black);
+      const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.appendChild(black);
     }
   });
-  if (!track.children.length) {
-    const black = document.createElement('div'); black.className = 'swiper-black-slide'; black.innerHTML = '<span>☕</span>';
-    track.appendChild(black); swiperItems = [{src:'',poster:''}];
-  }
+  if (!track.children.length){const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.appendChild(black);swiperItems=[{src:'',poster:''}];}
   updateSwiper();
 }
-
-function updateSwiper() {
-  const total = swiperItems.length;
-  document.getElementById('swiper-track').style.transform = `translateX(-${swiperIndex * 100}%)`;
-  document.getElementById('swiper-counter').textContent   = `${swiperIndex+1} / ${total}`;
-  document.getElementById('swiper-track').querySelectorAll('video').forEach((v, i) => {
-    if (i === swiperIndex) v.play().catch(()=>{});
-    else v.pause();
-  });
-  const show = total > 1;
-  document.querySelector('.swiper-btn-prev').style.display = show ? 'flex' : 'none';
-  document.querySelector('.swiper-btn-next').style.display = show ? 'flex' : 'none';
-  document.getElementById('swiper-counter').style.display  = show ? 'block' : 'none';
+function updateSwiper(){
+  const total=swiperItems.length;
+  document.getElementById('swiper-track').style.transform=`translateX(-${swiperIndex*100}%)`;
+  document.getElementById('swiper-counter').textContent=`${swiperIndex+1} / ${total}`;
+  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{if(i===swiperIndex)v.play().catch(()=>{});else v.pause();});
+  const show=total>1;
+  document.querySelector('.swiper-btn-prev').style.display=show?'flex':'none';
+  document.querySelector('.swiper-btn-next').style.display=show?'flex':'none';
+  document.getElementById('swiper-counter').style.display=show?'block':'none';
 }
-window.swiperPrev = () => { swiperIndex = (swiperIndex - 1 + swiperItems.length) % swiperItems.length; updateSwiper(); };
-window.swiperNext = () => { swiperIndex = (swiperIndex + 1) % swiperItems.length; updateSwiper(); };
+window.swiperPrev=()=>{swiperIndex=(swiperIndex-1+swiperItems.length)%swiperItems.length;updateSwiper();};
+window.swiperNext=()=>{swiperIndex=(swiperIndex+1)%swiperItems.length;updateSwiper();};
 
 // ── DÉTAIL PRODUIT ────────────────────────────────────────────────────────────
-function openProductDetail(key) {
-  const p = products[key];
-  document.getElementById('detail-title').textContent = p.title;
-  const badgesEl    = document.getElementById('detail-badges');
-  const stockClass  = p.stock==='rupture' ? 'badge-rupture' : 'badge-dispo';
-  const stockLabel  = p.stock==='rupture' ? '❌ Rupture de stock' : '✅ Disponible';
-  let badgesHTML    = `<div class="badge badge-farm">${p.farm}</div><div class="badge ${stockClass}">${stockLabel}</div>`;
-  if (p.isNew) badgesHTML += `<div class="badge badge-new">🆕 Nouveauté</div>`;
-  badgesEl.innerHTML = badgesHTML;
-  let content = p.strain ? p.strain.replace(/\n/g,'<br>') : '';
-  const descText = p.description || p.desc || '';
-  if (descText) content += '<div class="description">' + descText.replace(/\n/g,'<br>') + '</div>';
-  document.getElementById('detail-strain-desc').innerHTML = content || '<p style="color:#888;font-style:italic">Aucune description disponible</p>';
-  const qtyGrid  = document.getElementById('qty-grid'); qtyGrid.innerHTML = '';
-  const disabled = p.stock === 'rupture';
-  const safeQtys = Array.isArray(p.quantities) ? p.quantities : [];
-  safeQtys.forEach((item, idx) => {
-    const btn = document.createElement('button'); btn.className = 'qty-btn';
-    btn.innerHTML = `${item.qty}<br><span class="price-new">${item.price}</span>`; btn.dataset.idx = idx;
-    if (disabled) { btn.disabled=true; btn.style.opacity='0.4'; btn.style.cursor='not-allowed'; }
-    else btn.onclick = () => { qtyGrid.querySelectorAll('.qty-btn').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); };
+function openProductDetail(key){
+  const p=products[key];
+  document.getElementById('detail-title').textContent=p.title;
+  const badgesEl=document.getElementById('detail-badges');
+  const stockClass=p.stock==='rupture'?'badge-rupture':'badge-dispo';
+  const stockLabel=p.stock==='rupture'?'❌ Rupture de stock':'✅ Disponible';
+  let badgesHTML=`<div class="badge badge-farm">${p.farm}</div><div class="badge ${stockClass}">${stockLabel}</div>`;
+  if (p.isNew) badgesHTML+=`<div class="badge badge-new">🆕 Nouveauté</div>`;
+  badgesEl.innerHTML=badgesHTML;
+  let content=p.strain?p.strain.replace(/\n/g,'<br>'):'';
+  const descText=p.description||p.desc||'';
+  if (descText) content+='<div class="description">'+descText.replace(/\n/g,'<br>')+'</div>';
+  document.getElementById('detail-strain-desc').innerHTML=content||'<p style="color:#888;font-style:italic">Aucune description disponible</p>';
+  const qtyGrid=document.getElementById('qty-grid');qtyGrid.innerHTML='';
+  const disabled=p.stock==='rupture';
+  const safeQtys=Array.isArray(p.quantities)?p.quantities:[];
+  safeQtys.forEach((item,idx)=>{
+    const btn=document.createElement('button');btn.className='qty-btn';
+    btn.innerHTML=`${item.qty}<br><span class="price-new">${item.price}</span>`;btn.dataset.idx=idx;
+    if (disabled){btn.disabled=true;btn.style.opacity='0.4';btn.style.cursor='not-allowed';}
+    else btn.onclick=()=>{qtyGrid.querySelectorAll('.qty-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');};
     qtyGrid.appendChild(btn);
   });
-  const addBtn = document.getElementById('add-to-cart-btn');
-  addBtn.disabled = disabled; addBtn.style.opacity = disabled ? '0.4' : '1'; addBtn.style.cursor = disabled ? 'not-allowed' : 'pointer';
-  buildSwiper(p.videos && p.videos.length ? p.videos : [{src:'',poster:''}]);
-  hideAllPages();
-  document.getElementById('product-detail').style.display = 'flex';
-  if (tg) tg.BackButton.show();
-  scrollToTop();
+  const addBtn=document.getElementById('add-to-cart-btn');
+  addBtn.disabled=disabled;addBtn.style.opacity=disabled?'0.4':'1';addBtn.style.cursor=disabled?'not-allowed':'pointer';
+  buildSwiper(p.videos&&p.videos.length?p.videos:[{src:'',poster:''}]);
+  hideAllPages();document.getElementById('product-detail').style.display='flex';
+  if (tg) tg.BackButton.show();scrollToTop();
 }
-
-document.getElementById('add-to-cart-btn').onclick = () => {
-  const sel = document.querySelector('.qty-btn.selected'); if (!sel) return alert('Sélectionnez une quantité !');
-  const title = document.getElementById('detail-title').textContent;
-  const key   = Object.keys(products).find(k => products[k].title === title);
-  const item  = products[key].quantities[parseInt(sel.dataset.idx)];
-  cart.push({ title, qty: item.qty, price: item.price }); saveCart(); alert('✅ Ajouté au panier !');
+document.getElementById('add-to-cart-btn').onclick=()=>{
+  const sel=document.querySelector('.qty-btn.selected');if (!sel) return alert('Sélectionnez une quantité !');
+  const title=document.getElementById('detail-title').textContent;
+  const key=Object.keys(products).find(k=>products[k].title===title);
+  const item=products[key].quantities[parseInt(sel.dataset.idx)];
+  cart.push({title,qty:item.qty,price:item.price});saveCart();alert('✅ Ajouté au panier !');
 };
 
 // ── NAV ───────────────────────────────────────────────────────────────────────
-document.getElementById('nav-home').onclick    = goToHome;
-document.getElementById('nav-cart').onclick    = () => { hideAllPages(); document.getElementById('cart-page').style.display='block'; document.getElementById('nav-cart').classList.add('active'); if(tg)tg.BackButton.hide(); renderCart(); scrollToTop(); };
-document.getElementById('nav-infos').onclick   = () => { hideAllPages(); document.getElementById('infos-page').style.display='block'; document.getElementById('nav-infos').classList.add('active'); if(tg)tg.BackButton.hide(); scrollToTop(); };
-document.getElementById('nav-reseaux').onclick = () => { hideAllPages(); document.getElementById('reseaux-page').style.display='block'; document.getElementById('nav-reseaux').classList.add('active'); if(tg)tg.BackButton.hide(); scrollToTop(); };
-document.getElementById('nav-avis').onclick    = () => { hideAllPages(); document.getElementById('avis-page').style.display='block'; document.getElementById('nav-avis').classList.add('active'); if(tg)tg.BackButton.hide(); renderAvis(); scrollToTop(); };
-document.getElementById('nav-profil').onclick  = () => { hideAllPages(); document.getElementById('profil-page').style.display='block'; document.getElementById('nav-profil').classList.add('active'); if(tg)tg.BackButton.hide(); renderProfilPage(); scrollToTop(); };
-document.getElementById('nav-chat').onclick    = () => { hideAllPages(); const cp=document.getElementById('chat-page'); cp.style.display='flex'; cp.style.flexDirection='column'; document.getElementById('nav-chat').classList.add('active'); if(tg)tg.BackButton.hide(); renderChatPage(); };
+document.getElementById('nav-home').onclick=goToHome;
+document.getElementById('nav-cart').onclick=()=>{hideAllPages();document.getElementById('cart-page').style.display='block';document.getElementById('nav-cart').classList.add('active');if(tg)tg.BackButton.hide();renderCart();scrollToTop();};
+document.getElementById('nav-infos').onclick=()=>{hideAllPages();document.getElementById('infos-page').style.display='block';document.getElementById('nav-infos').classList.add('active');if(tg)tg.BackButton.hide();scrollToTop();};
+document.getElementById('nav-reseaux').onclick=()=>{hideAllPages();document.getElementById('reseaux-page').style.display='block';document.getElementById('nav-reseaux').classList.add('active');if(tg)tg.BackButton.hide();scrollToTop();};
+document.getElementById('nav-avis').onclick=()=>{hideAllPages();document.getElementById('avis-page').style.display='block';document.getElementById('nav-avis').classList.add('active');if(tg)tg.BackButton.hide();renderAvis();scrollToTop();};
+document.getElementById('nav-profil').onclick=()=>{hideAllPages();document.getElementById('profil-page').style.display='block';document.getElementById('nav-profil').classList.add('active');if(tg)tg.BackButton.hide();renderProfilPage();scrollToTop();};
+document.getElementById('nav-chat').onclick=()=>{hideAllPages();const cp=document.getElementById('chat-page');cp.style.display='flex';cp.style.flexDirection='column';document.getElementById('nav-chat').classList.add('active');if(tg)tg.BackButton.hide();renderChatPage();};
 
 // ── AVIS ─────────────────────────────────────────────────────────────────────
-let selectedStar = 0;
-let avisPhotoBase64 = null;
-
-document.querySelectorAll('.star').forEach(star => {
-  star.addEventListener('click', () => {
-    selectedStar = parseInt(star.dataset.v);
-    document.querySelectorAll('.star').forEach(s => {
-      s.textContent = parseInt(s.dataset.v) <= selectedStar ? '★' : '☆';
-      s.classList.toggle('on', parseInt(s.dataset.v) <= selectedStar);
-    });
+let selectedStar=0, avisPhotoBase64=null;
+document.querySelectorAll('.star').forEach(star=>{
+  star.addEventListener('click',()=>{
+    selectedStar=parseInt(star.dataset.v);
+    document.querySelectorAll('.star').forEach(s=>{s.textContent=parseInt(s.dataset.v)<=selectedStar?'★':'☆';s.classList.toggle('on',parseInt(s.dataset.v)<=selectedStar);});
   });
 });
-
-document.getElementById('avis-photo-input').addEventListener('change', function() {
-  const file = this.files[0]; if (!file) return;
-  if (file.size > 4*1024*1024) { alert('Image trop grande (max 4 Mo)'); return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    avisPhotoBase64 = e.target.result;
-    const preview = document.getElementById('avis-photo-preview');
-    preview.src = avisPhotoBase64; preview.style.display = 'block';
-    document.getElementById('photo-upload-text').textContent = 'Photo sélectionnée ✅';
-  };
+document.getElementById('avis-photo-input').addEventListener('change',function(){
+  const file=this.files[0];if (!file) return;
+  if (file.size>4*1024*1024){alert('Image trop grande (max 4 Mo)');return;}
+  const reader=new FileReader();
+  reader.onload=e=>{avisPhotoBase64=e.target.result;const preview=document.getElementById('avis-photo-preview');preview.src=avisPhotoBase64;preview.style.display='block';document.getElementById('photo-upload-text').textContent='Photo sélectionnée ✅';};
   reader.readAsDataURL(file);
 });
-
-async function renderAvis() {
-  const list = document.getElementById('avis-list');
-  list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0">Chargement...</p>';
-  try {
-    const q    = query(collection(_db,'avis'), orderBy('timestamp','desc'));
-    const snap = await getDocs(q);
-    const avisList = snap.docs.map(d => d.data());
-    if (!avisList.length) { list.innerHTML = '<p style="text-align:center;color:#555;padding:30px 0">Aucun avis pour l\'instant.</p>'; return; }
-    list.innerHTML = avisList.map(a => `
-      <div class="avis-card">
-        <div class="avis-header"><span class="avis-user">${a.user}</span><span class="avis-stars">${'★'.repeat(a.note)}${'☆'.repeat(5-a.note)}</span></div>
-        <div class="avis-date">${a.date}</div>
-        <div class="avis-comment">${a.comment}</div>
-        ${a.photoUrl ? `<img class="avis-photo" src="${a.photoUrl}" alt="Photo" onclick="openLightbox('${a.photoUrl}')">` : ''}
-      </div>`).join('');
-  } catch(e) { list.innerHTML = '<p style="text-align:center;color:#ef4444;padding:30px 0">Erreur de chargement.</p>'; }
+async function renderAvis(){
+  const list=document.getElementById('avis-list');
+  list.innerHTML='<p style="text-align:center;color:#555;padding:30px 0">Chargement...</p>';
+  try{
+    const q=query(collection(_db,'avis'),orderBy('timestamp','desc'));
+    const snap=await getDocs(q);
+    const avisList=snap.docs.map(d=>d.data());
+    if (!avisList.length){list.innerHTML='<p style="text-align:center;color:#555;padding:30px 0">Aucun avis pour l\'instant.</p>';return;}
+    list.innerHTML=avisList.map(a=>`<div class="avis-card"><div class="avis-header"><span class="avis-user">${a.user}</span><span class="avis-stars">${'★'.repeat(a.note)}${'☆'.repeat(5-a.note)}</span></div><div class="avis-date">${a.date}</div><div class="avis-comment">${a.comment}</div>${a.photoUrl?`<img class="avis-photo" src="${a.photoUrl}" alt="Photo" onclick="openLightbox('${a.photoUrl}')">`:''}</div>`).join('');
+  }catch(e){list.innerHTML='<p style="text-align:center;color:#ef4444;padding:30px 0">Erreur de chargement.</p>';}
 }
-
-document.getElementById('submit-avis-btn').onclick = async () => {
-  const comment = document.getElementById('avis-text').value.trim();
+document.getElementById('submit-avis-btn').onclick=async()=>{
+  const comment=document.getElementById('avis-text').value.trim();
   if (!selectedStar) return alert('Veuillez sélectionner une note ⭐');
-  if (!comment)      return alert('Veuillez écrire un commentaire');
-  const tgUser   = tg?.initDataUnsafe?.user;
-  const username = tgUser?.first_name || _auth.currentUser?.displayName || 'Anonyme';
-  const btn = document.getElementById('submit-avis-btn');
-  btn.disabled = true; btn.textContent = 'Envoi...';
-  try {
-    // Photo avis conservée en base64 (stockée dans Firestore directement)
-    let photoUrl = null;
-    if (avisPhotoBase64) {
-      photoUrl = avisPhotoBase64;
-    }
-    await addDoc(collection(_db,'avis'), {
-      user: username, note: selectedStar, comment,
-      photoUrl: photoUrl || null,
-      date: new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),
-      timestamp: serverTimestamp()
-    });
-    document.getElementById('avis-text').value = '';
-    selectedStar = 0; avisPhotoBase64 = null;
-    document.getElementById('avis-photo-preview').style.display = 'none';
-    document.getElementById('avis-photo-preview').src = '';
-    document.getElementById('photo-upload-text').textContent = 'Ajouter une photo (optionnel)';
-    document.getElementById('avis-photo-input').value = '';
-    document.querySelectorAll('.star').forEach(s => { s.textContent='☆'; s.classList.remove('on'); });
-    await renderAvis();
-    alert('✅ Merci pour votre avis !');
-  } catch(e) { alert('❌ Erreur lors de l\'envoi.'); }
-  btn.disabled = false; btn.textContent = 'Publier mon avis';
+  if (!comment) return alert('Veuillez écrire un commentaire');
+  const tgUser=tg?.initDataUnsafe?.user;
+  const username=tgUser?.first_name||_auth.currentUser?.displayName||'Anonyme';
+  const btn=document.getElementById('submit-avis-btn');
+  btn.disabled=true;btn.textContent='Envoi...';
+  try{
+    await addDoc(collection(_db,'avis'),{user:username,note:selectedStar,comment,photoUrl:avisPhotoBase64||null,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});
+    document.getElementById('avis-text').value='';selectedStar=0;avisPhotoBase64=null;
+    document.getElementById('avis-photo-preview').style.display='none';document.getElementById('avis-photo-preview').src='';
+    document.getElementById('photo-upload-text').textContent='Ajouter une photo (optionnel)';document.getElementById('avis-photo-input').value='';
+    document.querySelectorAll('.star').forEach(s=>{s.textContent='☆';s.classList.remove('on');});
+    await renderAvis();alert('✅ Merci pour votre avis !');
+  }catch(e){alert('❌ Erreur lors de l\'envoi.');}
+  btn.disabled=false;btn.textContent='Publier mon avis';
 };
 
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
-window.openLightbox = (url) => {
-  document.getElementById('lb-img').src = url;
-  document.getElementById('photo-lightbox').classList.add('open');
-};
-document.getElementById('lb-close').addEventListener('click', () => {
-  document.getElementById('photo-lightbox').classList.remove('open');
-  document.getElementById('lb-img').src = '';
-});
-document.getElementById('photo-lightbox').addEventListener('click', e => {
-  if (e.target === document.getElementById('photo-lightbox')) document.getElementById('photo-lightbox').classList.remove('open');
-});
+window.openLightbox=(url)=>{document.getElementById('lb-img').src=url;document.getElementById('photo-lightbox').classList.add('open');};
+document.getElementById('lb-close').addEventListener('click',()=>{document.getElementById('photo-lightbox').classList.remove('open');document.getElementById('lb-img').src='';});
+document.getElementById('photo-lightbox').addEventListener('click',e=>{if (e.target===document.getElementById('photo-lightbox')) document.getElementById('photo-lightbox').classList.remove('open');});
 
 // ── RÉSEAUX ───────────────────────────────────────────────────────────────────
-document.querySelectorAll('.reseau-item[data-link]').forEach(el => {
-  el.onclick = () => { const l=el.getAttribute('data-link'); if(tg)tg.openLink(l); else window.open(l,'_blank'); };
-});
-if (tg) tg.BackButton.onClick(() => goToHome());
+document.querySelectorAll('.reseau-item[data-link]').forEach(el=>{el.onclick=()=>{const l=el.getAttribute('data-link');if(tg)tg.openLink(l);else window.open(l,'_blank');};});
+if (tg) tg.BackButton.onClick(()=>goToHome());
 
 // ── PANIER RENDU ──────────────────────────────────────────────────────────────
-function renderCart() {
-  const container = document.getElementById('cart-items'); container.innerHTML = '';
-  if (!cart.length) { container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0">Votre panier est vide</p>'; document.getElementById('cart-total').textContent = ''; return; }
-  let total = 0;
-  cart.forEach((item, index) => {
-    total += parseInt(item.price) || 0;
-    const div = document.createElement('div'); div.className = 'cart-item';
-    div.innerHTML = `<div><div class="cart-item-title">${item.title}</div><div class="cart-item-qty">${item.qty} — ${item.price}</div></div><button class="delete-btn" data-index="${index}">×</button>`;
+function renderCart(){
+  const container=document.getElementById('cart-items');container.innerHTML='';
+  if (!cart.length){container.innerHTML='<p style="text-align:center;color:#888;padding:40px 0">Votre panier est vide</p>';document.getElementById('cart-total').textContent='';return;}
+  let total=0;
+  cart.forEach((item,index)=>{
+    total+=parseInt(item.price)||0;
+    const div=document.createElement('div');div.className='cart-item';
+    div.innerHTML=`<div><div class="cart-item-title">${item.title}</div><div class="cart-item-qty">${item.qty} — ${item.price}</div></div><button class="delete-btn" data-index="${index}">×</button>`;
     container.appendChild(div);
   });
-  document.getElementById('cart-total').innerHTML = `Total : <strong>${total}€</strong>`;
+  document.getElementById('cart-total').innerHTML=`Total : <strong>${total}€</strong>`;
 }
-document.getElementById('cart-page').addEventListener('click', e => {
-  if (e.target.classList.contains('delete-btn')) { cart.splice(parseInt(e.target.dataset.index),1); saveCart(); renderCart(); }
-});
-document.querySelectorAll('.option-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
-    document.getElementById('pickup-questions').style.display   = btn.dataset.type==='pickup'   ? 'block' : 'none';
-    document.getElementById('delivery-questions').style.display = btn.dataset.type==='delivery' ? 'block' : 'none';
+document.getElementById('cart-page').addEventListener('click',e=>{if (e.target.classList.contains('delete-btn')){cart.splice(parseInt(e.target.dataset.index),1);saveCart();renderCart();}});
+document.querySelectorAll('.option-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    document.getElementById('pickup-questions').style.display=btn.dataset.type==='pickup'?'block':'none';
+    document.getElementById('delivery-questions').style.display=btn.dataset.type==='delivery'?'block':'none';
   });
 });
-document.getElementById('submit-order-btn').onclick = async () => {
+document.getElementById('submit-order-btn').onclick=async()=>{
   if (!cart.length) return alert('Votre panier est vide');
-  const modeBtn = document.querySelector('.option-btn.active');
+  const modeBtn=document.querySelector('.option-btn.active');
   if (!modeBtn) return alert('Choisissez un mode de récupération.');
-  const mode   = modeBtn.dataset.type==='pickup' ? 'Venir sur place' : 'Livraison';
-  const tgUser = tg?.initDataUnsafe?.user;
-  let message  = `🛒 *NOUVELLE COMMANDE* 🛒\n\n👤 ${tgUser?.username?'@'+tgUser.username:tgUser?.first_name||'Utilisateur'}\n📅 ${new Date().toLocaleString('fr-FR')}\n\n🛍️ *Articles :*\n`;
-  let total = 0, itemsText = '';
-  cart.forEach(item => { total += parseInt(item.price)||0; message += `• ${item.title} — ${item.qty} (${item.price})\n`; itemsText += `• ${item.title} ${item.qty} (${item.price})\n`; });
-  message += `\n💰 *Total : ${total}€*\n\n📦 *Mode :* ${mode}\n`;
-  const user = _auth.currentUser;
-  if (user) {
-    try { await addDoc(collection(_db,'commandes'), {uid:user.uid, items:itemsText.trim(), total, mode, date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}), timestamp:serverTimestamp()}); }
-    catch(e) { console.error(e); }
-  }
-  const url = `https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
+  const mode=modeBtn.dataset.type==='pickup'?'Venir sur place':'Livraison';
+  const tgUser=tg?.initDataUnsafe?.user;
+  let message=`🛒 *NOUVELLE COMMANDE* 🛒\n\n👤 ${tgUser?.username?'@'+tgUser.username:tgUser?.first_name||'Utilisateur'}\n📅 ${new Date().toLocaleString('fr-FR')}\n\n🛍️ *Articles :*\n`;
+  let total=0,itemsText='';
+  cart.forEach(item=>{total+=parseInt(item.price)||0;message+=`• ${item.title} — ${item.qty} (${item.price})\n`;itemsText+=`• ${item.title} ${item.qty} (${item.price})\n`;});
+  message+=`\n💰 *Total : ${total}€*\n\n📦 *Mode :* ${mode}\n`;
+  const user=_auth.currentUser;
+  if (user){try{await addDoc(collection(_db,'commandes'),{uid:user.uid,items:itemsText.trim(),total,mode,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});}catch(e){console.error(e);}}
+  const url=`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
   if (tg) tg.openTelegramLink(url); else window.open(url,'_blank');
 };
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', async () => {
-  const container = document.getElementById('splash-particles');
-  for (let i=0; i<22; i++) {
-    const s = document.createElement('div'); s.className = 'spark';
-    s.style.cssText = `left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
+document.addEventListener('DOMContentLoaded',async()=>{
+  const container=document.getElementById('splash-particles');
+  for (let i=0;i<22;i++){
+    const s=document.createElement('div');s.className='spark';
+    s.style.cssText=`left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
     container.appendChild(s);
   }
   bindMediaAddButtons();
   await loadProductOverrides();
-  const splash = document.getElementById('splash-screen');
-  setTimeout(() => {
+  const splash=document.getElementById('splash-screen');
+  setTimeout(()=>{
     splash.classList.add('hidden');
-    setTimeout(() => {
-      splash.style.display = 'none';
-      populateFilters(); renderProducts(); updateBadge(); goToHome();
-    }, 600);
-  }, 2500);
+    setTimeout(()=>{splash.style.display='none';populateFilters();renderProducts();updateBadge();goToHome();},600);
+  },2500);
 });
 </script>
 </body>
