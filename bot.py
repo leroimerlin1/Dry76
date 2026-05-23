@@ -29,7 +29,8 @@ MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 
 IMAGE_WELCOME = "chat.jpg"
 
-ADMIN_ID = 8286220626
+ADMIN_ID = int(os.environ.get("ADMIN_ID", 8286220626))
+
 
 USERS_FILE = "users.json"
 
