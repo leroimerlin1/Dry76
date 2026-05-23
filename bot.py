@@ -26,7 +26,7 @@ CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
 
 MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 
-IMAGE_WELCOME = "chat.jpg"           # ← fichier à placer dans le même dossier
+IMAGE_WELCOME = "chat.jpg"          # ← fichier à placer dans le même dossier
 
 # ⚠️ Mets ton propre Telegram user ID ici (pour protéger /broadcast)
 ADMIN_ID = 8286220626  # ← REMPLACE PAR TON VRAI ID
