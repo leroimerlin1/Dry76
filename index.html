@@ -144,43 +144,6 @@
     .meetup-horaires-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
     .meetup-horaires-text { color:#aaa; font-size:0.95rem; font-weight:500; }
 
-    /* CARTE PAGE */
-    #carte-page { display:none; padding:16px 16px 110px 16px; }
-    .carte-card { background:rgba(15,15,22,0.92); border:1.5px solid rgba(255,235,59,0.22); border-radius:22px; padding:20px 18px 22px; margin-bottom:16px; box-shadow:0 8px 40px rgba(0,0,0,0.6); backdrop-filter:blur(10px); }
-    .carte-card-header { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
-    .carte-card-icon { width:48px; height:48px; background:rgba(255,235,59,0.13); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; border:1px solid rgba(255,235,59,0.25); }
-    .carte-card-title { font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:900; color:#fff; }
-    .carte-card-sub { font-size:0.72rem; color:rgba(255,235,59,0.6); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; }
-    /* SVG MAP */
-    .map-wrap { position:relative; width:100%; background:rgba(255,255,255,0.015); border:1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden; margin-bottom:18px; }
-    .map-wrap svg { width:100%; height:auto; display:block; }
-    .map-tag { position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.75); border:1px solid rgba(255,235,59,0.35); border-radius:8px; padding:5px 11px; font-family:'Orbitron',sans-serif; font-size:0.6rem; font-weight:800; color:#ffeb3b; letter-spacing:1px; pointer-events:none; }
-    /* LÉGENDE */
-    .legend-grid { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
-    .legend-row { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:12px 14px; }
-    .legend-color { width:14px; height:14px; border-radius:3px; flex-shrink:0; }
-    .legend-color.meetup { border-radius:50%; background:#ffeb3b; box-shadow:0 0 10px rgba(255,235,59,0.8); animation:dotPulse 1.8s ease-in-out infinite; }
-    .legend-color.c76 { background:#4ade80; box-shadow:0 0 8px rgba(74,222,128,0.5); }
-    .legend-color.c27 { background:#f97316; box-shadow:0 0 8px rgba(249,115,22,0.5); }
-    .legend-color.c14 { background:#60a5fa; box-shadow:0 0 8px rgba(96,165,250,0.5); }
-    .legend-color.cgris { background:rgba(100,100,130,0.7); }
-    @keyframes dotPulse { 0%,100%{transform:scale(1);}50%{transform:scale(1.4);} }
-    .legend-info { flex:1; }
-    .legend-name { font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:800; color:#fff; }
-    .legend-detail { font-size:0.7rem; color:#666; margin-top:2px; font-weight:600; }
-    .legend-pill { font-family:'Orbitron',sans-serif; font-size:0.6rem; font-weight:900; padding:3px 9px; border-radius:999px; flex-shrink:0; }
-    .pill-yellow { background:rgba(255,235,59,0.15); border:1.5px solid #ffeb3b; color:#ffeb3b; }
-    .pill-green  { background:rgba(74,222,128,0.12); border:1.5px solid #4ade80; color:#4ade80; }
-    .pill-orange { background:rgba(249,115,22,0.12); border:1.5px solid #f97316; color:#f97316; }
-    .pill-blue   { background:rgba(96,165,250,0.12); border:1.5px solid #60a5fa; color:#60a5fa; }
-    /* TARIFS */
-    .tarifs-block { background:rgba(255,235,59,0.04); border:1px solid rgba(255,235,59,0.15); border-radius:16px; padding:16px; }
-    .tarifs-title { font-family:'Orbitron',sans-serif; font-size:0.7rem; font-weight:900; color:rgba(255,235,59,0.65); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px; }
-    .tarif-row { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
-    .tarif-row:last-child { border-bottom:none; }
-    .tarif-label { color:#aaa; font-size:0.82rem; }
-    .tarif-price { color:#ffeb3b; font-family:'Orbitron',sans-serif; font-size:0.82rem; font-weight:800; }
-
     /* RÉSEAUX */
     #reseaux-page { display:none; padding:16px 16px 110px 16px; }
     .section-title { font-family:'Orbitron',sans-serif; font-size:1.4rem; color:#ffeb3b; margin:28px 0 16px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
@@ -212,7 +175,7 @@
     #photo-lightbox img { max-width:94%; max-height:75vh; border-radius:16px; object-fit:contain; box-shadow:0 0 40px rgba(0,0,0,0.8); }
     #lb-close { background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.2); color:#fff; font-size:1.1rem; padding:10px 28px; border-radius:999px; cursor:pointer; font-family:'Orbitron',sans-serif; font-weight:700; letter-spacing:1px; }
 
-    /* NAV — 8 items */
+    /* NAV — 7 items (carte supprimée) */
     nav { position:fixed; bottom:18px; left:6px; right:6px; height:64px; background:rgba(15,15,20,0.96); border-radius:26px; border:1px solid rgba(255,235,59,0.2); display:flex; justify-content:space-around; align-items:center; z-index:1000; box-shadow:0 10px 40px rgba(0,0,0,0.7); padding:0 2px; }
     .nav-item { display:flex; align-items:center; justify-content:center; cursor:pointer; width:38px; height:44px; border-radius:50%; background:transparent; transition:all 0.25s ease; position:relative; }
     .nav-item.active { background:rgba(255,235,59,0.22); box-shadow:0 3px 14px rgba(255,235,59,0.3); transform:translateY(-4px) scale(1.08); }
@@ -328,7 +291,22 @@
     .admin-media-thumb img, .admin-media-thumb video { width:100%; height:100%; object-fit:cover; }
     .admin-media-thumb .thumb-del { position:absolute; top:2px; right:2px; background:rgba(239,68,68,0.85); border:none; color:#fff; border-radius:50%; width:20px; height:20px; font-size:0.7rem; cursor:pointer; display:flex; align-items:center; justify-content:center; font-weight:900; line-height:1; }
     .admin-media-thumb .thumb-type { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.7); color:#ffeb3b; font-size:0.5rem; font-weight:800; padding:2px 4px; letter-spacing:0.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .storage-info { background:rgba(255,235,59,0.07); border:1px solid rgba(255,235,59,0.2); border-radius:10px; padding:10px 14px; margin-bottom:12px; font-size:0.78rem; color:rgba(255,235,59,0.75); font-weight:600; display:flex; align-items:center; gap:8px; }
+
+    /* CLOUDINARY UPLOAD */
+    .cloudinary-upload-area {
+      position:relative; border:2px dashed rgba(255,235,59,0.35); border-radius:16px;
+      padding:20px 16px; text-align:center; cursor:pointer; margin-bottom:12px;
+      background:rgba(255,235,59,0.04); transition:all 0.2s;
+    }
+    .cloudinary-upload-area:active { border-color:#ffeb3b; background:rgba(255,235,59,0.08); }
+    .cloudinary-upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .upload-icon { font-size:2rem; margin-bottom:8px; }
+    .upload-title { font-family:'Orbitron',sans-serif; font-size:0.82rem; font-weight:800; color:#ffeb3b; margin-bottom:4px; }
+    .upload-sub { font-size:0.72rem; color:#555; font-weight:600; }
+    .upload-progress-wrap { width:100%; height:4px; background:rgba(255,235,59,0.1); border-radius:999px; overflow:hidden; margin-top:12px; display:none; }
+    .upload-progress-bar { height:100%; background:linear-gradient(90deg,#ffeb3b,#ffd600); border-radius:999px; transition:width 0.3s; box-shadow:0 0 8px rgba(255,235,59,0.6); }
+    .upload-status { font-size:0.72rem; color:rgba(255,235,59,0.7); margin-top:8px; font-weight:700; display:none; }
+
     #edit-modal { display:none; position:fixed; inset:0; z-index:8500; background:rgba(0,0,0,0.88); backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
     #edit-modal.open { display:flex; }
     .edit-sheet { width:100%; background:#0a0a14; border-radius:28px 28px 0 0; border-top:1.5px solid rgba(255,235,59,0.25); padding:20px 18px 40px; max-height:90dvh; overflow-y:auto; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1); }
@@ -472,175 +450,6 @@
       </div>
     </div>
 
-    <!-- CARTE NORMANDIE -->
-    <div id="carte-page">
-      <div class="carte-card" style="margin-top:8px">
-        <div class="carte-card-header">
-          <div class="carte-card-icon">🗺️</div>
-          <div>
-            <div class="carte-card-title">Zone de couverture</div>
-            <div class="carte-card-sub">Meet-up &amp; Livraison</div>
-          </div>
-        </div>
-
-        <!-- SVG NORMANDIE -->
-        <div class="map-wrap">
-          <div class="map-tag">📍 NORMANDIE</div>
-          <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <filter id="fg"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              <filter id="fb"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              <filter id="fo"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              <filter id="fy"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
-                <circle cx="1" cy="1" r="0.7" fill="rgba(255,255,255,0.04)"/>
-              </pattern>
-            </defs>
-
-            <!-- Fond -->
-            <rect width="400" height="320" fill="#080810"/>
-            <rect width="400" height="320" fill="url(#dots)"/>
-
-            <!-- MER (Manche) en haut -->
-            <path d="M 0,0 L 400,0 L 400,70 Q 340,55 290,60 Q 240,65 210,55 Q 175,42 140,50 Q 100,58 60,52 Q 30,46 0,55 Z"
-              fill="rgba(15,35,65,0.85)" stroke="rgba(96,165,250,0.15)" stroke-width="1"/>
-            <text x="200" y="35" text-anchor="middle" fill="rgba(96,165,250,0.35)" font-family="Orbitron,sans-serif" font-size="11" font-weight="700" letter-spacing="4">MANCHE</text>
-
-            <!-- MER (Seine côté est) -->
-            <path d="M 340,60 L 400,55 L 400,130 L 370,120 L 355,100 L 345,80 Z"
-              fill="rgba(15,35,65,0.6)" stroke="none"/>
-
-            <!-- CALVADOS (14) — ouest, coloré bleu -->
-            <path d="M 20,55 L 60,52 L 100,58 L 140,50 L 155,65 L 160,90 L 148,115 L 130,130 L 105,135 L 80,130 L 55,118 L 35,100 L 18,80 Z"
-              fill="rgba(96,165,250,0.2)" stroke="#60a5fa" stroke-width="2" filter="url(#fb)"/>
-            <text x="88" y="98" text-anchor="middle" fill="#60a5fa" font-family="Orbitron,sans-serif" font-size="13" font-weight="900" filter="url(#fb)">14</text>
-            <text x="88" y="113" text-anchor="middle" fill="rgba(96,165,250,0.7)" font-family="Orbitron,sans-serif" font-size="7.5" font-weight="700">CALVADOS</text>
-
-            <!-- MANCHE (50) — très à l'ouest, gris -->
-            <path d="M 0,55 L 20,55 L 18,80 L 35,100 L 55,118 L 50,145 L 30,160 L 10,150 L 0,130 Z"
-              fill="rgba(50,50,70,0.55)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-            <text x="22" y="120" text-anchor="middle" fill="#3a3a55" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">50</text>
-
-            <!-- ORNE (61) — sud calvados, gris -->
-            <path d="M 80,130 L 105,135 L 130,130 L 148,115 L 160,130 L 165,155 L 155,175 L 135,185 L 108,183 L 85,172 L 70,155 L 72,138 Z"
-              fill="rgba(50,50,70,0.55)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-            <text x="115" y="158" text-anchor="middle" fill="#3a3a55" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">61</text>
-
-            <!-- EURE (27) — centre, coloré orange -->
-            <path d="M 160,90 L 200,80 L 240,85 L 265,95 L 275,118 L 268,145 L 250,162 L 228,170 L 205,168 L 182,158 L 165,140 L 160,118 Z"
-              fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-width="2" filter="url(#fo)"/>
-            <text x="214" y="128" text-anchor="middle" fill="#f97316" font-family="Orbitron,sans-serif" font-size="13" font-weight="900" filter="url(#fo)">27</text>
-            <text x="214" y="143" text-anchor="middle" fill="rgba(249,115,22,0.7)" font-family="Orbitron,sans-serif" font-size="7.5" font-weight="700">EURE</text>
-
-            <!-- SEINE-MARITIME (76) — nord-est, coloré vert -->
-            <path d="M 140,50 L 175,42 L 210,55 L 240,65 L 290,60 L 330,58 L 345,75 L 340,100 L 320,118 L 295,130 L 265,132 L 240,125 L 265,95 L 240,85 L 200,80 L 160,90 L 155,65 Z"
-              fill="rgba(74,222,128,0.22)" stroke="#4ade80" stroke-width="2" filter="url(#fg)"/>
-            <text x="245" y="95" text-anchor="middle" fill="#4ade80" font-family="Orbitron,sans-serif" font-size="13" font-weight="900" filter="url(#fg)">76</text>
-            <text x="245" y="110" text-anchor="middle" fill="rgba(74,222,128,0.7)" font-family="Orbitron,sans-serif" font-size="7.5" font-weight="700">SEINE-MARITIME</text>
-
-            <!-- SOMME (80) — nord-est, gris -->
-            <path d="M 290,60 L 330,58 L 345,75 L 370,70 L 390,80 L 390,55 L 340,60 Z"
-              fill="rgba(50,50,70,0.55)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-            <text x="350" y="68" text-anchor="middle" fill="#3a3a55" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">80</text>
-
-            <!-- OISE (60) — est, gris -->
-            <path d="M 295,130 L 320,118 L 340,100 L 345,75 L 370,70 L 390,80 L 390,155 L 365,165 L 340,158 L 315,148 L 295,145 Z"
-              fill="rgba(50,50,70,0.55)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-            <text x="348" y="125" text-anchor="middle" fill="#3a3a55" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">60</text>
-
-            <!-- VAL-D'OISE / ÎLE-DE-FRANCE simplifié -->
-            <path d="M 265,132 L 295,130 L 295,145 L 315,148 L 310,170 L 285,175 L 268,165 L 268,145 Z"
-              fill="rgba(45,45,65,0.55)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-
-            <!-- SARTHE (72) — sud orne, gris -->
-            <path d="M 70,155 L 85,172 L 108,183 L 135,185 L 155,175 L 165,190 L 155,210 L 130,218 L 100,215 L 75,200 L 62,182 Z"
-              fill="rgba(45,45,65,0.5)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-            <text x="110" y="198" text-anchor="middle" fill="#2e2e45" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">72</text>
-
-            <!-- EURE-ET-LOIR (28) -->
-            <path d="M 165,155 L 182,158 L 205,168 L 228,170 L 250,162 L 268,165 L 268,145 L 268,190 L 248,200 L 225,198 L 200,192 L 175,185 L 162,172 Z"
-              fill="rgba(45,45,65,0.5)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-            <text x="215" y="185" text-anchor="middle" fill="#2e2e45" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">28</text>
-
-            <!-- FLEUVE SEINE stylisé -->
-            <path d="M 170,95 Q 200,100 225,110 Q 255,122 280,118 Q 310,112 330,105 Q 355,95 370,85"
-              fill="none" stroke="rgba(96,165,250,0.25)" stroke-width="2.5" stroke-dasharray="5,4"/>
-
-            <!-- POINT MEETUP ROUEN animé -->
-            <circle cx="268" cy="85" r="14" fill="rgba(255,235,59,0.08)" filter="url(#fy)"/>
-            <circle cx="268" cy="85" r="8" fill="rgba(255,235,59,0.15)"/>
-            <circle cx="268" cy="85" r="4.5" fill="#ffeb3b" filter="url(#fy)">
-              <animate attributeName="r" values="4.5;7;4.5" dur="2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
-            </circle>
-
-            <!-- Label Rouen -->
-            <rect x="232" y="62" width="72" height="16" rx="4" fill="rgba(0,0,0,0.82)" stroke="rgba(255,235,59,0.55)" stroke-width="1.2"/>
-            <text x="268" y="74" text-anchor="middle" fill="#ffeb3b" font-family="Orbitron,sans-serif" font-size="8" font-weight="900" letter-spacing="1">📍 ROUEN</text>
-
-            <!-- Ligne vers le bas du point -->
-            <line x1="268" y1="90" x2="268" y2="105" stroke="#ffeb3b" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
-
-            <!-- Légende petite sur la carte -->
-            <text x="10" y="300" fill="rgba(255,255,255,0.18)" font-family="Orbitron,sans-serif" font-size="6.5" font-weight="700">© Bart.Coffee76 — Zones indicatives</text>
-          </svg>
-        </div>
-
-        <!-- LÉGENDE -->
-        <div class="legend-grid">
-          <div class="legend-row">
-            <div class="legend-color meetup"></div>
-            <div class="legend-info">
-              <div class="legend-name">Rouen Rive Gauche</div>
-              <div class="legend-detail">Meet-up · 12h – 23h · Min. 50€</div>
-            </div>
-            <div class="legend-pill pill-yellow">📍 MEETUP</div>
-          </div>
-          <div class="legend-row">
-            <div class="legend-color c76"></div>
-            <div class="legend-info">
-              <div class="legend-name">Seine-Maritime — 76</div>
-              <div class="legend-detail">Livraison sur Rouen &amp; alentours</div>
-            </div>
-            <div class="legend-pill pill-green">✅ ACTIF</div>
-          </div>
-          <div class="legend-row">
-            <div class="legend-color c27"></div>
-            <div class="legend-info">
-              <div class="legend-name">Eure — 27</div>
-              <div class="legend-detail">Livraison disponible · Sur rdv</div>
-            </div>
-            <div class="legend-pill pill-orange">✅ ACTIF</div>
-          </div>
-          <div class="legend-row">
-            <div class="legend-color c14"></div>
-            <div class="legend-info">
-              <div class="legend-name">Calvados — 14</div>
-              <div class="legend-detail">Livraison disponible · Sur rdv</div>
-            </div>
-            <div class="legend-pill pill-blue">✅ ACTIF</div>
-          </div>
-          <div class="legend-row">
-            <div class="legend-color cgris"></div>
-            <div class="legend-info">
-              <div class="legend-name">Autres départements</div>
-              <div class="legend-detail">Non desservis pour le moment</div>
-            </div>
-            <div class="legend-pill" style="background:rgba(100,100,130,0.12);border:1.5px solid #666;color:#666;">⛔ HORS ZONE</div>
-          </div>
-        </div>
-
-        <!-- TARIFS -->
-        <div class="tarifs-block">
-          <div class="tarifs-title">💰 Tarifs livraison</div>
-          <div class="tarif-row"><span class="tarif-label">Sur Rouen</span><span class="tarif-price">70€</span></div>
-          <div class="tarif-row"><span class="tarif-label">Moins de 10 km</span><span class="tarif-price">100€</span></div>
-          <div class="tarif-row"><span class="tarif-label">Supérieur à 10 km</span><span class="tarif-price">150€</span></div>
-          <div class="tarif-row"><span class="tarif-label">Supérieur à 25 km</span><span class="tarif-price">270€</span></div>
-        </div>
-      </div>
-    </div>
-
     <!-- RÉSEAUX -->
     <div id="reseaux-page">
       <h2 class="section-title">Nos réseaux</h2>
@@ -731,10 +540,16 @@
           <input class="admin-input" id="new-farm" placeholder="Farm (ex: R8🏎️)">
           <input class="admin-input" id="new-category" placeholder="Catégorie">
           <div class="edit-section-label" style="margin-top:4px">📸 Images &amp; Vidéos</div>
-          <div class="storage-info">📁 Placez les fichiers dans le même dossier que index.html, puis entrez leur nom ci-dessous</div>
-          <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center">
-            <input class="admin-input" style="margin:0;flex:1" id="new-media-filename" placeholder="blanche.jpg, video.mp4 … (virgule pour plusieurs)">
-            <button id="new-media-add-btn" style="background:#ffeb3b;color:#111;border:none;border-radius:12px;padding:0 18px;height:46px;font-weight:900;font-size:1.3rem;cursor:pointer;flex-shrink:0">+</button>
+          <!-- CLOUDINARY UPLOAD ZONE NOUVEAU PRODUIT -->
+          <div class="cloudinary-upload-area" id="new-upload-area">
+            <input type="file" id="new-media-file-input" accept="image/*,video/*" multiple>
+            <div class="upload-icon">📁</div>
+            <div class="upload-title">Appuyer pour choisir</div>
+            <div class="upload-sub">Photos & Vidéos depuis iPhone · JPG, PNG, MOV, MP4</div>
+            <div class="upload-progress-wrap" id="new-upload-progress-wrap">
+              <div class="upload-progress-bar" id="new-upload-progress-bar" style="width:0%"></div>
+            </div>
+            <div class="upload-status" id="new-upload-status"></div>
           </div>
           <div class="admin-media-previews" id="new-media-previews"></div>
           <textarea class="admin-input" id="new-desc" placeholder="Description du produit..." style="min-height:80px;resize:vertical"></textarea>
@@ -752,13 +567,12 @@
       </div>
     </div>
 
-    <!-- NAV — 8 boutons -->
+    <!-- NAV — 7 boutons (carte supprimée) -->
     <nav>
       <div class="nav-item active" id="nav-home"><span class="nav-emoji">🏠</span></div>
       <div class="nav-item" id="nav-cart"><span class="nav-emoji">🛒</span><span id="cart-badge"></span></div>
       <div class="nav-item" id="nav-avis"><span class="nav-emoji">⭐</span></div>
       <div class="nav-item" id="nav-chat"><span class="nav-emoji">💬</span></div>
-      <div class="nav-item" id="nav-carte"><span class="nav-emoji">🗺️</span></div>
       <div class="nav-item" id="nav-infos"><span class="nav-emoji">ℹ️</span></div>
       <div class="nav-item" id="nav-reseaux"><span class="nav-emoji">📡</span></div>
       <div class="nav-item" id="nav-profil"><span class="nav-emoji">👤</span></div>
@@ -805,10 +619,16 @@
     <div class="edit-section-label">Description / Strain</div>
     <textarea class="admin-input" id="edit-desc" placeholder="Description..." style="min-height:80px;resize:vertical"></textarea>
     <div class="edit-section-label">📸 Ajouter images/vidéos</div>
-    <div class="storage-info">📁 Placez les fichiers dans le même dossier que index.html, puis entrez leur nom</div>
-    <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center">
-      <input class="admin-input" style="margin:0;flex:1" id="edit-media-filename" placeholder="photo.jpg, clip.mp4 … (virgule pour plusieurs)">
-      <button id="edit-media-add-btn" style="background:#ffeb3b;color:#111;border:none;border-radius:12px;padding:0 18px;height:46px;font-weight:900;font-size:1.3rem;cursor:pointer;flex-shrink:0">+</button>
+    <!-- CLOUDINARY UPLOAD ZONE ÉDITION -->
+    <div class="cloudinary-upload-area" id="edit-upload-area">
+      <input type="file" id="edit-media-file-input" accept="image/*,video/*" multiple>
+      <div class="upload-icon">📁</div>
+      <div class="upload-title">Appuyer pour choisir</div>
+      <div class="upload-sub">Photos & Vidéos depuis iPhone · JPG, PNG, MOV, MP4</div>
+      <div class="upload-progress-wrap" id="edit-upload-progress-wrap">
+        <div class="upload-progress-bar" id="edit-upload-progress-bar" style="width:0%"></div>
+      </div>
+      <div class="upload-status" id="edit-upload-status"></div>
     </div>
     <div class="edit-section-label">Médias actuels (× pour supprimer)</div>
     <div class="admin-media-previews" id="edit-media-previews"></div>
@@ -848,7 +668,88 @@ window._firestoreExtra = { getDocs, collection, query, where, deleteDoc, doc, Ti
 let chatUnsub = null;
 const ADMIN_PASSWORD = "Bart76Admin!";
 
-// ── PRODUITS (capncrunch supprimé) ────────────────────────────────────────────
+// ── CLOUDINARY CONFIG ─────────────────────────────────────────────────────────
+const CLOUDINARY_CLOUD = 'doc0z0zik';
+const CLOUDINARY_PRESET = 't9vsumsr';
+const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/upload`;
+
+async function uploadToCloudinary(file, progressBarId, statusId, progressWrapId) {
+  const progressWrap = document.getElementById(progressWrapId);
+  const progressBar  = document.getElementById(progressBarId);
+  const statusEl     = document.getElementById(statusId);
+
+  progressWrap.style.display = 'block';
+  statusEl.style.display = 'block';
+  statusEl.textContent = `⏳ Upload en cours : ${file.name}`;
+  progressBar.style.width = '10%';
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('upload_preset', CLOUDINARY_PRESET);
+  // Dossier organisé automatiquement
+  formData.append('folder', 'bart_coffee76');
+
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', CLOUDINARY_UPLOAD_URL);
+
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const pct = Math.round((e.loaded / e.total) * 90);
+        progressBar.style.width = pct + '%';
+      }
+    };
+
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        const res = JSON.parse(xhr.responseText);
+        progressBar.style.width = '100%';
+        statusEl.textContent = `✅ ${file.name} uploadé !`;
+        setTimeout(() => {
+          progressWrap.style.display = 'none';
+          statusEl.style.display = 'none';
+          progressBar.style.width = '0%';
+        }, 1500);
+        resolve(res);
+      } else {
+        statusEl.textContent = `❌ Erreur upload : ${file.name}`;
+        reject(new Error('Upload failed'));
+      }
+    };
+
+    xhr.onerror = () => {
+      statusEl.textContent = `❌ Erreur réseau`;
+      reject(new Error('Network error'));
+    };
+
+    xhr.send(formData);
+  });
+}
+
+// Upload multiple fichiers et retourne les mediaItems
+async function uploadFiles(files, existingItems, previewsId, deleteHandlerName, progressBarId, statusId, progressWrapId) {
+  for (const file of files) {
+    try {
+      const res = await uploadToCloudinary(file, progressBarId, statusId, progressWrapId);
+      const isVideo = file.type.startsWith('video/');
+      const item = {
+        type: isVideo ? 'video' : 'image',
+        url: res.secure_url,
+        src: isVideo ? res.secure_url : '',
+        poster: isVideo ? (res.secure_url.replace('/upload/', '/upload/so_0/').replace(/\.[^.]+$/, '.jpg')) : res.secure_url,
+        name: file.name,
+        public_id: res.public_id
+      };
+      existingItems.push(item);
+      renderMediaPreviews(existingItems, previewsId, deleteHandlerName);
+    } catch(e) {
+      console.error('Upload error:', e);
+      alert('❌ Erreur upload pour ' + file.name);
+    }
+  }
+}
+
+// ── PRODUITS ──────────────────────────────────────────────────────────────────
 let products = {
   blanche: {
     key:'blanche', title:'Blanche❄️', category:'Blanche❄️', farm:'R8🏎️',
@@ -867,29 +768,32 @@ let products = {
   }
 };
 
-// ── MÉDIAS LOCAUX ─────────────────────────────────────────────────────────────
+// ── MÉDIAS ────────────────────────────────────────────────────────────────────
 let newMediaItems  = [];
 let editMediaItems = [];
 
 function guessType(name) {
-  const ext = name.split('.').pop().toLowerCase();
+  const ext = (name.split('.').pop()||'').toLowerCase();
   return ['mp4','webm','mov','avi','ogg'].includes(ext) ? 'video' : 'image';
-}
-function filenameToMediaItem(filename) {
-  filename = filename.trim();
-  const type = guessType(filename);
-  return { type, src: type==='video'?filename:'', poster: type==='image'?filename:'', url:filename, name:filename };
 }
 function mediaItemsToVideos(items) {
   if (!items.length) return [{src:'',poster:''}];
-  return items.map(m => ({ src: m.type==='video'?(m.url||''):'', poster: m.type==='image'?(m.url||''):'' }));
+  return items.map(m => ({
+    src:    m.type==='video' ? (m.url||m.src||'') : '',
+    poster: m.type==='image' ? (m.url||m.poster||'') : (m.poster||''),
+    public_id: m.public_id||''
+  }));
 }
 function videosToMediaItems(videos) {
   if (!videos||!videos.length) return [];
   const result=[];
   videos.forEach(v => {
-    if (v.poster&&v.poster.trim()) result.push(filenameToMediaItem(v.poster.trim()));
-    if (v.src&&v.src.trim())       result.push(filenameToMediaItem(v.src.trim()));
+    if (v.poster&&v.poster.trim()) {
+      result.push({ type:'image', url:v.poster.trim(), src:'', poster:v.poster.trim(), name:v.poster.trim().split('/').pop(), public_id:v.public_id||'' });
+    }
+    if (v.src&&v.src.trim()) {
+      result.push({ type:'video', url:v.src.trim(), src:v.src.trim(), poster:v.poster||'', name:v.src.trim().split('/').pop(), public_id:v.public_id||'' });
+    }
   });
   return result;
 }
@@ -899,36 +803,51 @@ function getThumb(p) {
   return (first.poster&&first.poster.trim())?first.poster.trim():null;
 }
 function renderMediaPreviews(items, containerId, onDeleteFnName) {
-  const el=document.getElementById(containerId); el.innerHTML='';
-  if (!items.length) { el.innerHTML='<div style="color:#555;font-size:0.8rem;padding:8px 0">Aucun média ajouté</div>'; return; }
+  const el=document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML='';
+  if (!items.length) {
+    el.innerHTML='<div style="color:#555;font-size:0.8rem;padding:8px 0">Aucun média — uploadez depuis votre iPhone 📱</div>';
+    return;
+  }
   items.forEach((m,i) => {
     const thumb=document.createElement('div'); thumb.className='admin-media-thumb';
     const src=m.url||m.src||m.poster||'';
-    if (m.type==='video'&&src) thumb.innerHTML=`<video src="${src}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
-    else if (m.type==='image'&&src) thumb.innerHTML=`<img src="${src}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.parentNode.style.background='#333'">`;
-    else thumb.innerHTML=`<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;font-size:1.5rem">☕</div>`;
+    if (m.type==='video'&&src) {
+      thumb.innerHTML=`<video src="${src}" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>`;
+    } else if (src) {
+      thumb.innerHTML=`<img src="${src}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.style.background='#222'">`;
+    } else {
+      thumb.innerHTML=`<div style="width:100%;height:100%;background:#222;display:flex;align-items:center;justify-content:center;font-size:1.5rem">☕</div>`;
+    }
     thumb.innerHTML+=`<button class="thumb-del" onclick="${onDeleteFnName}(${i})">×</button>`;
-    thumb.innerHTML+=`<div class="thumb-type">${m.type==='video'?'🎬':'🖼️'} ${m.name||''}</div>`;
+    thumb.innerHTML+=`<div class="thumb-type">${m.type==='video'?'🎬':'🖼️'} ${(m.name||'').substring(0,12)}</div>`;
     el.appendChild(thumb);
   });
 }
-function addMediaByFilenames(rawInput, itemsArray, containerId, onDeleteFnName) {
-  rawInput.split(',').forEach(f => { const fn=f.trim(); if (!fn) return; itemsArray.push(filenameToMediaItem(fn)); });
-  renderMediaPreviews(itemsArray, containerId, onDeleteFnName);
-}
+
 window._deleteNewMedia  = (i) => { newMediaItems.splice(i,1);  renderMediaPreviews(newMediaItems,'new-media-previews','_deleteNewMedia'); };
 window._deleteEditMedia = (i) => { editMediaItems.splice(i,1); renderMediaPreviews(editMediaItems,'edit-media-previews','_deleteEditMedia'); };
 
-function bindMediaAddButtons() {
-  const newBtn=document.getElementById('new-media-add-btn'), newInput=document.getElementById('new-media-filename');
-  if (newBtn&&newInput) {
-    newBtn.onclick=()=>{ if (!newInput.value.trim()) return; addMediaByFilenames(newInput.value,newMediaItems,'new-media-previews','_deleteNewMedia'); newInput.value=''; };
-    newInput.addEventListener('keydown',e=>{ if (e.key==='Enter'){e.preventDefault();newBtn.onclick();} });
+// Bind upload inputs
+function bindUploadInputs() {
+  const newInput = document.getElementById('new-media-file-input');
+  if (newInput) {
+    newInput.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      if (!files.length) return;
+      await uploadFiles(files, newMediaItems, 'new-media-previews', '_deleteNewMedia', 'new-upload-progress-bar', 'new-upload-status', 'new-upload-progress-wrap');
+      newInput.value = '';
+    });
   }
-  const editBtn=document.getElementById('edit-media-add-btn'), editInput=document.getElementById('edit-media-filename');
-  if (editBtn&&editInput) {
-    editBtn.onclick=()=>{ if (!editInput.value.trim()) return; addMediaByFilenames(editInput.value,editMediaItems,'edit-media-previews','_deleteEditMedia'); editInput.value=''; };
-    editInput.addEventListener('keydown',e=>{ if (e.key==='Enter'){e.preventDefault();editBtn.onclick();} });
+  const editInput = document.getElementById('edit-media-file-input');
+  if (editInput) {
+    editInput.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      if (!files.length) return;
+      await uploadFiles(files, editMediaItems, 'edit-media-previews', '_deleteEditMedia', 'edit-upload-progress-bar', 'edit-upload-status', 'edit-upload-progress-wrap');
+      editInput.value = '';
+    });
   }
 }
 
@@ -951,13 +870,12 @@ async function loadProductOverrides() {
           if (data.videos)      products[d.id].videos=data.videos;
         }
       } else {
-        // Produit venant uniquement de Firestore
-        if (d.id === 'capncrunch') return; // on s'assure qu'il ne revient pas
+        if (d.id === 'capncrunch') return;
         let safeVideos=[];
         if (Array.isArray(data.videos)&&data.videos.length>0) {
-          safeVideos=data.videos.map(v=>({ src:(v.src&&v.src.trim())?v.src.trim():'', poster:(v.poster&&v.poster.trim())?v.poster.trim():'' }));
+          safeVideos=data.videos.map(v=>({ src:(v.src&&v.src.trim())?v.src.trim():'', poster:(v.poster&&v.poster.trim())?v.poster.trim():'', public_id:v.public_id||'' }));
         } else {
-          safeVideos=[{ src:(data.video&&data.video.trim())?data.video.trim():'', poster:(data.poster&&data.poster.trim())?data.poster.trim():'' }];
+          safeVideos=[{ src:(data.video&&data.video.trim())?data.video.trim():'', poster:(data.poster&&data.poster.trim())?data.poster.trim():'', public_id:'' }];
         }
         products[d.id]={ key:d.id, title:data.title||'Produit', farm:data.farm||'', category:data.category||data.title||'', description:data.description||data.desc||'', desc:data.desc||data.description||'', strain:data.strain||'', videos:safeVideos, quantities:Array.isArray(data.quantities)?data.quantities:[], stock:data.stock||'dispo', isNew:data.isNew||false };
       }
@@ -982,7 +900,7 @@ function openAdminPage() {
 }
 document.getElementById('admin-login-btn').addEventListener('click',()=>{
   const pw=document.getElementById('admin-password-input').value;
-  if (pw===ADMIN_PASSWORD){adminAuthenticated=true;document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-password-input').value='';document.getElementById('admin-error').textContent='';renderAdminPanel();}
+  if (pw===ADMIN_PASSWORD){adminAuthenticated=true;document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-password-input').value='';document.getElementById('admin-error').textContent='';renderAdminPanel();bindUploadInputs();}
   else document.getElementById('admin-error').textContent='Mot de passe incorrect ❌';
 });
 document.getElementById('admin-logout-btn').addEventListener('click',()=>{adminAuthenticated=false;document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';goToHome();});
@@ -1017,8 +935,11 @@ window.openEditModal=(key)=>{
     row.innerHTML=`<input class="admin-input" style="margin:0" placeholder="Qté" value="${q.qty||''}"><input class="admin-input" style="margin:0" placeholder="Prix" value="${q.price||''}">`;
     qtyList.appendChild(row);
   });
-  const editInput=document.getElementById('edit-media-filename'); if (editInput) editInput.value='';
+  // Reset edit file input
+  const editInput=document.getElementById('edit-media-file-input'); if (editInput) editInput.value='';
   document.getElementById('edit-modal').classList.add('open');
+  // Rebind après ouverture
+  setTimeout(()=>bindUploadInputs(), 100);
 };
 document.getElementById('edit-add-qty-btn').addEventListener('click',()=>{
   const row=document.createElement('div'); row.className='admin-qty-row';
@@ -1069,7 +990,6 @@ document.getElementById('save-new-product-btn').addEventListener('click',async()
   ['new-title','new-farm','new-category','new-desc'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('new-qty-list').innerHTML='<div class="admin-qty-row"><input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)"></div>';
   newMediaItems=[];
-  const fi=document.getElementById('new-media-filename'); if (fi) fi.value='';
   renderMediaPreviews(newMediaItems,'new-media-previews','_deleteNewMedia');
   renderAdminPanel();renderProducts();alert('✅ Produit créé avec succès !');
 });
@@ -1232,7 +1152,7 @@ function renderProducts(list){
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
 function hideAllPages(){
-  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page','carte-page'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
 }
 function scrollToTop(){document.querySelector('.content').scrollTo({top:0,behavior:'instant'});}
@@ -1330,7 +1250,6 @@ document.getElementById('nav-reseaux').onclick=()=>{hideAllPages();document.getE
 document.getElementById('nav-avis').onclick=()=>{hideAllPages();document.getElementById('avis-page').style.display='block';document.getElementById('nav-avis').classList.add('active');if(tg)tg.BackButton.hide();renderAvis();scrollToTop();};
 document.getElementById('nav-profil').onclick=()=>{hideAllPages();document.getElementById('profil-page').style.display='block';document.getElementById('nav-profil').classList.add('active');if(tg)tg.BackButton.hide();renderProfilPage();scrollToTop();};
 document.getElementById('nav-chat').onclick=()=>{hideAllPages();const cp=document.getElementById('chat-page');cp.style.display='flex';cp.style.flexDirection='column';document.getElementById('nav-chat').classList.add('active');if(tg)tg.BackButton.hide();renderChatPage();};
-document.getElementById('nav-carte').onclick=()=>{hideAllPages();document.getElementById('carte-page').style.display='block';document.getElementById('nav-carte').classList.add('active');if(tg)tg.BackButton.hide();scrollToTop();};
 
 // ── AVIS ─────────────────────────────────────────────────────────────────────
 let selectedStar=0, avisPhotoBase64=null;
@@ -1452,7 +1371,6 @@ document.addEventListener('DOMContentLoaded',async()=>{
     s.style.cssText=`left:${Math.random()*100}%;top:${40+Math.random()*40}%;--dur:${1.8+Math.random()*2.2}s;--delay:${Math.random()*2}s;width:${2+Math.random()*3}px;height:${2+Math.random()*3}px;`;
     container.appendChild(s);
   }
-  bindMediaAddButtons();
   await loadProductOverrides();
   const splash=document.getElementById('splash-screen');
   setTimeout(()=>{
