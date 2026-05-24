@@ -21,7 +21,8 @@ from telegram.ext import (
 # CONFIGURATION
 # =============================================================
 
-TOKEN = os.environ.get("TOKEN")
+TOKEN = "8744963419:AAFcngIdV_pF3pITHbAOiydfFRlO5Tl0qCc"
+
 
 
 CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
