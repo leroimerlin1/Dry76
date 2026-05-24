@@ -46,7 +46,7 @@
     .products-count-number { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:#ffeb3b; line-height:1; text-shadow:0 0 12px rgba(255,235,59,0.5); }
     .products-count-label { font-size:0.65rem; font-weight:700; color:rgba(255,235,59,0.6); letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; }
 
-    /* ── FILTRE FIX ── */
+    /* FILTRE */
     #filters-bar { margin:0 16px 14px 16px; }
     .filters-inner { display:flex; gap:8px; align-items:center; width:100%; }
     .compact-select { flex:1; min-width:0; width:0; height:44px; font-size:13px; padding:0 28px 0 10px; font-family:'M PLUS Rounded 1c',sans-serif; font-weight:600; background-color:rgba(20,20,30,0.92); border:1.5px solid rgba(255,235,59,0.4); border-radius:14px; color:#e0e0e0; appearance:none; -webkit-appearance:none; cursor:pointer; outline:none; transition:border-color 0.2s; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffeb3b' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
@@ -144,6 +144,43 @@
     .meetup-horaires-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
     .meetup-horaires-text { color:#aaa; font-size:0.95rem; font-weight:500; }
 
+    /* CARTE PAGE */
+    #carte-page { display:none; padding:16px 16px 110px 16px; }
+    .carte-card { background:rgba(15,15,22,0.92); border:1.5px solid rgba(255,235,59,0.22); border-radius:22px; padding:20px 18px 22px; margin-bottom:16px; box-shadow:0 8px 40px rgba(0,0,0,0.6); backdrop-filter:blur(10px); }
+    .carte-card-header { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+    .carte-card-icon { width:48px; height:48px; background:rgba(255,235,59,0.13); border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; border:1px solid rgba(255,235,59,0.25); }
+    .carte-card-title { font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:900; color:#fff; }
+    .carte-card-sub { font-size:0.72rem; color:rgba(255,235,59,0.6); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; }
+    /* SVG MAP */
+    .map-wrap { position:relative; width:100%; background:rgba(255,255,255,0.015); border:1px solid rgba(255,255,255,0.06); border-radius:16px; overflow:hidden; margin-bottom:18px; }
+    .map-wrap svg { width:100%; height:auto; display:block; }
+    .map-tag { position:absolute; top:10px; left:10px; background:rgba(0,0,0,0.75); border:1px solid rgba(255,235,59,0.35); border-radius:8px; padding:5px 11px; font-family:'Orbitron',sans-serif; font-size:0.6rem; font-weight:800; color:#ffeb3b; letter-spacing:1px; pointer-events:none; }
+    /* LÉGENDE */
+    .legend-grid { display:flex; flex-direction:column; gap:10px; margin-bottom:16px; }
+    .legend-row { display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:14px; padding:12px 14px; }
+    .legend-color { width:14px; height:14px; border-radius:3px; flex-shrink:0; }
+    .legend-color.meetup { border-radius:50%; background:#ffeb3b; box-shadow:0 0 10px rgba(255,235,59,0.8); animation:dotPulse 1.8s ease-in-out infinite; }
+    .legend-color.c76 { background:#4ade80; box-shadow:0 0 8px rgba(74,222,128,0.5); }
+    .legend-color.c27 { background:#f97316; box-shadow:0 0 8px rgba(249,115,22,0.5); }
+    .legend-color.c14 { background:#60a5fa; box-shadow:0 0 8px rgba(96,165,250,0.5); }
+    .legend-color.cgris { background:rgba(100,100,130,0.7); }
+    @keyframes dotPulse { 0%,100%{transform:scale(1);}50%{transform:scale(1.4);} }
+    .legend-info { flex:1; }
+    .legend-name { font-family:'Orbitron',sans-serif; font-size:0.75rem; font-weight:800; color:#fff; }
+    .legend-detail { font-size:0.7rem; color:#666; margin-top:2px; font-weight:600; }
+    .legend-pill { font-family:'Orbitron',sans-serif; font-size:0.6rem; font-weight:900; padding:3px 9px; border-radius:999px; flex-shrink:0; }
+    .pill-yellow { background:rgba(255,235,59,0.15); border:1.5px solid #ffeb3b; color:#ffeb3b; }
+    .pill-green  { background:rgba(74,222,128,0.12); border:1.5px solid #4ade80; color:#4ade80; }
+    .pill-orange { background:rgba(249,115,22,0.12); border:1.5px solid #f97316; color:#f97316; }
+    .pill-blue   { background:rgba(96,165,250,0.12); border:1.5px solid #60a5fa; color:#60a5fa; }
+    /* TARIFS */
+    .tarifs-block { background:rgba(255,235,59,0.04); border:1px solid rgba(255,235,59,0.15); border-radius:16px; padding:16px; }
+    .tarifs-title { font-family:'Orbitron',sans-serif; font-size:0.7rem; font-weight:900; color:rgba(255,235,59,0.65); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px; }
+    .tarif-row { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .tarif-row:last-child { border-bottom:none; }
+    .tarif-label { color:#aaa; font-size:0.82rem; }
+    .tarif-price { color:#ffeb3b; font-family:'Orbitron',sans-serif; font-size:0.82rem; font-weight:800; }
+
     /* RÉSEAUX */
     #reseaux-page { display:none; padding:16px 16px 110px 16px; }
     .section-title { font-family:'Orbitron',sans-serif; font-size:1.4rem; color:#ffeb3b; margin:28px 0 16px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
@@ -170,17 +207,16 @@
     .photo-upload-label { display:flex; align-items:center; gap:10px; padding:13px 16px; background:rgba(255,235,59,0.07); border:1.5px dashed rgba(255,235,59,0.35); border-radius:14px; cursor:pointer; color:#ffeb3b; font-size:0.9rem; font-weight:700; margin-bottom:14px; }
     #avis-photo-input { display:none; }
     #avis-photo-preview { width:100%; max-height:160px; object-fit:cover; border-radius:12px; margin-bottom:14px; display:none; border:1.5px solid rgba(255,235,59,0.3); }
-    /* Lightbox */
     #photo-lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.93); z-index:9500; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
     #photo-lightbox.open { display:flex; }
     #photo-lightbox img { max-width:94%; max-height:75vh; border-radius:16px; object-fit:contain; box-shadow:0 0 40px rgba(0,0,0,0.8); }
     #lb-close { background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.2); color:#fff; font-size:1.1rem; padding:10px 28px; border-radius:999px; cursor:pointer; font-family:'Orbitron',sans-serif; font-weight:700; letter-spacing:1px; }
 
-    /* NAV */
-    nav { position:fixed; bottom:18px; left:12px; right:12px; height:64px; background:rgba(15,15,20,0.96); border-radius:26px; border:1px solid rgba(255,235,59,0.2); display:flex; justify-content:space-around; align-items:center; z-index:1000; box-shadow:0 10px 40px rgba(0,0,0,0.7); padding:0 4px; }
-    .nav-item { display:flex; align-items:center; justify-content:center; cursor:pointer; width:44px; height:44px; border-radius:50%; background:transparent; transition:all 0.25s ease; position:relative; }
+    /* NAV — 8 items */
+    nav { position:fixed; bottom:18px; left:6px; right:6px; height:64px; background:rgba(15,15,20,0.96); border-radius:26px; border:1px solid rgba(255,235,59,0.2); display:flex; justify-content:space-around; align-items:center; z-index:1000; box-shadow:0 10px 40px rgba(0,0,0,0.7); padding:0 2px; }
+    .nav-item { display:flex; align-items:center; justify-content:center; cursor:pointer; width:38px; height:44px; border-radius:50%; background:transparent; transition:all 0.25s ease; position:relative; }
     .nav-item.active { background:rgba(255,235,59,0.22); box-shadow:0 3px 14px rgba(255,235,59,0.3); transform:translateY(-4px) scale(1.08); }
-    .nav-emoji { font-size:1.25rem; line-height:1; display:block; transition:transform 0.2s; }
+    .nav-emoji { font-size:1.15rem; line-height:1; display:block; transition:transform 0.2s; }
     .nav-item.active .nav-emoji { transform:scale(1.1); }
     #cart-badge { position:absolute; top:-2px; right:-2px; background:#ef4444; color:white; border-radius:50%; min-width:15px; height:15px; padding:0 3px; font-size:0.58rem; font-weight:bold; line-height:15px; box-shadow:0 0 6px rgba(239,68,68,0.6); display:none; z-index:2; text-align:center; }
 
@@ -305,7 +341,7 @@
 </head>
 <body>
 
-<!-- LIGHTBOX PHOTO -->
+<!-- LIGHTBOX -->
 <div id="photo-lightbox">
   <img id="lb-img" src="" alt="Photo avis">
   <button id="lb-close">✕ Fermer</button>
@@ -338,7 +374,7 @@
       <div id="products-header">
         <div class="products-title"><span style="font-size:1.4rem">🛍️</span>Catalogue</div>
         <div id="products-count-modern" class="products-count">
-          <div class="products-count-number">3</div>
+          <div class="products-count-number">2</div>
           <div class="products-count-label">Produits</div>
         </div>
       </div>
@@ -436,6 +472,175 @@
       </div>
     </div>
 
+    <!-- CARTE NORMANDIE -->
+    <div id="carte-page">
+      <div class="carte-card" style="margin-top:8px">
+        <div class="carte-card-header">
+          <div class="carte-card-icon">🗺️</div>
+          <div>
+            <div class="carte-card-title">Zone de couverture</div>
+            <div class="carte-card-sub">Meet-up &amp; Livraison</div>
+          </div>
+        </div>
+
+        <!-- SVG NORMANDIE -->
+        <div class="map-wrap">
+          <div class="map-tag">📍 NORMANDIE</div>
+          <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="fg"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="fb"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="fo"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="fy"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="1" r="0.7" fill="rgba(255,255,255,0.04)"/>
+              </pattern>
+            </defs>
+
+            <!-- Fond -->
+            <rect width="400" height="320" fill="#080810"/>
+            <rect width="400" height="320" fill="url(#dots)"/>
+
+            <!-- MER (Manche) en haut -->
+            <path d="M 0,0 L 400,0 L 400,70 Q 340,55 290,60 Q 240,65 210,55 Q 175,42 140,50 Q 100,58 60,52 Q 30,46 0,55 Z"
+              fill="rgba(15,35,65,0.85)" stroke="rgba(96,165,250,0.15)" stroke-width="1"/>
+            <text x="200" y="35" text-anchor="middle" fill="rgba(96,165,250,0.35)" font-family="Orbitron,sans-serif" font-size="11" font-weight="700" letter-spacing="4">MANCHE</text>
+
+            <!-- MER (Seine côté est) -->
+            <path d="M 340,60 L 400,55 L 400,130 L 370,120 L 355,100 L 345,80 Z"
+              fill="rgba(15,35,65,0.6)" stroke="none"/>
+
+            <!-- CALVADOS (14) — ouest, coloré bleu -->
+            <path d="M 20,55 L 60,52 L 100,58 L 140,50 L 155,65 L 160,90 L 148,115 L 130,130 L 105,135 L 80,130 L 55,118 L 35,100 L 18,80 Z"
+              fill="rgba(96,165,250,0.2)" stroke="#60a5fa" stroke-width="2" filter="url(#fb)"/>
+            <text x="88" y="98" text-anchor="middle" fill="#60a5fa" font-family="Orbitron,sans-serif" font-size="13" font-weight="900" filter="url(#fb)">14</text>
+            <text x="88" y="113" text-anchor="middle" fill="rgba(96,165,250,0.7)" font-family="Orbitron,sans-serif" font-size="7.5" font-weight="700">CALVADOS</text>
+
+            <!-- MANCHE (50) — très à l'ouest, gris -->
+            <path d="M 0,55 L 20,55 L 18,80 L 35,100 L 55,118 L 50,145 L 30,160 L 10,150 L 0,130 Z"
+              fill="rgba(50,50,70,0.55)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <text x="22" y="120" text-anchor="middle" fill="#3a3a55" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">50</text>
+
+            <!-- ORNE (61) — sud calvados, gris -->
+            <path d="M 80,130 L 105,135 L 130,130 L 148,115 L 160,130 L 165,155 L 155,175 L 135,185 L 108,183 L 85,172 L 70,155 L 72,138 Z"
+              fill="rgba(50,50,70,0.55)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <text x="115" y="158" text-anchor="middle" fill="#3a3a55" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">61</text>
+
+            <!-- EURE (27) — centre, coloré orange -->
+            <path d="M 160,90 L 200,80 L 240,85 L 265,95 L 275,118 L 268,145 L 250,162 L 228,170 L 205,168 L 182,158 L 165,140 L 160,118 Z"
+              fill="rgba(249,115,22,0.2)" stroke="#f97316" stroke-width="2" filter="url(#fo)"/>
+            <text x="214" y="128" text-anchor="middle" fill="#f97316" font-family="Orbitron,sans-serif" font-size="13" font-weight="900" filter="url(#fo)">27</text>
+            <text x="214" y="143" text-anchor="middle" fill="rgba(249,115,22,0.7)" font-family="Orbitron,sans-serif" font-size="7.5" font-weight="700">EURE</text>
+
+            <!-- SEINE-MARITIME (76) — nord-est, coloré vert -->
+            <path d="M 140,50 L 175,42 L 210,55 L 240,65 L 290,60 L 330,58 L 345,75 L 340,100 L 320,118 L 295,130 L 265,132 L 240,125 L 265,95 L 240,85 L 200,80 L 160,90 L 155,65 Z"
+              fill="rgba(74,222,128,0.22)" stroke="#4ade80" stroke-width="2" filter="url(#fg)"/>
+            <text x="245" y="95" text-anchor="middle" fill="#4ade80" font-family="Orbitron,sans-serif" font-size="13" font-weight="900" filter="url(#fg)">76</text>
+            <text x="245" y="110" text-anchor="middle" fill="rgba(74,222,128,0.7)" font-family="Orbitron,sans-serif" font-size="7.5" font-weight="700">SEINE-MARITIME</text>
+
+            <!-- SOMME (80) — nord-est, gris -->
+            <path d="M 290,60 L 330,58 L 345,75 L 370,70 L 390,80 L 390,55 L 340,60 Z"
+              fill="rgba(50,50,70,0.55)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <text x="350" y="68" text-anchor="middle" fill="#3a3a55" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">80</text>
+
+            <!-- OISE (60) — est, gris -->
+            <path d="M 295,130 L 320,118 L 340,100 L 345,75 L 370,70 L 390,80 L 390,155 L 365,165 L 340,158 L 315,148 L 295,145 Z"
+              fill="rgba(50,50,70,0.55)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <text x="348" y="125" text-anchor="middle" fill="#3a3a55" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">60</text>
+
+            <!-- VAL-D'OISE / ÎLE-DE-FRANCE simplifié -->
+            <path d="M 265,132 L 295,130 L 295,145 L 315,148 L 310,170 L 285,175 L 268,165 L 268,145 Z"
+              fill="rgba(45,45,65,0.55)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+            <!-- SARTHE (72) — sud orne, gris -->
+            <path d="M 70,155 L 85,172 L 108,183 L 135,185 L 155,175 L 165,190 L 155,210 L 130,218 L 100,215 L 75,200 L 62,182 Z"
+              fill="rgba(45,45,65,0.5)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <text x="110" y="198" text-anchor="middle" fill="#2e2e45" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">72</text>
+
+            <!-- EURE-ET-LOIR (28) -->
+            <path d="M 165,155 L 182,158 L 205,168 L 228,170 L 250,162 L 268,165 L 268,145 L 268,190 L 248,200 L 225,198 L 200,192 L 175,185 L 162,172 Z"
+              fill="rgba(45,45,65,0.5)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <text x="215" y="185" text-anchor="middle" fill="#2e2e45" font-family="Orbitron,sans-serif" font-size="7" font-weight="700">28</text>
+
+            <!-- FLEUVE SEINE stylisé -->
+            <path d="M 170,95 Q 200,100 225,110 Q 255,122 280,118 Q 310,112 330,105 Q 355,95 370,85"
+              fill="none" stroke="rgba(96,165,250,0.25)" stroke-width="2.5" stroke-dasharray="5,4"/>
+
+            <!-- POINT MEETUP ROUEN animé -->
+            <circle cx="268" cy="85" r="14" fill="rgba(255,235,59,0.08)" filter="url(#fy)"/>
+            <circle cx="268" cy="85" r="8" fill="rgba(255,235,59,0.15)"/>
+            <circle cx="268" cy="85" r="4.5" fill="#ffeb3b" filter="url(#fy)">
+              <animate attributeName="r" values="4.5;7;4.5" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- Label Rouen -->
+            <rect x="232" y="62" width="72" height="16" rx="4" fill="rgba(0,0,0,0.82)" stroke="rgba(255,235,59,0.55)" stroke-width="1.2"/>
+            <text x="268" y="74" text-anchor="middle" fill="#ffeb3b" font-family="Orbitron,sans-serif" font-size="8" font-weight="900" letter-spacing="1">📍 ROUEN</text>
+
+            <!-- Ligne vers le bas du point -->
+            <line x1="268" y1="90" x2="268" y2="105" stroke="#ffeb3b" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+
+            <!-- Légende petite sur la carte -->
+            <text x="10" y="300" fill="rgba(255,255,255,0.18)" font-family="Orbitron,sans-serif" font-size="6.5" font-weight="700">© Bart.Coffee76 — Zones indicatives</text>
+          </svg>
+        </div>
+
+        <!-- LÉGENDE -->
+        <div class="legend-grid">
+          <div class="legend-row">
+            <div class="legend-color meetup"></div>
+            <div class="legend-info">
+              <div class="legend-name">Rouen Rive Gauche</div>
+              <div class="legend-detail">Meet-up · 12h – 23h · Min. 50€</div>
+            </div>
+            <div class="legend-pill pill-yellow">📍 MEETUP</div>
+          </div>
+          <div class="legend-row">
+            <div class="legend-color c76"></div>
+            <div class="legend-info">
+              <div class="legend-name">Seine-Maritime — 76</div>
+              <div class="legend-detail">Livraison sur Rouen &amp; alentours</div>
+            </div>
+            <div class="legend-pill pill-green">✅ ACTIF</div>
+          </div>
+          <div class="legend-row">
+            <div class="legend-color c27"></div>
+            <div class="legend-info">
+              <div class="legend-name">Eure — 27</div>
+              <div class="legend-detail">Livraison disponible · Sur rdv</div>
+            </div>
+            <div class="legend-pill pill-orange">✅ ACTIF</div>
+          </div>
+          <div class="legend-row">
+            <div class="legend-color c14"></div>
+            <div class="legend-info">
+              <div class="legend-name">Calvados — 14</div>
+              <div class="legend-detail">Livraison disponible · Sur rdv</div>
+            </div>
+            <div class="legend-pill pill-blue">✅ ACTIF</div>
+          </div>
+          <div class="legend-row">
+            <div class="legend-color cgris"></div>
+            <div class="legend-info">
+              <div class="legend-name">Autres départements</div>
+              <div class="legend-detail">Non desservis pour le moment</div>
+            </div>
+            <div class="legend-pill" style="background:rgba(100,100,130,0.12);border:1.5px solid #666;color:#666;">⛔ HORS ZONE</div>
+          </div>
+        </div>
+
+        <!-- TARIFS -->
+        <div class="tarifs-block">
+          <div class="tarifs-title">💰 Tarifs livraison</div>
+          <div class="tarif-row"><span class="tarif-label">Sur Rouen</span><span class="tarif-price">70€</span></div>
+          <div class="tarif-row"><span class="tarif-label">Moins de 10 km</span><span class="tarif-price">100€</span></div>
+          <div class="tarif-row"><span class="tarif-label">Supérieur à 10 km</span><span class="tarif-price">150€</span></div>
+          <div class="tarif-row"><span class="tarif-label">Supérieur à 25 km</span><span class="tarif-price">270€</span></div>
+        </div>
+      </div>
+    </div>
+
     <!-- RÉSEAUX -->
     <div id="reseaux-page">
       <h2 class="section-title">Nos réseaux</h2>
@@ -503,7 +708,7 @@
       <div id="chat-body" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;"></div>
     </div>
 
-    <!-- ADMIN PAGE -->
+    <!-- ADMIN -->
     <div id="admin-page">
       <div id="admin-login">
         <div style="font-size:2.5rem;margin-bottom:14px">🔐</div>
@@ -518,14 +723,14 @@
           <h2>🛠️ Panel Admin</h2>
           <button id="admin-logout-btn">Déconnexion</button>
         </div>
-        <div class="admin-section-title">📦 Stock, Badges & Édition</div>
+        <div class="admin-section-title">📦 Stock, Badges &amp; Édition</div>
         <div id="admin-products-list"></div>
         <div class="admin-section-title">➕ Ajouter un produit</div>
         <div class="admin-form">
           <input class="admin-input" id="new-title" placeholder="Nom du produit (ex: OG Kush 🍃)">
           <input class="admin-input" id="new-farm" placeholder="Farm (ex: R8🏎️)">
           <input class="admin-input" id="new-category" placeholder="Catégorie">
-          <div class="edit-section-label" style="margin-top:4px">📸 Images & Vidéos</div>
+          <div class="edit-section-label" style="margin-top:4px">📸 Images &amp; Vidéos</div>
           <div class="storage-info">📁 Placez les fichiers dans le même dossier que index.html, puis entrez leur nom ci-dessous</div>
           <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center">
             <input class="admin-input" style="margin:0;flex:1" id="new-media-filename" placeholder="blanche.jpg, video.mp4 … (virgule pour plusieurs)">
@@ -533,7 +738,7 @@
           </div>
           <div class="admin-media-previews" id="new-media-previews"></div>
           <textarea class="admin-input" id="new-desc" placeholder="Description du produit..." style="min-height:80px;resize:vertical"></textarea>
-          <div style="color:#aaa;font-size:0.8rem;margin-bottom:8px;font-weight:600">QUANTITÉS & PRIX</div>
+          <div style="color:#aaa;font-size:0.8rem;margin-bottom:8px;font-weight:600">QUANTITÉS &amp; PRIX</div>
           <div id="new-qty-list">
             <div class="admin-qty-row">
               <input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)">
@@ -547,12 +752,13 @@
       </div>
     </div>
 
-    <!-- NAV -->
+    <!-- NAV — 8 boutons -->
     <nav>
       <div class="nav-item active" id="nav-home"><span class="nav-emoji">🏠</span></div>
       <div class="nav-item" id="nav-cart"><span class="nav-emoji">🛒</span><span id="cart-badge"></span></div>
       <div class="nav-item" id="nav-avis"><span class="nav-emoji">⭐</span></div>
       <div class="nav-item" id="nav-chat"><span class="nav-emoji">💬</span></div>
+      <div class="nav-item" id="nav-carte"><span class="nav-emoji">🗺️</span></div>
       <div class="nav-item" id="nav-infos"><span class="nav-emoji">ℹ️</span></div>
       <div class="nav-item" id="nav-reseaux"><span class="nav-emoji">📡</span></div>
       <div class="nav-item" id="nav-profil"><span class="nav-emoji">👤</span></div>
@@ -584,7 +790,7 @@
   </div>
 </div>
 
-<!-- MODAL ÉDITION PRODUIT -->
+<!-- MODAL ÉDITION -->
 <div id="edit-modal">
   <div class="edit-sheet">
     <div class="edit-sheet-handle"></div>
@@ -606,7 +812,7 @@
     </div>
     <div class="edit-section-label">Médias actuels (× pour supprimer)</div>
     <div class="admin-media-previews" id="edit-media-previews"></div>
-    <div class="edit-section-label">Quantités & Prix</div>
+    <div class="edit-section-label">Quantités &amp; Prix</div>
     <div id="edit-qty-list"></div>
     <button class="admin-add-qty-btn" id="edit-add-qty-btn" style="margin-bottom:8px">+ Ajouter une quantité</button>
     <button class="edit-save-btn" id="edit-save-btn">💾 Enregistrer</button>
@@ -642,7 +848,7 @@ window._firestoreExtra = { getDocs, collection, query, where, deleteDoc, doc, Ti
 let chatUnsub = null;
 const ADMIN_PASSWORD = "Bart76Admin!";
 
-// ── PRODUITS ──────────────────────────────────────────────────────────────────
+// ── PRODUITS (capncrunch supprimé) ────────────────────────────────────────────
 let products = {
   blanche: {
     key:'blanche', title:'Blanche❄️', category:'Blanche❄️', farm:'R8🏎️',
@@ -658,13 +864,6 @@ let products = {
     description:"🌟 EFFET Relaxé, Créatif, Euphorique et Motivant.",
     quantities:[{qty:'5G',price:'70€'},{qty:'10G',price:'130€'},{qty:'25G',price:'260€'},{qty:'50G',price:'410€'},{qty:'100G',price:'770€'}],
     stock:'dispo', isNew:false
-  },
-  capncrunch: {
-    key:'capncrunch', title:"Cap'n Crunch🥣🌾", category:"Cap'n Crunch🥣🌾", farm:'Total farm🧑‍🌾🌝',
-    videos:[{src:'',poster:'dry90u.jpg'},{src:'dry90u.mp4',poster:'dry90u.jpg'}],
-    strain:'', description:"Hash artisanal full melt, pressé à la main.",
-    quantities:[{qty:'10g',price:'90€'},{qty:'25g',price:'190€'},{qty:'50g',price:'300€'},{qty:'100g',price:'550€'}],
-    stock:'rupture', isNew:false
   }
 };
 
@@ -752,6 +951,8 @@ async function loadProductOverrides() {
           if (data.videos)      products[d.id].videos=data.videos;
         }
       } else {
+        // Produit venant uniquement de Firestore
+        if (d.id === 'capncrunch') return; // on s'assure qu'il ne revient pas
         let safeVideos=[];
         if (Array.isArray(data.videos)&&data.videos.length>0) {
           safeVideos=data.videos.map(v=>({ src:(v.src&&v.src.trim())?v.src.trim():'', poster:(v.poster&&v.poster.trim())?v.poster.trim():'' }));
@@ -1031,7 +1232,7 @@ function renderProducts(list){
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
 function hideAllPages(){
-  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page','carte-page'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
 }
 function scrollToTop(){document.querySelector('.content').scrollTo({top:0,behavior:'instant'});}
@@ -1129,6 +1330,7 @@ document.getElementById('nav-reseaux').onclick=()=>{hideAllPages();document.getE
 document.getElementById('nav-avis').onclick=()=>{hideAllPages();document.getElementById('avis-page').style.display='block';document.getElementById('nav-avis').classList.add('active');if(tg)tg.BackButton.hide();renderAvis();scrollToTop();};
 document.getElementById('nav-profil').onclick=()=>{hideAllPages();document.getElementById('profil-page').style.display='block';document.getElementById('nav-profil').classList.add('active');if(tg)tg.BackButton.hide();renderProfilPage();scrollToTop();};
 document.getElementById('nav-chat').onclick=()=>{hideAllPages();const cp=document.getElementById('chat-page');cp.style.display='flex';cp.style.flexDirection='column';document.getElementById('nav-chat').classList.add('active');if(tg)tg.BackButton.hide();renderChatPage();};
+document.getElementById('nav-carte').onclick=()=>{hideAllPages();document.getElementById('carte-page').style.display='block';document.getElementById('nav-carte').classList.add('active');if(tg)tg.BackButton.hide();scrollToTop();};
 
 // ── AVIS ─────────────────────────────────────────────────────────────────────
 let selectedStar=0, avisPhotoBase64=null;
@@ -1205,6 +1407,8 @@ document.querySelectorAll('.option-btn').forEach(btn=>{
     document.getElementById('delivery-questions').style.display=btn.dataset.type==='delivery'?'block':'none';
   });
 });
+
+// ── COMMANDER ─────────────────────────────────────────────────────────────────
 document.getElementById('submit-order-btn').onclick=async()=>{
   if (!cart.length) return alert('Votre panier est vide');
   const modeBtn=document.querySelector('.option-btn.active');
@@ -1212,11 +1416,30 @@ document.getElementById('submit-order-btn').onclick=async()=>{
   const mode=modeBtn.dataset.type==='pickup'?'Venir sur place':'Livraison';
   const tgUser=tg?.initDataUnsafe?.user;
   let message=`🛒 *NOUVELLE COMMANDE* 🛒\n\n👤 ${tgUser?.username?'@'+tgUser.username:tgUser?.first_name||'Utilisateur'}\n📅 ${new Date().toLocaleString('fr-FR')}\n\n🛍️ *Articles :*\n`;
-  let total=0,itemsText='';
-  cart.forEach(item=>{total+=parseInt(item.price)||0;message+=`• ${item.title} — ${item.qty} (${item.price})\n`;itemsText+=`• ${item.title} ${item.qty} (${item.price})\n`;});
+  let total=0, itemsText='';
+  cart.forEach(item=>{
+    total+=parseInt(item.price)||0;
+    message+=`• ${item.title} — ${item.qty} (${item.price})\n`;
+    itemsText+=`• ${item.title} ${item.qty} (${item.price})\n`;
+  });
   message+=`\n💰 *Total : ${total}€*\n\n📦 *Mode :* ${mode}\n`;
+  if (modeBtn.dataset.type==='pickup') {
+    const heure=document.getElementById('pickup-time').value;
+    if (heure) message+=`🕐 *Heure souhaitée :* ${heure}\n`;
+  } else {
+    const heure=document.getElementById('delivery-time').value;
+    const adresse=document.getElementById('delivery-address').value.trim();
+    const details=document.getElementById('delivery-details').value.trim();
+    if (heure)   message+=`🕐 *Heure souhaitée :* ${heure}\n`;
+    if (adresse) message+=`📍 *Adresse :* ${adresse}\n`;
+    if (details) message+=`📝 *Précisions :* ${details}\n`;
+  }
   const user=_auth.currentUser;
-  if (user){try{await addDoc(collection(_db,'commandes'),{uid:user.uid,items:itemsText.trim(),total,mode,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});}catch(e){console.error(e);}}
+  if (user){
+    try{
+      await addDoc(collection(_db,'commandes'),{uid:user.uid,items:itemsText.trim(),total,mode,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});
+    }catch(e){console.error(e);}
+  }
   const url=`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
   if (tg) tg.openTelegramLink(url); else window.open(url,'_blank');
 };
