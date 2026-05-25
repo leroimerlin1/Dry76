@@ -21,7 +21,7 @@ from telegram.ext import (
 # CONFIGURATION
 # =============================================================
 
-TOKEN = "8586174802:AAEJ294yeBBufP9029wJOHHTdFoLciQtmgE"
+TOKEN = "8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE"
 
 CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
 
