@@ -41,7 +41,7 @@ DAILY_MESSAGE = """✅ Les commandes sont ouvertes 📦
 
 Fait /start pour relancer le bot 🤖"""
 
-INFO_TEXT = """Information de Dry.Coffee76
+INFO_TEXT = """Information de Bart.Coffee76
 
 Pour toutes commande, une carte d'identité 🪪 est nécessaire et une photo 📸 de vous.
 
