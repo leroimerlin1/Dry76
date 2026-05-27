@@ -748,40 +748,14 @@ async function uploadFiles(files,existingItems,previewsId,deleteHandlerName,prog
   }
 }
 
-// ── PRODUITS ──────────────────────────────────────────────────────────────────
+// ── PRODUITS (vide — géré uniquement via Firestore/Admin) ─────────────────────
 let products = {};
 
 // ── MÉDIAS ────────────────────────────────────────────────────────────────────
 let newMediaItems=[], editMediaItems=[];
 
-function mediaItemsToVideos(items){
-  if(!items.length)return[{src:'',poster:''}];
-  return items.map(m=>({
-    src:m.type==='video'?(m.url||m.src||''):'',
-    poster:m.type==='image'?(m.url||m.poster||''):(m.poster||''),
-    public_id:m.public_id||''
-  }));
-}
-
-// ── FIX 1 : videosToMediaItems corrigé — pas de duplication image/vidéo vide ──
-function videosToMediaItems(videos){
-  if(!videos||!videos.length)return[];
-  const result=[];
-  videos.forEach(v=>{
-    const hasSrc=v.src&&v.src.trim();
-    const hasPoster=v.poster&&v.poster.trim();
-    if(hasSrc){
-      // C'est une vraie vidéo (avec ou sans poster)
-      result.push({type:'video',url:v.src.trim(),src:v.src.trim(),poster:hasPoster?v.poster.trim():'',name:v.src.trim().split('/').pop(),public_id:v.public_id||''});
-    } else if(hasPoster){
-      // C'est uniquement une image (src vide ou absent)
-      result.push({type:'image',url:v.poster.trim(),src:'',poster:v.poster.trim(),name:v.poster.trim().split('/').pop(),public_id:v.public_id||''});
-    }
-    // On ignore les entrées complètement vides
-  });
-  return result;
-}
-
+function mediaItemsToVideos(items){if(!items.length)return[{src:'',poster:''}];return items.map(m=>({src:m.type==='video'?(m.url||m.src||''):'',poster:m.type==='image'?(m.url||m.poster||''):(m.poster||''),public_id:m.public_id||''}));}
+function videosToMediaItems(videos){if(!videos||!videos.length)return[];const result=[];videos.forEach(v=>{if(v.poster&&v.poster.trim())result.push({type:'image',url:v.poster.trim(),src:'',poster:v.poster.trim(),name:v.poster.trim().split('/').pop(),public_id:v.public_id||''});if(v.src&&v.src.trim())result.push({type:'video',url:v.src.trim(),src:v.src.trim(),poster:v.poster||'',name:v.src.trim().split('/').pop(),public_id:v.public_id||''});});return result;}
 function getThumb(p){if(!p.videos||!p.videos.length)return null;const first=p.videos[0];return(first.poster&&first.poster.trim())?first.poster.trim():null;}
 function renderMediaPreviews(items,containerId,onDeleteFnName){
   const el=document.getElementById(containerId);if(!el)return;el.innerHTML='';
@@ -829,15 +803,8 @@ async function loadProductOverrides(){
       }else{
         if(d.id==='capncrunch')return;
         let safeVideos=[];
-        if(Array.isArray(data.videos)&&data.videos.length>0){
-          safeVideos=data.videos.map(v=>({
-            src:(v.src&&v.src.trim())?v.src.trim():'',
-            poster:(v.poster&&v.poster.trim())?v.poster.trim():'',
-            public_id:v.public_id||''
-          }));
-        }else{
-          safeVideos=[{src:(data.video&&data.video.trim())?data.video.trim():'',poster:(data.poster&&data.poster.trim())?data.poster.trim():'',public_id:''}];
-        }
+        if(Array.isArray(data.videos)&&data.videos.length>0){safeVideos=data.videos.map(v=>({src:(v.src&&v.src.trim())?v.src.trim():'',poster:(v.poster&&v.poster.trim())?v.poster.trim():'',public_id:v.public_id||''}));}
+        else{safeVideos=[{src:(data.video&&data.video.trim())?data.video.trim():'',poster:(data.poster&&data.poster.trim())?data.poster.trim():'',public_id:''}];}
         products[d.id]={key:d.id,title:data.title||'Produit',farm:data.farm||'',category:data.category||data.title||'',description:data.description||data.desc||'',desc:data.desc||data.description||'',strains:Array.isArray(data.strains)?data.strains:[],videos:safeVideos,quantities:Array.isArray(data.quantities)?data.quantities:[],stock:data.stock||'dispo',isNew:data.isNew||false};
       }
     });
@@ -1041,65 +1008,23 @@ function buildSwiper(videos){
   const track=document.getElementById('swiper-track');track.innerHTML='';
   videos.forEach(vid=>{
     const hasSrc=vid.src&&vid.src.trim(),hasPoster=vid.poster&&vid.poster.trim();
-    if(hasSrc){
-      const v=document.createElement('video');
-      v.autoplay=false;
-      v.loop=true;
-      v.muted=false;  // ← son activé par défaut
-      v.playsinline=true;
-      v.controls=true;
-      v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
-      if(hasPoster)v.poster=vid.poster.trim();
-      v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;
-      track.appendChild(v);
-    }else if(hasPoster){
-      // Image uniquement — pas de vidéo vide créée
-      const img=document.createElement('img');
-      img.src=vid.poster.trim();
-      img.alt='';
-      img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';
-      img.onerror=function(){
-        const black=document.createElement('div');
-        black.className='swiper-black-slide';
-        black.innerHTML='<span>☕</span>';
-        track.replaceChild(black,img);
-      };
-      track.appendChild(img);
-    }else{
-      const black=document.createElement('div');
-      black.className='swiper-black-slide';
-      black.innerHTML='<span>☕</span>';
-      track.appendChild(black);
-    }
+    if(hasSrc){const v=document.createElement('video');v.autoplay=false;v.loop=true;v.muted=true;v.playsinline=true;v.controls=true;v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';if(hasPoster)v.poster=vid.poster.trim();v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;track.appendChild(v);}
+    else if(hasPoster){const img=document.createElement('img');img.src=vid.poster.trim();img.alt='';img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';img.onerror=function(){const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.replaceChild(black,img);};track.appendChild(img);}
+    else{const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.appendChild(black);}
   });
   if(!track.children.length){const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.appendChild(black);swiperItems=[{src:'',poster:''}];}
   buildDots(swiperItems.length);
   updateSwiper();
 }
-
-// ── FIX 2 : updateSwiper avec son automatique + fallback ──────────────────────
 function updateSwiper(){
   const total=swiperItems.length;
   document.getElementById('swiper-track').style.transform=`translateX(-${swiperIndex*100}%)`;
   updateDots();
-  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{
-    if(i===swiperIndex){
-      v.muted=false; // activer le son sur la slide active
-      v.play().catch(()=>{
-        // Fallback : le navigateur bloque l'autoplay avec son → on remet muted
-        v.muted=true;
-        v.play().catch(()=>{});
-      });
-    }else{
-      v.pause();
-      v.muted=true; // couper le son sur les autres slides
-    }
-  });
+  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{if(i===swiperIndex)v.play().catch(()=>{});else v.pause();});
   const show=total>1;
   document.getElementById('swiper-btn-prev').style.display=show?'flex':'none';
   document.getElementById('swiper-btn-next').style.display=show?'flex':'none';
 }
-
 window.swiperPrev=()=>{swiperIndex=(swiperIndex-1+swiperItems.length)%swiperItems.length;updateSwiper();};
 window.swiperNext=()=>{swiperIndex=(swiperIndex+1)%swiperItems.length;updateSwiper();};
 
