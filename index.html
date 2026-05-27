@@ -72,78 +72,47 @@
     .new-badge { position:absolute; top:10px; right:10px; z-index:5; font-family:'Orbitron',sans-serif; font-size:0.58rem; font-weight:900; padding:4px 9px; border-radius:999px; letter-spacing:1.5px; background:linear-gradient(135deg,#ffeb3b,#ff9800); color:#111; box-shadow:0 0 14px rgba(255,235,59,0.6); animation:newPulse 1.8s ease-in-out infinite; pointer-events:none; }
     @keyframes newPulse { 0%,100%{box-shadow:0 0 10px rgba(255,235,59,0.5);}50%{box-shadow:0 0 22px rgba(255,152,0,0.9),0 0 40px rgba(255,235,59,0.3);} }
 
-    /* ═══════════════════════════════
-       DETAIL — NOUVEAU DESIGN
-    ═══════════════════════════════ */
-    #product-detail {
-      display:none; flex-direction:column; height:100dvh;
-      background:#0a0a0f; position:relative; overflow:hidden;
-    }
-
-    /* SWIPER */
+    /* DETAIL */
+    #product-detail { display:none; flex-direction:column; height:100dvh; background:#0a0a0f; position:relative; overflow:hidden; }
     .swiper-wrap { position:relative; width:100%; flex-shrink:0; overflow:hidden; background:#000; aspect-ratio:1/1; }
     .swiper-track { display:flex; transition:transform 0.35s ease; will-change:transform; height:100%; }
     .swiper-track>* { flex-shrink:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; background:#000; }
     .swiper-track video { pointer-events:auto; object-fit:cover; }
     .swiper-black-slide { flex-shrink:0; width:100%; height:100%; background:#000; display:flex; align-items:center; justify-content:center; }
     .swiper-black-slide span { font-size:3rem; opacity:0.12; }
-
-    /* Gradients */
     .swiper-top-gradient { position:absolute; top:0; left:0; right:0; height:110px; background:linear-gradient(to bottom,rgba(0,0,0,0.7) 0%,transparent 100%); z-index:10; pointer-events:none; }
     .swiper-bottom-gradient { position:absolute; bottom:0; left:0; right:0; height:150px; background:linear-gradient(to top,rgba(10,10,15,1) 0%,rgba(10,10,15,0.5) 55%,transparent 100%); z-index:10; pointer-events:none; }
-
-    /* Back btn */
     .detail-back-btn { position:absolute; top:16px; left:14px; z-index:20; width:40px; height:40px; border-radius:50%; background:rgba(0,0,0,0.55); border:1.5px solid rgba(255,255,255,0.15); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.5); line-height:1; }
-
-    /* Swiper stock badge */
     .swiper-stock-badge-new { position:absolute; top:16px; right:14px; z-index:20; font-family:'Orbitron',sans-serif; font-size:0.58rem; font-weight:900; padding:5px 12px; border-radius:999px; letter-spacing:1px; text-transform:uppercase; backdrop-filter:blur(4px); }
     .swiper-stock-badge-new.dispo { background:rgba(74,222,128,0.18); border:1.5px solid #4ade80; color:#4ade80; box-shadow:0 0 12px rgba(74,222,128,0.4); }
     .swiper-stock-badge-new.rupture { background:rgba(239,68,68,0.18); border:1.5px solid #ef4444; color:#ef4444; box-shadow:0 0 12px rgba(239,68,68,0.4); }
-
-    /* Title in swiper */
     .swiper-title-preview { position:absolute; bottom:18px; left:16px; right:16px; z-index:20; }
     .swiper-title-preview h1 { font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:#fff; letter-spacing:1px; text-shadow:0 2px 10px rgba(0,0,0,0.9); line-height:1.1; margin-bottom:3px; }
     .swiper-title-preview .farm-inline { font-size:0.76rem; font-weight:700; color:rgba(255,235,59,0.8); letter-spacing:0.5px; }
-
-    /* Dots */
     .swiper-dots { position:absolute; bottom:24px; right:14px; z-index:20; display:flex; gap:5px; align-items:center; }
     .swiper-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.3); transition:all 0.3s; flex-shrink:0; }
     .swiper-dot.active { width:18px; border-radius:4px; background:#ffeb3b; box-shadow:0 0 7px rgba(255,235,59,0.8); }
-
-    /* Arrows */
     .swiper-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.55); border:1.5px solid rgba(255,255,255,0.15); color:white; width:42px; height:42px; border-radius:50%; font-size:18px; cursor:pointer; z-index:20; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
     .swiper-btn-prev { left:12px; }
     .swiper-btn-next { right:12px; }
-
-    /* Rupture overlay */
     .swiper-rupture-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; z-index:15; pointer-events:none; }
     .swiper-rupture-overlay span { font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:#ef4444; border:2px solid #ef4444; padding:10px 24px; border-radius:14px; background:rgba(239,68,68,0.12); letter-spacing:2px; transform:rotate(-8deg); }
-
-    /* Product info body */
     .product-info { flex:1; background:#0a0a0f; overflow-y:auto; padding-bottom:96px; -webkit-overflow-scrolling:touch; }
     .product-info::-webkit-scrollbar { display:none; }
-
-    /* Badges row */
     .detail-badges-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:14px 16px 0; }
     .detail-badge-pill { padding:5px 12px; border-radius:999px; font-size:0.68rem; font-weight:800; letter-spacing:0.5px; font-family:'Orbitron',sans-serif; }
     .detail-badge-farm { background:rgba(255,235,59,0.1); border:1.5px solid rgba(255,235,59,0.45); color:#ffeb3b; }
     .detail-badge-dispo { background:rgba(74,222,128,0.08); border:1.5px solid rgba(74,222,128,0.45); color:#4ade80; }
     .detail-badge-rupture { background:rgba(239,68,68,0.08); border:1.5px solid rgba(239,68,68,0.45); color:#ef4444; }
     .detail-badge-new { background:linear-gradient(135deg,rgba(255,235,59,0.15),rgba(255,152,0,0.15)); border:1.5px solid #ff9800; color:#ffb300; }
-
-    /* Description */
     .detail-desc-section { margin:14px 16px 0; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:18px; padding:14px 16px; }
     .detail-section-label { font-family:'Orbitron',sans-serif; font-size:0.62rem; font-weight:800; color:rgba(255,235,59,0.45); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
     .detail-section-label::before { content:''; display:block; width:14px; height:1.5px; background:rgba(255,235,59,0.35); }
     .detail-section-label::after { content:''; display:block; flex:1; height:1.5px; background:rgba(255,255,255,0.05); }
     .detail-desc-text { color:#bbb; font-size:0.88rem; line-height:1.7; font-weight:500; white-space:pre-line; }
-
-    /* Strains list */
     .detail-strains-list { display:flex; flex-direction:column; gap:6px; margin-bottom:10px; }
     .detail-strain-item { display:flex; align-items:center; gap:8px; font-size:0.92rem; font-weight:700; color:#ffeb3b; }
     .detail-strain-item .strain-dot { width:6px; height:6px; border-radius:50%; background:#ffeb3b; flex-shrink:0; box-shadow:0 0 6px rgba(255,235,59,0.6); }
-
-    /* Quantity */
     .detail-qty-section { padding:14px 16px 0; }
     .detail-qty-header { font-family:'Orbitron',sans-serif; font-size:0.62rem; font-weight:800; color:rgba(255,235,59,0.45); letter-spacing:2px; text-transform:uppercase; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
     .detail-qty-header::before { content:''; display:block; width:14px; height:1.5px; background:rgba(255,235,59,0.35); }
@@ -162,32 +131,13 @@
     .detail-qty-check { position:absolute; top:7px; right:7px; width:17px; height:17px; border-radius:50%; background:#ffeb3b; display:flex; align-items:center; justify-content:center; font-size:0.55rem; color:#111; font-weight:900; opacity:0; transform:scale(0); transition:all 0.18s; }
     .detail-qty-btn.selected .detail-qty-check { opacity:1; transform:scale(1); }
     .detail-qty-btn.full-width { grid-column:1/-1; }
-
-    /* ─── BOUTON PANIER EN BAS — remplace la nav sur la page détail ─── */
-    .detail-cart-bar {
-      position:fixed; bottom:0; left:0; right:0; z-index:1001;
-      background:rgba(8,8,14,0.97);
-      border-top:1px solid rgba(255,235,59,0.12);
-      padding:10px 16px max(18px,env(safe-area-inset-bottom));
-      backdrop-filter:blur(14px);
-      display:none; /* masqué par défaut, affiché quand detail est ouvert */
-      flex-direction:column; gap:8px;
-    }
+    .detail-cart-bar { position:fixed; bottom:0; left:0; right:0; z-index:1001; background:rgba(8,8,14,0.97); border-top:1px solid rgba(255,235,59,0.12); padding:10px 16px max(18px,env(safe-area-inset-bottom)); backdrop-filter:blur(14px); display:none; flex-direction:column; gap:8px; }
     .detail-total-row { display:flex; align-items:center; justify-content:space-between; }
     .detail-total-label { font-size:0.7rem; color:#444; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
     .detail-total-price { font-family:'Orbitron',sans-serif; font-size:1.05rem; font-weight:900; color:#555; transition:all 0.25s; }
     .detail-total-price.has-selection { color:#4ade80; text-shadow:0 0 12px rgba(74,222,128,0.35); }
     .detail-total-price.ruptured { color:#ef4444; }
-    .detail-add-btn {
-      width:100%; padding:15px;
-      background:linear-gradient(135deg,#ffeb3b 0%,#ffd600 100%);
-      color:#111; border:none; border-radius:16px;
-      font-family:'Orbitron',sans-serif; font-size:0.95rem; font-weight:900;
-      letter-spacing:0.5px; cursor:pointer;
-      box-shadow:0 0 22px rgba(255,235,59,0.25),0 4px 16px rgba(0,0,0,0.4);
-      display:flex; align-items:center; justify-content:center; gap:10px;
-      position:relative; overflow:hidden; transition:all 0.2s;
-    }
+    .detail-add-btn { width:100%; padding:15px; background:linear-gradient(135deg,#ffeb3b 0%,#ffd600 100%); color:#111; border:none; border-radius:16px; font-family:'Orbitron',sans-serif; font-size:0.95rem; font-weight:900; letter-spacing:0.5px; cursor:pointer; box-shadow:0 0 22px rgba(255,235,59,0.25),0 4px 16px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; gap:10px; position:relative; overflow:hidden; transition:all 0.2s; }
     .detail-add-btn::after { content:''; position:absolute; top:-50%; left:-60%; width:28%; height:200%; background:rgba(255,255,255,0.28); transform:skewX(-20deg); animation:shimmer 2.8s ease-in-out infinite; }
     @keyframes shimmer { 0%{left:-60%;}100%{left:130%;} }
     .detail-add-btn:active { transform:scale(0.98); }
@@ -229,7 +179,7 @@
     .meetup-horaires-row { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
     .meetup-horaires-text { color:#aaa; font-size:0.95rem; font-weight:500; }
 
-    /* RÉSEAUX */
+    /* RESEAUX */
     #reseaux-page { display:none; padding:16px 16px 110px 16px; }
     .section-title { font-family:'Orbitron',sans-serif; font-size:1.4rem; color:#ffeb3b; margin:28px 0 16px; font-weight:bold; text-align:center; text-shadow:0 0 6px rgba(255,235,59,.4); letter-spacing:1.5px; }
     .reseaux-list { display:flex; flex-direction:column; gap:14px; }
@@ -431,7 +381,7 @@
       <div id="products-header">
         <div class="products-title"><span style="font-size:1.4rem">🛍️</span>Catalogue</div>
         <div id="products-count-modern" class="products-count">
-          <div class="products-count-number">2</div>
+          <div class="products-count-number">0</div>
           <div class="products-count-label">Produits</div>
         </div>
       </div>
@@ -444,7 +394,7 @@
       <div id="products-grid"></div>
     </div>
 
-    <!-- DÉTAIL — NOUVEAU DESIGN -->
+    <!-- DÉTAIL -->
     <div id="product-detail">
       <div class="swiper-wrap">
         <div class="swiper-track" id="swiper-track"></div>
@@ -463,7 +413,6 @@
           <span>Rupture de stock</span>
         </div>
       </div>
-
       <div class="product-info" id="product-info-body">
         <div class="detail-badges-row" id="detail-badges"></div>
         <div class="detail-desc-section" id="detail-desc-section">
@@ -656,7 +605,7 @@
       </div>
     </div>
 
-    <!-- NAV (masquée sur la page détail) -->
+    <!-- NAV -->
     <nav id="main-nav">
       <div class="nav-item active" id="nav-home"><span class="nav-emoji">🏠</span></div>
       <div class="nav-item" id="nav-cart"><span class="nav-emoji">🛒</span><span id="cart-badge"></span></div>
@@ -670,7 +619,7 @@
   </div>
 </div>
 
-<!-- BARRE PANIER DÉTAIL (remplace la nav sur le détail) -->
+<!-- BARRE PANIER DÉTAIL -->
 <div class="detail-cart-bar" id="detail-cart-bar">
   <div class="detail-total-row">
     <span class="detail-total-label">Total sélectionné</span>
@@ -799,27 +748,8 @@ async function uploadFiles(files,existingItems,previewsId,deleteHandlerName,prog
   }
 }
 
-// ── PRODUITS ──────────────────────────────────────────────────────────────────
-let products = {
-  blanche: {
-    key:'blanche', title:'Blanche❄️', category:'Blanche❄️', farm:'R8🏎️',
-    videos:[{src:'',poster:'blanche.jpg'},{src:'blanche.mp4',poster:'blanche.jpg'}],
-    // ── STRAINS BLANCHE ──
-    strains:[],
-    description:"Blanche comme la neige fraîche, texture bien grasse et cristalline.",
-    quantities:[{qty:'1G',price:'60€'},{qty:'3G',price:'160€'},{qty:'5G',price:'210€'},{qty:'10G',price:'360€'},{qty:'20G',price:'680€'}],
-    stock:'dispo', isNew:true
-  },
-  caliweed: {
-    key:'caliweed', title:'🍀Cali Weed🍀', category:'🍀Cali Weed🍀', farm:'🏆 Top Shelf',
-    videos:[{src:'caliweed.mp4',poster:''}],
-    // ── STRAINS CALIWEED ──
-    strains:['Runtz 🌈'],
-    description:"🌟 EFFET Relaxé, Créatif, Euphorique et Motivant.",
-    quantities:[{qty:'5G',price:'70€'},{qty:'10G',price:'130€'},{qty:'25G',price:'260€'},{qty:'50G',price:'410€'},{qty:'100G',price:'770€'}],
-    stock:'dispo', isNew:false
-  }
-};
+// ── PRODUITS (vide — géré uniquement via Firestore/Admin) ─────────────────────
+let products = {};
 
 // ── MÉDIAS ────────────────────────────────────────────────────────────────────
 let newMediaItems=[], editMediaItems=[];
@@ -1057,7 +987,6 @@ function renderProducts(list){
 function hideAllPages(){
   ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-  // Réafficher la nav et cacher la barre panier
   document.getElementById('main-nav').classList.remove('hidden');
   document.getElementById('detail-cart-bar').style.display='none';
 }
@@ -1099,7 +1028,6 @@ function updateSwiper(){
 window.swiperPrev=()=>{swiperIndex=(swiperIndex-1+swiperItems.length)%swiperItems.length;updateSwiper();};
 window.swiperNext=()=>{swiperIndex=(swiperIndex+1)%swiperItems.length;updateSwiper();};
 
-// Touch swipe
 let touchStartX=0;
 document.getElementById('swiper-track').addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
 document.getElementById('swiper-track').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchStartX;if(Math.abs(dx)>40){dx<0?swiperNext():swiperPrev();}},{passive:true});
@@ -1108,45 +1036,29 @@ document.getElementById('swiper-track').addEventListener('touchend',e=>{const dx
 function openProductDetail(key){
   const p=products[key];
   const isRupture=p.stock==='rupture';
-
-  // Titre + farm dans swiper
   document.getElementById('swiper-title-h1').textContent=p.title;
   document.getElementById('swiper-farm-inline').textContent=p.farm;
-
-  // Stock badge
   const stockBadgeSw=document.getElementById('swiper-stock-badge');
   stockBadgeSw.className='swiper-stock-badge-new'+(isRupture?' rupture':' dispo');
   stockBadgeSw.textContent=isRupture?'❌ Rupture':'✅ Dispo';
-
-  // Rupture overlay
   document.getElementById('swiper-rupture-overlay').style.display=isRupture?'flex':'none';
-
-  // Badges row
   const badgesEl=document.getElementById('detail-badges');
   let badgesHTML=`<div class="detail-badge-pill detail-badge-farm">${p.farm}</div>`;
   badgesHTML+=`<div class="detail-badge-pill ${isRupture?'detail-badge-rupture':'detail-badge-dispo'}">${isRupture?'❌ Rupture de stock':'✅ Disponible'}</div>`;
   if(p.isNew)badgesHTML+=`<div class="detail-badge-pill detail-badge-new">🆕 Nouveauté</div>`;
   badgesEl.innerHTML=badgesHTML;
-
-  // ── Description + Strains (comme Runtz dans CaliWeed) ──
   const descContainer=document.getElementById('detail-strain-desc');
   let html='';
-
-  // Strains en liste avec dot jaune
   const strains=Array.isArray(p.strains)?p.strains:[];
   if(strains.length){
     html+='<div class="detail-strains-list">';
     strains.forEach(s=>{html+=`<div class="detail-strain-item"><div class="strain-dot"></div>${s}</div>`;});
     html+='</div>';
   }
-
-  // Description
   const descText=p.description||p.desc||'';
   if(descText)html+=`<div class="detail-desc-text" style="font-style:italic;color:#999;margin-top:${strains.length?'8px':'0'}">${descText.replace(/\n/g,'<br>')}</div>`;
   if(!html)html='<span style="color:#555;font-style:italic;font-size:0.88rem">Aucune description disponible</span>';
   descContainer.innerHTML=html;
-
-  // Quantities
   const qtyGrid=document.getElementById('qty-grid');qtyGrid.innerHTML='';
   const safeQtys=Array.isArray(p.quantities)?p.quantities:[];
   const isOdd=safeQtys.length%2!==0;
@@ -1162,33 +1074,23 @@ function openProductDetail(key){
     if(!isRupture){btn.onclick=()=>{qtyGrid.querySelectorAll('.detail-qty-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const totalEl=document.getElementById('detail-total-price');totalEl.textContent=item.price;totalEl.className='detail-total-price has-selection';};}
     qtyGrid.appendChild(btn);
   });
-
-  // Reset total
   const totalEl=document.getElementById('detail-total-price');
   if(isRupture){totalEl.textContent='Rupture';totalEl.className='detail-total-price ruptured';}
   else{totalEl.textContent='—';totalEl.className='detail-total-price';}
-
-  // Bouton panier
   const addBtn=document.getElementById('add-to-cart-btn');
   addBtn.disabled=isRupture;
   addBtn.innerHTML=isRupture?'<span>❌</span> Rupture de stock':'<span>🛒</span> Ajouter au Panier';
-
   buildSwiper(p.videos&&p.videos.length?p.videos:[{src:'',poster:''}]);
-
-  // ── Afficher le détail + cacher nav + afficher barre panier ──
   hideAllPages();
   document.getElementById('product-detail').style.display='flex';
   document.getElementById('main-nav').classList.add('hidden');
   document.getElementById('detail-cart-bar').style.display='flex';
-
   if(tg)tg.BackButton.show();
   scrollToTop();
 }
 
-// Back button
 document.getElementById('detail-back-btn').addEventListener('click',goToHome);
 
-// Ajouter au panier
 document.getElementById('add-to-cart-btn').onclick=()=>{
   const sel=document.querySelector('.detail-qty-btn.selected');
   if(!sel)return alert('Sélectionnez une quantité !');
