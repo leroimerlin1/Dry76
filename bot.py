@@ -2,6 +2,7 @@ import logging
 import json
 import os
 import asyncio
+import sqlite3
 from datetime import time, timezone, timedelta
 from telegram import (
    Update,
@@ -22,16 +23,11 @@ from telegram.ext import (
 # =============================================================
 
 TOKEN = "8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE"
-
 CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
-
 MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
-
 IMAGE_WELCOME = "chat.jpg"
-
 ADMIN_ID = 7457384429
-
-USERS_FILE = "users.json"
+DB_PATH = "users.db"  # Fichier base de données (remplace users.json)
 
 DAILY_MESSAGE = """✅ Les commandes sont ouvertes 📦
 
@@ -73,35 +69,41 @@ logging.basicConfig(
    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
    level=logging.INFO
 )
-
 logger = logging.getLogger(__name__)
 
 # =============================================================
-# GESTION DES UTILISATEURS
+# GESTION DES UTILISATEURS (SQLite)
 # =============================================================
 
-def load_users() -> dict:
-    if os.path.exists(USERS_FILE):
-        try:
-            with open(USERS_FILE, "r") as f:
-                data = json.load(f)
-                if isinstance(data, list):
-                    return {str(uid): {"first_name": "?", "username": "?"} for uid in data}
-                return data
-        except Exception:
-            return {}
-    return {}
-
+def get_db():
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            user_id TEXT PRIMARY KEY,
+            first_name TEXT,
+            username TEXT
+        )
+    """)
+    conn.commit()
+    return conn
 
 def save_user(user_id: int, first_name: str = "?", username: str = None):
-    users = load_users()
-    users[str(user_id)] = {
-        "first_name": first_name,
-        "username": username or "?"
-    }
-    with open(USERS_FILE, "w") as f:
-        json.dump(users, f, ensure_ascii=False, indent=2)
+    conn = get_db()
+    conn.execute("""
+        INSERT INTO users (user_id, first_name, username)
+        VALUES (?, ?, ?)
+        ON CONFLICT(user_id) DO UPDATE SET
+            first_name=excluded.first_name,
+            username=excluded.username
+    """, (str(user_id), first_name, username or "?"))
+    conn.commit()
+    conn.close()
 
+def load_users() -> dict:
+    conn = get_db()
+    rows = conn.execute("SELECT user_id, first_name, username FROM users").fetchall()
+    conn.close()
+    return {row[0]: {"first_name": row[1], "username": row[2]} for row in rows}
 
 # =============================================================
 # FONCTIONS UTILITAIRES
@@ -133,24 +135,11 @@ async def send_welcome_menu(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
                reply_markup=get_main_menu_keyboard()
            )
    except FileNotFoundError:
-       logger.warning(f"Image introuvable : {IMAGE_WELCOME}")
-       await context.bot.send_message(
-           chat_id=chat_id,
-           text=(
-               "Bienvenue chez Bart Coffee76 🔥\n\n"
-               f"(image '{IMAGE_WELCOME}' introuvable dans le dossier)\n\n"
-               "Choisis une option :"
-           ),
-           reply_markup=get_main_menu_keyboard()
-       )
-   except Exception as e:
-       logger.error(f"Erreur envoi photo : {e}")
        await context.bot.send_message(
            chat_id=chat_id,
            text="Bienvenue chez Bart Coffee76 🔥\n\nChoisis une option :",
            reply_markup=get_main_menu_keyboard()
        )
-
 
 # =============================================================
 # JOB QUOTIDIEN 11H
@@ -176,7 +165,6 @@ async def daily_message_job(context: ContextTypes.DEFAULT_TYPE):
 
     logger.info(f"Message quotidien envoyé → {sent} succès, {failed} échecs")
 
-
 # =============================================================
 # HANDLERS
 # =============================================================
@@ -185,7 +173,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
    user = update.effective_user
    if not user:
        return
-
    save_user(user.id, first_name=user.first_name or "?", username=user.username)
    await send_welcome_menu(update.effective_chat.id, context)
 
@@ -197,11 +184,9 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     text = update.message.text.partition("/broadcast")[2].strip()
-
     if not text:
         await update.message.reply_text(
-            "⚠️ Écris ton message après la commande !\n\n"
-            "Exemple :\n/broadcast Salut tout le monde 🔥"
+            "⚠️ Écris ton message après la commande !\n\nExemple :\n/broadcast Salut tout le monde 🔥"
         )
         return
 
@@ -212,7 +197,6 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     sent = 0
     failed = 0
-
     await update.message.reply_text(f"📤 Envoi en cours à {len(users)} utilisateurs...")
 
     for chat_id in users:
@@ -225,9 +209,7 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await asyncio.sleep(0.05)
 
     await update.message.reply_text(
-        f"✅ Broadcast terminé !\n\n"
-        f"• Envoyés : {sent}\n"
-        f"• Échecs : {failed}"
+        f"✅ Broadcast terminé !\n\n• Envoyés : {sent}\n• Échecs : {failed}"
     )
 
 
@@ -270,7 +252,6 @@ async def users_list(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
    query = update.callback_query
    await query.answer()
-
    data = query.data
 
    if data == "back":
@@ -286,12 +267,10 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
            await query.message.delete()
        except Exception:
            pass
-
        keyboard = [
            [InlineKeyboardButton("💬 Contacter le support", url="https://t.me/sav_Bart76")],
            [InlineKeyboardButton("← Retour", callback_data="back")]
        ]
-
        await context.bot.send_message(
            chat_id=query.message.chat_id,
            text="Tu veux parler à l'équipe ?\n\nClique ci-dessous pour ouvrir le chat privé :",
@@ -304,16 +283,13 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
            await query.message.delete()
        except Exception:
            pass
-
        keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
-
        await context.bot.send_message(
            chat_id=query.message.chat_id,
            text=INFO_TEXT,
            reply_markup=InlineKeyboardMarkup(keyboard)
        )
        return
-
 
 # =============================================================
 # LANCEMENT
