@@ -748,7 +748,7 @@ async function uploadFiles(files,existingItems,previewsId,deleteHandlerName,prog
   }
 }
 
-// ── PRODUITS (vide — géré uniquement via Firestore/Admin) ─────────────────────
+// ── PRODUITS ──────────────────────────────────────────────────────────────────
 let products = {};
 
 // ── MÉDIAS ────────────────────────────────────────────────────────────────────
@@ -1008,7 +1008,22 @@ function buildSwiper(videos){
   const track=document.getElementById('swiper-track');track.innerHTML='';
   videos.forEach(vid=>{
     const hasSrc=vid.src&&vid.src.trim(),hasPoster=vid.poster&&vid.poster.trim();
-    if(hasSrc){const v=document.createElement('video');v.autoplay=false;v.loop=true;v.muted=true;v.playsinline=true;v.controls=true;v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';if(hasPoster)v.poster=vid.poster.trim();v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;track.appendChild(v);}
+    if(hasSrc){
+      const v=document.createElement('video');
+      v.autoplay=false;
+      v.loop=true;
+      v.muted=true; // muted obligatoire au départ pour contourner les restrictions navigateur
+      v.playsinline=true;
+      v.controls=true;
+      v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
+      if(hasPoster)v.poster=vid.poster.trim();
+      v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;
+      // ✅ Active le son dès que l'utilisateur appuie sur play
+      v.addEventListener('play', function() {
+        this.muted = false;
+      });
+      track.appendChild(v);
+    }
     else if(hasPoster){const img=document.createElement('img');img.src=vid.poster.trim();img.alt='';img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';img.onerror=function(){const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.replaceChild(black,img);};track.appendChild(img);}
     else{const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.appendChild(black);}
   });
@@ -1020,7 +1035,7 @@ function updateSwiper(){
   const total=swiperItems.length;
   document.getElementById('swiper-track').style.transform=`translateX(-${swiperIndex*100}%)`;
   updateDots();
-  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{if(i===swiperIndex)v.play().catch(()=>{});else v.pause();});
+  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{if(i===swiperIndex)v.play().catch(()=>{});else{v.pause();v.muted=true;}});
   const show=total>1;
   document.getElementById('swiper-btn-prev').style.display=show?'flex':'none';
   document.getElementById('swiper-btn-next').style.display=show?'flex':'none';
