@@ -97,7 +97,7 @@
     .swiper-btn-next { right:12px; }
     .swiper-rupture-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; z-index:15; pointer-events:none; }
     .swiper-rupture-overlay span { font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:#ef4444; border:2px solid #ef4444; padding:10px 24px; border-radius:14px; background:rgba(239,68,68,0.12); letter-spacing:2px; transform:rotate(-8deg); }
-    .product-info { flex:1; background:#0a0a0f; overflow-y:auto; padding-bottom:96px; -webkit-overflow-scrolling:touch; }
+    .product-info { flex:1; background:#0a0a0f; overflow-y:auto; padding-bottom:32px; -webkit-overflow-scrolling:touch; }
     .product-info::-webkit-scrollbar { display:none; }
     .detail-badges-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:14px 16px 0; }
     .detail-badge-pill { padding:5px 12px; border-radius:999px; font-size:0.68rem; font-weight:800; letter-spacing:0.5px; font-family:'Orbitron',sans-serif; }
@@ -131,7 +131,19 @@
     .detail-qty-check { position:absolute; top:7px; right:7px; width:17px; height:17px; border-radius:50%; background:#ffeb3b; display:flex; align-items:center; justify-content:center; font-size:0.55rem; color:#111; font-weight:900; opacity:0; transform:scale(0); transition:all 0.18s; }
     .detail-qty-btn.selected .detail-qty-check { opacity:1; transform:scale(1); }
     .detail-qty-btn.full-width { grid-column:1/-1; }
-    .detail-cart-bar { position:fixed; bottom:0; left:0; right:0; z-index:1001; background:rgba(8,8,14,0.97); border-top:1px solid rgba(255,235,59,0.12); padding:10px 16px max(18px,env(safe-area-inset-bottom)); backdrop-filter:blur(14px); display:none; flex-direction:column; gap:8px; }
+
+    /* CART BAR — maintenant dans le flux, plus fixed */
+    .detail-cart-bar {
+      margin:20px 16px 16px;
+      display:none;
+      flex-direction:column;
+      gap:10px;
+      background:rgba(8,8,14,0.85);
+      border:1px solid rgba(255,235,59,0.15);
+      border-radius:22px;
+      padding:16px;
+      backdrop-filter:blur(14px);
+    }
     .detail-total-row { display:flex; align-items:center; justify-content:space-between; }
     .detail-total-label { font-size:0.7rem; color:#444; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
     .detail-total-price { font-family:'Orbitron',sans-serif; font-size:1.05rem; font-weight:900; color:#555; transition:all 0.25s; }
@@ -423,6 +435,16 @@
           <div class="detail-qty-header">Sélectionner</div>
           <div class="detail-qty-grid" id="qty-grid"></div>
         </div>
+        <!-- CART BAR : dans le flux, juste sous les boutons de quantité -->
+        <div class="detail-cart-bar" id="detail-cart-bar">
+          <div class="detail-total-row">
+            <span class="detail-total-label">Total sélectionné</span>
+            <span class="detail-total-price" id="detail-total-price">—</span>
+          </div>
+          <button class="detail-add-btn" id="add-to-cart-btn">
+            <span>🛒</span> Ajouter au Panier
+          </button>
+        </div>
       </div>
     </div>
 
@@ -617,17 +639,6 @@
     </nav>
 
   </div>
-</div>
-
-<!-- BARRE PANIER DÉTAIL -->
-<div class="detail-cart-bar" id="detail-cart-bar">
-  <div class="detail-total-row">
-    <span class="detail-total-label">Total sélectionné</span>
-    <span class="detail-total-price" id="detail-total-price">—</span>
-  </div>
-  <button class="detail-add-btn" id="add-to-cart-btn">
-    <span>🛒</span> Ajouter au Panier
-  </button>
 </div>
 
 <!-- AUTH MODAL -->
@@ -988,7 +999,6 @@ function hideAllPages(){
   ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('main-nav').classList.remove('hidden');
-  document.getElementById('detail-cart-bar').style.display='none';
 }
 function scrollToTop(){document.querySelector('.content').scrollTo({top:0,behavior:'instant'});}
 function goToHome(){hideAllPages();document.getElementById('home-page').style.display='block';document.getElementById('nav-home').classList.add('active');if(tg)tg.BackButton.hide();scrollToTop();}
@@ -1010,17 +1020,10 @@ function buildSwiper(videos){
     const hasSrc=vid.src&&vid.src.trim(),hasPoster=vid.poster&&vid.poster.trim();
     if(hasSrc){
       const v=document.createElement('video');
-      // ✅ PAS d'autoplay — l'utilisateur lance lui-même
-      v.autoplay=false;
-      v.loop=true;
-      v.muted=false;   // son activé dès le départ (pas besoin de démuter)
-      v.playsinline=true;
-      v.controls=true;
-      v.preload='none'; // ne charge rien tant que l'utilisateur n'appuie pas play
+      v.autoplay=false;v.loop=true;v.muted=false;v.playsinline=true;v.controls=true;v.preload='none';
       v.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;';
       if(hasPoster)v.poster=vid.poster.trim();
       v.innerHTML=`<source src="${vid.src.trim()}" type="video/mp4">`;
-      // Pas de listener 'play' — on ne touche plus au muted
       track.appendChild(v);
     }
     else if(hasPoster){const img=document.createElement('img');img.src=vid.poster.trim();img.alt='';img.style.cssText='flex-shrink:0;width:100%;height:100%;object-fit:cover;background:#000;pointer-events:none;user-select:none;';img.onerror=function(){const black=document.createElement('div');black.className='swiper-black-slide';black.innerHTML='<span>☕</span>';track.replaceChild(black,img);};track.appendChild(img);}
@@ -1035,15 +1038,7 @@ function updateSwiper(){
   const total=swiperItems.length;
   document.getElementById('swiper-track').style.transform=`translateX(-${swiperIndex*100}%)`;
   updateDots();
-  // ✅ On stoppe et reset toutes les vidéos qui ne sont PAS la slide active
-  // On ne lance JAMAIS automatiquement — l'utilisateur appuie sur play lui-même
-  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{
-    if(i!==swiperIndex){
-      v.pause();
-      v.currentTime=0;
-    }
-    // La vidéo active reste en pause, poster affiché — play déclenché par l'utilisateur
-  });
+  document.getElementById('swiper-track').querySelectorAll('video').forEach((v,i)=>{if(i!==swiperIndex){v.pause();v.currentTime=0;}});
   const show=total>1;
   document.getElementById('swiper-btn-prev').style.display=show?'flex':'none';
   document.getElementById('swiper-btn-next').style.display=show?'flex':'none';
@@ -1104,11 +1099,14 @@ function openProductDetail(key){
   const addBtn=document.getElementById('add-to-cart-btn');
   addBtn.disabled=isRupture;
   addBtn.innerHTML=isRupture?'<span>❌</span> Rupture de stock':'<span>🛒</span> Ajouter au Panier';
+
+  // Afficher la barre panier dans le flux
+  document.getElementById('detail-cart-bar').style.display='flex';
+
   buildSwiper(p.videos&&p.videos.length?p.videos:[{src:'',poster:''}]);
   hideAllPages();
   document.getElementById('product-detail').style.display='flex';
   document.getElementById('main-nav').classList.add('hidden');
-  document.getElementById('detail-cart-bar').style.display='flex';
   if(tg)tg.BackButton.show();
   scrollToTop();
 }
