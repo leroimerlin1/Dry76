@@ -23,7 +23,6 @@ from telegram.ext import (
 # =============================================================
 
 TOKEN = "8586174802:AAEJ294yeBBufP9O29wJOHHTdFoLciQtmgE"
-CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
 MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 IMAGE_WELCOME = "chat.jpg"
 ADMIN_ID = 7457384429
@@ -125,28 +124,25 @@ def get_main_menu_keyboard():
 
 
 async def delete_previous_message(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
-    """Supprime l'ancien message du bot pour garder le chat propre"""
+    """Supprime l'ancien message du bot"""
     last_msg_id = context.user_data.get('last_bot_message_id')
     if last_msg_id:
         try:
             await context.bot.delete_message(chat_id=chat_id, message_id=last_msg_id)
         except Exception:
-            pass  # Message déjà supprimé ou hors délai
+            pass
         context.user_data['last_bot_message_id'] = None
 
 
 async def send_welcome_menu(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
-   await delete_previous_message(chat_id, context)  # Nettoyage
+   await delete_previous_message(chat_id, context)
 
    try:
        with open(IMAGE_WELCOME, "rb") as photo_file:
            msg = await context.bot.send_photo(
                chat_id=chat_id,
                photo=photo_file,
-               caption=(
-                   "Bienvenue chez Bart Coffee76 🔥\n\n"
-                   "Choisis une option ci-dessous :"
-               ),
+               caption="Bienvenue chez Bart Coffee76 🔥\n\nChoisis une option ci-dessous :",
                reply_markup=get_main_menu_keyboard()
            )
            context.user_data['last_bot_message_id'] = msg.message_id
@@ -160,7 +156,7 @@ async def send_welcome_menu(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
 
 
 # =============================================================
-# JOB QUOTIDIEN 11H
+# JOB QUOTIDIEN
 # =============================================================
 
 async def daily_message_job(context: ContextTypes.DEFAULT_TYPE):
@@ -171,7 +167,6 @@ async def daily_message_job(context: ContextTypes.DEFAULT_TYPE):
 
     sent = 0
     failed = 0
-
     for chat_id in users:
         try:
             await context.bot.send_message(chat_id=int(chat_id), text=DAILY_MESSAGE)
@@ -181,7 +176,7 @@ async def daily_message_job(context: ContextTypes.DEFAULT_TYPE):
             failed += 1
         await asyncio.sleep(0.05)
 
-    logger.info(f"Message quotidien envoyé → {sent} succès, {failed} échecs")
+    logger.info(f"Message quotidien → {sent} succès, {failed} échecs")
 
 
 # =============================================================
@@ -199,73 +194,47 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     if not user or user.id != ADMIN_ID:
-        await update.message.reply_text("❌ Tu n'as pas la permission d'utiliser cette commande.")
+        await update.message.reply_text("❌ Tu n'as pas la permission.")
         return
 
     text = update.message.text.partition("/broadcast")[2].strip()
     if not text:
-        await update.message.reply_text(
-            "⚠️ Écris ton message après la commande !\n\nExemple :\n/broadcast Salut tout le monde 🔥"
-        )
+        await update.message.reply_text("⚠️ Écris ton message après /broadcast")
         return
 
     users = load_users()
-    if not users:
-        await update.message.reply_text("⚠️ Aucun utilisateur enregistré pour l'instant.")
-        return
-
-    sent = 0
-    failed = 0
-    await update.message.reply_text(f"📤 Envoi en cours à {len(users)} utilisateurs...")
+    sent = failed = 0
+    await update.message.reply_text(f"📤 Envoi à {len(users)} utilisateurs...")
 
     for chat_id in users:
         try:
             await context.bot.send_message(chat_id=int(chat_id), text=text)
             sent += 1
-        except Exception as e:
-            logger.warning(f"Impossible d'envoyer à {chat_id} : {e}")
+        except Exception:
             failed += 1
         await asyncio.sleep(0.05)
 
-    await update.message.reply_text(
-        f"✅ Broadcast terminé !\n\n• Envoyés : {sent}\n• Échecs : {failed}"
-    )
+    await update.message.reply_text(f"✅ Broadcast terminé !\nEnvoyés : {sent}\nÉchecs : {failed}")
 
 
 async def users_list(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     if not user or user.id != ADMIN_ID:
-        await update.message.reply_text("❌ Tu n'as pas la permission d'utiliser cette commande.")
+        await update.message.reply_text("❌ Accès refusé.")
         return
 
     users = load_users()
     if not users:
-        await update.message.reply_text("⚠️ Aucun utilisateur enregistré pour l'instant.")
+        await update.message.reply_text("Aucun utilisateur.")
         return
 
-    lines = [f"👥 Utilisateurs enregistrés : {len(users)}\n"]
+    lines = [f"👥 Utilisateurs : {len(users)}\n"]
     for i, (uid, info) in enumerate(users.items(), 1):
-        first_name = info.get("first_name", "?")
-        username = info.get("username", "?")
-        uname_display = f"@{username}" if username != "?" else "pas de @"
-        lines.append(f"{i}. {first_name} ({uname_display}) — {uid}")
+        name = info.get("first_name", "?")
+        uname = f"@{info.get('username')}" if info.get("username") != "?" else "pas de @"
+        lines.append(f"{i}. {name} ({uname}) — {uid}")
 
-    message = "\n".join(lines)
-    if len(message) <= 4096:
-        await update.message.reply_text(message)
-    else:
-        chunks = []
-        current = ""
-        for line in lines:
-            if len(current) + len(line) + 1 > 4096:
-                chunks.append(current)
-                current = line
-            else:
-                current += "\n" + line
-        if current:
-            chunks.append(current)
-        for chunk in chunks:
-            await update.message.reply_text(chunk)
+    await update.message.reply_text("\n".join(lines))
 
 
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -274,7 +243,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
    data = query.data
    chat_id = query.message.chat_id
 
-   # Nettoyage avant nouvel affichage
    await delete_previous_message(chat_id, context)
 
    if data == "back":
@@ -286,46 +254,25 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
            [InlineKeyboardButton("💬 Contacter le support", url="https://t.me/sav_Bart76")],
            [InlineKeyboardButton("← Retour", callback_data="back")]
        ]
-       msg = await context.bot.send_message(
-           chat_id=chat_id,
-           text="Tu veux parler à l'équipe ?\n\nClique ci-dessous pour ouvrir le chat privé :",
-           reply_markup=InlineKeyboardMarkup(keyboard)
-       )
+       msg = await context.bot.send_message(chat_id=chat_id, text="Tu veux parler à l'équipe ?", reply_markup=InlineKeyboardMarkup(keyboard))
        context.user_data['last_bot_message_id'] = msg.message_id
        return
 
    if data == "info":
        keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
-       msg = await context.bot.send_message(
-           chat_id=chat_id,
-           text=INFO_TEXT,
-           reply_markup=InlineKeyboardMarkup(keyboard)
-       )
+       msg = await context.bot.send_message(chat_id=chat_id, text=INFO_TEXT, reply_markup=InlineKeyboardMarkup(keyboard))
        context.user_data['last_bot_message_id'] = msg.message_id
        return
 
    if data == "meetup":
        keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
-       msg = await context.bot.send_message(
-           chat_id=chat_id,
-           text="📍 **Meet-up**\n\nNous sommes situés sur Rouen Rive Gauche.\n\nCommande minimum : 50€",
-           reply_markup=InlineKeyboardMarkup(keyboard)
-       )
+       msg = await context.bot.send_message(chat_id=chat_id, text="📍 **Meet-up**\n\nRouen Rive Gauche\nMinimum 50€ de commande.", reply_markup=InlineKeyboardMarkup(keyboard))
        context.user_data['last_bot_message_id'] = msg.message_id
        return
 
    if data == "delivery":
        keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
-       msg = await context.bot.send_message(
-           chat_id=chat_id,
-           text="🚚 **Livraison**\n\nZone : 76 / 27 / 14\n\n"
-                "• Sur Rouen : 70€\n"
-                "• Moins de 10 km : 100€\n"
-                "• + de 10 km : 150€\n"
-                "• + de 25 km : 270€\n\n"
-                "Frais obligatoires s'il n'y a pas de tournée.",
-           reply_markup=InlineKeyboardMarkup(keyboard)
-       )
+       msg = await context.bot.send_message(chat_id=chat_id, text="🚚 **Livraison**\n\nZone : 76/27/14\n\n• Rouen : 70€\n• <10km : 100€\n• +10km : 150€\n• +25km : 270€", reply_markup=InlineKeyboardMarkup(keyboard))
        context.user_data['last_bot_message_id'] = msg.message_id
        return
 
@@ -335,9 +282,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # =============================================================
 
 def main():
-   app = ApplicationBuilder() \
-       .token(TOKEN) \
-       .build()
+   app = ApplicationBuilder().token(TOKEN).build()
 
    app.add_handler(CommandHandler("start", start))
    app.add_handler(CommandHandler("broadcast", broadcast))
@@ -345,15 +290,13 @@ def main():
    app.add_handler(CallbackQueryHandler(button_handler))
 
    PARIS = timezone(timedelta(hours=2))
-   job_queue = app.job_queue
-   job_queue.run_daily(
+   app.job_queue.run_daily(
        daily_message_job,
-       time=time(hour=11, minute=0, second=0, tzinfo=PARIS),
-       name="daily_open_message"
+       time=time(hour=11, minute=0, second=0, tzinfo=PARIS)
    )
 
-   print("Bot démarré → Bart Coffee76  |  Image : chat.jpg")
-   app.run_polling(allowed_updates=Update.ALL_TYPES)
+   print("🤖 Bot Bart Coffee76 démarré avec succès !")
+   app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
 
 
 if __name__ == "__main__":
