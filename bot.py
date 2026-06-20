@@ -27,7 +27,7 @@ CHANNEL_LINK = "https://t.me/+xkLrkV6xQBQ2OTQ0"
 MINI_APP_URL = "https://leroimerlin1.github.io/Dry76/"
 IMAGE_WELCOME = "chat.jpg"
 ADMIN_ID = 7457384429
-DB_PATH = "users.db"  # Fichier base de données (remplace users.json)
+DB_PATH = "users.db"
 
 DAILY_MESSAGE = """✅ Les commandes sont ouvertes 📦
 
@@ -111,21 +111,36 @@ def load_users() -> dict:
 
 def get_main_menu_keyboard():
    keyboard = [
+       [InlineKeyboardButton("🛍 Ouvrir la boutique", web_app=WebAppInfo(url=MINI_APP_URL))],
        [
-           InlineKeyboardButton("📩 Contact", callback_data="contact"),
-           InlineKeyboardButton("ℹ️ Informations", callback_data="info"),
+           InlineKeyboardButton("📍 Meet-up", callback_data="meetup"),
+           InlineKeyboardButton("🚚 Livraison", callback_data="delivery")
        ],
        [
-           InlineKeyboardButton("🛍 Ouvrir la boutique", web_app=WebAppInfo(url=MINI_APP_URL))
+           InlineKeyboardButton("📩 Contact", callback_data="contact"),
+           InlineKeyboardButton("ℹ️ Informations", callback_data="info")
        ]
    ]
    return InlineKeyboardMarkup(keyboard)
 
 
+async def delete_previous_message(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
+    """Supprime l'ancien message du bot pour garder le chat propre"""
+    last_msg_id = context.user_data.get('last_bot_message_id')
+    if last_msg_id:
+        try:
+            await context.bot.delete_message(chat_id=chat_id, message_id=last_msg_id)
+        except Exception:
+            pass  # Message déjà supprimé ou hors délai
+        context.user_data['last_bot_message_id'] = None
+
+
 async def send_welcome_menu(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
+   await delete_previous_message(chat_id, context)  # Nettoyage
+
    try:
        with open(IMAGE_WELCOME, "rb") as photo_file:
-           await context.bot.send_photo(
+           msg = await context.bot.send_photo(
                chat_id=chat_id,
                photo=photo_file,
                caption=(
@@ -134,12 +149,15 @@ async def send_welcome_menu(chat_id: int, context: ContextTypes.DEFAULT_TYPE):
                ),
                reply_markup=get_main_menu_keyboard()
            )
+           context.user_data['last_bot_message_id'] = msg.message_id
    except FileNotFoundError:
-       await context.bot.send_message(
+       msg = await context.bot.send_message(
            chat_id=chat_id,
            text="Bienvenue chez Bart Coffee76 🔥\n\nChoisis une option :",
            reply_markup=get_main_menu_keyboard()
        )
+       context.user_data['last_bot_message_id'] = msg.message_id
+
 
 # =============================================================
 # JOB QUOTIDIEN 11H
@@ -164,6 +182,7 @@ async def daily_message_job(context: ContextTypes.DEFAULT_TYPE):
         await asyncio.sleep(0.05)
 
     logger.info(f"Message quotidien envoyé → {sent} succès, {failed} échecs")
+
 
 # =============================================================
 # HANDLERS
@@ -253,43 +272,63 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
    query = update.callback_query
    await query.answer()
    data = query.data
+   chat_id = query.message.chat_id
+
+   # Nettoyage avant nouvel affichage
+   await delete_previous_message(chat_id, context)
 
    if data == "back":
-       try:
-           await query.message.delete()
-       except Exception:
-           pass
-       await send_welcome_menu(query.message.chat_id, context)
+       await send_welcome_menu(chat_id, context)
        return
 
    if data == "contact":
-       try:
-           await query.message.delete()
-       except Exception:
-           pass
        keyboard = [
            [InlineKeyboardButton("💬 Contacter le support", url="https://t.me/sav_Bart76")],
            [InlineKeyboardButton("← Retour", callback_data="back")]
        ]
-       await context.bot.send_message(
-           chat_id=query.message.chat_id,
+       msg = await context.bot.send_message(
+           chat_id=chat_id,
            text="Tu veux parler à l'équipe ?\n\nClique ci-dessous pour ouvrir le chat privé :",
            reply_markup=InlineKeyboardMarkup(keyboard)
        )
+       context.user_data['last_bot_message_id'] = msg.message_id
        return
 
    if data == "info":
-       try:
-           await query.message.delete()
-       except Exception:
-           pass
        keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
-       await context.bot.send_message(
-           chat_id=query.message.chat_id,
+       msg = await context.bot.send_message(
+           chat_id=chat_id,
            text=INFO_TEXT,
            reply_markup=InlineKeyboardMarkup(keyboard)
        )
+       context.user_data['last_bot_message_id'] = msg.message_id
        return
+
+   if data == "meetup":
+       keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
+       msg = await context.bot.send_message(
+           chat_id=chat_id,
+           text="📍 **Meet-up**\n\nNous sommes situés sur Rouen Rive Gauche.\n\nCommande minimum : 50€",
+           reply_markup=InlineKeyboardMarkup(keyboard)
+       )
+       context.user_data['last_bot_message_id'] = msg.message_id
+       return
+
+   if data == "delivery":
+       keyboard = [[InlineKeyboardButton("← Retour", callback_data="back")]]
+       msg = await context.bot.send_message(
+           chat_id=chat_id,
+           text="🚚 **Livraison**\n\nZone : 76 / 27 / 14\n\n"
+                "• Sur Rouen : 70€\n"
+                "• Moins de 10 km : 100€\n"
+                "• + de 10 km : 150€\n"
+                "• + de 25 km : 270€\n\n"
+                "Frais obligatoires s'il n'y a pas de tournée.",
+           reply_markup=InlineKeyboardMarkup(keyboard)
+       )
+       context.user_data['last_bot_message_id'] = msg.message_id
+       return
+
 
 # =============================================================
 # LANCEMENT
