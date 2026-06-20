@@ -35,12 +35,12 @@
     /* CONTAINER */
     .container { position:relative; height:100dvh; width:100%; background:url('rouen.PNG') center/cover no-repeat fixed; }
     .overlay { position:absolute; inset:0; z-index:1; }
-    .content { position:relative; z-index:2; height:100dvh; width:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:100px; }
+    .content { position:relative; z-index:2; height:100dvh; width:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:100px; padding-top:92px; }
 
     /* HOME */
-    #home-logo-wrapper { position:sticky; top:0; z-index:100; background:transparent; padding:10px 0 8px; pointer-events:none; }
-    #top-logo { width:100%; height:auto; max-height:160px; object-fit:contain; display:block; margin:0 auto; pointer-events:all; cursor:pointer; }
-    #products-header { margin:0 16px 14px 16px; background:rgba(15,15,22,0.88); border-radius:22px; border:1px solid rgba(255,235,59,0.12); box-shadow:0 8px 32px rgba(0,0,0,0.5); padding:18px 20px; display:flex; align-items:center; justify-content:space-between; backdrop-filter:blur(8px); }
+    .global-header { position:fixed; top:0; left:0; right:0; height:92px; background:#000; z-index:700; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 22px rgba(0,0,0,0.65); border-bottom:1px solid rgba(255,235,59,0.1); }
+    #top-logo { height:68px; width:auto; max-width:55%; object-fit:contain; display:block; cursor:pointer; }
+    #products-header { margin:14px 16px 14px 16px; background:rgba(15,15,22,0.88); border-radius:22px; border:1px solid rgba(255,235,59,0.12); box-shadow:0 8px 32px rgba(0,0,0,0.5); padding:18px 20px; display:flex; align-items:center; justify-content:space-between; backdrop-filter:blur(8px); }
     .products-title { display:flex; align-items:center; gap:10px; font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:700; color:#aaa; letter-spacing:0.5px; }
     .products-count { display:flex; flex-direction:column; align-items:center; background:rgba(255,235,59,0.08); border:1.5px solid rgba(255,235,59,0.3); border-radius:16px; padding:8px 20px; box-shadow:0 0 18px rgba(255,235,59,0.1); min-width:80px; }
     .products-count-number { font-family:'Orbitron',sans-serif; font-size:1.8rem; font-weight:900; color:#ffeb3b; line-height:1; text-shadow:0 0 12px rgba(255,235,59,0.5); }
@@ -267,7 +267,7 @@
     .commande-mode { display:inline-block; margin-top:8px; background:rgba(255,235,59,0.08); border:1px solid rgba(255,235,59,0.2); color:rgba(255,235,59,0.7); font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:999px; }
 
     /* CHAT */
-    #chat-page { display:none; flex-direction:column; position:fixed; inset:0; bottom:86px; background:linear-gradient(160deg,#0a0a12 0%,#0f0f1e 50%,#080810 100%); z-index:500; }
+    #chat-page { display:none; flex-direction:column; position:fixed; top:92px; left:0; right:0; bottom:86px; background:linear-gradient(160deg,#0a0a12 0%,#0f0f1e 50%,#080810 100%); z-index:500; }
     .chat-header { flex-shrink:0; padding:14px 18px 12px; background:rgba(10,10,20,0.98); border-bottom:1px solid rgba(255,235,59,0.08); display:flex; align-items:center; gap:14px; }
     .chat-header-avatar { width:44px; height:44px; border-radius:50%; flex-shrink:0; background:rgba(255,235,59,0.1); border:2px solid rgba(255,235,59,0.3); display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
     .chat-header-title { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:800; color:#fff; }
@@ -383,13 +383,13 @@
 
 <div class="container">
   <div class="overlay"></div>
+  <div class="global-header" id="global-header">
+    <img id="top-logo" src="chat.PNG" alt="Logo">
+  </div>
   <div class="content">
 
     <!-- ACCUEIL -->
     <div id="home-page">
-      <div id="home-logo-wrapper">
-        <img id="top-logo" src="chat.PNG" alt="Logo">
-      </div>
       <div id="products-header">
         <div class="products-title"><span style="font-size:1.4rem">🛍️</span>Catalogue</div>
         <div id="products-count-modern" class="products-count">
