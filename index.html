@@ -35,11 +35,11 @@
     /* CONTAINER */
     .container { position:relative; height:100dvh; width:100%; background:url('rouen.PNG') center/cover no-repeat fixed; }
     .overlay { position:absolute; inset:0; z-index:1; }
-    .content { position:relative; z-index:2; height:100dvh; width:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:100px; padding-top:92px; }
+    .content { position:relative; z-index:2; height:100dvh; width:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; padding-bottom:100px; padding-top:130px; }
 
     /* HOME */
-    .global-header { position:fixed; top:0; left:0; right:0; height:92px; background:#000; z-index:700; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 22px rgba(0,0,0,0.65); border-bottom:1px solid rgba(255,235,59,0.1); }
-    #top-logo { height:80px; width:auto; max-width:55%; object-fit:contain; display:block; cursor:pointer; margin-top:16px; filter: drop-shadow(0 0 6px rgba(64,170,255,0.9)) drop-shadow(0 0 16px rgba(64,170,255,0.55)); }
+    .global-header { position:fixed; top:0; left:0; right:0; height:130px; background:#000; z-index:700; display:flex; align-items:flex-start; justify-content:center; box-shadow:0 6px 22px rgba(0,0,0,0.65); border-bottom:1px solid rgba(255,235,59,0.1); overflow:hidden; }
+    #top-logo { height:80px; width:auto; max-width:55%; object-fit:contain; display:block; cursor:pointer; margin-top:38px; filter: drop-shadow(0 0 6px rgba(64,170,255,0.9)) drop-shadow(0 0 16px rgba(64,170,255,0.55)); }
     #products-header { margin:14px 16px 14px 16px; background:rgba(15,15,22,0.88); border-radius:22px; border:1px solid rgba(255,235,59,0.12); box-shadow:0 8px 32px rgba(0,0,0,0.5); padding:18px 20px; display:flex; align-items:center; justify-content:space-between; backdrop-filter:blur(8px); }
     .products-title { display:flex; align-items:center; gap:10px; font-family:'Orbitron',sans-serif; font-size:1.1rem; font-weight:700; color:#aaa; letter-spacing:0.5px; }
     .products-count { display:flex; flex-direction:column; align-items:center; background:rgba(255,235,59,0.08); border:1.5px solid rgba(255,235,59,0.3); border-radius:16px; padding:8px 20px; box-shadow:0 0 18px rgba(255,235,59,0.1); min-width:80px; }
@@ -266,8 +266,31 @@
     .commande-items { font-size:0.88rem; color:#888; line-height:1.6; }
     .commande-mode { display:inline-block; margin-top:8px; background:rgba(255,235,59,0.08); border:1px solid rgba(255,235,59,0.2); color:rgba(255,235,59,0.7); font-size:0.72rem; font-weight:700; padding:3px 10px; border-radius:999px; }
 
+    /* PROFIL TELEGRAM */
+    .tg-profil-top { display:flex; flex-direction:column; align-items:center; padding:18px 0 8px; }
+    .tg-avatar-ring { width:140px; height:140px; border-radius:50%; border:3px solid rgba(255,193,7,0.85); box-shadow:0 0 0 7px rgba(255,193,7,0.08), 0 0 34px rgba(255,152,0,0.45); overflow:hidden; display:flex; align-items:center; justify-content:center; background:#15151f; margin-bottom:16px; }
+    .tg-avatar-ring img { width:100%; height:100%; object-fit:cover; }
+    .tg-avatar-ring .tg-avatar-fallback { font-size:3.2rem; }
+    .tg-profil-label { font-family:'Orbitron',sans-serif; font-size:0.78rem; font-weight:800; color:#ff9800; letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+    .tg-profil-name { font-family:'Orbitron',sans-serif; font-size:2rem; font-weight:900; text-align:center; background:linear-gradient(135deg,#ffeb3b,#ff9800); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow:0 0 24px rgba(255,152,0,0.4); margin-bottom:16px; line-height:1.1; padding:0 10px; }
+    .tg-username-pill { display:flex; align-items:center; gap:9px; background:rgba(20,20,30,0.75); border:1.5px solid rgba(255,235,59,0.22); border-radius:999px; padding:11px 22px; color:#fff; font-weight:700; font-size:1rem; margin-bottom:6px; }
+    .tg-username-pill .tg-icon-dot { width:22px; height:22px; border-radius:50%; background:#29b6f6; display:flex; align-items:center; justify-content:center; font-size:0.8rem; flex-shrink:0; }
+    .tg-info-card { background:rgba(15,15,22,0.88); border:1.5px solid rgba(255,235,59,0.18); border-radius:22px; padding:8px 18px 4px; margin:18px 16px 16px; box-shadow:0 6px 32px rgba(0,0,0,0.55); backdrop-filter:blur(8px); }
+    .tg-info-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .tg-info-row:last-child { border-bottom:none; }
+    .tg-info-row-left { display:flex; align-items:center; gap:12px; color:#aaa; font-size:1rem; font-weight:500; }
+    .tg-info-row-left .tg-row-icon { font-size:1.1rem; width:20px; text-align:center; flex-shrink:0; }
+    .tg-info-row-value { color:#fff; font-weight:800; font-size:1.02rem; text-align:right; }
+    .tg-info-row-value.muted { color:#888; font-weight:600; }
+    .tg-id-masked { color:#ffeb3b; font-weight:800; letter-spacing:1px; }
+    .tg-premium-yes { color:#4ade80; display:flex; align-items:center; gap:6px; }
+    .tg-premium-no { color:#ef4444; display:flex; align-items:center; gap:6px; }
+    .tg-no-data { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:60px 24px; text-align:center; }
+    .tg-no-data .tg-no-data-icon { font-size:3rem; }
+    .tg-no-data-text { color:#666; font-size:0.92rem; line-height:1.6; }
+
     /* CHAT */
-    #chat-page { display:none; flex-direction:column; position:fixed; top:92px; left:0; right:0; bottom:86px; background:linear-gradient(160deg,#0a0a12 0%,#0f0f1e 50%,#080810 100%); z-index:500; }
+    #chat-page { display:none; flex-direction:column; position:fixed; top:130px; left:0; right:0; bottom:86px; background:linear-gradient(160deg,#0a0a12 0%,#0f0f1e 50%,#080810 100%); z-index:500; }
     .chat-header { flex-shrink:0; padding:14px 18px 12px; background:rgba(10,10,20,0.98); border-bottom:1px solid rgba(255,235,59,0.08); display:flex; align-items:center; gap:14px; }
     .chat-header-avatar { width:44px; height:44px; border-radius:50%; flex-shrink:0; background:rgba(255,235,59,0.1); border:2px solid rgba(255,235,59,0.3); display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
     .chat-header-title { font-family:'Orbitron',sans-serif; font-size:0.9rem; font-weight:800; color:#fff; }
@@ -921,14 +944,83 @@ window.doRegister=async()=>{
 window.doLogout=async()=>{if(!confirm('Se déconnecter ?'))return;await signOut(_auth);renderProfilPage();};
 window.openAuthModal=openAuthModal;
 
-// ── PROFIL ────────────────────────────────────────────────────────────────────
+// ── PROFIL (connexion directe au compte Telegram) ────────────────────────────
+function maskTelegramId(id){
+  const s=String(id);
+  if(s.length<=2)return '••'+s;
+  return '•'.repeat(Math.max(s.length-2,4))+s.slice(-2);
+}
 async function renderProfilPage(){
-  const page=document.getElementById('profil-page'),user=_auth.currentUser;
-  if(!user){page.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:20px;padding:20px"><div style="font-size:3.5rem">👤</div><div style="font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#fff;text-align:center">Mon Compte</div><div style="color:#666;font-size:0.9rem;text-align:center;line-height:1.6">Connecte-toi pour accéder à ton profil.</div><button onclick="openAuthModal()" style="background:#ffeb3b;color:#111;border:none;padding:15px 32px;border-radius:16px;font-family:'Orbitron',sans-serif;font-size:0.95rem;font-weight:900;cursor:pointer">Se connecter / S'inscrire</button></div>`;return;}
-  const displayUsername=user.email?user.email.replace('@bart76.app',''):'utilisateur';
-  page.innerHTML=`<div class="profil-header"><button class="profil-logout" onclick="doLogout()">Déconnexion</button><div class="profil-avatar">👤</div><div class="profil-name">${user.displayName||displayUsername}</div><div style="color:#555;font-size:0.8rem;margin-top:2px">@${displayUsername}</div></div><div class="profil-stats-block"><div class="profil-stats-icon">📦</div><div><div class="profil-stats-number" id="profil-cmd-count">—</div><div class="profil-stats-label">commande(s) passée(s)</div></div></div><div class="profil-section-title">📦 Mes commandes</div><div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px">Chargement...</p></div>`;
-  try{const q=query(collection(_db,'commandes'),where('uid','==',user.uid),orderBy('timestamp','desc'));const snap=await getDocs(q);document.getElementById('profil-cmd-count').textContent=snap.size;const cmdEl=document.getElementById('profil-commandes');if(snap.empty){cmdEl.innerHTML='<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>';return;}cmdEl.innerHTML=snap.docs.map(d=>{const c=d.data();return `<div class="commande-card"><div class="commande-header"><span class="commande-date">${c.date}</span><span class="commande-total">${c.total}€</span></div><div class="commande-items">${c.items}</div><span class="commande-mode">${c.mode}</span></div>`;}).join('');}
-  catch(e){const c=document.getElementById('profil-cmd-count');if(c)c.textContent='0';const cm=document.getElementById('profil-commandes');if(cm)cm.innerHTML='<p style="color:#555;text-align:center;padding:20px">Aucune commande.</p>';}
+  const page=document.getElementById('profil-page');
+  const tgUser=tg?.initDataUnsafe?.user;
+
+  if(!tgUser){
+    page.innerHTML=`<div class="tg-no-data"><div class="tg-no-data-icon">📵</div><div class="tg-profil-label" style="margin-top:6px">Mon Profil</div><div class="tg-no-data-text">Impossible de récupérer ton compte Telegram.<br>Ouvre l'application directement depuis Telegram pour accéder à ton profil.</div></div>`;
+    return;
+  }
+
+  const fullName=[tgUser.first_name,tgUser.last_name].filter(Boolean).join(' ')||'Utilisateur';
+  const username=tgUser.username?'@'+tgUser.username:null;
+  const photo=tgUser.photo_url||null;
+  const langCode=(tgUser.language_code||'').toUpperCase();
+  const isPremium=!!tgUser.is_premium;
+
+  page.innerHTML=`
+    <div class="tg-profil-top">
+      <div class="tg-avatar-ring">
+        ${photo?`<img src="${photo}" alt="Avatar" onerror="this.parentNode.innerHTML='<span class=\\'tg-avatar-fallback\\'>👤</span>'">`:`<span class="tg-avatar-fallback">👤</span>`}
+      </div>
+      <div class="tg-profil-label">Mon Profil</div>
+      <div class="tg-profil-name">${fullName}</div>
+      ${username?`<div class="tg-username-pill"><span class="tg-icon-dot">📨</span>${username}</div>`:''}
+    </div>
+
+    <div class="tg-info-card">
+      <div class="tg-info-row">
+        <div class="tg-info-row-left"><span class="tg-row-icon">🔒</span>ID Telegram</div>
+        <div class="tg-info-row-value tg-id-masked">${maskTelegramId(tgUser.id)}</div>
+      </div>
+      <div class="tg-info-row">
+        <div class="tg-info-row-left"><span class="tg-row-icon">👤</span>Prénom</div>
+        <div class="tg-info-row-value">${tgUser.first_name||'Non renseigné'}</div>
+      </div>
+      <div class="tg-info-row">
+        <div class="tg-info-row-left"><span class="tg-row-icon">👤</span>Nom</div>
+        <div class="tg-info-row-value ${tgUser.last_name?'':'muted'}">${tgUser.last_name||'Non renseigné'}</div>
+      </div>
+      <div class="tg-info-row">
+        <div class="tg-info-row-left"><span class="tg-row-icon">📨</span>Nom d'utilisateur</div>
+        <div class="tg-info-row-value ${username?'':'muted'}">${username||'Non renseigné'}</div>
+      </div>
+      <div class="tg-info-row">
+        <div class="tg-info-row-left"><span class="tg-row-icon">🌐</span>Langue</div>
+        <div class="tg-info-row-value">${langCode||'—'}</div>
+      </div>
+      <div class="tg-info-row">
+        <div class="tg-info-row-left"><span class="tg-row-icon">👑</span>Telegram Premium</div>
+        <div class="tg-info-row-value ${isPremium?'tg-premium-yes':'tg-premium-no'}">${isPremium?'✅ Activé':'❌ Non activé'}</div>
+      </div>
+    </div>
+
+    <div class="profil-stats-block">
+      <div class="profil-stats-icon">📦</div>
+      <div><div class="profil-stats-number" id="profil-cmd-count">—</div><div class="profil-stats-label">commande(s) passée(s)</div></div>
+    </div>
+    <div class="profil-section-title">📦 Mes commandes</div>
+    <div id="profil-commandes"><p style="color:#555;text-align:center;padding:20px">Chargement...</p></div>
+  `;
+
+  try{
+    const q=query(collection(_db,'commandes'),where('telegramId','==',String(tgUser.id)),orderBy('timestamp','desc'));
+    const snap=await getDocs(q);
+    document.getElementById('profil-cmd-count').textContent=snap.size;
+    const cmdEl=document.getElementById('profil-commandes');
+    if(snap.empty){cmdEl.innerHTML='<p style="color:#555;text-align:center;padding:20px;font-size:0.9rem">Aucune commande pour l\'instant.</p>';return;}
+    cmdEl.innerHTML=snap.docs.map(d=>{const c=d.data();return `<div class="commande-card"><div class="commande-header"><span class="commande-date">${c.date}</span><span class="commande-total">${c.total}€</span></div><div class="commande-items">${c.items}</div><span class="commande-mode">${c.mode}</span></div>`;}).join('');
+  }catch(e){
+    const c=document.getElementById('profil-cmd-count');if(c)c.textContent='0';
+    const cm=document.getElementById('profil-commandes');if(cm)cm.innerHTML='<p style="color:#555;text-align:center;padding:20px">Aucune commande.</p>';
+  }
 }
 
 // ── CHAT ──────────────────────────────────────────────────────────────────────
@@ -1186,7 +1278,9 @@ document.getElementById('submit-order-btn').onclick=async()=>{
   if(modeBtn.dataset.type==='pickup'){const heure=document.getElementById('pickup-time').value;if(heure)message+=`🕐 *Heure souhaitée :* ${heure}\n`;}
   else{const heure=document.getElementById('delivery-time').value,adresse=document.getElementById('delivery-address').value.trim(),details=document.getElementById('delivery-details').value.trim();if(heure)message+=`🕐 *Heure souhaitée :* ${heure}\n`;if(adresse)message+=`📍 *Adresse :* ${adresse}\n`;if(details)message+=`📝 *Précisions :* ${details}\n`;}
   const user=_auth.currentUser;
-  if(user){try{await addDoc(collection(_db,'commandes'),{uid:user.uid,items:itemsText.trim(),total,mode,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});}catch(e){console.error(e);}}
+  const telegramId=tgUser?.id?String(tgUser.id):null;
+  if(telegramId){try{await addDoc(collection(_db,'commandes'),{uid:user?.uid||null,telegramId,items:itemsText.trim(),total,mode,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});}catch(e){console.error(e);}}
+  else if(user){try{await addDoc(collection(_db,'commandes'),{uid:user.uid,items:itemsText.trim(),total,mode,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});}catch(e){console.error(e);}}
   const url=`https://t.me/sav_Bart76?text=${encodeURIComponent(message)}`;
   if(tg)tg.openTelegramLink(url);else window.open(url,'_blank');
 };
