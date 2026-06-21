@@ -73,7 +73,7 @@
     @keyframes newPulse { 0%,100%{box-shadow:0 0 10px rgba(255,235,59,0.5);}50%{box-shadow:0 0 22px rgba(255,152,0,0.9),0 0 40px rgba(255,235,59,0.3);} }
 
     /* DETAIL */
-    #product-detail { display:none; flex-direction:column; height:100dvh; background:#0a0a0f; position:relative; overflow:hidden; }
+    #product-detail { display:none; flex-direction:column; background:#0a0a0f; position:relative; }
     .swiper-wrap { position:relative; width:100%; flex-shrink:0; overflow:hidden; background:#000; aspect-ratio:1/1; }
     .swiper-track { display:flex; transition:transform 0.35s ease; will-change:transform; height:100%; }
     .swiper-track>* { flex-shrink:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; background:#000; }
@@ -82,7 +82,6 @@
     .swiper-black-slide span { font-size:3rem; opacity:0.12; }
     .swiper-top-gradient { position:absolute; top:0; left:0; right:0; height:110px; background:linear-gradient(to bottom,rgba(0,0,0,0.7) 0%,transparent 100%); z-index:10; pointer-events:none; }
     .swiper-bottom-gradient { position:absolute; bottom:0; left:0; right:0; height:150px; background:linear-gradient(to top,rgba(10,10,15,1) 0%,rgba(10,10,15,0.5) 55%,transparent 100%); z-index:10; pointer-events:none; }
-    .detail-back-btn { position:absolute; top:16px; left:14px; z-index:20; width:40px; height:40px; border-radius:50%; background:rgba(0,0,0,0.55); border:1.5px solid rgba(255,255,255,0.15); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.5); line-height:1; }
     .swiper-stock-badge-new { position:absolute; top:16px; right:14px; z-index:20; font-family:'Orbitron',sans-serif; font-size:0.58rem; font-weight:900; padding:5px 12px; border-radius:999px; letter-spacing:1px; text-transform:uppercase; backdrop-filter:blur(4px); }
     .swiper-stock-badge-new.dispo { background:rgba(74,222,128,0.18); border:1.5px solid #4ade80; color:#4ade80; box-shadow:0 0 12px rgba(74,222,128,0.4); }
     .swiper-stock-badge-new.rupture { background:rgba(239,68,68,0.18); border:1.5px solid #ef4444; color:#ef4444; box-shadow:0 0 12px rgba(239,68,68,0.4); }
@@ -97,7 +96,7 @@
     .swiper-btn-next { right:12px; }
     .swiper-rupture-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; z-index:15; pointer-events:none; }
     .swiper-rupture-overlay span { font-family:'Orbitron',sans-serif; font-size:1.4rem; font-weight:900; color:#ef4444; border:2px solid #ef4444; padding:10px 24px; border-radius:14px; background:rgba(239,68,68,0.12); letter-spacing:2px; transform:rotate(-8deg); }
-    .product-info { flex:1; background:#0a0a0f; overflow-y:auto; padding-bottom:32px; -webkit-overflow-scrolling:touch; }
+    .product-info { background:#0a0a0f; padding-bottom:32px; -webkit-overflow-scrolling:touch; }
     .product-info::-webkit-scrollbar { display:none; }
     .detail-badges-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; padding:14px 16px 0; }
     .detail-badge-pill { padding:5px 12px; border-radius:999px; font-size:0.68rem; font-weight:800; letter-spacing:0.5px; font-family:'Orbitron',sans-serif; }
@@ -435,7 +434,6 @@
         <div class="swiper-track" id="swiper-track"></div>
         <div class="swiper-top-gradient"></div>
         <div class="swiper-bottom-gradient"></div>
-        <button class="detail-back-btn" id="detail-back-btn">‹</button>
         <div class="swiper-stock-badge-new dispo" id="swiper-stock-badge">✅ Dispo</div>
         <div class="swiper-title-preview" id="swiper-title-preview">
           <h1 id="swiper-title-h1"></h1>
@@ -1091,6 +1089,7 @@ function hideAllPages(){
   ['home-page','product-detail','cart-page','infos-page','reseaux-page','avis-page','profil-page','chat-page','admin-page'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
   document.getElementById('main-nav').classList.remove('hidden');
+  document.getElementById('global-header').style.display='flex';
 }
 function scrollToTop(){document.querySelector('.content').scrollTo({top:0,behavior:'instant'});}
 function goToHome(){hideAllPages();document.getElementById('home-page').style.display='block';document.getElementById('nav-home').classList.add('active');if(tg)tg.BackButton.hide();scrollToTop();}
@@ -1199,11 +1198,10 @@ function openProductDetail(key){
   hideAllPages();
   document.getElementById('product-detail').style.display='flex';
   document.getElementById('main-nav').classList.add('hidden');
+  document.getElementById('global-header').style.display='none';
   if(tg)tg.BackButton.show();
   scrollToTop();
 }
-
-document.getElementById('detail-back-btn').addEventListener('click',goToHome);
 
 document.getElementById('add-to-cart-btn').onclick=()=>{
   const sel=document.querySelector('.detail-qty-btn.selected');
