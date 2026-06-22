@@ -650,6 +650,10 @@
           <h2>🛠️ Panel Admin</h2>
           <button id="admin-logout-btn">Déconnexion</button>
         </div>
+        <div class="admin-section-title">⭐ Avis clients</div>
+        <div class="admin-form">
+          <button class="admin-add-btn" id="anonymize-avis-btn">🕵️ Anonymiser tous les avis existants</button>
+        </div>
         <div class="admin-section-title">📦 Stock, Badges &amp; Édition</div>
         <div id="admin-products-list"></div>
         <div class="admin-section-title">➕ Ajouter un produit</div>
@@ -885,6 +889,28 @@ document.getElementById('splash-logo').addEventListener('click',handleLogoClick)
 function openAdminPage(){hideAllPages();document.getElementById('admin-page').style.display='block';if(!adminAuthenticated){document.getElementById('admin-login').style.display='block';document.getElementById('admin-panel').style.display='none';}else renderAdminPanel();}
 document.getElementById('admin-login-btn').addEventListener('click',()=>{const pw=document.getElementById('admin-password-input').value;if(pw===ADMIN_PASSWORD){adminAuthenticated=true;document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-password-input').value='';document.getElementById('admin-error').textContent='';renderAdminPanel();bindUploadInputs();}else document.getElementById('admin-error').textContent='Mot de passe incorrect ❌';});
 document.getElementById('admin-logout-btn').addEventListener('click',()=>{adminAuthenticated=false;document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';goToHome();});
+
+// ── ANONYMISATION DES AVIS EXISTANTS ─────────────────────────────────────────
+document.getElementById('anonymize-avis-btn').addEventListener('click', async ()=>{
+  if(!confirm('Remplacer le nom de tous les utilisateurs par "Anonyme" dans les avis existants ?'))return;
+  const btn=document.getElementById('anonymize-avis-btn');
+  btn.disabled=true;btn.textContent='Anonymisation en cours...';
+  try{
+    const snap=await getDocs(collection(_db,'avis'));
+    let count=0;
+    for(const d of snap.docs){
+      if(d.data().user!=='Anonyme'){
+        await updateDoc(doc(_db,'avis',d.id),{user:'Anonyme'});
+        count++;
+      }
+    }
+    alert(`✅ ${count} avis anonymisés !`);
+  }catch(e){
+    console.error(e);
+    alert('❌ Erreur : '+e.message);
+  }
+  btn.disabled=false;btn.textContent='🕵️ Anonymiser tous les avis existants';
+});
 
 function renderAdminPanel(){
   const list=document.getElementById('admin-products-list');
@@ -1383,7 +1409,7 @@ async function renderAvis(){
 }
 document.getElementById('submit-avis-btn').onclick=async()=>{
   const comment=document.getElementById('avis-text').value.trim();if(!selectedStar)return alert('Veuillez sélectionner une note ⭐');if(!comment)return alert('Veuillez écrire un commentaire');
-  const tgUser=tg?.initDataUnsafe?.user,username=tgUser?.first_name||_auth.currentUser?.displayName||'Anonyme';
+  const username='Anonyme';
   const btn=document.getElementById('submit-avis-btn');btn.disabled=true;btn.textContent='Envoi...';
   try{await addDoc(collection(_db,'avis'),{user:username,note:selectedStar,comment,photoUrl:avisPhotoBase64||null,date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'}),timestamp:serverTimestamp()});document.getElementById('avis-text').value='';selectedStar=0;avisPhotoBase64=null;document.getElementById('avis-photo-preview').style.display='none';document.getElementById('avis-photo-preview').src='';document.getElementById('photo-upload-text').textContent='Ajouter une photo (optionnel)';document.getElementById('avis-photo-input').value='';document.querySelectorAll('.star').forEach(s=>{s.textContent='☆';s.classList.remove('on');});await renderAvis();alert('✅ Merci pour votre avis !');}
   catch(e){alert('❌ Erreur lors de l\'envoi.');}
