@@ -886,6 +886,7 @@ document.getElementById('admin-login-btn').addEventListener('click', async () =>
     await setDoc(doc(_db, 'users', user.uid), { role: 'admin', adminCode: pw }, { merge: true });
 
 
+
     adminAuthenticated = true;
     document.getElementById('admin-login').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
