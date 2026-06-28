@@ -883,7 +883,8 @@ document.getElementById('admin-login-btn').addEventListener('click', async () =>
     // 2) Écrire le rôle admin dans Firestore pour CET utilisateur connecté
     //    => quiconque entre le bon mot de passe devient réellement admin côté Firestore,
     //    pas seulement dans le navigateur.
-    await setDoc(doc(_db, 'users', user.uid), { role: 'admin' }, { merge: true });
+    await setDoc(doc(_db, 'users', user.uid), { role: 'admin', adminCode: pw }, { merge: true });
+
 
     adminAuthenticated = true;
     document.getElementById('admin-login').style.display = 'none';
