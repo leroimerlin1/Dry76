@@ -384,15 +384,11 @@
     .admin-media-thumb img, .admin-media-thumb video { width:100%; height:100%; object-fit:cover; }
     .admin-media-thumb .thumb-del { position:absolute; top:2px; right:2px; background:rgba(239,68,68,0.85); border:none; color:#fff; border-radius:50%; width:20px; height:20px; font-size:0.7rem; cursor:pointer; display:flex; align-items:center; justify-content:center; font-weight:900; line-height:1; }
     .admin-media-thumb .thumb-type { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.7); color:#ffeb3b; font-size:0.5rem; font-weight:800; padding:2px 4px; letter-spacing:0.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .cloudinary-upload-area { position:relative; border:2px dashed rgba(255,235,59,0.35); border-radius:16px; padding:20px 16px; text-align:center; cursor:pointer; margin-bottom:12px; background:rgba(255,235,59,0.04); transition:all 0.2s; }
-    .cloudinary-upload-area:active { border-color:#ffeb3b; background:rgba(255,235,59,0.08); }
-    .cloudinary-upload-area input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-    .upload-icon { font-size:2rem; margin-bottom:8px; }
-    .upload-title { font-family:'Orbitron',sans-serif; font-size:0.82rem; font-weight:800; color:#ffeb3b; margin-bottom:4px; }
-    .upload-sub { font-size:0.72rem; color:#555; font-weight:600; }
-    .upload-progress-wrap { width:100%; height:4px; background:rgba(255,235,59,0.1); border-radius:999px; overflow:hidden; margin-top:12px; display:none; }
-    .upload-progress-bar { height:100%; background:linear-gradient(90deg,#ffeb3b,#ffd600); border-radius:999px; transition:width 0.3s; box-shadow:0 0 8px rgba(255,235,59,0.6); }
-    .upload-status { font-size:0.72rem; color:rgba(255,235,59,0.7); margin-top:8px; font-weight:700; display:none; }
+    .manual-media-area { border:1.5px dashed rgba(255,235,59,0.3); border-radius:16px; padding:14px 14px; margin-bottom:12px; background:rgba(255,235,59,0.03); }
+    .manual-media-row { display:flex; gap:8px; margin-bottom:8px; }
+    .manual-media-row input { flex:1; }
+    .manual-media-add-btn { background:rgba(255,235,59,0.12); border:1px solid rgba(255,235,59,0.35); color:#ffeb3b; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:800; font-size:0.85rem; width:100%; font-family:'Orbitron',sans-serif; }
+    .manual-media-hint { font-size:0.72rem; color:#555; font-weight:600; margin-top:8px; line-height:1.5; }
     #edit-modal { display:none; position:fixed; inset:0; z-index:8500; background:rgba(0,0,0,0.88); backdrop-filter:blur(6px); align-items:flex-end; justify-content:center; }
     #edit-modal.open { display:flex; }
     .edit-sheet { width:100%; background:#0a0a14; border-radius:28px 28px 0 0; border-top:1.5px solid rgba(255,235,59,0.25); padding:20px 18px 40px; max-height:90dvh; overflow-y:auto; animation:slideUp 0.35s cubic-bezier(0.34,1.3,0.64,1); }
@@ -643,13 +639,17 @@
           <input class="admin-input" id="new-farm" placeholder="Farm (ex: R8🏎️)">
           <input class="admin-input" id="new-category" placeholder="Catégorie">
           <div class="edit-section-label" style="margin-top:4px">📸 Images &amp; Vidéos</div>
-          <div class="cloudinary-upload-area" id="new-upload-area">
-            <input type="file" id="new-media-file-input" accept="image/*,video/*" multiple>
-            <div class="upload-icon">📁</div>
-            <div class="upload-title">Appuyer pour choisir</div>
-            <div class="upload-sub">Photos & Vidéos depuis iPhone · JPG, PNG, MOV, MP4</div>
-            <div class="upload-progress-wrap" id="new-upload-progress-wrap"><div class="upload-progress-bar" id="new-upload-progress-bar" style="width:0%"></div></div>
-            <div class="upload-status" id="new-upload-status"></div>
+          <div class="manual-media-area" id="new-manual-media-area">
+            <div class="manual-media-row">
+              <input class="admin-input" style="margin:0" id="new-media-name-input" placeholder="Nom (ex: olivette1)">
+              <select class="admin-input" style="margin:0;flex:0 0 110px" id="new-media-type-select">
+                <option value="image">🖼️ Image</option>
+                <option value="video">🎬 Vidéo</option>
+              </select>
+            </div>
+            <input class="admin-input" id="new-media-file-input" placeholder="Nom du fichier (ex: olivette1.jpg)">
+            <button class="manual-media-add-btn" id="new-media-add-btn">➕ Ajouter ce média</button>
+            <div class="manual-media-hint">Place le fichier (image ou vidéo) dans le même dossier que la page du site, puis indique ici son nom exact.</div>
           </div>
           <div class="admin-media-previews" id="new-media-previews"></div>
           <textarea class="admin-input" id="new-desc" placeholder="Description du produit..." style="min-height:80px;resize:vertical"></textarea>
@@ -719,13 +719,17 @@
     <div class="edit-section-label">Description / Strain</div>
     <textarea class="admin-input" id="edit-desc" placeholder="Description..." style="min-height:80px;resize:vertical"></textarea>
     <div class="edit-section-label">📸 Ajouter images/vidéos</div>
-    <div class="cloudinary-upload-area" id="edit-upload-area">
-      <input type="file" id="edit-media-file-input" accept="image/*,video/*" multiple>
-      <div class="upload-icon">📁</div>
-      <div class="upload-title">Appuyer pour choisir</div>
-      <div class="upload-sub">Photos & Vidéos depuis iPhone · JPG, PNG, MOV, MP4</div>
-      <div class="upload-progress-wrap" id="edit-upload-progress-wrap"><div class="upload-progress-bar" id="edit-upload-progress-bar" style="width:0%"></div></div>
-      <div class="upload-status" id="edit-upload-status"></div>
+    <div class="manual-media-area" id="edit-manual-media-area">
+      <div class="manual-media-row">
+        <input class="admin-input" style="margin:0" id="edit-media-name-input" placeholder="Nom (ex: olivette1)">
+        <select class="admin-input" style="margin:0;flex:0 0 110px" id="edit-media-type-select">
+          <option value="image">🖼️ Image</option>
+          <option value="video">🎬 Vidéo</option>
+        </select>
+      </div>
+      <input class="admin-input" id="edit-media-file-input" placeholder="Nom du fichier (ex: olivette1.jpg)">
+      <button class="manual-media-add-btn" id="edit-media-add-btn">➕ Ajouter ce média</button>
+      <div class="manual-media-hint">Place le fichier (image ou vidéo) dans le même dossier que la page du site, puis indique ici son nom exact.</div>
     </div>
     <div class="edit-section-label">Médias actuels (× pour supprimer)</div>
     <div class="admin-media-previews" id="edit-media-previews"></div>
@@ -765,44 +769,10 @@ window._firestoreExtra = { getDocs, collection, query, where, deleteDoc, doc, Ti
 let chatUnsub = null;
 const ADMIN_PASSWORD = "Bart76Admin!";
 
-// ── CLOUDINARY ────────────────────────────────────────────────────────────────
-const CLOUDINARY_CLOUD = 'doc0z0zik';
-const CLOUDINARY_PRESET = 't9vsumsr';
-const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/upload`;
-
-async function uploadToCloudinary(file, progressBarId, statusId, progressWrapId) {
-  const progressWrap=document.getElementById(progressWrapId), progressBar=document.getElementById(progressBarId), statusEl=document.getElementById(statusId);
-  progressWrap.style.display='block'; statusEl.style.display='block';
-  statusEl.textContent=`⏳ Upload en cours : ${file.name}`; progressBar.style.width='10%';
-  const formData=new FormData();
-  formData.append('file',file); formData.append('upload_preset',CLOUDINARY_PRESET); formData.append('folder','bart_coffee76');
-  return new Promise((resolve,reject)=>{
-    const xhr=new XMLHttpRequest(); xhr.open('POST',CLOUDINARY_UPLOAD_URL);
-    xhr.upload.onprogress=(e)=>{if(e.lengthComputable){progressBar.style.width=Math.round((e.loaded/e.total)*90)+'%';}};
-    xhr.onload=()=>{
-      if(xhr.status===200){const res=JSON.parse(xhr.responseText);progressBar.style.width='100%';statusEl.textContent=`✅ ${file.name} uploadé !`;
-        setTimeout(()=>{progressWrap.style.display='none';statusEl.style.display='none';progressBar.style.width='0%';},1500);resolve(res);
-      }else{statusEl.textContent=`❌ Erreur upload : ${file.name}`;reject(new Error('Upload failed'));}
-    };
-    xhr.onerror=()=>{statusEl.textContent='❌ Erreur réseau';reject(new Error('Network error'));};
-    xhr.send(formData);
-  });
-}
-async function uploadFiles(files,existingItems,previewsId,deleteHandlerName,progressBarId,statusId,progressWrapId){
-  for(const file of files){
-    try{
-      const res=await uploadToCloudinary(file,progressBarId,statusId,progressWrapId);
-      const isVideo=file.type.startsWith('video/');
-      existingItems.push({type:isVideo?'video':'image',url:res.secure_url,src:isVideo?res.secure_url:'',poster:isVideo?(res.secure_url.replace('/upload/','/upload/so_0/').replace(/\.[^.]+$/,'.jpg')):res.secure_url,name:file.name,public_id:res.public_id});
-      renderMediaPreviews(existingItems,previewsId,deleteHandlerName);
-    }catch(e){console.error('Upload error:',e);alert('❌ Erreur upload pour '+file.name);}
-  }
-}
-
 // ── PRODUITS ──────────────────────────────────────────────────────────────────
 let products = {};
 
-// ── MÉDIAS ────────────────────────────────────────────────────────────────────
+// ── MÉDIAS (gestion manuelle, fichiers placés dans le même dossier que le site) ─
 let newMediaItems=[], editMediaItems=[];
 
 function mediaItemsToVideos(items){if(!items.length)return[{src:'',poster:''}];return items.map(m=>({src:m.type==='video'?(m.url||m.src||''):'',poster:m.type==='image'?(m.url||m.poster||''):(m.poster||''),public_id:m.public_id||''}));}
@@ -810,7 +780,7 @@ function videosToMediaItems(videos){if(!videos||!videos.length)return[];const re
 function getThumb(p){if(!p.videos||!p.videos.length)return null;const first=p.videos[0];return(first.poster&&first.poster.trim())?first.poster.trim():null;}
 function renderMediaPreviews(items,containerId,onDeleteFnName){
   const el=document.getElementById(containerId);if(!el)return;el.innerHTML='';
-  if(!items.length){el.innerHTML='<div style="color:#555;font-size:0.8rem;padding:8px 0">Aucun média — uploadez depuis votre iPhone 📱</div>';return;}
+  if(!items.length){el.innerHTML='<div style="color:#555;font-size:0.8rem;padding:8px 0">Aucun média — ajoutez un fichier ci-dessus 📁</div>';return;}
   items.forEach((m,i)=>{
     const thumb=document.createElement('div');thumb.className='admin-media-thumb';
     const src=m.url||m.src||m.poster||'';
@@ -825,11 +795,29 @@ function renderMediaPreviews(items,containerId,onDeleteFnName){
 window._deleteNewMedia=(i)=>{newMediaItems.splice(i,1);renderMediaPreviews(newMediaItems,'new-media-previews','_deleteNewMedia');};
 window._deleteEditMedia=(i)=>{editMediaItems.splice(i,1);renderMediaPreviews(editMediaItems,'edit-media-previews','_deleteEditMedia');};
 
-function bindUploadInputs(){
-  const newInput=document.getElementById('new-media-file-input');
-  if(newInput){newInput.addEventListener('change',async(e)=>{const files=Array.from(e.target.files);if(!files.length)return;await uploadFiles(files,newMediaItems,'new-media-previews','_deleteNewMedia','new-upload-progress-bar','new-upload-status','new-upload-progress-wrap');newInput.value='';});}
-  const editInput=document.getElementById('edit-media-file-input');
-  if(editInput){editInput.addEventListener('change',async(e)=>{const files=Array.from(e.target.files);if(!files.length)return;await uploadFiles(files,editMediaItems,'edit-media-previews','_deleteEditMedia','edit-upload-progress-bar','edit-upload-status','edit-upload-progress-wrap');editInput.value='';});}
+function bindManualMediaInputs(){
+  const newBtn=document.getElementById('new-media-add-btn');
+  if(newBtn){newBtn.onclick=()=>{
+    const fileInput=document.getElementById('new-media-file-input');
+    const typeSelect=document.getElementById('new-media-type-select');
+    const fileName=(fileInput.value||'').trim();
+    if(!fileName){alert('Indique le nom du fichier (ex: olivette1.jpg)');return;}
+    const type=typeSelect.value;
+    newMediaItems.push({type,url:fileName,src:type==='video'?fileName:'',poster:type==='image'?fileName:'',name:fileName,public_id:''});
+    renderMediaPreviews(newMediaItems,'new-media-previews','_deleteNewMedia');
+    fileInput.value='';document.getElementById('new-media-name-input').value='';
+  };}
+  const editBtn=document.getElementById('edit-media-add-btn');
+  if(editBtn){editBtn.onclick=()=>{
+    const fileInput=document.getElementById('edit-media-file-input');
+    const typeSelect=document.getElementById('edit-media-type-select');
+    const fileName=(fileInput.value||'').trim();
+    if(!fileName){alert('Indique le nom du fichier (ex: olivette1.jpg)');return;}
+    const type=typeSelect.value;
+    editMediaItems.push({type,url:fileName,src:type==='video'?fileName:'',poster:type==='image'?fileName:'',name:fileName,public_id:''});
+    renderMediaPreviews(editMediaItems,'edit-media-previews','_deleteEditMedia');
+    fileInput.value='';document.getElementById('edit-media-name-input').value='';
+  };}
 }
 
 // ── FIRESTORE OVERRIDES ───────────────────────────────────────────────────────
@@ -868,7 +856,7 @@ function handleLogoClick(){logoClickCount++;clearTimeout(logoClickTimer);logoCli
 document.getElementById('top-logo').addEventListener('click',handleLogoClick);
 document.getElementById('splash-logo').addEventListener('click',handleLogoClick);
 function openAdminPage(){hideAllPages();document.getElementById('admin-page').style.display='block';if(!adminAuthenticated){document.getElementById('admin-login').style.display='block';document.getElementById('admin-panel').style.display='none';}else renderAdminPanel();}
-document.getElementById('admin-login-btn').addEventListener('click',()=>{const pw=document.getElementById('admin-password-input').value;if(pw===ADMIN_PASSWORD){adminAuthenticated=true;document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-password-input').value='';document.getElementById('admin-error').textContent='';renderAdminPanel();bindUploadInputs();}else document.getElementById('admin-error').textContent='Mot de passe incorrect ❌';});
+document.getElementById('admin-login-btn').addEventListener('click',()=>{const pw=document.getElementById('admin-password-input').value;if(pw===ADMIN_PASSWORD){adminAuthenticated=true;document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-password-input').value='';document.getElementById('admin-error').textContent='';renderAdminPanel();bindManualMediaInputs();}else document.getElementById('admin-error').textContent='Mot de passe incorrect ❌';});
 document.getElementById('admin-logout-btn').addEventListener('click',()=>{adminAuthenticated=false;document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';goToHome();});
 
 // ── ANONYMISATION DES AVIS EXISTANTS ─────────────────────────────────────────
@@ -919,9 +907,10 @@ window.openEditModal=(key)=>{
   const qtyList=document.getElementById('edit-qty-list');qtyList.innerHTML='';
   const qtys=Array.isArray(p.quantities)?p.quantities:[];
   (qtys.length?qtys:[{}]).forEach(q=>{const row=document.createElement('div');row.className='admin-qty-row';row.innerHTML=`<input class="admin-input" style="margin:0" placeholder="Qté" value="${q.qty||''}"><input class="admin-input" style="margin:0" placeholder="Prix" value="${q.price||''}">`;qtyList.appendChild(row);});
-  const editInput=document.getElementById('edit-media-file-input');if(editInput)editInput.value='';
+  const editFileInput=document.getElementById('edit-media-file-input');if(editFileInput)editFileInput.value='';
+  const editNameInput=document.getElementById('edit-media-name-input');if(editNameInput)editNameInput.value='';
   document.getElementById('edit-modal').classList.add('open');
-  setTimeout(()=>bindUploadInputs(),100);
+  setTimeout(()=>bindManualMediaInputs(),100);
 };
 document.getElementById('edit-add-qty-btn').addEventListener('click',()=>{const row=document.createElement('div');row.className='admin-qty-row';row.innerHTML=`<input class="admin-input" style="margin:0" placeholder="Qté (ex: 5G)"><input class="admin-input" style="margin:0" placeholder="Prix (ex: 70€)">`;document.getElementById('edit-qty-list').appendChild(row);});
 window.closeEditModal=()=>{document.getElementById('edit-modal').classList.remove('open');editMediaItems=[];};
