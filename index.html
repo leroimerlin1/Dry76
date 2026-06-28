@@ -745,7 +745,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, where, onSnapshot, doc, setDoc, deleteDoc, getDoc, updateDoc, Timestamp }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile }
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, signInAnonymously }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
 
 const firebaseConfig = {
@@ -856,7 +856,51 @@ function handleLogoClick(){logoClickCount++;clearTimeout(logoClickTimer);logoCli
 document.getElementById('top-logo').addEventListener('click',handleLogoClick);
 document.getElementById('splash-logo').addEventListener('click',handleLogoClick);
 function openAdminPage(){hideAllPages();document.getElementById('admin-page').style.display='block';if(!adminAuthenticated){document.getElementById('admin-login').style.display='block';document.getElementById('admin-panel').style.display='none';}else renderAdminPanel();}
-document.getElementById('admin-login-btn').addEventListener('click',()=>{const pw=document.getElementById('admin-password-input').value;if(pw===ADMIN_PASSWORD){adminAuthenticated=true;document.getElementById('admin-login').style.display='none';document.getElementById('admin-panel').style.display='block';document.getElementById('admin-password-input').value='';document.getElementById('admin-error').textContent='';renderAdminPanel();bindManualMediaInputs();}else document.getElementById('admin-error').textContent='Mot de passe incorrect ❌';});
+
+// ── CONNEXION ADMIN : authentifie en anonyme + écrit le rôle "admin" dans Firestore ──
+document.getElementById('admin-login-btn').addEventListener('click', async () => {
+  const pw = document.getElementById('admin-password-input').value;
+  const errEl = document.getElementById('admin-error');
+  const btn = document.getElementById('admin-login-btn');
+
+  if (pw !== ADMIN_PASSWORD) {
+    errEl.textContent = 'Mot de passe incorrect ❌';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Connexion...';
+  errEl.textContent = '';
+
+  try {
+    // 1) S'assurer qu'on a un utilisateur authentifié (Firebase exige request.auth != null)
+    let user = _auth.currentUser;
+    if (!user) {
+      const cred = await signInAnonymously(_auth);
+      user = cred.user;
+    }
+
+    // 2) Écrire le rôle admin dans Firestore pour CET utilisateur connecté
+    //    => quiconque entre le bon mot de passe devient réellement admin côté Firestore,
+    //    pas seulement dans le navigateur.
+    await setDoc(doc(_db, 'users', user.uid), { role: 'admin' }, { merge: true });
+
+    adminAuthenticated = true;
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-panel').style.display = 'block';
+    document.getElementById('admin-password-input').value = '';
+    errEl.textContent = '';
+    renderAdminPanel();
+    bindManualMediaInputs();
+  } catch (e) {
+    console.error('Erreur connexion admin :', e);
+    errEl.textContent = 'Erreur de connexion : ' + e.message;
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Entrer';
+});
+
 document.getElementById('admin-logout-btn').addEventListener('click',()=>{adminAuthenticated=false;document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';goToHome();});
 
 // ── ANONYMISATION DES AVIS EXISTANTS ─────────────────────────────────────────
@@ -890,9 +934,29 @@ function renderAdminPanel(){
   }).join('');
 }
 
-window.adminSetStock=async(key,stock)=>{products[key].stock=stock;try{await setDoc(doc(_db,'products_meta',key),{stock,isNew:products[key].isNew},{merge:true});}catch(e){}renderAdminPanel();renderProducts();};
-window.adminToggleNew=async(key)=>{products[key].isNew=!products[key].isNew;try{await setDoc(doc(_db,'products_meta',key),{isNew:products[key].isNew,stock:products[key].stock},{merge:true});}catch(e){}renderAdminPanel();renderProducts();};
-window.adminDeleteProduct=async(key)=>{if(!confirm(`Supprimer "${products[key].title}" ?`))return;delete products[key];try{await deleteDoc(doc(_db,'products_meta',key));}catch(e){}renderAdminPanel();renderProducts();};
+window.adminSetStock=async(key,stock)=>{products[key].stock=stock;try{await setDoc(doc(_db,'products_meta',key),{stock,isNew:products[key].isNew},{merge:true});}catch(e){console.error(e);alert('❌ Erreur Firestore : '+e.message);}renderAdminPanel();renderProducts();};
+window.adminToggleNew=async(key)=>{products[key].isNew=!products[key].isNew;try{await setDoc(doc(_db,'products_meta',key),{isNew:products[key].isNew,stock:products[key].stock},{merge:true});}catch(e){console.error(e);alert('❌ Erreur Firestore : '+e.message);}renderAdminPanel();renderProducts();};
+
+// ── SUPPRESSION PRODUIT : confirmation Telegram-safe + remontée d'erreur réelle ──
+window.adminDeleteProduct = async (key) => {
+  const doDelete = async () => {
+    try {
+      await deleteDoc(doc(_db, 'products_meta', key));
+      delete products[key];
+      renderAdminPanel();
+      renderProducts();
+    } catch (e) {
+      console.error('Erreur suppression produit :', e);
+      alert('❌ Erreur Firestore : ' + e.message);
+    }
+  };
+  const title = products[key] ? products[key].title : 'ce produit';
+  if (tg && typeof tg.showConfirm === 'function') {
+    tg.showConfirm(`Supprimer "${title}" ?`, (ok) => { if (ok) doDelete(); });
+  } else {
+    if (confirm(`Supprimer "${title}" ?`)) doDelete();
+  }
+};
 
 // ── MODAL ÉDITION ─────────────────────────────────────────────────────────────
 window.openEditModal=(key)=>{
