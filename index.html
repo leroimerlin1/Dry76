@@ -1395,19 +1395,22 @@ function openProductDetail(key){
   addBtn.disabled=isRupture;
   addBtn.innerHTML=isRupture?'<span>❌</span> Rupture de stock':'<span>🛒</span> Ajouter au Panier';
 
-  // Afficher la barre panier fixe et réserver l'espace en bas du contenu
-  document.getElementById('detail-cart-bar').style.display='flex';
-  document.getElementById('product-info-body').classList.add('has-fixed-cartbar');
-
-  // Cacher le header fixe global (le logo défile désormais avec le contenu)
-  document.getElementById('global-header').style.display='none';
-
   buildSwiper(p.videos&&p.videos.length?p.videos:[{src:'',poster:''}]);
+
+  // On affiche d'abord la page produit (hideAllPages remet le logo fixe visible par défaut)
   hideAllPages();
   document.getElementById('product-detail').style.display='flex';
   document.getElementById('main-nav').classList.add('hidden');
   document.querySelector('.content').classList.add('detail-open');
+
+  // Puis on cache le logo fixe global : le seul logo visible sur la page produit
+  // est désormais celui de .detail-logo-bar, qui scrolle avec le contenu.
+  document.getElementById('global-header').style.display='none';
+
+  // Barre panier fixe en bas + espace réservé dans le contenu
   document.getElementById('detail-cart-bar').style.display='flex';
+  document.getElementById('product-info-body').classList.add('has-fixed-cartbar');
+
   if(tg)tg.BackButton.show();
   scrollToTop();
 }
