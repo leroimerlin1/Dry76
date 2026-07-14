@@ -852,10 +852,38 @@ async function loadProductOverrides(){
 
 // ── ADMIN ─────────────────────────────────────────────────────────────────────
 let logoClickCount=0,logoClickTimer=null,adminAuthenticated=false;
+const ADMIN_SESSION_KEY='bart76_admin_session';
+
+function persistAdminSession(){
+  try{localStorage.setItem(ADMIN_SESSION_KEY,'1');}catch(e){}
+}
+function clearAdminSession(){
+  try{localStorage.removeItem(ADMIN_SESSION_KEY);}catch(e){}
+}
+function hasStoredAdminSession(){
+  try{return localStorage.getItem(ADMIN_SESSION_KEY)==='1';}catch(e){return false;}
+}
+
 function handleLogoClick(){logoClickCount++;clearTimeout(logoClickTimer);logoClickTimer=setTimeout(()=>{logoClickCount=0;},2000);if(logoClickCount>=5){logoClickCount=0;openAdminPage();}}
 document.getElementById('top-logo').addEventListener('click',handleLogoClick);
 document.getElementById('splash-logo').addEventListener('click',handleLogoClick);
-function openAdminPage(){hideAllPages();document.getElementById('admin-page').style.display='block';if(!adminAuthenticated){document.getElementById('admin-login').style.display='block';document.getElementById('admin-panel').style.display='none';}else renderAdminPanel();}
+function openAdminPage(){
+  hideAllPages();
+  document.getElementById('admin-page').style.display='block';
+  // Tant que le code a déjà été entré une fois (session mémorisée), on saute la connexion.
+  if(!adminAuthenticated&&hasStoredAdminSession()){
+    adminAuthenticated=true;
+  }
+  if(!adminAuthenticated){
+    document.getElementById('admin-login').style.display='block';
+    document.getElementById('admin-panel').style.display='none';
+  }else{
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    renderAdminPanel();
+    bindManualMediaInputs();
+  }
+}
 
 // ── CONNEXION ADMIN : authentifie en anonyme + écrit le rôle "admin" dans Firestore ──
 document.getElementById('admin-login-btn').addEventListener('click', async () => {
@@ -888,6 +916,10 @@ document.getElementById('admin-login-btn').addEventListener('click', async () =>
 
 
     adminAuthenticated = true;
+    // Mémorise la session admin : tant que le mot de passe a été entré une fois,
+    // l'accès au panel (et donc l'ajout de nouveaux produits) reste ouvert
+    // même après avoir quitté/rouvert la mini app, sans redemander le code.
+    persistAdminSession();
     document.getElementById('admin-login').style.display = 'none';
     document.getElementById('admin-panel').style.display = 'block';
     document.getElementById('admin-password-input').value = '';
@@ -903,7 +935,7 @@ document.getElementById('admin-login-btn').addEventListener('click', async () =>
   btn.textContent = 'Entrer';
 });
 
-document.getElementById('admin-logout-btn').addEventListener('click',()=>{adminAuthenticated=false;document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';goToHome();});
+document.getElementById('admin-logout-btn').addEventListener('click',()=>{adminAuthenticated=false;clearAdminSession();document.getElementById('admin-panel').style.display='none';document.getElementById('admin-login').style.display='block';goToHome();});
 
 // ── ANONYMISATION DES AVIS EXISTANTS ─────────────────────────────────────────
 document.getElementById('anonymize-avis-btn').addEventListener('click', async ()=>{
